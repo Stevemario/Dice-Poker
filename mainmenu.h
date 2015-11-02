@@ -90,8 +90,9 @@ namespace menu_main {
 		HeaderCredits,
 		ParagraphCredits,
 		HeaderNewGame,
-		HeaderClickPlay,
+		HeaderNewQuickGameIfPlayClicked,
 		HeaderName,
+		HeaderNewAdventureIfPlayClicked,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_title : public screenelement_label {
@@ -143,10 +144,10 @@ namespace menu_main {
 			const sf::Font&
 		);
 	};
-	class screenelement_label_header_click_play : public screenelement_label {
+	class screenelement_label_header_new_quick_game_if_play_clicked : public screenelement_label {
 		public: screenelement_label_enum screenelement_label_enum_ (
 		) const;
-		public: screenelement_label_header_click_play (
+		public: screenelement_label_header_new_quick_game_if_play_clicked (
 			const sf::Font&
 		);
 	};
@@ -154,6 +155,13 @@ namespace menu_main {
 		public: screenelement_label_enum screenelement_label_enum_ (
 		) const;
 		public: screenelement_label_header_name (
+			const sf::Font&
+		);
+	};
+	class screenelement_label_header_new_adventure_if_play_clicked : public screenelement_label {
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_new_adventure_if_play_clicked (
 			const sf::Font&
 		);
 	};
@@ -261,6 +269,7 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
+		const std::string&,
 		gameaction&,
 		mainmenupage&,
 		gamedata*,

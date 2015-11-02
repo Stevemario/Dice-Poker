@@ -157,6 +157,7 @@ void menu_main::handle (
 								bEdit_sNewAdventureName,
 								bInitialized_gamedata_p,
 								bShowMainMenuNewGamePageChoice,
+								sNewAdventureName,
 								gameaction_,
 								mainmenupage_,
 								gamedata_p_,
@@ -305,45 +306,52 @@ void menu_main::addPageNewGame (
 	if (bShowMainMenuNewGamePageChoice) {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
-		screenelement_label* lblNotificationClickPlay = new screenelement_label_header_click_play (fontToUse);
+		screenelement_label* lblHeaderNewQuickGameIfPlayClicked =
+			new screenelement_label_header_new_quick_game_if_play_clicked (fontToUse);
 		screenelement_button* btnNewQuickGame = new screenelement_button_new_quick_game (fontToUse);
 		screenelement_button* btnNewAdventure = new screenelement_button_new_adventure (fontToUse);
 		btnNewQuickGame->stretch (500.f, 0.f);
 		btnNewAdventure->stretch (500.f, 0.f);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
-		float fWidth_lblNotificationClickPlay = lblNotificationClickPlay->text_ ().getGlobalBounds ().width;
+		float fWidth_lblHeaderNewQuickGameIfPlayClicked = lblHeaderNewQuickGameIfPlayClicked->text_ ().getGlobalBounds ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
-		float fPosX_lblNotificationClickPlay = (1350.f - fWidth_lblNotificationClickPlay) / 2.f;
+		float fPosX_lblHeaderNewQuickGameIfPlayClicked = (1350.f - fWidth_lblHeaderNewQuickGameIfPlayClicked) / 2.f;
 		float fLeftoverX = (1350.f - 2.f * 25.f - 2.f * 500.f) / 3.f;
 		float fPosX_btnNewQuickGame = 25.f + fLeftoverX;
 		float fPosX_btnNewAdventure = 25.f + 2.f * fLeftoverX + 500.f;
 		rectBG->move (25.f, 150.f);
 		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
-		lblNotificationClickPlay->move (fPosX_lblNotificationClickPlay, 900.f);
+		lblHeaderNewQuickGameIfPlayClicked->move (fPosX_lblHeaderNewQuickGameIfPlayClicked, 900.f);
 		btnNewQuickGame->move (fPosX_btnNewQuickGame, 345.f);
 		btnNewAdventure->move (fPosX_btnNewAdventure, 345.f);
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
-		vec_screenelement_pToPrepare.push_back (lblNotificationClickPlay);
+		vec_screenelement_pToPrepare.push_back (lblHeaderNewQuickGameIfPlayClicked);
 		vec_screenelement_pToPrepare.push_back (btnNewQuickGame);
 		vec_screenelement_pToPrepare.push_back (btnNewAdventure);
 	} else {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
 		screenelement_label* lblHeaderName = new screenelement_label_header_name (fontToUse);
+		screenelement_label* lblHeaderNewAdventureIfPlayClicked =
+			new screenelement_label_header_new_adventure_if_play_clicked (fontToUse);
 		screenelement_button* btnNewGameReturn = new screenelement_button_new_game_return (fontToUse);
 		screenelement_button* btnNewGameName = new screenelement_button_new_adventure_name (sNewAdventureName, fontToUse);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
+		float fWidth_lblHeaderNewAdventureIfPlayClicked = lblHeaderNewAdventureIfPlayClicked->text_ ().getGlobalBounds ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
+		float fPosX_lblHeaderNewAdventureIfPlayClicked = (1350.f - fWidth_lblHeaderNewAdventureIfPlayClicked) / 2.f;
 		float fPosX_lbl_ = (1350.f - 4.f * 25.f) * 0.7f + 2.f * 25.f;
 		rectBG->move (25.f, 150.f);
 		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
+		lblHeaderNewAdventureIfPlayClicked->move (fPosX_lblHeaderNewAdventureIfPlayClicked, 900.f);
 		lblHeaderName->move (fPosX_lbl_, 345.f);
 		btnNewGameReturn->move (50.f, 175.f);
 		btnNewGameName->move (fPosX_lbl_, 405.f);
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
 		vec_screenelement_pToPrepare.push_back (lblHeaderName);
+		vec_screenelement_pToPrepare.push_back (lblHeaderNewAdventureIfPlayClicked);
 		vec_screenelement_pToPrepare.push_back (btnNewGameReturn);
 		vec_screenelement_pToPrepare.push_back (btnNewGameName);
 	}
@@ -352,6 +360,7 @@ void menu_main::handle (
 	bool& bEdit_sNewAdventureName,
 	bool& bInitialized_gamedata_p,
 	bool& bShowMainMenuNewGamePageChoice,
+	const std::string& sNewAdventureName,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
 	gamedata* gamedata_p_,
@@ -388,7 +397,7 @@ void menu_main::handle (
 						bInitialized_gamedata_p = true;
 						gameaction_ = gameaction::Play;
 					} else {
-						gamedata_p_ = new gamedata ("Player");
+						gamedata_p_ = new gamedata (sNewAdventureName);
 						bInitialized_gamedata_p = true;
 						gameaction_ = gameaction::Play;
 					}
@@ -536,15 +545,15 @@ menu_main::screenelement_label_header_new_game::screenelement_label_header_new_g
 	set_bIsHeldDown (false);
 	create ("New Game", fontToUse, 60, sf::Color::White);
 }
-menu_main::screenelement_label_enum menu_main::screenelement_label_header_click_play::screenelement_label_enum_ (
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_new_quick_game_if_play_clicked::screenelement_label_enum_ (
 ) const {
-	return screenelement_label_enum::HeaderClickPlay;
+	return screenelement_label_enum::HeaderNewQuickGameIfPlayClicked;
 }
-menu_main::screenelement_label_header_click_play::screenelement_label_header_click_play (
+menu_main::screenelement_label_header_new_quick_game_if_play_clicked::screenelement_label_header_new_quick_game_if_play_clicked (
 	const sf::Font& fontToUse
 ) {
 	set_bIsHeldDown (false);
-	create ("Note: Clicking Play will start a quick game.", fontToUse, 60, sf::Color::White);
+	create ("Note: New Quick Game starts if Play is Clicked.", fontToUse, 60, sf::Color::White);
 }
 menu_main::screenelement_label_enum menu_main::screenelement_label_header_name::screenelement_label_enum_ (
 ) const {
@@ -555,6 +564,16 @@ menu_main::screenelement_label_header_name::screenelement_label_header_name (
 ) {
 	set_bIsHeldDown (false);
 	create ("Name", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_new_adventure_if_play_clicked::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderNewAdventureIfPlayClicked;
+}
+menu_main::screenelement_label_header_new_adventure_if_play_clicked::screenelement_label_header_new_adventure_if_play_clicked (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Note: New Adventure starts if Play is Clicked.", fontToUse, 60, sf::Color::White);
 }
 menu_main::screenelement_button_enum menu_main::screenelement_button_exit::screenelement_button_enum_ (
 ) const {
