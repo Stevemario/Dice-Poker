@@ -79,6 +79,7 @@ void menu_main::prepare (
 		}
 		case mainmenupage::NewGame: {
 			addPageNewGame (
+				bInitialized_gamedata_p,
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
 				fontToUse,
@@ -298,6 +299,7 @@ void menu_main::addPageAccredit (
 	vec_screenelement_pToPrepare.push_back (lblParagraphCredits);
 }
 void menu_main::addPageNewGame (
+	const bool& bInitialized_gamedata_p,
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
@@ -326,7 +328,10 @@ void menu_main::addPageNewGame (
 		btnNewAdventure->move (fPosX_btnNewAdventure, 345.f);
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
-		vec_screenelement_pToPrepare.push_back (lblHeaderNewQuickGameIfPlayClicked);
+		if (bInitialized_gamedata_p)
+			delete lblHeaderNewQuickGameIfPlayClicked;
+		else
+			vec_screenelement_pToPrepare.push_back (lblHeaderNewQuickGameIfPlayClicked);
 		vec_screenelement_pToPrepare.push_back (btnNewQuickGame);
 		vec_screenelement_pToPrepare.push_back (btnNewAdventure);
 	} else {

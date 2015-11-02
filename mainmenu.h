@@ -61,6 +61,7 @@ namespace menu_main {
 	);
 	void addPageNewGame (
 		const bool&,
+		const bool&,
 		const std::string&,
 		const sf::Font&,
 		std::vector <screenelement*>&
