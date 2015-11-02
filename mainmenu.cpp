@@ -1,27 +1,29 @@
 #include "mainmenu.h"
 void menu_main::work (
 	int& nSEClickedLast,
+	bool& bClickedAButtonJustNow,
 	bool& bInitialized_gamedata_p,
 	bool& bPrepared_vec_screenelement_p,
-	bool& bClickedAButtonJustNow,
 	bool& bShowMainMenuNewGamePageChoice,
-	std::vector <screenelement*>& vec_screenelement_p_,
+	std::string& sNewAdventureName,
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_p_
+	gamedata* gamedata_p_,
+	std::vector <screenelement*>& vec_screenelement_p_
 ) {
-	sf::Event event_;
 	bool bShouldClear_vec_screenelement_p = false;
+	sf::Event event_;
 	if (bPrepared_vec_screenelement_p != true) {
 		prepare (
 			bInitialized_gamedata_p,
 			bShowMainMenuNewGamePageChoice,
-			vec_screenelement_p_,
+			sNewAdventureName,
 			font_,
 			mainmenupage_,
-			gamedata_p_
+			gamedata_p_,
+			vec_screenelement_p_
 		);
 		bPrepared_vec_screenelement_p = true;
 	}
@@ -33,15 +35,15 @@ void menu_main::work (
 		} else {
 			handle (
 				nSEClickedLast,
-				bInitialized_gamedata_p,
 				bClickedAButtonJustNow,
+				bInitialized_gamedata_p,
 				bShowMainMenuNewGamePageChoice,
-				vec_screenelement_p_,
 				gameaction_,
 				mainmenupage_,
 				gamedata_p_,
-				event_,
-				bShouldClear_vec_screenelement_p
+				vec_screenelement_p_,
+				bShouldClear_vec_screenelement_p,
+				event_
 			);
 			if (bShouldClear_vec_screenelement_p) {
 				clear (vec_screenelement_p_);
@@ -53,46 +55,48 @@ void menu_main::work (
 void menu_main::prepare (
 	const bool& bInitialized_gamedata_p,
 	const bool& bShowMainMenuNewGamePageChoice,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_p_
+	gamedata* gamedata_p_,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	switch (mainmenupage_) {
 		case mainmenupage::Splash: {
-			addPageSplash (vec_screenelement_pToPrepare, fontToUse);
+			addPageSplash (fontToUse, vec_screenelement_pToPrepare);
 			break;
 		}
 		case mainmenupage::Adjust: {
-			addPageAdjust (vec_screenelement_pToPrepare, fontToUse);
+			addPageAdjust (fontToUse, vec_screenelement_pToPrepare);
 			break;
 		}
 		case mainmenupage::Accredit: {
-			addPageAccredit (vec_screenelement_pToPrepare, fontToUse);
+			addPageAccredit (fontToUse, vec_screenelement_pToPrepare);
 			break;
 		}
 		case mainmenupage::NewGame: {
 			addPageNewGame (
 				bShowMainMenuNewGamePageChoice,
-				vec_screenelement_pToPrepare,
-				fontToUse
+				sNewAdventureName,
+				fontToUse,
+				vec_screenelement_pToPrepare
 			);
 			break;
 		}
 	}
-	addButtonsPageSwitching (vec_screenelement_pToPrepare, fontToUse);
+	addButtonsPageSwitching (fontToUse, vec_screenelement_pToPrepare);
 }
 void menu_main::handle (
 	int& nSEClickedLast,
-	bool& bInitialized_gamedata_p,
 	bool& bClickedAButtonJustNow,
+	bool& bInitialized_gamedata_p,
 	bool& bShowMainMenuNewGamePageChoice,
-	const std::vector <screenelement*>& vec_screenelement_p_,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
 	gamedata* gamedata_p_,
-	const sf::Event& eventToHandle,
-	bool& bShouldClear_vec_screenelement_p
+	const std::vector <screenelement*>& vec_screenelement_p_,
+	bool& bShouldClear_vec_screenelement_p,
+	const sf::Event& eventToHandle
 ) {
 	sf::Event::EventType eventtypeToHandle = eventToHandle.type;
 	switch (eventtypeToHandle) {
@@ -163,8 +167,8 @@ void menu_main::handle (
 	}
 }
 void menu_main::addButtonsPageSwitching (
-	std::vector <screenelement*>& vec_screenelement_pToPrepare,
-	const sf::Font& fontToUse
+	const sf::Font& fontToUse,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_buttons_page_switching ();
 	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (fontToUse);
@@ -224,8 +228,8 @@ void menu_main::addButtonsPageSwitching (
 	vec_screenelement_pToPrepare.push_back (btnExit);
 }
 void menu_main::addPageSplash (
-	std::vector <screenelement*>& vec_screenelement_pToPrepare,
-	const sf::Font& fontToUse
+	const sf::Font& fontToUse,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderWelcome = new screenelement_label_header_welcome (fontToUse);
@@ -237,8 +241,8 @@ void menu_main::addPageSplash (
 	vec_screenelement_pToPrepare.push_back (lblHeaderWelcome);
 }
 void menu_main::addPageAdjust (
-	std::vector <screenelement*>& vec_screenelement_pToPrepare,
-	const sf::Font& fontToUse
+	const sf::Font& fontToUse,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderOptions = new screenelement_label_header_options (fontToUse);
@@ -250,8 +254,8 @@ void menu_main::addPageAdjust (
 	vec_screenelement_pToPrepare.push_back (lblHeaderOptions);
 }
 void menu_main::addPageAccredit (
-	std::vector <screenelement*>& vec_screenelement_pToPrepare,
-	const sf::Font& fontToUse
+	const sf::Font& fontToUse,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderCredits = new screenelement_label_header_credits (fontToUse);
@@ -269,8 +273,9 @@ void menu_main::addPageAccredit (
 }
 void menu_main::addPageNewGame (
 	const bool& bShowMainMenuNewGamePageChoice,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare,
-	const sf::Font& fontToUse
+	const std::string& sNewAdventureName,
+	const sf::Font& fontToUse,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	if (bShowMainMenuNewGamePageChoice) {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
@@ -302,17 +307,20 @@ void menu_main::addPageNewGame (
 		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
 		screenelement_label* lblHeaderName = new screenelement_label_header_name (fontToUse);
 		screenelement_button* btnNewGameReturn = new screenelement_button_new_game_return (fontToUse);
+		screenelement_button* btnNewGameName = new screenelement_button_new_adventure_name (sNewAdventureName, fontToUse);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
-		float fPosX_lbl_ = (1350.f - 2.f * 25.f) * 0.7f + 25.f;
+		float fPosX_lbl_ = (1350.f - 4.f * 25.f) * 0.7f + 2.f * 25.f;
 		rectBG->move (25.f, 150.f);
 		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
 		lblHeaderName->move (fPosX_lbl_, 345.f);
 		btnNewGameReturn->move (50.f, 175.f);
+		btnNewGameName->move (fPosX_lbl_, 405.f);
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
 		vec_screenelement_pToPrepare.push_back (lblHeaderName);
 		vec_screenelement_pToPrepare.push_back (btnNewGameReturn);
+		vec_screenelement_pToPrepare.push_back (btnNewGameName);
 	}
 }
 void menu_main::handle (
@@ -638,4 +646,16 @@ menu_main::screenelement_button_new_game_return::screenelement_button_new_game_r
 	set_bIsHeldDown (false);
 	create ("Back", fontToUse, 60, sf::Color::Black, sf::Color::White);
 	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_new_adventure_name::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::NewAdventureName;
+}
+menu_main::screenelement_button_new_adventure_name::screenelement_button_new_adventure_name (
+	const std::string& sName,
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create (sName, fontToUse, 60, sf::Color::Black, sf::Color::White);
+	stretch ((1350.f - 4.f * 25.f) * 0.3f, 120.f);
 }

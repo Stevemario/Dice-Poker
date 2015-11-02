@@ -11,53 +11,56 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
-		std::vector <screenelement*>&,
+		std::string&,
 		const sf::Font&,
 		sf::RenderWindow&,
 		gameaction&,
 		mainmenupage&,
-		gamedata*
+		gamedata*,
+		std::vector <screenelement*>&
 	);
 	void prepare (
 		const bool&,
 		const bool&,
-		std::vector <screenelement*>&,
+		const std::string&,
 		const sf::Font&,
 		mainmenupage&,
-		gamedata*
+		gamedata*,
+		std::vector <screenelement*>&
 	);
 	void handle (
 		int&,
 		bool&,
 		bool&,
 		bool&,
-		const std::vector <screenelement*>&,
 		gameaction&,
 		mainmenupage&,
 		gamedata*,
-		const sf::Event&,
-		bool&
+		const std::vector <screenelement*>&,
+		bool&,
+		const sf::Event&
 	);
 	void addButtonsPageSwitching (
-		std::vector <screenelement*>&,
-		const sf::Font&
+		const sf::Font&,
+		std::vector <screenelement*>&
 	);
 	void addPageSplash (
-		std::vector <screenelement*>&,
-		const sf::Font&
+		const sf::Font&,
+		std::vector <screenelement*>&
 	);
 	void addPageAdjust (
-		std::vector <screenelement*>&,
-		const sf::Font&
+		const sf::Font&,
+		std::vector <screenelement*>&
 	);
 	void addPageAccredit (
-		std::vector <screenelement*>&,
-		const sf::Font&
+		const sf::Font&,
+		std::vector <screenelement*>&
 	);
 	void addPageNewGame (
 		const bool&,
-		std::vector <screenelement*>&,
-		const sf::Font&
+		const std::string&,
+		const sf::Font&,
+		std::vector <screenelement*>&
 	);
 	enum class screenelement_rectangle_enum {
 		BgButtonsPageSwitching,
@@ -163,6 +166,7 @@ namespace menu_main {
 		NewQuickGame,
 		NewAdventure,
 		NewGameReturn,
+		NewAdventureName,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_exit : public screenelement_button {
@@ -239,6 +243,14 @@ namespace menu_main {
 		public: screenelement_button_enum screenelement_button_enum_ (
 		) const;
 		public: screenelement_button_new_game_return (
+			const sf::Font&
+		);
+	};
+	class screenelement_button_new_adventure_name : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_new_adventure_name (
+			const std::string&,
 			const sf::Font&
 		);
 	};
