@@ -162,6 +162,7 @@ namespace menu_main {
 		Review,
 		NewQuickGame,
 		NewAdventure,
+		NewGameReturn,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_exit : public screenelement_button {
@@ -231,6 +232,13 @@ namespace menu_main {
 		public: screenelement_button_enum screenelement_button_enum_ (
 		) const;
 		public: screenelement_button_new_adventure (
+			const sf::Font&
+		);
+	};
+	class screenelement_button_new_game_return : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_new_game_return (
 			const sf::Font&
 		);
 	};

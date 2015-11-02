@@ -301,15 +301,18 @@ void menu_main::addPageNewGame (
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
 		screenelement_label* lblHeaderName = new screenelement_label_header_name (fontToUse);
+		screenelement_button* btnNewGameReturn = new screenelement_button_new_game_return (fontToUse);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
 		float fPosX_lbl_ = (1350.f - 2.f * 25.f) * 0.7f + 25.f;
 		rectBG->move (25.f, 150.f);
 		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
 		lblHeaderName->move (fPosX_lbl_, 345.f);
+		btnNewGameReturn->move (50.f, 175.f);
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
 		vec_screenelement_pToPrepare.push_back (lblHeaderName);
+		vec_screenelement_pToPrepare.push_back (btnNewGameReturn);
 	}
 }
 void menu_main::handle (
@@ -397,6 +400,11 @@ void menu_main::handle (
 		}
 		case screenelement_button_enum::NewAdventure: {
 			bShowMainMenuNewGamePageChoice = false;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case screenelement_button_enum::NewGameReturn: {
+			bShowMainMenuNewGamePageChoice = true;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -618,5 +626,16 @@ menu_main::screenelement_button_new_adventure::screenelement_button_new_adventur
 ) {
 	set_bIsHeldDown (false);
 	create ("Full Adventure", fontToUse, 60, sf::Color::Black, sf::Color::White);
+	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_new_game_return::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::NewGameReturn;
+}
+menu_main::screenelement_button_new_game_return::screenelement_button_new_game_return (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Back", fontToUse, 60, sf::Color::Black, sf::Color::White);
 	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
 }
