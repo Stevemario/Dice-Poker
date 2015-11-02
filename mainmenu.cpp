@@ -1,0 +1,622 @@
+#include "mainmenu.h"
+void menu_main::work (
+	int& nSEClickedLast,
+	bool& bInitialized_gamedata_p,
+	bool& bPrepared_vec_screenelement_p,
+	bool& bClickedAButtonJustNow,
+	bool& bShowMainMenuNewGamePageChoice,
+	std::vector <screenelement*>& vec_screenelement_p_,
+	const sf::Font& font_,
+	sf::RenderWindow& rw_,
+	gameaction& gameaction_,
+	mainmenupage& mainmenupage_,
+	gamedata* gamedata_p_
+) {
+	sf::Event event_;
+	bool bShouldClear_vec_screenelement_p = false;
+	if (bPrepared_vec_screenelement_p != true) {
+		prepare (
+			bInitialized_gamedata_p,
+			bShowMainMenuNewGamePageChoice,
+			vec_screenelement_p_,
+			font_,
+			mainmenupage_,
+			gamedata_p_
+		);
+		bPrepared_vec_screenelement_p = true;
+	}
+	draw (vec_screenelement_p_, rw_);
+	rw_.display ();
+	while (rw_.pollEvent (event_)) {
+		if (bShouldClear_vec_screenelement_p) {
+			//DO NOTHING.  Clearing event queue.
+		} else {
+			handle (
+				nSEClickedLast,
+				bInitialized_gamedata_p,
+				bClickedAButtonJustNow,
+				bShowMainMenuNewGamePageChoice,
+				vec_screenelement_p_,
+				gameaction_,
+				mainmenupage_,
+				gamedata_p_,
+				event_,
+				bShouldClear_vec_screenelement_p
+			);
+			if (bShouldClear_vec_screenelement_p) {
+				clear (vec_screenelement_p_);
+				bPrepared_vec_screenelement_p = false;
+			}
+		}
+	}
+}
+void menu_main::prepare (
+	const bool& bInitialized_gamedata_p,
+	const bool& bShowMainMenuNewGamePageChoice,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const sf::Font& fontToUse,
+	mainmenupage& mainmenupage_,
+	gamedata* gamedata_p_
+) {
+	switch (mainmenupage_) {
+		case mainmenupage::Splash: {
+			addPageSplash (vec_screenelement_pToPrepare, fontToUse);
+			break;
+		}
+		case mainmenupage::Adjust: {
+			addPageAdjust (vec_screenelement_pToPrepare, fontToUse);
+			break;
+		}
+		case mainmenupage::Accredit: {
+			addPageAccredit (vec_screenelement_pToPrepare, fontToUse);
+			break;
+		}
+		case mainmenupage::NewGame: {
+			addPageNewGame (
+				bShowMainMenuNewGamePageChoice,
+				vec_screenelement_pToPrepare,
+				fontToUse
+			);
+			break;
+		}
+	}
+	addButtonsPageSwitching (vec_screenelement_pToPrepare, fontToUse);
+}
+void menu_main::handle (
+	int& nSEClickedLast,
+	bool& bInitialized_gamedata_p,
+	bool& bClickedAButtonJustNow,
+	bool& bShowMainMenuNewGamePageChoice,
+	const std::vector <screenelement*>& vec_screenelement_p_,
+	gameaction& gameaction_,
+	mainmenupage& mainmenupage_,
+	gamedata* gamedata_p_,
+	const sf::Event& eventToHandle,
+	bool& bShouldClear_vec_screenelement_p
+) {
+	sf::Event::EventType eventtypeToHandle = eventToHandle.type;
+	switch (eventtypeToHandle) {
+		case sf::Event::Closed: {
+			gameaction_ = gameaction::Exit;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case sf::Event::MouseButtonPressed: {
+			sf::Event::MouseButtonEvent mbe_ = eventToHandle.mouseButton;
+			screenelement* se_p_;
+			unsigned int nAmountOfElements = vec_screenelement_p_.size ();
+			int nElementIndex = nAmountOfElements - 1;
+			bool bFoundElementClicked = false;
+			bool bShouldLoop = (nAmountOfElements != 0);
+			while (bShouldLoop) {
+				bShouldLoop = false;
+				se_p_ = vec_screenelement_p_[nElementIndex];
+				if (se_p_->bClicked (mbe_)) {
+					bFoundElementClicked = true;
+					nSEClickedLast = nElementIndex;
+					screenelement_enum se_e_ = se_p_->screenelement_enum_ ();
+					switch (se_e_) {
+						case screenelement_enum::Button: {
+							screenelement_button* se_btn_p_ = dynamic_cast <screenelement_button*> (se_p_);
+							se_btn_p_->set_bIsHeldDown (true);
+							bClickedAButtonJustNow = true;
+							break;
+						}
+					}
+				}
+				if (bFoundElementClicked != true) {
+					nElementIndex--;
+					if (0 <= nElementIndex)
+						bShouldLoop = true;
+				}
+			}
+			break;
+		}
+		case sf::Event::MouseButtonReleased: {
+			if (bClickedAButtonJustNow) {
+				sf::Event::MouseButtonEvent mbe_ = eventToHandle.mouseButton;
+				screenelement* se_p_ = vec_screenelement_p_[nSEClickedLast];
+				if (se_p_->bClicked (mbe_)) {
+					screenelement_enum se_e_ = se_p_->screenelement_enum_ ();
+					switch (se_e_) {
+						case screenelement_enum::Button: {
+							screenelement_button* se_btn_p_ = dynamic_cast <screenelement_button*> (se_p_);
+							screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
+							se_btn_p_->set_bIsHeldDown (false);
+							handle (
+								bInitialized_gamedata_p,
+								bShowMainMenuNewGamePageChoice,
+								gameaction_,
+								mainmenupage_,
+								gamedata_p_,
+								bShouldClear_vec_screenelement_p,
+								se_btn_e_
+							);
+							break;
+						}
+					}
+				}
+			}
+			bClickedAButtonJustNow = false;
+			break;
+		}
+	}
+}
+void menu_main::addButtonsPageSwitching (
+	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const sf::Font& fontToUse
+) {
+	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_buttons_page_switching ();
+	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (fontToUse);
+	screenelement_label* lblTitle = new screenelement_label_title (fontToUse);
+	screenelement_button* btnReview = new screenelement_button_review (fontToUse);
+	screenelement_button* btnLoad = new screenelement_button_load (fontToUse);
+	screenelement_button* btnSave = new screenelement_button_save (fontToUse);
+	screenelement_button* btnNewGame = new screenelement_button_new_game (fontToUse);
+	screenelement_button* btnPlay = new screenelement_button_play (fontToUse);
+	screenelement_button* btnAccredit = new screenelement_button_accredit (fontToUse);
+	screenelement_button* btnAdjust = new screenelement_button_adjust (fontToUse);
+	screenelement_button* btnExit = new screenelement_button_exit (fontToUse);
+	float fWidth_btnLoad = btnLoad->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnSave = btnSave->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnNewGame = btnNewGame->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnPlay = btnPlay->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnAccredit = btnAccredit->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnAdjust = btnAdjust->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnExit = btnExit->rs_ ().getGlobalBounds ().width;
+	float fPosX_lblTitleShadow;
+	float fPosX_lblTitle = 15.f;
+	float fPosX_btnReview;
+	float fPosX_btnLoad;
+	float fPosX_btnSave;
+	float fPosX_btnNewGame;
+	float fPosX_btnPlay = 0.f;
+	float fPosX_btnAccredit;
+	float fPosX_btnAdjust;
+	float fPosX_btnExit = 1350.f - fWidth_btnExit;
+	fPosX_lblTitleShadow = fPosX_lblTitle + 1.f;
+	fPosX_btnAdjust = fPosX_btnExit - fWidth_btnAdjust;
+	fPosX_btnAccredit = fPosX_btnAdjust - fWidth_btnAccredit;
+	fPosX_btnNewGame = fPosX_btnPlay + fWidth_btnPlay;
+	fPosX_btnSave = fPosX_btnNewGame + fWidth_btnNewGame;
+	fPosX_btnLoad = fPosX_btnSave + fWidth_btnSave;
+	fPosX_btnReview = fPosX_btnLoad + fWidth_btnLoad;
+	lblTitleShadow->move (fPosX_lblTitleShadow, 76.f);
+	lblTitle->move (fPosX_lblTitle, 75.f);
+	btnReview->move (fPosX_btnReview, 0.f);
+	btnLoad->move (fPosX_btnLoad, 0.f);
+	btnSave->move (fPosX_btnSave, 0.f);
+	btnNewGame->move (fPosX_btnNewGame, 0.f);
+	btnPlay->move (fPosX_btnPlay, 0.f);
+	btnAccredit->move (fPosX_btnAccredit, 0.f);
+	btnAdjust->move (fPosX_btnAdjust, 0.f);
+	btnExit->move (fPosX_btnExit, 0.f);
+	vec_screenelement_pToPrepare.push_back (rectBG);
+	vec_screenelement_pToPrepare.push_back (lblTitleShadow);
+	vec_screenelement_pToPrepare.push_back (lblTitle);
+	vec_screenelement_pToPrepare.push_back (btnReview);
+	vec_screenelement_pToPrepare.push_back (btnLoad);
+	vec_screenelement_pToPrepare.push_back (btnSave);
+	vec_screenelement_pToPrepare.push_back (btnNewGame);
+	vec_screenelement_pToPrepare.push_back (btnPlay);
+	vec_screenelement_pToPrepare.push_back (btnAccredit);
+	vec_screenelement_pToPrepare.push_back (btnAdjust);
+	vec_screenelement_pToPrepare.push_back (btnExit);
+}
+void menu_main::addPageSplash (
+	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const sf::Font& fontToUse
+) {
+	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+	screenelement_label* lblHeaderWelcome = new screenelement_label_header_welcome (fontToUse);
+	float fWidth_lblHeaderWelcome = lblHeaderWelcome->text_ ().getGlobalBounds ().width;
+	float fPosX_lblHeaderWelcome = .5f * (1350.f - fWidth_lblHeaderWelcome);
+	rectBG->move (25.f, 150.f);
+	lblHeaderWelcome->move (fPosX_lblHeaderWelcome, 210.f);
+	vec_screenelement_pToPrepare.push_back (rectBG);
+	vec_screenelement_pToPrepare.push_back (lblHeaderWelcome);
+}
+void menu_main::addPageAdjust (
+	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const sf::Font& fontToUse
+) {
+	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+	screenelement_label* lblHeaderOptions = new screenelement_label_header_options (fontToUse);
+	float fWidth_lblHeaderOptions = lblHeaderOptions->text_ ().getGlobalBounds ().width;
+	float fPosX_lblHeaderOptions = .5f * (1350.f - fWidth_lblHeaderOptions);
+	rectBG->move (25.f, 150.f);
+	lblHeaderOptions->move (fPosX_lblHeaderOptions, 210.f);
+	vec_screenelement_pToPrepare.push_back (rectBG);
+	vec_screenelement_pToPrepare.push_back (lblHeaderOptions);
+}
+void menu_main::addPageAccredit (
+	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const sf::Font& fontToUse
+) {
+	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+	screenelement_label* lblHeaderCredits = new screenelement_label_header_credits (fontToUse);
+	screenelement_label* lblParagraphCredits = new screenelement_label_paragraph_credits (fontToUse);
+	float fWidth_lblHeaderCredits = lblHeaderCredits->text_ ().getGlobalBounds ().width;
+	float fWidth_lblCredits = lblParagraphCredits->text_ ().getGlobalBounds ().width;
+	float fPosX_lblHeaderCredits = .5f * (1350.f - fWidth_lblHeaderCredits);
+	float fPosX_lblCredits = .5f * (1350.f - fWidth_lblCredits);
+	rectBG->move (25.f, 150.f);
+	lblHeaderCredits->move (fPosX_lblHeaderCredits, 210.f);
+	lblParagraphCredits->move (fPosX_lblCredits, 285.f);
+	vec_screenelement_pToPrepare.push_back (rectBG);
+	vec_screenelement_pToPrepare.push_back (lblHeaderCredits);
+	vec_screenelement_pToPrepare.push_back (lblParagraphCredits);
+}
+void menu_main::addPageNewGame (
+	const bool& bShowMainMenuNewGamePageChoice,
+	std::vector <screenelement*>& vec_screenelement_pToPrepare,
+	const sf::Font& fontToUse
+) {
+	if (bShowMainMenuNewGamePageChoice) {
+		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
+		screenelement_label* lblNotificationClickPlay = new screenelement_label_header_click_play (fontToUse);
+		screenelement_button* btnNewQuickGame = new screenelement_button_new_quick_game (fontToUse);
+		screenelement_button* btnNewAdventure = new screenelement_button_new_adventure (fontToUse);
+		btnNewQuickGame->stretch (500.f, 0.f);
+		btnNewAdventure->stretch (500.f, 0.f);
+		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
+		float fWidth_lblNotificationClickPlay = lblNotificationClickPlay->text_ ().getGlobalBounds ().width;
+		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
+		float fPosX_lblNotificationClickPlay = (1350.f - fWidth_lblNotificationClickPlay) / 2.f;
+		float fLeftoverX = (1350.f - 2.f * 25.f - 2.f * 500.f) / 3.f;
+		float fPosX_btnNewQuickGame = 25.f + fLeftoverX;
+		float fPosX_btnNewAdventure = 25.f + 2.f * fLeftoverX + 500.f;
+		rectBG->move (25.f, 150.f);
+		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
+		lblNotificationClickPlay->move (fPosX_lblNotificationClickPlay, 900.f);
+		btnNewQuickGame->move (fPosX_btnNewQuickGame, 345.f);
+		btnNewAdventure->move (fPosX_btnNewAdventure, 345.f);
+		vec_screenelement_pToPrepare.push_back (rectBG);
+		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
+		vec_screenelement_pToPrepare.push_back (lblNotificationClickPlay);
+		vec_screenelement_pToPrepare.push_back (btnNewQuickGame);
+		vec_screenelement_pToPrepare.push_back (btnNewAdventure);
+	} else {
+		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
+		screenelement_label* lblHeaderName = new screenelement_label_header_name (fontToUse);
+		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
+		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
+		float fPosX_lbl_ = (1350.f - 2.f * 25.f) * 0.7f + 25.f;
+		rectBG->move (25.f, 150.f);
+		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
+		lblHeaderName->move (fPosX_lbl_, 345.f);
+		vec_screenelement_pToPrepare.push_back (rectBG);
+		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
+		vec_screenelement_pToPrepare.push_back (lblHeaderName);
+	}
+}
+void menu_main::handle (
+	bool& bInitialized_gamedata_p,
+	bool& bShowMainMenuNewGamePageChoice,
+	gameaction& gameaction_,
+	mainmenupage& mainmenupage_,
+	gamedata* gamedata_p_,
+	bool& bShouldClear_vec_screenelement_p,
+	screenelement_button_enum screenelement_button_enumToHandle
+) {
+	switch (screenelement_button_enumToHandle) {
+		case screenelement_button_enum::Exit: {
+			gameaction_ = gameaction::Exit;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case screenelement_button_enum::Adjust: {
+			if (mainmenupage_ != mainmenupage::Adjust) {
+				mainmenupage_ = mainmenupage::Adjust;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case screenelement_button_enum::Accredit: {
+			if (mainmenupage_ != mainmenupage::Accredit) {
+				mainmenupage_ = mainmenupage::Accredit;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case screenelement_button_enum::Play: {
+			if (bInitialized_gamedata_p)
+				gameaction_ = gameaction::Play;
+			else {
+				if (mainmenupage_ == mainmenupage::NewGame) {
+					if (bShowMainMenuNewGamePageChoice) {
+						gamedata_p_ = new gamedata ("Player");
+						bInitialized_gamedata_p = true;
+						gameaction_ = gameaction::Play;
+					} else {
+						gamedata_p_ = new gamedata ("Player");
+						bInitialized_gamedata_p = true;
+						gameaction_ = gameaction::Play;
+					}
+				} else
+					mainmenupage_ = mainmenupage::NewGame;
+			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case screenelement_button_enum::NewGame: {
+			if (mainmenupage_ != mainmenupage::NewGame) {
+				mainmenupage_ = mainmenupage::NewGame;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case screenelement_button_enum::Save: {
+			if (mainmenupage_ != mainmenupage::Save) {
+				mainmenupage_ = mainmenupage::Save;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case screenelement_button_enum::Load: {
+			if (mainmenupage_ != mainmenupage::Load) {
+				mainmenupage_ = mainmenupage::Load;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case screenelement_button_enum::Review: {
+			if (mainmenupage_ != mainmenupage::Review) {
+				mainmenupage_ = mainmenupage::Review;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case screenelement_button_enum::NewQuickGame: {
+			gamedata_p_ = new gamedata ("Player");
+			bInitialized_gamedata_p = true;
+			gameaction_ = gameaction::Play;
+			break;
+		}
+		case screenelement_button_enum::NewAdventure: {
+			bShowMainMenuNewGamePageChoice = false;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+	}
+}
+menu_main::screenelement_rectangle_enum menu_main::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_enum_ (
+) const {
+	return screenelement_rectangle_enum::BgButtonsPageSwitching;
+}
+menu_main::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_bg_buttons_page_switching (
+) {
+	set_bIsHeldDown (false);
+	create (1350.f, 60.f, sf::Color (0, 0, 0, 255));
+}
+menu_main::screenelement_rectangle_enum menu_main::screenelement_rectangle_bg_screen_majority::screenelement_rectangle_enum_ (
+) const {
+	return screenelement_rectangle_enum::BgScreenMajority;
+}
+menu_main::screenelement_rectangle_bg_screen_majority::screenelement_rectangle_bg_screen_majority (
+) {
+	set_bIsHeldDown (false);
+	create (1300.f, 905.f, sf::Color (0, 0, 0, 255));
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_title::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::Title;
+}
+menu_main::screenelement_label_title::screenelement_label_title (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Dice Poker", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_title_shadow::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::TitleShadow;
+}
+menu_main::screenelement_label_title_shadow::screenelement_label_title_shadow (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Dice Poker", fontToUse, 60, sf::Color::Black);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_welcome::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderWelcome;
+}
+menu_main::screenelement_label_header_welcome::screenelement_label_header_welcome (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Welcome to Dice Poker!", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_options::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderOptions;
+}
+menu_main::screenelement_label_header_options::screenelement_label_header_options (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Options", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_credits::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderCredits;
+}
+menu_main::screenelement_label_header_credits::screenelement_label_header_credits (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Credits", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_paragraph_credits::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::ParagraphCredits;
+}
+menu_main::screenelement_label_paragraph_credits::screenelement_label_paragraph_credits (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Written by Steve Correa.  Copy of Witcher 2 minigame.", fontToUse, 45, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_new_game::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderNewGame;
+}
+menu_main::screenelement_label_header_new_game::screenelement_label_header_new_game (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("New Game", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_click_play::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderClickPlay;
+}
+menu_main::screenelement_label_header_click_play::screenelement_label_header_click_play (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Note: Clicking Play will start a quick game.", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_label_enum menu_main::screenelement_label_header_name::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderName;
+}
+menu_main::screenelement_label_header_name::screenelement_label_header_name (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Name", fontToUse, 60, sf::Color::White);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_exit::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Exit;
+}
+menu_main::screenelement_button_exit::screenelement_button_exit (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Exit", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_adjust::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Adjust;
+}
+menu_main::screenelement_button_adjust::screenelement_button_adjust (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Adjust", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_accredit::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Accredit;
+}
+menu_main::screenelement_button_accredit::screenelement_button_accredit (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Accredit", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_play::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Play;
+}
+menu_main::screenelement_button_play::screenelement_button_play (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Play", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_new_game::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::NewGame;
+}
+menu_main::screenelement_button_new_game::screenelement_button_new_game (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("New Game", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_save::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Save;
+}
+menu_main::screenelement_button_save::screenelement_button_save (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Save", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_load::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Load;
+}
+menu_main::screenelement_button_load::screenelement_button_load (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Load", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_review::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Review;
+}
+menu_main::screenelement_button_review::screenelement_button_review (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Review", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_new_quick_game::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::NewQuickGame;
+}
+menu_main::screenelement_button_new_quick_game::screenelement_button_new_quick_game (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Quick Game", fontToUse, 60, sf::Color::Black, sf::Color::White);
+	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
+}
+menu_main::screenelement_button_enum menu_main::screenelement_button_new_adventure::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::NewAdventure;
+}
+menu_main::screenelement_button_new_adventure::screenelement_button_new_adventure (
+	const sf::Font& fontToUse
+) {
+	set_bIsHeldDown (false);
+	create ("Full Adventure", fontToUse, 60, sf::Color::Black, sf::Color::White);
+	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
+}
