@@ -11,6 +11,7 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
+		bool&,
 		std::string&,
 		const sf::Font&,
 		sf::RenderWindow&,
@@ -33,6 +34,8 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
+		bool&,
+		std::string&,
 		gameaction&,
 		mainmenupage&,
 		gamedata*,
@@ -255,6 +258,7 @@ namespace menu_main {
 		);
 	};
 	void handle (
+		bool&,
 		bool&,
 		bool&,
 		gameaction&,

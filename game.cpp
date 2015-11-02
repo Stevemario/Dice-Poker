@@ -4,6 +4,7 @@
 #include <cstdlib>
 int game::m_nSEClickedLast;
 bool game::m_bClickedAButtonJustNow = false;
+bool game::m_bEdit_sNewAdventureName = false;
 bool game::m_bInitialized_gamedata_p = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
@@ -37,6 +38,7 @@ void game::play (
 				menu_main::work (
 					m_nSEClickedLast,
 					m_bClickedAButtonJustNow,
+					m_bEdit_sNewAdventureName,
 					m_bInitialized_gamedata_p,
 					m_bPrepared_vec_screenelement_p,
 					m_bShowMainMenuNewGamePageChoice,

@@ -2,6 +2,7 @@
 void menu_main::work (
 	int& nSEClickedLast,
 	bool& bClickedAButtonJustNow,
+	bool& bEdit_sNewAdventureName,
 	bool& bInitialized_gamedata_p,
 	bool& bPrepared_vec_screenelement_p,
 	bool& bShowMainMenuNewGamePageChoice,
@@ -36,8 +37,10 @@ void menu_main::work (
 			handle (
 				nSEClickedLast,
 				bClickedAButtonJustNow,
+				bEdit_sNewAdventureName,
 				bInitialized_gamedata_p,
 				bShowMainMenuNewGamePageChoice,
+				sNewAdventureName,
 				gameaction_,
 				mainmenupage_,
 				gamedata_p_,
@@ -89,8 +92,10 @@ void menu_main::prepare (
 void menu_main::handle (
 	int& nSEClickedLast,
 	bool& bClickedAButtonJustNow,
+	bool& bEdit_sNewAdventureName,
 	bool& bInitialized_gamedata_p,
 	bool& bShowMainMenuNewGamePageChoice,
+	std::string& sNewAdventureName,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
 	gamedata* gamedata_p_,
@@ -112,6 +117,7 @@ void menu_main::handle (
 			int nElementIndex = nAmountOfElements - 1;
 			bool bFoundElementClicked = false;
 			bool bShouldLoop = (nAmountOfElements != 0);
+			bEdit_sNewAdventureName = false;
 			while (bShouldLoop) {
 				bShouldLoop = false;
 				se_p_ = vec_screenelement_p_[nElementIndex];
@@ -148,6 +154,7 @@ void menu_main::handle (
 							screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 							se_btn_p_->set_bIsHeldDown (false);
 							handle (
+								bEdit_sNewAdventureName,
 								bInitialized_gamedata_p,
 								bShowMainMenuNewGamePageChoice,
 								gameaction_,
@@ -162,6 +169,24 @@ void menu_main::handle (
 				}
 			}
 			bClickedAButtonJustNow = false;
+			break;
+		}
+		case sf::Event::TextEntered: {
+			if (bEdit_sNewAdventureName) {
+				char chInput = eventToHandle.text.unicode;
+				if(chInput < 128) {
+					if(chInput == 8) { //Backspace
+						if(sNewAdventureName.size() > 0) {
+							sNewAdventureName.pop_back();
+							bShouldClear_vec_screenelement_p = true;
+						}
+					} else if(chInput == 13) { //Enter
+						//Maybe use later.
+					} else if(isalpha(chInput)) {
+						sNewAdventureName += chInput;
+						bShouldClear_vec_screenelement_p = true;
+					}
+				}			}
 			break;
 		}
 	}
@@ -324,6 +349,7 @@ void menu_main::addPageNewGame (
 	}
 }
 void menu_main::handle (
+	bool& bEdit_sNewAdventureName,
 	bool& bInitialized_gamedata_p,
 	bool& bShowMainMenuNewGamePageChoice,
 	gameaction& gameaction_,
@@ -414,6 +440,10 @@ void menu_main::handle (
 		case screenelement_button_enum::NewGameReturn: {
 			bShowMainMenuNewGamePageChoice = true;
 			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case screenelement_button_enum::NewAdventureName: {
+			bEdit_sNewAdventureName = true;
 			break;
 		}
 	}

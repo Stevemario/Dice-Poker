@@ -7,6 +7,7 @@
 namespace game {
 	extern int m_nSEClickedLast;
 	extern bool m_bClickedAButtonJustNow;
+	extern bool m_bEdit_sNewAdventureName;
 	extern bool m_bInitialized_gamedata_p;
 	extern bool m_bPrepared_vec_screenelement_p;
 	extern bool m_bShowMainMenuNewGamePageChoice;
