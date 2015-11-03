@@ -55,7 +55,12 @@ void game::play (
 			}
 			case gameaction::Play: {
 				pokerduel::work (
-					m_gameaction
+					m_bPrepared_vec_screenelement_p,
+					m_font,
+					m_rw,
+					m_gameaction,
+					m_gamedata_p,
+					m_vec_screenelement_p
 				);
 				break;
 			}

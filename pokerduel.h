@@ -5,11 +5,24 @@
 #include "gameaction.h"
 namespace pokerduel {
 	void work (
-		gameaction&
+		bool&,
+		const sf::Font&,
+		sf::RenderWindow&,
+		gameaction&,
+		gamedata*,
+		std::vector <screenelement*>&
 	);
 	void prepare (
+		const sf::Font&,
+		gamedata*,
+		std::vector <screenelement*>&
 	);
 	void handle (
+		gameaction&,
+		gamedata*,
+		const std::vector <screenelement*>&,
+		bool&,
+		const sf::Event&
 	);
 }
 #endif
