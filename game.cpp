@@ -6,7 +6,8 @@
 int game::m_nSEClickedLast;
 bool game::m_bClickedAButtonJustNow = false;
 bool game::m_bEdit_sNewAdventureName = false;
-bool game::m_bInitialized_gamedata_p = false;
+bool game::m_bInitialized_gamedata_pEnemy = false;
+bool game::m_bInitialized_gamedata_pPlayer = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
 std::string game::m_sNewAdventureName = "TEST";
@@ -15,7 +16,10 @@ sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::MenuMainWork;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
-gamedata* game::m_gamedata_p;
+gamedata* game::m_gamedata_pEnemy;
+gamedata* game::m_gamedata_pPlayer;
+intx5 game::m_n5Enemy;
+intx5 game::m_n5Player;
 std::vector <screenelement*> game::m_vec_screenelement_p;
 void game::play (
 ) {
@@ -27,9 +31,11 @@ void game::play (
 		std::ifstream ifstream_;
 		ifstream_.open (m_sSaveSpot);
 		if (ifstream_.is_open ()) {
-			m_gamedata_p = new gamedata (ifstream_);
+			m_gamedata_pEnemy = new gamedata (ifstream_);
+			m_bInitialized_gamedata_pEnemy = true;
+			m_gamedata_pPlayer = new gamedata (ifstream_);
+			m_bInitialized_gamedata_pPlayer = true;
 			ifstream_.close ();
-			m_bInitialized_gamedata_p = true;
 		}
 	}
 	while (m_gameaction != gameaction::Exit) {
@@ -40,7 +46,8 @@ void game::play (
 					m_nSEClickedLast,
 					m_bClickedAButtonJustNow,
 					m_bEdit_sNewAdventureName,
-					m_bInitialized_gamedata_p,
+					m_bInitialized_gamedata_pEnemy,
+					m_bInitialized_gamedata_pPlayer,
 					m_bPrepared_vec_screenelement_p,
 					m_bShowMainMenuNewGamePageChoice,
 					m_sNewAdventureName,
@@ -48,7 +55,8 @@ void game::play (
 					m_rw,
 					m_gameaction,
 					m_mainmenupage,
-					m_gamedata_p,
+					m_gamedata_pEnemy,
+					m_gamedata_pPlayer,
 					m_vec_screenelement_p
 				);
 				break;
@@ -59,7 +67,10 @@ void game::play (
 					m_font,
 					m_rw,
 					m_gameaction,
-					m_gamedata_p,
+					m_gamedata_pEnemy,
+					m_gamedata_pPlayer,
+					m_n5Enemy,
+					m_n5Player,
 					m_vec_screenelement_p
 				);
 				break;
@@ -67,6 +78,8 @@ void game::play (
 		}
 	}
 	m_rw.close ();
-	if (m_bInitialized_gamedata_p)
-		delete m_gamedata_p;
+	if (m_bInitialized_gamedata_pEnemy)
+		delete m_gamedata_pEnemy;
+	if (m_bInitialized_gamedata_pPlayer)
+		delete m_gamedata_pPlayer;
 }

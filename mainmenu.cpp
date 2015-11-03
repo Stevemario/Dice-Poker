@@ -3,7 +3,8 @@ void menu_main::work (
 	int& nSEClickedLast,
 	bool& bClickedAButtonJustNow,
 	bool& bEdit_sNewAdventureName,
-	bool& bInitialized_gamedata_p,
+	bool& bInitialized_gamedata_pEnemy,
+	bool& bInitialized_gamedata_pPlayer,
 	bool& bPrepared_vec_screenelement_p,
 	bool& bShowMainMenuNewGamePageChoice,
 	std::string& sNewAdventureName,
@@ -11,19 +12,20 @@ void menu_main::work (
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_p_,
+	gamedata* gamedata_pEnemy,
+	gamedata* gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
 	sf::Event event_;
 	if (bPrepared_vec_screenelement_p != true) {
 		prepare (
-			bInitialized_gamedata_p,
+			bInitialized_gamedata_pPlayer,
 			bShowMainMenuNewGamePageChoice,
 			sNewAdventureName,
 			font_,
 			mainmenupage_,
-			gamedata_p_,
+			gamedata_pPlayer,
 			vec_screenelement_p_
 		);
 		bPrepared_vec_screenelement_p = true;
@@ -38,12 +40,14 @@ void menu_main::work (
 				nSEClickedLast,
 				bClickedAButtonJustNow,
 				bEdit_sNewAdventureName,
-				bInitialized_gamedata_p,
+				bInitialized_gamedata_pEnemy,
+				bInitialized_gamedata_pPlayer,
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
 				gameaction_,
 				mainmenupage_,
-				gamedata_p_,
+				gamedata_pEnemy,
+				gamedata_pPlayer,
 				vec_screenelement_p_,
 				bShouldClear_vec_screenelement_p,
 				event_
@@ -56,12 +60,12 @@ void menu_main::work (
 	}
 }
 void menu_main::prepare (
-	const bool& bInitialized_gamedata_p,
+	const bool& bInitialized_gamedata_pPlayer,
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_p_,
+	gamedata* gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	switch (mainmenupage_) {
@@ -79,7 +83,7 @@ void menu_main::prepare (
 		}
 		case mainmenupage::NewGame: {
 			addPageNewGame (
-				bInitialized_gamedata_p,
+				bInitialized_gamedata_pPlayer,
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
 				fontToUse,
@@ -94,12 +98,14 @@ void menu_main::handle (
 	int& nSEClickedLast,
 	bool& bClickedAButtonJustNow,
 	bool& bEdit_sNewAdventureName,
-	bool& bInitialized_gamedata_p,
+	bool& bInitialized_gamedata_pEnemy,
+	bool& bInitialized_gamedata_pPlayer,
 	bool& bShowMainMenuNewGamePageChoice,
 	std::string& sNewAdventureName,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_p_,
+	gamedata* gamedata_pEnemy,
+	gamedata* gamedata_pPlayer,
 	const std::vector <screenelement*>& vec_screenelement_p_,
 	bool& bShouldClear_vec_screenelement_p,
 	const sf::Event& eventToHandle
@@ -156,12 +162,14 @@ void menu_main::handle (
 							se_btn_p_->set_bIsHeldDown (false);
 							handle (
 								bEdit_sNewAdventureName,
-								bInitialized_gamedata_p,
+								bInitialized_gamedata_pEnemy,
+								bInitialized_gamedata_pPlayer,
 								bShowMainMenuNewGamePageChoice,
 								sNewAdventureName,
 								gameaction_,
 								mainmenupage_,
-								gamedata_p_,
+								gamedata_pEnemy,
+								gamedata_pPlayer,
 								bShouldClear_vec_screenelement_p,
 								se_btn_e_
 							);
@@ -299,7 +307,7 @@ void menu_main::addPageAccredit (
 	vec_screenelement_pToPrepare.push_back (lblParagraphCredits);
 }
 void menu_main::addPageNewGame (
-	const bool& bInitialized_gamedata_p,
+	const bool& bInitialized_gamedata_pPlayer,
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
@@ -328,7 +336,7 @@ void menu_main::addPageNewGame (
 		btnNewAdventure->move (fPosX_btnNewAdventure, 345.f);
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
-		if (bInitialized_gamedata_p)
+		if (bInitialized_gamedata_pPlayer)
 			delete lblHeaderNewQuickGameIfPlayClicked;
 		else
 			vec_screenelement_pToPrepare.push_back (lblHeaderNewQuickGameIfPlayClicked);
@@ -363,12 +371,14 @@ void menu_main::addPageNewGame (
 }
 void menu_main::handle (
 	bool& bEdit_sNewAdventureName,
-	bool& bInitialized_gamedata_p,
+	bool& bInitialized_gamedata_pEnemy,
+	bool& bInitialized_gamedata_pPlayer,
 	bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	gameaction& gameaction_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_p_,
+	gamedata* gamedata_pEnemy,
+	gamedata* gamedata_pPlayer,
 	bool& bShouldClear_vec_screenelement_p,
 	screenelement_button_enum screenelement_button_enumToHandle
 ) {
@@ -393,18 +403,20 @@ void menu_main::handle (
 			break;
 		}
 		case screenelement_button_enum::Play: {
-			if (bInitialized_gamedata_p)
+			if (bInitialized_gamedata_pPlayer)
 				gameaction_ = gameaction::Play;
 			else {
 				if (mainmenupage_ == mainmenupage::NewGame) {
 					if (bShowMainMenuNewGamePageChoice) {
-						gamedata_p_ = new gamedata ("Player");
-						bInitialized_gamedata_p = true;
+						gamedata_pEnemy = new gamedata ("Steve");
+						bInitialized_gamedata_pEnemy = true;
+						gamedata_pPlayer = new gamedata ("Player");
+						bInitialized_gamedata_pPlayer = true;
 						gameaction_ = gameaction::Play;
 					} else {
-						gamedata_p_ = new gamedata (sNewAdventureName);
-						bInitialized_gamedata_p = true;
-						gameaction_ = gameaction::Play;
+						gamedata_pPlayer = new gamedata (sNewAdventureName);
+						bInitialized_gamedata_pPlayer = true;
+						gameaction_ = gameaction::Exit; //WILL DO LATER
 					}
 				} else
 					mainmenupage_ = mainmenupage::NewGame;
@@ -441,8 +453,10 @@ void menu_main::handle (
 			break;
 		}
 		case screenelement_button_enum::NewQuickGame: {
-			gamedata_p_ = new gamedata ("Player");
-			bInitialized_gamedata_p = true;
+			gamedata_pEnemy = new gamedata ("Steve");
+			bInitialized_gamedata_pEnemy = true;
+			gamedata_pPlayer = new gamedata ("Player");
+			bInitialized_gamedata_pPlayer = true;
 			gameaction_ = gameaction::Play;
 			break;
 		}

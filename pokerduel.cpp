@@ -4,7 +4,10 @@ void pokerduel::work (
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
-	gamedata* gamedata_p_,
+	gamedata* gamedata_pEnemy,
+	gamedata* gamedata_pPlayer,
+	intx5& n5Enemy,
+	intx5& n5Player,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
@@ -12,7 +15,10 @@ void pokerduel::work (
 	if (bPrepared_vec_screenelement_p != true) {
 		prepare (
 			font_,
-			gamedata_p_,
+			gamedata_pEnemy,
+			gamedata_pPlayer,
+			n5Enemy,
+			n5Player,
 			vec_screenelement_p_
 		);
 		bPrepared_vec_screenelement_p = true;
@@ -25,7 +31,10 @@ void pokerduel::work (
 		} else {
 			handle (
 				gameaction_,
-				gamedata_p_,
+				gamedata_pEnemy,
+				gamedata_pPlayer,
+				n5Enemy,
+				n5Player,
 				vec_screenelement_p_,
 				bShouldClear_vec_screenelement_p,
 				event_
@@ -39,13 +48,19 @@ void pokerduel::work (
 }
 void pokerduel::prepare (
 	const sf::Font& font_,
-	gamedata* gamedata_p_,
+	const gamedata* gamedata_pEnemy,
+	const gamedata* gamedata_pPlayer,
+	const intx5& n5Enemy,
+	const intx5& n5Player,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
 void pokerduel::handle (
 	gameaction& gameaction_,
-	gamedata* gamedata_p_,
+	gamedata* gamedata_pEnemy,
+	gamedata* gamedata_pPlayer,
+	intx5& n5Enemy,
+	intx5& n5Player,
 	const std::vector <screenelement*>& vec_screenelement_p_,
 	bool& bShouldClear_vec_screenelement_p,
 	const sf::Event& eventToHandle

@@ -1,7 +1,7 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
-#include "gamedata.h"
 #include "screenelement.h"
+#include "gamedata.h"
 #include "gameaction.h"
 #include "mainmenupage.h"
 namespace menu_main {
@@ -12,11 +12,13 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
+		bool&,
 		std::string&,
 		const sf::Font&,
 		sf::RenderWindow&,
 		gameaction&,
 		mainmenupage&,
+		gamedata*,
 		gamedata*,
 		std::vector <screenelement*>&
 	);
@@ -35,9 +37,11 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
+		bool&,
 		std::string&,
 		gameaction&,
 		mainmenupage&,
+		gamedata*,
 		gamedata*,
 		const std::vector <screenelement*>&,
 		bool&,
@@ -270,9 +274,11 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
+		bool&,
 		const std::string&,
 		gameaction&,
 		mainmenupage&,
+		gamedata*,
 		gamedata*,
 		bool&,
 		screenelement_button_enum
