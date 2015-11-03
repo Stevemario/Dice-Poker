@@ -1,4 +1,5 @@
 #include "mainmenu.h"
+#include "pokerduel.h"
 #include "game.h"
 #include <ctime>
 #include <cstdlib>
@@ -53,7 +54,9 @@ void game::play (
 				break;
 			}
 			case gameaction::Play: {
-				m_gameaction = gameaction::Exit; //TODO
+				pokerduel::work (
+					m_gameaction
+				);
 				break;
 			}
 		}
