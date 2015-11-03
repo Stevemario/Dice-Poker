@@ -4,6 +4,7 @@
 #include "diceset.h"
 #include "gamedata.h"
 #include "gameaction.h"
+#include "gamemode.h"
 #include "mainmenupage.h"
 namespace game {
 	extern int m_nSEClickedLast;
@@ -18,6 +19,7 @@ namespace game {
 	extern sf::Font m_font;
 	extern sf::RenderWindow m_rw;
 	extern gameaction m_gameaction;
+	extern gamemode m_gamemode;
 	extern mainmenupage m_mainmenupage;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;

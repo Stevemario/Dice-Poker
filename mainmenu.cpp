@@ -11,6 +11,7 @@ void menu_main::work (
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
+	gamemode& gamemode_,
 	mainmenupage& mainmenupage_,
 	gamedata* gamedata_pEnemy,
 	gamedata* gamedata_pPlayer,
@@ -45,6 +46,7 @@ void menu_main::work (
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
 				gameaction_,
+				gamemode_,
 				mainmenupage_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
@@ -103,6 +105,7 @@ void menu_main::handle (
 	bool& bShowMainMenuNewGamePageChoice,
 	std::string& sNewAdventureName,
 	gameaction& gameaction_,
+	gamemode& gamemode_,
 	mainmenupage& mainmenupage_,
 	gamedata* gamedata_pEnemy,
 	gamedata* gamedata_pPlayer,
@@ -167,6 +170,7 @@ void menu_main::handle (
 								bShowMainMenuNewGamePageChoice,
 								sNewAdventureName,
 								gameaction_,
+								gamemode_,
 								mainmenupage_,
 								gamedata_pEnemy,
 								gamedata_pPlayer,
@@ -376,6 +380,7 @@ void menu_main::handle (
 	bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	gameaction& gameaction_,
+	gamemode& gamemode_,
 	mainmenupage& mainmenupage_,
 	gamedata* gamedata_pEnemy,
 	gamedata* gamedata_pPlayer,
@@ -412,11 +417,13 @@ void menu_main::handle (
 						bInitialized_gamedata_pEnemy = true;
 						gamedata_pPlayer = new gamedata ("Player");
 						bInitialized_gamedata_pPlayer = true;
+						gamemode_ = gamemode::PokerDuel;
 						gameaction_ = gameaction::Play;
 					} else {
 						gamedata_pPlayer = new gamedata (sNewAdventureName);
 						bInitialized_gamedata_pPlayer = true;
-						gameaction_ = gameaction::Exit; //WILL DO LATER
+						gamemode_ = gamemode::Adventure;
+						gameaction_ = gameaction::Play;
 					}
 				} else
 					mainmenupage_ = mainmenupage::NewGame;
@@ -457,6 +464,7 @@ void menu_main::handle (
 			bInitialized_gamedata_pEnemy = true;
 			gamedata_pPlayer = new gamedata ("Player");
 			bInitialized_gamedata_pPlayer = true;
+			gamemode_ = gamemode::PokerDuel;
 			gameaction_ = gameaction::Play;
 			break;
 		}

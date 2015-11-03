@@ -15,6 +15,7 @@ std::string game::m_sSaveSpot = "default save.txt";
 sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::MenuMainWork;
+gamemode game::m_gamemode;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
@@ -54,6 +55,7 @@ void game::play (
 					m_font,
 					m_rw,
 					m_gameaction,
+					m_gamemode,
 					m_mainmenupage,
 					m_gamedata_pEnemy,
 					m_gamedata_pPlayer,
@@ -62,17 +64,26 @@ void game::play (
 				break;
 			}
 			case gameaction::Play: {
-				pokerduel::work (
-					m_bPrepared_vec_screenelement_p,
-					m_font,
-					m_rw,
-					m_gameaction,
-					m_gamedata_pEnemy,
-					m_gamedata_pPlayer,
-					m_n5Enemy,
-					m_n5Player,
-					m_vec_screenelement_p
-				);
+				switch (m_gamemode) {
+					case gamemode::PokerDuel: {
+						pokerduel::work (
+							m_bPrepared_vec_screenelement_p,
+							m_font,
+							m_rw,
+							m_gameaction,
+							m_gamedata_pEnemy,
+							m_gamedata_pPlayer,
+							m_n5Enemy,
+							m_n5Player,
+							m_vec_screenelement_p
+						);
+						break;
+					}
+					case gamemode::Adventure: {
+						m_gameaction = gameaction::Exit; //WILL DO LATER
+						break;
+					}
+				}
 				break;
 			}
 		}

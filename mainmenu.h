@@ -3,6 +3,7 @@
 #include "screenelement.h"
 #include "gamedata.h"
 #include "gameaction.h"
+#include "gamemode.h"
 #include "mainmenupage.h"
 namespace menu_main {
 	void work (
@@ -17,6 +18,7 @@ namespace menu_main {
 		const sf::Font&,
 		sf::RenderWindow&,
 		gameaction&,
+		gamemode&,
 		mainmenupage&,
 		gamedata*,
 		gamedata*,
@@ -40,6 +42,7 @@ namespace menu_main {
 		bool&,
 		std::string&,
 		gameaction&,
+		gamemode&,
 		mainmenupage&,
 		gamedata*,
 		gamedata*,
@@ -277,6 +280,7 @@ namespace menu_main {
 		bool&,
 		const std::string&,
 		gameaction&,
+		gamemode&,
 		mainmenupage&,
 		gamedata*,
 		gamedata*,
