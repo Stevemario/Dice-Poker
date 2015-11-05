@@ -35,7 +35,7 @@ void menu_main::work (
 	rw_.display ();
 	while (rw_.pollEvent (event_)) {
 		if (bShouldClear_vec_screenelement_p) {
-			//DO NOTHING.  Clearing event queue.
+			//DO NOTHING.  Event is void and event queue must be cleared.
 		} else {
 			handle (
 				nSEClickedLast,

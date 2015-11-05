@@ -6,6 +6,7 @@
 #include "gameaction.h"
 #include "gamemode.h"
 #include "mainmenupage.h"
+#include "pokerduelstage.h"
 namespace game {
 	extern int m_nSEClickedLast;
 	extern bool m_bClickedAButtonJustNow;
@@ -21,6 +22,7 @@ namespace game {
 	extern gameaction m_gameaction;
 	extern gamemode m_gamemode;
 	extern mainmenupage m_mainmenupage;
+	extern pokerduelstage m_pokerduelstage;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;
 	extern intx5 m_n5Enemy;

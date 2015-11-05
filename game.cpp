@@ -17,6 +17,7 @@ sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::MenuMainWork;
 gamemode game::m_gamemode;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
+pokerduelstage game::m_pokerduelstage;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
 intx5 game::m_n5Enemy;
@@ -75,6 +76,7 @@ void game::play (
 							m_font,
 							m_rw,
 							m_gameaction,
+							m_pokerduelstage,
 							m_gamedata_pEnemy,
 							m_gamedata_pPlayer,
 							m_n5Enemy,
