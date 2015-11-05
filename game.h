@@ -28,5 +28,13 @@ namespace game {
 	extern std::vector <screenelement*> m_vec_screenelement_p;
 	void play (
 	);
+	void load (
+		bool&,
+		bool&,
+		gamemode&,
+		gamedata*,
+		gamedata*,
+		std::ifstream&
+	);
 }
 #endif
