@@ -364,7 +364,10 @@ void menu_main::addPageNewGame (
 		vec_screenelement_pToPrepare.push_back (rectBG);
 		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
 		vec_screenelement_pToPrepare.push_back (lblHeaderName);
-		vec_screenelement_pToPrepare.push_back (lblHeaderNewAdventureIfPlayClicked);
+		if (bHaveGameData)
+			delete lblHeaderNewAdventureIfPlayClicked;
+		else
+			vec_screenelement_pToPrepare.push_back (lblHeaderNewAdventureIfPlayClicked);
 		vec_screenelement_pToPrepare.push_back (btnNewGameReturn);
 		vec_screenelement_pToPrepare.push_back (btnNewGameName);
 	}
