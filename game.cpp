@@ -118,20 +118,20 @@ void game::load (
 	gamedata* gamedata_pPlayer,
 	std::ifstream& ifstream_
 ) {
-			char* ch_p_ = new char;
-			ifstream_.read (ch_p_, 1);
-			gamemode_p_ = new gamemode;
-			*gamemode_p_ = gamemode (*ch_p_);
-			delete ch_p_;
-			switch (*gamemode_p_) {
-				case gamemode::PokerDuel: {
-					gamedata_pEnemy = new gamedata (ifstream_);
-					gamedata_pPlayer = new gamedata (ifstream_);
-					break;
-				}
-				case gamemode::Adventure: {
-					break;
-				}
-			}
-			bHaveGameData = true;
+	char* ch_p_ = new char;
+	ifstream_.read (ch_p_, 1);
+	gamemode_p_ = new gamemode;
+	*gamemode_p_ = gamemode (*ch_p_);
+	delete ch_p_;
+	switch (*gamemode_p_) {
+		case gamemode::PokerDuel: {
+			gamedata_pEnemy = new gamedata (ifstream_);
+			gamedata_pPlayer = new gamedata (ifstream_);
+			break;
+		}
+		case gamemode::Adventure: {
+			break;
+		}
+	}
+	bHaveGameData = true;
 }
