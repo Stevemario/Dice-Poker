@@ -6,12 +6,12 @@ void pokerduel::work (
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
 	pokerduelstage& pokerduelstage_,
-	gamedata* gamedata_pEnemy,
-	gamedata* gamedata_pPlayer,
-	intx5* n5_pEnemy,
-	intx5* n5_pEnemyInitial,
-	intx5* n5_pPlayer,
-	intx5* n5_pPlayerInitial,
+	gamedata*& gamedata_pEnemy,
+	gamedata*& gamedata_pPlayer,
+	intx5*& n5_pEnemy,
+	intx5*& n5_pEnemyInitial,
+	intx5*& n5_pPlayer,
+	intx5*& n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
@@ -22,15 +22,21 @@ void pokerduel::work (
 		bHaveGameData = true;
 	}
 	if (bPrepared_vec_screenelement_p != true) {
+		const gamedata* gamedata_pEnemyConst = gamedata_pEnemy;
+		const gamedata* gamedata_pPlayerConst = gamedata_pPlayer;
+		const intx5* n5_pEnemyConst = n5_pEnemy;
+		const intx5* n5_pEnemyInitialConst = n5_pEnemyInitial;
+		const intx5* n5_pPlayerConst = n5_pPlayer;
+		const intx5* n5_pPlayerInitialConst = n5_pPlayerInitial;
 		prepare (
 			font_,
 			pokerduelstage_,
-			gamedata_pEnemy,
-			gamedata_pPlayer,
-			n5_pEnemy,
-			n5_pEnemyInitial,
-			n5_pPlayer,
-			n5_pPlayerInitial,
+			gamedata_pEnemyConst,
+			gamedata_pPlayerConst,
+			n5_pEnemyConst,
+			n5_pEnemyInitialConst,
+			n5_pPlayerConst,
+			n5_pPlayerInitialConst,
 			vec_screenelement_p_
 		);
 		bPrepared_vec_screenelement_p = true;
@@ -64,12 +70,12 @@ void pokerduel::work (
 void pokerduel::prepare (
 	const sf::Font& font_,
 	const pokerduelstage& pokerduelstage_,
-	const gamedata* gamedata_pEnemy,
-	const gamedata* gamedata_pPlayer,
-	const intx5* n5_pEnemy,
-	const intx5* n5_pEnemyInitial,
-	const intx5* n5_pPlayer,
-	const intx5* n5_pPlayerInitial,
+	const gamedata*& gamedata_pEnemy,
+	const gamedata*& gamedata_pPlayer,
+	const intx5*& n5_pEnemy,
+	const intx5*& n5_pEnemyInitial,
+	const intx5*& n5_pPlayer,
+	const intx5*& n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	switch (pokerduelstage_) {
@@ -131,12 +137,12 @@ void pokerduel::prepare (
 void pokerduel::handle (
 	gameaction& gameaction_,
 	pokerduelstage& pokerduelstage_,
-	gamedata* gamedata_pEnemy,
-	gamedata* gamedata_pPlayer,
-	intx5* n5_pEnemy,
-	intx5* n5_pEnemyInitial,
-	intx5* n5_pPlayer,
-	intx5* n5_pPlayerInitial,
+	gamedata*& gamedata_pEnemy,
+	gamedata*& gamedata_pPlayer,
+	intx5*& n5_pEnemy,
+	intx5*& n5_pEnemyInitial,
+	intx5*& n5_pPlayer,
+	intx5*& n5_pPlayerInitial,
 	const std::vector <screenelement*>& vec_screenelement_p_,
 	bool& bShouldClear_vec_screenelement_p,
 	const sf::Event& eventToHandle
@@ -146,44 +152,44 @@ void pokerduel::handle (
 }
 void pokerduel::prepareStage_BetInitial (
 	const sf::Font& font_,
-	const gamedata* gamedata_pEnemy,
-	const gamedata* gamedata_pPlayer,
+	const gamedata*& gamedata_pEnemy,
+	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
 void pokerduel::prepareStage_RollInitial (
 	const sf::Font& font_,
-	const gamedata* gamedata_pEnemy,
-	const gamedata* gamedata_pPlayer,
+	const gamedata*& gamedata_pEnemy,
+	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
 void pokerduel::prepareStage_RollRedo (
 	const sf::Font& font_,
-	const gamedata* gamedata_pEnemy,
-	const gamedata* gamedata_pPlayer,
-	const intx5* n5_pEnemy,
-	const intx5* n5_pPlayer,
+	const gamedata*& gamedata_pEnemy,
+	const gamedata*& gamedata_pPlayer,
+	const intx5*& n5_pEnemy,
+	const intx5*& n5_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
 void pokerduel::prepareStage_BetRaise (
 	const sf::Font& font_,
-	const gamedata* gamedata_pEnemy,
-	const gamedata* gamedata_pPlayer,
-	const intx5* n5_pEnemy,
-	const intx5* n5_pPlayer,
+	const gamedata*& gamedata_pEnemy,
+	const gamedata*& gamedata_pPlayer,
+	const intx5*& n5_pEnemy,
+	const intx5*& n5_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
 void pokerduel::prepareStage_Conclusion (
 	const sf::Font& font_,
-	const gamedata* gamedata_pEnemy,
-	const gamedata* gamedata_pPlayer,
-	const intx5* n5_pEnemy,
-	const intx5* n5_pEnemyInitial,
-	const intx5* n5_pPlayer,
-	const intx5* n5_pPlayerInitial,
+	const gamedata*& gamedata_pEnemy,
+	const gamedata*& gamedata_pPlayer,
+	const intx5*& n5_pEnemy,
+	const intx5*& n5_pEnemyInitial,
+	const intx5*& n5_pPlayer,
+	const intx5*& n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }

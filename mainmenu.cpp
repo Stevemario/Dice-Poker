@@ -10,10 +10,10 @@ void menu_main::work (
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
-	gamemode* gamemode_p_,
+	gamemode*& gamemode_p_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_pEnemy,
-	gamedata* gamedata_pPlayer,
+	gamedata*& gamedata_pEnemy,
+	gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
@@ -65,7 +65,7 @@ void menu_main::prepare (
 	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_pPlayer,
+	gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	switch (mainmenupage_) {
@@ -102,10 +102,10 @@ void menu_main::handle (
 	bool& bShowMainMenuNewGamePageChoice,
 	std::string& sNewAdventureName,
 	gameaction& gameaction_,
-	gamemode* gamemode_p_,
+	gamemode*& gamemode_p_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_pEnemy,
-	gamedata* gamedata_pPlayer,
+	gamedata*& gamedata_pEnemy,
+	gamedata*& gamedata_pPlayer,
 	const std::vector <screenelement*>& vec_screenelement_p_,
 	bool& bShouldClear_vec_screenelement_p,
 	const sf::Event& eventToHandle
@@ -378,10 +378,10 @@ void menu_main::handle (
 	bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	gameaction& gameaction_,
-	gamemode* gamemode_p_,
+	gamemode*& gamemode_p_,
 	mainmenupage& mainmenupage_,
-	gamedata* gamedata_pEnemy,
-	gamedata* gamedata_pPlayer,
+	gamedata*& gamedata_pEnemy,
+	gamedata*& gamedata_pPlayer,
 	bool& bShouldClear_vec_screenelement_p,
 	screenelement_button_enum screenelement_button_enumToHandle
 ) {

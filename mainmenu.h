@@ -17,10 +17,10 @@ namespace menu_main {
 		const sf::Font&,
 		sf::RenderWindow&,
 		gameaction&,
-		gamemode*,
+		gamemode*&,
 		mainmenupage&,
-		gamedata*,
-		gamedata*,
+		gamedata*&,
+		gamedata*&,
 		std::vector <screenelement*>&
 	);
 	void prepare (
@@ -29,7 +29,7 @@ namespace menu_main {
 		const std::string&,
 		const sf::Font&,
 		mainmenupage&,
-		gamedata*,
+		gamedata*&,
 		std::vector <screenelement*>&
 	);
 	void handle (
@@ -40,10 +40,10 @@ namespace menu_main {
 		bool&,
 		std::string&,
 		gameaction&,
-		gamemode*,
+		gamemode*&,
 		mainmenupage&,
-		gamedata*,
-		gamedata*,
+		gamedata*&,
+		gamedata*&,
 		const std::vector <screenelement*>&,
 		bool&,
 		const sf::Event&
@@ -277,10 +277,10 @@ namespace menu_main {
 		bool&,
 		const std::string&,
 		gameaction&,
-		gamemode*,
+		gamemode*&,
 		mainmenupage&,
-		gamedata*,
-		gamedata*,
+		gamedata*&,
+		gamedata*&,
 		bool&,
 		screenelement_button_enum
 	);
