@@ -28,8 +28,8 @@ namespace menu_main {
 		const bool&,
 		const std::string&,
 		const sf::Font&,
-		mainmenupage&,
-		gamedata*&,
+		const mainmenupage&,
+		const gamedata*&,
 		std::vector <screenelement*>&
 	);
 	void handle (

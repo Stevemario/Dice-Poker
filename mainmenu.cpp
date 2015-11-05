@@ -19,13 +19,14 @@ void menu_main::work (
 	bool bShouldClear_vec_screenelement_p = false;
 	sf::Event event_;
 	if (bPrepared_vec_screenelement_p != true) {
+		const gamedata* gamedata_pPlayerConst = gamedata_pPlayer;
 		prepare (
 			bHaveGameData,
 			bShowMainMenuNewGamePageChoice,
 			sNewAdventureName,
 			font_,
 			mainmenupage_,
-			gamedata_pPlayer,
+			gamedata_pPlayerConst,
 			vec_screenelement_p_
 		);
 		bPrepared_vec_screenelement_p = true;
@@ -64,8 +65,8 @@ void menu_main::prepare (
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
-	mainmenupage& mainmenupage_,
-	gamedata*& gamedata_pPlayer,
+	const mainmenupage& mainmenupage_,
+	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	switch (mainmenupage_) {
