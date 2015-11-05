@@ -11,8 +11,7 @@ namespace game {
 	extern int m_nSEClickedLast;
 	extern bool m_bClickedAButtonJustNow;
 	extern bool m_bEdit_sNewAdventureName;
-	extern bool m_bInitialized_gamedata_pEnemy;
-	extern bool m_bInitialized_gamedata_pPlayer;
+	extern bool m_bHaveGameData;
 	extern bool m_bPrepared_vec_screenelement_p;
 	extern bool m_bShowMainMenuNewGamePageChoice;
 	extern std::string m_sNewAdventureName;
@@ -20,7 +19,7 @@ namespace game {
 	extern sf::Font m_font;
 	extern sf::RenderWindow m_rw;
 	extern gameaction m_gameaction;
-	extern gamemode m_gamemode;
+	extern gamemode* m_gamemode_p;
 	extern mainmenupage m_mainmenupage;
 	extern pokerduelstage m_pokerduelstage;
 	extern gamedata* m_gamedata_pEnemy;
@@ -34,8 +33,7 @@ namespace game {
 	);
 	void load (
 		bool&,
-		bool&,
-		gamemode&,
+		gamemode*,
 		gamedata*,
 		gamedata*,
 		std::ifstream&

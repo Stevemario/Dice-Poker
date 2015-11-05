@@ -1,5 +1,6 @@
 #include "pokerduel.h"
 void pokerduel::work (
+	bool& bHaveGameData,
 	bool& bPrepared_vec_screenelement_p,
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
@@ -15,6 +16,11 @@ void pokerduel::work (
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
 	sf::Event event_;
+	if (bHaveGameData != true) {
+		gamedata_pEnemy = new gamedata ("Steve's Bot");
+		gamedata_pPlayer = new gamedata ("Player");
+		bHaveGameData = true;
+	}
 	if (bPrepared_vec_screenelement_p != true) {
 		prepare (
 			font_,

@@ -8,6 +8,7 @@
 namespace pokerduel {
 	void work (
 		bool&,
+		bool&,
 		const sf::Font&,
 		sf::RenderWindow&,
 		gameaction&,

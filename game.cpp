@@ -6,8 +6,7 @@
 int game::m_nSEClickedLast;
 bool game::m_bClickedAButtonJustNow = false;
 bool game::m_bEdit_sNewAdventureName = false;
-bool game::m_bInitialized_gamedata_pEnemy = false;
-bool game::m_bInitialized_gamedata_pPlayer = false;
+bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
 std::string game::m_sNewAdventureName = "TEST";
@@ -15,7 +14,7 @@ std::string game::m_sSaveSpot = "default save.txt";
 sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::MenuMainWork;
-gamemode game::m_gamemode;
+gamemode* game::m_gamemode_p;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
 pokerduelstage game::m_pokerduelstage;
 gamedata* game::m_gamedata_pEnemy;
@@ -36,9 +35,8 @@ void game::play (
 		ifstream_.open (m_sSaveSpot);
 		if (ifstream_.is_open ()) {
 			load (
-				m_bInitialized_gamedata_pEnemy,
-				m_bInitialized_gamedata_pPlayer,
-				m_gamemode,
+				m_bHaveGameData,
+				m_gamemode_p,
 				m_gamedata_pEnemy,
 				m_gamedata_pPlayer,
 				ifstream_
@@ -54,15 +52,14 @@ void game::play (
 					m_nSEClickedLast,
 					m_bClickedAButtonJustNow,
 					m_bEdit_sNewAdventureName,
-					m_bInitialized_gamedata_pEnemy,
-					m_bInitialized_gamedata_pPlayer,
+					m_bHaveGameData,
 					m_bPrepared_vec_screenelement_p,
 					m_bShowMainMenuNewGamePageChoice,
 					m_sNewAdventureName,
 					m_font,
 					m_rw,
 					m_gameaction,
-					m_gamemode,
+					m_gamemode_p,
 					m_mainmenupage,
 					m_gamedata_pEnemy,
 					m_gamedata_pPlayer,
@@ -71,9 +68,10 @@ void game::play (
 				break;
 			}
 			case gameaction::Play: {
-				switch (m_gamemode) {
+				switch (*m_gamemode_p) {
 					case gamemode::PokerDuel: {
 						pokerduel::work (
+							m_bHaveGameData,
 							m_bPrepared_vec_screenelement_p,
 							m_font,
 							m_rw,
@@ -99,35 +97,41 @@ void game::play (
 		}
 	}
 	m_rw.close ();
-	if (m_bInitialized_gamedata_pEnemy)
-		delete m_gamedata_pEnemy;
-	if (m_bInitialized_gamedata_pPlayer)
-		delete m_gamedata_pPlayer;
+	if (m_bHaveGameData) {
+		switch (*m_gamemode_p) {
+			case gamemode::PokerDuel: {
+				delete m_gamedata_pEnemy;
+				delete m_gamedata_pPlayer;
+				break;
+			}
+			case gamemode::Adventure: {
+				break;
+			}
+		}
+		delete m_gamemode_p;
+	}
 }
 void game::load (
-	bool& bInitialized_gamedata_pEnemy,
-	bool& bInitialized_gamedata_pPlayer,
-	gamemode& gamemode_,
+	bool& bHaveGameData,
+	gamemode* gamemode_p_,
 	gamedata* gamedata_pEnemy,
 	gamedata* gamedata_pPlayer,
 	std::ifstream& ifstream_
 ) {
 			char* ch_p_ = new char;
 			ifstream_.read (ch_p_, 1);
-			gamemode_ = gamemode (*ch_p_);
+			gamemode_p_ = new gamemode;
+			*gamemode_p_ = gamemode (*ch_p_);
 			delete ch_p_;
-			switch (gamemode_) {
+			switch (*gamemode_p_) {
 				case gamemode::PokerDuel: {
 					gamedata_pEnemy = new gamedata (ifstream_);
-					bInitialized_gamedata_pEnemy = true;
 					gamedata_pPlayer = new gamedata (ifstream_);
-					bInitialized_gamedata_pPlayer = true;
 					break;
 				}
 				case gamemode::Adventure: {
-					gamedata_pPlayer = new gamedata (ifstream_);
-					bInitialized_gamedata_pPlayer = true;
 					break;
 				}
 			}
+			bHaveGameData = true;
 }
