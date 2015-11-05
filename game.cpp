@@ -20,8 +20,10 @@ mainmenupage game::m_mainmenupage = mainmenupage::Splash;
 pokerduelstage game::m_pokerduelstage;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
-intx5 game::m_n5Enemy;
-intx5 game::m_n5Player;
+intx5* game::m_n5_pEnemy;
+intx5* game::m_n5_pEnemyInitial;
+intx5* game::m_n5_pPlayer;
+intx5* game::m_n5_pPlayerInitial;
 std::vector <screenelement*> game::m_vec_screenelement_p;
 void game::play (
 ) {
@@ -79,8 +81,10 @@ void game::play (
 							m_pokerduelstage,
 							m_gamedata_pEnemy,
 							m_gamedata_pPlayer,
-							m_n5Enemy,
-							m_n5Player,
+							m_n5_pEnemy,
+							m_n5_pEnemyInitial,
+							m_n5_pPlayer,
+							m_n5_pPlayerInitial,
 							m_vec_screenelement_p
 						);
 						break;

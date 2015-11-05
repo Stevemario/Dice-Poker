@@ -7,8 +7,10 @@ void pokerduel::work (
 	pokerduelstage& pokerduelstage_,
 	gamedata* gamedata_pEnemy,
 	gamedata* gamedata_pPlayer,
-	intx5& n5Enemy,
-	intx5& n5Player,
+	intx5* n5_pEnemy,
+	intx5* n5_pEnemyInitial,
+	intx5* n5_pPlayer,
+	intx5* n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
@@ -19,8 +21,10 @@ void pokerduel::work (
 			pokerduelstage_,
 			gamedata_pEnemy,
 			gamedata_pPlayer,
-			n5Enemy,
-			n5Player,
+			n5_pEnemy,
+			n5_pEnemyInitial,
+			n5_pPlayer,
+			n5_pPlayerInitial,
 			vec_screenelement_p_
 		);
 		bPrepared_vec_screenelement_p = true;
@@ -36,8 +40,10 @@ void pokerduel::work (
 				pokerduelstage_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				n5Enemy,
-				n5Player,
+				n5_pEnemy,
+				n5_pEnemyInitial,
+				n5_pPlayer,
+				n5_pPlayerInitial,
 				vec_screenelement_p_,
 				bShouldClear_vec_screenelement_p,
 				event_
@@ -54,8 +60,10 @@ void pokerduel::prepare (
 	const pokerduelstage& pokerduelstage_,
 	const gamedata* gamedata_pEnemy,
 	const gamedata* gamedata_pPlayer,
-	const intx5& n5Enemy,
-	const intx5& n5Player,
+	const intx5* n5_pEnemy,
+	const intx5* n5_pEnemyInitial,
+	const intx5* n5_pPlayer,
+	const intx5* n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	switch (pokerduelstage_) {
@@ -82,8 +90,8 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				n5Enemy,
-				n5Player,
+				n5_pEnemy,
+				n5_pPlayer,
 				vec_screenelement_p_
 			);
 			break;
@@ -93,8 +101,8 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				n5Enemy,
-				n5Player,
+				n5_pEnemy,
+				n5_pPlayer,
 				vec_screenelement_p_
 			);
 			break;
@@ -104,8 +112,10 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				n5Enemy,
-				n5Player,
+				n5_pEnemy,
+				n5_pEnemyInitial,
+				n5_pPlayer,
+				n5_pPlayerInitial,
 				vec_screenelement_p_
 			);
 			break;
@@ -117,8 +127,10 @@ void pokerduel::handle (
 	pokerduelstage& pokerduelstage_,
 	gamedata* gamedata_pEnemy,
 	gamedata* gamedata_pPlayer,
-	intx5& n5Enemy,
-	intx5& n5Player,
+	intx5* n5_pEnemy,
+	intx5* n5_pEnemyInitial,
+	intx5* n5_pPlayer,
+	intx5* n5_pPlayerInitial,
 	const std::vector <screenelement*>& vec_screenelement_p_,
 	bool& bShouldClear_vec_screenelement_p,
 	const sf::Event& eventToHandle
@@ -144,8 +156,8 @@ void pokerduel::prepareStage_RollRedo (
 	const sf::Font& font_,
 	const gamedata* gamedata_pEnemy,
 	const gamedata* gamedata_pPlayer,
-	const intx5& n5Enemy,
-	const intx5& n5Player,
+	const intx5* n5_pEnemy,
+	const intx5* n5_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
@@ -153,8 +165,8 @@ void pokerduel::prepareStage_BetRaise (
 	const sf::Font& font_,
 	const gamedata* gamedata_pEnemy,
 	const gamedata* gamedata_pPlayer,
-	const intx5& n5Enemy,
-	const intx5& n5Player,
+	const intx5* n5_pEnemy,
+	const intx5* n5_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }
@@ -162,8 +174,10 @@ void pokerduel::prepareStage_Conclusion (
 	const sf::Font& font_,
 	const gamedata* gamedata_pEnemy,
 	const gamedata* gamedata_pPlayer,
-	const intx5& n5Enemy,
-	const intx5& n5Player,
+	const intx5* n5_pEnemy,
+	const intx5* n5_pEnemyInitial,
+	const intx5* n5_pPlayer,
+	const intx5* n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 }

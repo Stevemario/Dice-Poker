@@ -14,8 +14,10 @@ namespace pokerduel {
 		pokerduelstage&,
 		gamedata*,
 		gamedata*,
-		intx5&,
-		intx5&,
+		intx5*,
+		intx5*,
+		intx5*,
+		intx5*,
 		std::vector <screenelement*>&
 	);
 	void prepare (
@@ -23,8 +25,10 @@ namespace pokerduel {
 		const pokerduelstage&,
 		const gamedata*,
 		const gamedata*,
-		const intx5&,
-		const intx5&,
+		const intx5*,
+		const intx5*,
+		const intx5*,
+		const intx5*,
 		std::vector <screenelement*>&
 	);
 	void handle (
@@ -32,8 +36,10 @@ namespace pokerduel {
 		pokerduelstage&,
 		gamedata*,
 		gamedata*,
-		intx5&,
-		intx5&,
+		intx5*,
+		intx5*,
+		intx5*,
+		intx5*,
 		const std::vector <screenelement*>&,
 		bool&,
 		const sf::Event&
@@ -54,24 +60,26 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*,
 		const gamedata*,
-		const intx5&,
-		const intx5&,
+		const intx5*,
+		const intx5*,
 		std::vector <screenelement*>&
 	);
 	void prepareStage_BetRaise (
 		const sf::Font&,
 		const gamedata*,
 		const gamedata*,
-		const intx5&,
-		const intx5&,
+		const intx5*,
+		const intx5*,
 		std::vector <screenelement*>&
 	);
 	void prepareStage_Conclusion (
 		const sf::Font&,
 		const gamedata*,
 		const gamedata*,
-		const intx5&,
-		const intx5&,
+		const intx5*,
+		const intx5*,
+		const intx5*,
+		const intx5*,
 		std::vector <screenelement*>&
 	);
 }
