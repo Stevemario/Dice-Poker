@@ -21,7 +21,7 @@ namespace game {
 	extern gameaction m_gameaction;
 	extern gamemode* m_gamemode_p;
 	extern mainmenupage m_mainmenupage;
-	extern pokerduelstage m_pokerduelstage;
+	extern pokerduelstage* m_pokerduelstage_p;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;
 	extern intx5* m_n5_pEnemy;

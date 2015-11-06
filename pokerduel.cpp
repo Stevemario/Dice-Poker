@@ -5,7 +5,7 @@ void pokerduel::work (
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
-	pokerduelstage& pokerduelstage_,
+	pokerduelstage*& pokerduelstage_p_,
 	gamedata*& gamedata_pEnemy,
 	gamedata*& gamedata_pPlayer,
 	intx5*& n5_pEnemy,
@@ -17,11 +17,14 @@ void pokerduel::work (
 	bool bShouldClear_vec_screenelement_p = false;
 	sf::Event event_;
 	if (bHaveGameData != true) {
+		pokerduelstage_p_ = new pokerduelstage;
 		gamedata_pEnemy = new gamedata ("Steve's Bot");
 		gamedata_pPlayer = new gamedata ("Player");
+		*pokerduelstage_p_ = pokerduelstage::BetInitial;
 		bHaveGameData = true;
 	}
 	if (bPrepared_vec_screenelement_p != true) {
+		const pokerduelstage* pokerduelstage_p_Const = pokerduelstage_p_;
 		const gamedata* gamedata_pEnemyConst = gamedata_pEnemy;
 		const gamedata* gamedata_pPlayerConst = gamedata_pPlayer;
 		const intx5* n5_pEnemyConst = n5_pEnemy;
@@ -30,7 +33,7 @@ void pokerduel::work (
 		const intx5* n5_pPlayerInitialConst = n5_pPlayerInitial;
 		prepare (
 			font_,
-			pokerduelstage_,
+			pokerduelstage_p_Const,
 			gamedata_pEnemyConst,
 			gamedata_pPlayerConst,
 			n5_pEnemyConst,
@@ -49,7 +52,7 @@ void pokerduel::work (
 		} else {
 			handle (
 				gameaction_,
-				pokerduelstage_,
+				pokerduelstage_p_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
 				n5_pEnemy,
@@ -69,7 +72,7 @@ void pokerduel::work (
 }
 void pokerduel::prepare (
 	const sf::Font& font_,
-	const pokerduelstage& pokerduelstage_,
+	const pokerduelstage*& pokerduelstage_p_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemy,
@@ -78,7 +81,7 @@ void pokerduel::prepare (
 	const intx5*& n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
-	switch (pokerduelstage_) {
+	switch (*pokerduelstage_p_) {
 		case pokerduelstage::BetInitial: {
 			prepareStage_BetInitial (
 				font_,
@@ -136,7 +139,7 @@ void pokerduel::prepare (
 }
 void pokerduel::handle (
 	gameaction& gameaction_,
-	pokerduelstage& pokerduelstage_,
+	pokerduelstage*& pokerduelstage_p_,
 	gamedata*& gamedata_pEnemy,
 	gamedata*& gamedata_pPlayer,
 	intx5*& n5_pEnemy,

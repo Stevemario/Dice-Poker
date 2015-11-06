@@ -16,7 +16,7 @@ sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::MenuMainWork;
 gamemode* game::m_gamemode_p;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
-pokerduelstage game::m_pokerduelstage;
+pokerduelstage* game::m_pokerduelstage_p;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
 intx5* game::m_n5_pEnemy;
@@ -76,7 +76,7 @@ void game::play (
 							m_font,
 							m_rw,
 							m_gameaction,
-							m_pokerduelstage,
+							m_pokerduelstage_p,
 							m_gamedata_pEnemy,
 							m_gamedata_pPlayer,
 							m_n5_pEnemy,
@@ -100,6 +100,7 @@ void game::play (
 	if (m_bHaveGameData) {
 		switch (*m_gamemode_p) {
 			case gamemode::PokerDuel: {
+				delete m_pokerduelstage_p;
 				delete m_gamedata_pEnemy;
 				delete m_gamedata_pPlayer;
 				break;
@@ -122,9 +123,11 @@ void game::load (
 	ifstream_.read (ch_p_, 1);
 	gamemode_p_ = new gamemode;
 	*gamemode_p_ = gamemode (*ch_p_);
-	delete ch_p_;
 	switch (*gamemode_p_) {
 		case gamemode::PokerDuel: {
+			m_pokerduelstage_p = new pokerduelstage;
+			ifstream_.read (ch_p_, 1);
+			*m_pokerduelstage_p = pokerduelstage (*ch_p_);
 			gamedata_pEnemy = new gamedata (ifstream_);
 			gamedata_pPlayer = new gamedata (ifstream_);
 			break;
@@ -133,5 +136,6 @@ void game::load (
 			break;
 		}
 	}
+	delete ch_p_;
 	bHaveGameData = true;
 }

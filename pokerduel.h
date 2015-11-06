@@ -12,7 +12,7 @@ namespace pokerduel {
 		const sf::Font&,
 		sf::RenderWindow&,
 		gameaction&,
-		pokerduelstage&,
+		pokerduelstage*&,
 		gamedata*&,
 		gamedata*&,
 		intx5*&,
@@ -23,7 +23,7 @@ namespace pokerduel {
 	);
 	void prepare (
 		const sf::Font&,
-		const pokerduelstage&,
+		const pokerduelstage*&,
 		const gamedata*&,
 		const gamedata*&,
 		const intx5*&,
@@ -34,7 +34,7 @@ namespace pokerduel {
 	);
 	void handle (
 		gameaction&,
-		pokerduelstage&,
+		pokerduelstage*&,
 		gamedata*&,
 		gamedata*&,
 		intx5*&,
