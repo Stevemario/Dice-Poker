@@ -470,6 +470,7 @@ void menu_main::handle (
 			}
 			*gamemode_p_ = gamemode::PokerDuel;
 			gameaction_ = gameaction::Play;
+			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case screenelement_button_enum::NewAdventure: {
