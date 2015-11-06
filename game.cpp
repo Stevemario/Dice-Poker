@@ -37,6 +37,7 @@ void game::play (
 			load (
 				m_bHaveGameData,
 				m_gamemode_p,
+				m_pokerduelstage_p,
 				m_gamedata_pEnemy,
 				m_gamedata_pPlayer,
 				ifstream_
@@ -114,9 +115,10 @@ void game::play (
 }
 void game::load (
 	bool& bHaveGameData,
-	gamemode* gamemode_p_,
-	gamedata* gamedata_pEnemy,
-	gamedata* gamedata_pPlayer,
+	gamemode*& gamemode_p_,
+	pokerduelstage*& pokerduelstage_p_,
+	gamedata*& gamedata_pEnemy,
+	gamedata*& gamedata_pPlayer,
 	std::ifstream& ifstream_
 ) {
 	char* ch_p_ = new char;
@@ -125,9 +127,9 @@ void game::load (
 	*gamemode_p_ = gamemode (*ch_p_);
 	switch (*gamemode_p_) {
 		case gamemode::PokerDuel: {
-			m_pokerduelstage_p = new pokerduelstage;
+			pokerduelstage_p_ = new pokerduelstage;
 			ifstream_.read (ch_p_, 1);
-			*m_pokerduelstage_p = pokerduelstage (*ch_p_);
+			*pokerduelstage_p_ = pokerduelstage (*ch_p_);
 			gamedata_pEnemy = new gamedata (ifstream_);
 			gamedata_pPlayer = new gamedata (ifstream_);
 			break;

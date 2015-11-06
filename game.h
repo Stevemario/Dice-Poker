@@ -33,9 +33,10 @@ namespace game {
 	);
 	void load (
 		bool&,
-		gamemode*,
-		gamedata*,
-		gamedata*,
+		gamemode*&,
+		pokerduelstage*&,
+		gamedata*&,
+		gamedata*&,
 		std::ifstream&
 	);
 }
