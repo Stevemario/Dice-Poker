@@ -275,7 +275,6 @@ namespace menu_main {
 		bool&,
 		bool&,
 		bool&,
-		const std::string&,
 		gameaction&,
 		gamemode*&,
 		mainmenupage&,
