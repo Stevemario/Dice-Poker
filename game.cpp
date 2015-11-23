@@ -3,6 +3,7 @@
 #include "game.h"
 #include <ctime>
 #include <cstdlib>
+int game::m_nCashInPot;
 int game::m_nSEClickedLast;
 bool game::m_bClickedAButtonJustNow = false;
 bool game::m_bEdit_sNewAdventureName = false;
@@ -72,6 +73,7 @@ void game::play (
 				switch (*m_gamemode_p) {
 					case gamemode::PokerDuel: {
 						pokerduel::work (
+							m_nCashInPot,
 							m_bHaveGameData,
 							m_bPrepared_vec_screenelement_p,
 							m_font,

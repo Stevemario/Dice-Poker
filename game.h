@@ -8,6 +8,7 @@
 #include "mainmenupage.h"
 #include "pokerduelstage.h"
 namespace game {
+	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
 	extern bool m_bClickedAButtonJustNow;
 	extern bool m_bEdit_sNewAdventureName;
