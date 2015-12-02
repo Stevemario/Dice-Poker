@@ -40,8 +40,6 @@ namespace game {
 	void prepareScreenElements (
 	);
 	void handleEvents (
-		bool&,
-		sf::Event&
 	);
 	void shutDown (
 	);

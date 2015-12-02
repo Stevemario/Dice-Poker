@@ -30,14 +30,12 @@ void game::play (
 ) {
 	startUp ();
 	while (m_gameaction != gameaction::Exit) {
-		bool bShouldClear_vec_screenelement_p = false;
-		sf::Event event_;
 		m_rw.clear (sf::Color::Green);
 		prepareData ();
 		prepareScreenElements ();
 		draw (m_vec_screenelement_p, m_rw);
 		m_rw.display ();
-		handleEvents (bShouldClear_vec_screenelement_p, event_);
+		handleEvents ();
 	}
 	shutDown ();
 }
@@ -136,9 +134,9 @@ void game::prepareScreenElements (
 	}
 }
 void game::handleEvents (
-	bool& bShouldClear_vec_screenelement_p,
-	sf::Event& event_
 ) {
+	bool bShouldClear_vec_screenelement_p = false;
+	sf::Event event_;
 	while (m_rw.pollEvent (event_)) {
 		if (bShouldClear_vec_screenelement_p) {
 			//DO NOTHING.  Event is void and event queue must be cleared.
