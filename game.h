@@ -51,5 +51,16 @@ namespace game {
 		gamedata*&,
 		std::ifstream&
 	);
+	void handleMousePress (
+		sf::Event&
+	);
+	void handleMouseRelease (
+		bool&,
+		sf::Event&
+	);
+	void handleTextEntered (
+		bool&,
+		sf::Event&
+	);
 }
 #endif

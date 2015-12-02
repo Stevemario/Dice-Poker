@@ -136,55 +136,28 @@ void game::prepareScreenElements (
 void game::handleEvents (
 ) {
 	bool bShouldClear_vec_screenelement_p = false;
-	sf::Event event_;
-	while (m_rw.pollEvent (event_)) {
+	sf::Event eventToHandle;
+	while (m_rw.pollEvent (eventToHandle)) {
 		if (bShouldClear_vec_screenelement_p) {
 			//DO NOTHING.  Event is void and event queue must be cleared.
 		} else {
-			switch (m_gameaction) {
-				case gameaction::WorkMainMenu: {
-					menu_main::handle (
-						m_nSEClickedLast,
-						m_bClickedAButtonJustNow,
-						m_bEditAString,
-						m_bHaveGameData,
-						m_bShowMainMenuNewGamePageChoice,
-						m_sNewAdventureName,
-						m_s_pToEdit,
-						m_gameaction,
-						m_gamemode_p,
-						m_mainmenupage,
-						m_gamedata_pEnemy,
-						m_gamedata_pPlayer,
-						m_vec_screenelement_p,
-						bShouldClear_vec_screenelement_p,
-						event_
-					);
+			sf::Event::EventType eventtypeToHandle = eventToHandle.type;
+			switch (eventtypeToHandle) {
+				case sf::Event::Closed: {
+					m_gameaction = gameaction::Exit;
+					bShouldClear_vec_screenelement_p = true;
 					break;
 				}
-				case gameaction::Play: {
-					switch (*m_gamemode_p) {
-						case gamemode::PokerDuel: {
-							pokerduel::handle (
-								m_gameaction,
-								m_pokerduelstage_p,
-								m_gamedata_pEnemy,
-								m_gamedata_pPlayer,
-								m_n5_pEnemy,
-								m_n5_pEnemyInitial,
-								m_n5_pPlayer,
-								m_n5_pPlayerInitial,
-								m_vec_screenelement_p,
-								bShouldClear_vec_screenelement_p,
-								event_
-							);
-							break;
-						}
-						case gamemode::Adventure: {
-							m_gameaction = gameaction::Exit; //WILL DO LATER
-							break;
-						}
-					}
+				case sf::Event::MouseButtonPressed: {
+					handleMousePress (eventToHandle);
+					break;
+				}
+				case sf::Event::MouseButtonReleased: {
+					handleMouseRelease (bShouldClear_vec_screenelement_p, eventToHandle);
+					break;
+				}
+				case sf::Event::TextEntered: {
+					handleTextEntered (bShouldClear_vec_screenelement_p, eventToHandle);
 					break;
 				}
 			}
@@ -240,4 +213,103 @@ void game::load (
 	}
 	delete ch_p_;
 	bHaveGameData = true;
+}
+void game::handleMousePress (
+	sf::Event& eventToHandle
+) {
+	sf::Event::MouseButtonEvent mbe_ = eventToHandle.mouseButton;
+	screenelement* se_p_;
+	unsigned int nAmountOfElements = m_vec_screenelement_p.size ();
+	int nElementIndex = nAmountOfElements - 1;
+	bool bFoundElementClicked = false;
+	bool bShouldLoop = (nAmountOfElements != 0);
+	m_bEditAString = false;
+	while (bShouldLoop) {
+		bShouldLoop = false;
+		se_p_ = m_vec_screenelement_p[nElementIndex];
+		if (se_p_->bClicked (mbe_)) {
+			bFoundElementClicked = true;
+			m_nSEClickedLast = nElementIndex;
+			screenelement_enum se_e_ = se_p_->screenelement_enum_ ();
+			switch (se_e_) {
+				case screenelement_enum::Button: {
+					switch (m_gameaction) {
+						case gameaction::WorkMainMenu: {
+							menu_main::screenelement_button* se_btn_p_ = dynamic_cast <menu_main::screenelement_button*> (se_p_);
+							se_btn_p_->set_bIsHeldDown (true);
+							break;
+						}
+					}
+					m_bClickedAButtonJustNow = true;
+					break;
+				}
+			}
+		}
+		if (bFoundElementClicked != true) {
+			nElementIndex--;
+			if (0 <= nElementIndex)
+				bShouldLoop = true;
+		}
+	}
+}
+void game::handleMouseRelease (
+	bool& bShouldClear_vec_screenelement_p,
+	sf::Event& eventToHandle
+) {
+	if (m_bClickedAButtonJustNow) {
+		sf::Event::MouseButtonEvent mbe_ = eventToHandle.mouseButton;
+		screenelement* se_p_ = m_vec_screenelement_p[m_nSEClickedLast];
+		if (se_p_->bClicked (mbe_)) {
+			screenelement_enum se_e_ = se_p_->screenelement_enum_ ();
+			switch (se_e_) {
+				case screenelement_enum::Button: {
+					switch (m_gameaction) {
+						case gameaction::WorkMainMenu: {
+							menu_main::screenelement_button* se_btn_p_ = dynamic_cast <menu_main::screenelement_button*> (se_p_);
+							menu_main::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
+							se_btn_p_->set_bIsHeldDown (false);
+							menu_main::handle (
+								m_bEditAString,
+								m_bHaveGameData,
+								m_bShowMainMenuNewGamePageChoice,
+								m_sNewAdventureName,
+								m_s_pToEdit,
+								m_gameaction,
+								m_gamemode_p,
+								m_mainmenupage,
+								m_gamedata_pEnemy,
+								m_gamedata_pPlayer,
+								bShouldClear_vec_screenelement_p,
+								se_btn_e_
+							);
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+	m_bClickedAButtonJustNow = false;
+}
+void game::handleTextEntered (
+	bool& bShouldClear_vec_screenelement_p,
+	sf::Event& eventToHandle
+) {
+	if (m_bEditAString) {
+		char chInput = eventToHandle.text.unicode;
+		if (chInput < 128) {
+			if (chInput == 8) { //Backspace
+				if(m_s_pToEdit->size () > 0) {
+					m_s_pToEdit->pop_back ();
+					bShouldClear_vec_screenelement_p = true;
+				}
+			} else if (chInput == 13) { //Enter
+				//Maybe use later.
+			} else if (isalpha (chInput)) {
+				m_s_pToEdit->operator+= (chInput);
+				bShouldClear_vec_screenelement_p = true;
+			}
+		}
+	}
 }
