@@ -6,7 +6,7 @@
 int game::m_nCashInPot;
 int game::m_nSEClickedLast;
 bool game::m_bClickedAButtonJustNow = false;
-bool game::bEditAString = false;
+bool game::m_bEditAString = false;
 bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
@@ -146,7 +146,7 @@ void game::handleEvents (
 					menu_main::handle (
 						m_nSEClickedLast,
 						m_bClickedAButtonJustNow,
-						bEditAString,
+						m_bEditAString,
 						m_bHaveGameData,
 						m_bShowMainMenuNewGamePageChoice,
 						m_sNewAdventureName,

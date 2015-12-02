@@ -11,7 +11,7 @@ namespace game {
 	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
 	extern bool m_bClickedAButtonJustNow;
-	extern bool bEditAString;
+	extern bool m_bEditAString;
 	extern bool m_bHaveGameData;
 	extern bool m_bPrepared_vec_screenelement_p;
 	extern bool m_bShowMainMenuNewGamePageChoice;
