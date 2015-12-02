@@ -6,24 +6,6 @@
 #include "gamemode.h"
 #include "mainmenupage.h"
 namespace menu_main {
-	void work (
-		int&,
-		bool&,
-		bool&,
-		bool&,
-		bool&,
-		bool&,
-		std::string&,
-		std::string*&,
-		const sf::Font&,
-		sf::RenderWindow&,
-		gameaction&,
-		gamemode*&,
-		mainmenupage&,
-		gamedata*&,
-		gamedata*&,
-		std::vector <screenelement*>&
-	);
 	void prepare (
 		const bool&,
 		const bool&,

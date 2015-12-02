@@ -49,55 +49,133 @@ void game::play (
 	}
 	while (m_gameaction != gameaction::Exit) {
 		m_rw.clear (sf::Color::Green);
-		switch (m_gameaction) {
-			case gameaction::WorkMainMenu: {
-				menu_main::work (
-					m_nSEClickedLast,
-					m_bClickedAButtonJustNow,
-					bEditAString,
-					m_bHaveGameData,
-					m_bPrepared_vec_screenelement_p,
-					m_bShowMainMenuNewGamePageChoice,
-					m_sNewAdventureName,
-					m_s_pToEdit,
-					m_font,
-					m_rw,
-					m_gameaction,
-					m_gamemode_p,
-					m_mainmenupage,
-					m_gamedata_pEnemy,
-					m_gamedata_pPlayer,
-					m_vec_screenelement_p
-				);
-				break;
-			}
-			case gameaction::Play: {
+		bool bShouldClear_vec_screenelement_p = false;
+		sf::Event event_;
+		if (m_gameaction == gameaction::Play) {
+			if (m_bHaveGameData != true) {
 				switch (*m_gamemode_p) {
 					case gamemode::PokerDuel: {
-						pokerduel::work (
-							m_nCashInPot,
-							m_bHaveGameData,
-							m_bPrepared_vec_screenelement_p,
-							m_font,
-							m_rw,
-							m_gameaction,
-							m_pokerduelstage_p,
-							m_gamedata_pEnemy,
-							m_gamedata_pPlayer,
-							m_n5_pEnemy,
-							m_n5_pEnemyInitial,
-							m_n5_pPlayer,
-							m_n5_pPlayerInitial,
-							m_vec_screenelement_p
-						);
+						m_nCashInPot = 0;
+						m_pokerduelstage_p = new pokerduelstage;
+						m_gamedata_pEnemy = new gamedata ("Steve's Bot");
+						m_gamedata_pPlayer = new gamedata ("Player");
+						*m_pokerduelstage_p = pokerduelstage::BetInitial;
+						m_bHaveGameData = true;
 						break;
 					}
 					case gamemode::Adventure: {
-						m_gameaction = gameaction::Exit; //WILL DO LATER
+						//WILL DO LATER
 						break;
 					}
 				}
-				break;
+			}
+		}
+		if (m_bPrepared_vec_screenelement_p != true) {
+			switch (m_gameaction) {
+				case gameaction::WorkMainMenu: {
+					const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
+					menu_main::prepare (
+						m_bHaveGameData,
+						m_bShowMainMenuNewGamePageChoice,
+						m_sNewAdventureName,
+						m_font,
+						m_mainmenupage,
+						gamedata_pPlayerConst,
+						m_vec_screenelement_p
+					);
+					break;
+				}
+				case gameaction::Play: {
+					switch (*m_gamemode_p) {
+						case gamemode::PokerDuel: {
+							const pokerduelstage* pokerduelstage_p_Const = m_pokerduelstage_p;
+							const gamedata* gamedata_pEnemyConst = m_gamedata_pEnemy;
+							const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
+							const intx5* n5_pEnemyConst = m_n5_pEnemy;
+							const intx5* n5_pEnemyInitialConst = m_n5_pEnemyInitial;
+							const intx5* n5_pPlayerConst = m_n5_pPlayer;
+							const intx5* n5_pPlayerInitialConst = m_n5_pPlayerInitial;
+							pokerduel::prepare (
+								m_nCashInPot,
+								m_font,
+								pokerduelstage_p_Const,
+								gamedata_pEnemyConst,
+								gamedata_pPlayerConst,
+								n5_pEnemyConst,
+								n5_pEnemyInitialConst,
+								n5_pPlayerConst,
+								n5_pPlayerInitialConst,
+								m_vec_screenelement_p
+							);
+							break;
+						}
+						case gamemode::Adventure: {
+							//WILL DO LATER
+							break;
+						}
+					}
+					break;
+				}
+			}
+			m_bPrepared_vec_screenelement_p = true;
+		}
+		draw (m_vec_screenelement_p, m_rw);
+		m_rw.display ();
+		while (m_rw.pollEvent (event_)) {
+			if (bShouldClear_vec_screenelement_p) {
+				//DO NOTHING.  Event is void and event queue must be cleared.
+			} else {
+				switch (m_gameaction) {
+					case gameaction::WorkMainMenu: {
+						menu_main::handle (
+							m_nSEClickedLast,
+							m_bClickedAButtonJustNow,
+							bEditAString,
+							m_bHaveGameData,
+							m_bShowMainMenuNewGamePageChoice,
+							m_sNewAdventureName,
+							m_s_pToEdit,
+							m_gameaction,
+							m_gamemode_p,
+							m_mainmenupage,
+							m_gamedata_pEnemy,
+							m_gamedata_pPlayer,
+							m_vec_screenelement_p,
+							bShouldClear_vec_screenelement_p,
+							event_
+						);
+						break;
+					}
+					case gameaction::Play: {
+						switch (*m_gamemode_p) {
+							case gamemode::PokerDuel: {
+								pokerduel::handle (
+									m_gameaction,
+									m_pokerduelstage_p,
+									m_gamedata_pEnemy,
+									m_gamedata_pPlayer,
+									m_n5_pEnemy,
+									m_n5_pEnemyInitial,
+									m_n5_pPlayer,
+									m_n5_pPlayerInitial,
+									m_vec_screenelement_p,
+									bShouldClear_vec_screenelement_p,
+									event_
+								);
+								break;
+							}
+							case gamemode::Adventure: {
+								m_gameaction = gameaction::Exit; //WILL DO LATER
+								break;
+							}
+						}
+						break;
+					}
+				}
+				if (bShouldClear_vec_screenelement_p) {
+					clear (m_vec_screenelement_p);
+					m_bPrepared_vec_screenelement_p = false;
+				}
 			}
 		}
 	}

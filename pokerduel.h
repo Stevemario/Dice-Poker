@@ -6,22 +6,6 @@
 #include "gameaction.h"
 #include "pokerduelstage.h"
 namespace pokerduel {
-	void work (
-		int&,
-		bool&,
-		bool&,
-		const sf::Font&,
-		sf::RenderWindow&,
-		gameaction&,
-		pokerduelstage*&,
-		gamedata*&,
-		gamedata*&,
-		intx5*&,
-		intx5*&,
-		intx5*&,
-		intx5*&,
-		std::vector <screenelement*>&
-	);
 	void prepare (
 		const int&,
 		const sf::Font&,
