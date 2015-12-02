@@ -18,19 +18,6 @@ namespace pokerduel {
 		const intx5*&,
 		std::vector <screenelement*>&
 	);
-	void handle (
-		gameaction&,
-		pokerduelstage*&,
-		gamedata*&,
-		gamedata*&,
-		intx5*&,
-		intx5*&,
-		intx5*&,
-		intx5*&,
-		const std::vector <screenelement*>&,
-		bool&,
-		const sf::Event&
-	);
 	void prepareStage_BetInitial (
 		const int&,
 		const sf::Font&,

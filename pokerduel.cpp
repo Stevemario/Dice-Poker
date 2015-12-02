@@ -68,22 +68,6 @@ void pokerduel::prepare (
 		}
 	}
 }
-void pokerduel::handle (
-	gameaction& gameaction_,
-	pokerduelstage*& pokerduelstage_p_,
-	gamedata*& gamedata_pEnemy,
-	gamedata*& gamedata_pPlayer,
-	intx5*& n5_pEnemy,
-	intx5*& n5_pEnemyInitial,
-	intx5*& n5_pPlayer,
-	intx5*& n5_pPlayerInitial,
-	const std::vector <screenelement*>& vec_screenelement_p_,
-	bool& bShouldClear_vec_screenelement_p,
-	const sf::Event& eventToHandle
-) {
-	gameaction_ = gameaction::Exit; //TODO
-	bShouldClear_vec_screenelement_p = true;
-}
 void pokerduel::prepareStage_BetInitial (
 	const int& nCashInPot,
 	const sf::Font& font_,

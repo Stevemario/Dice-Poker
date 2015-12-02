@@ -15,23 +15,6 @@ namespace menu_main {
 		const gamedata*&,
 		std::vector <screenelement*>&
 	);
-	void handle (
-		int&,
-		bool&,
-		bool&,
-		bool&,
-		bool&,
-		std::string&,
-		std::string*&,
-		gameaction&,
-		gamemode*&,
-		mainmenupage&,
-		gamedata*&,
-		gamedata*&,
-		const std::vector <screenelement*>&,
-		bool&,
-		const sf::Event&
-	);
 	void addButtonsPageSwitching (
 		const sf::Font&,
 		std::vector <screenelement*>&
