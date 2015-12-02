@@ -33,6 +33,18 @@ namespace game {
 	extern std::vector <screenelement*> m_vec_screenelement_p;
 	void play (
 	);
+	void startUp (
+	);
+	void prepareData (
+	);
+	void prepareScreenElements (
+	);
+	void handleEvents (
+		bool&,
+		sf::Event&
+	);
+	void shutDown (
+	);
 	void load (
 		bool&,
 		gamemode*&,
