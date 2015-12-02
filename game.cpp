@@ -30,9 +30,9 @@ void game::play (
 ) {
 	startUp ();
 	while (m_gameaction != gameaction::Exit) {
-		m_rw.clear (sf::Color::Green);
 		bool bShouldClear_vec_screenelement_p = false;
 		sf::Event event_;
+		m_rw.clear (sf::Color::Green);
 		prepareData ();
 		prepareScreenElements ();
 		draw (m_vec_screenelement_p, m_rw);
