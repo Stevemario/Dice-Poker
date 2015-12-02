@@ -184,19 +184,20 @@ void menu_main::handle (
 		case sf::Event::TextEntered: {
 			if (bEdit_sNewAdventureName) {
 				char chInput = eventToHandle.text.unicode;
-				if(chInput < 128) {
-					if(chInput == 8) { //Backspace
-						if(sNewAdventureName.size() > 0) {
-							sNewAdventureName.pop_back();
+				if (chInput < 128) {
+					if (chInput == 8) { //Backspace
+						if(sNewAdventureName.size () > 0) {
+							sNewAdventureName.pop_back ();
 							bShouldClear_vec_screenelement_p = true;
 						}
-					} else if(chInput == 13) { //Enter
+					} else if (chInput == 13) { //Enter
 						//Maybe use later.
-					} else if(isalpha(chInput)) {
+					} else if (isalpha (chInput)) {
 						sNewAdventureName += chInput;
 						bShouldClear_vec_screenelement_p = true;
 					}
-				}			}
+				}
+			}
 			break;
 		}
 	}
