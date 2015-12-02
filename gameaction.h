@@ -2,7 +2,7 @@
 #define GAMEACTION_H
 enum class gameaction {
 	Exit,
-	MenuMainWork,
+	WorkMainMenu,
 	Play,
 };
 #endif

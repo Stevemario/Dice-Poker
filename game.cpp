@@ -14,7 +14,7 @@ std::string game::m_sNewAdventureName = "TEST";
 std::string game::m_sSaveSpot = "default save.txt";
 sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
-gameaction game::m_gameaction = gameaction::MenuMainWork;
+gameaction game::m_gameaction = gameaction::WorkMainMenu;
 gamemode* game::m_gamemode_p;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
 pokerduelstage* game::m_pokerduelstage_p;
@@ -49,7 +49,7 @@ void game::play (
 	while (m_gameaction != gameaction::Exit) {
 		m_rw.clear (sf::Color::Green);
 		switch (m_gameaction) {
-			case gameaction::MenuMainWork: {
+			case gameaction::WorkMainMenu: {
 				menu_main::work (
 					m_nSEClickedLast,
 					m_bClickedAButtonJustNow,
