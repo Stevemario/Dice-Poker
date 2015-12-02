@@ -2,11 +2,12 @@
 void menu_main::work (
 	int& nSEClickedLast,
 	bool& bClickedAButtonJustNow,
-	bool& bEdit_sNewAdventureName,
+	bool& bEditAString,
 	bool& bHaveGameData,
 	bool& bPrepared_vec_screenelement_p,
 	bool& bShowMainMenuNewGamePageChoice,
 	std::string& sNewAdventureName,
+	std::string*& s_pToEdit,
 	const sf::Font& font_,
 	sf::RenderWindow& rw_,
 	gameaction& gameaction_,
@@ -40,10 +41,11 @@ void menu_main::work (
 			handle (
 				nSEClickedLast,
 				bClickedAButtonJustNow,
-				bEdit_sNewAdventureName,
+				bEditAString,
 				bHaveGameData,
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
+				s_pToEdit,
 				gameaction_,
 				gamemode_p_,
 				mainmenupage_,
@@ -98,10 +100,11 @@ void menu_main::prepare (
 void menu_main::handle (
 	int& nSEClickedLast,
 	bool& bClickedAButtonJustNow,
-	bool& bEdit_sNewAdventureName,
+	bool& bEditAString,
 	bool& bHaveGameData,
 	bool& bShowMainMenuNewGamePageChoice,
 	std::string& sNewAdventureName,
+	std::string*& s_pToEdit,
 	gameaction& gameaction_,
 	gamemode*& gamemode_p_,
 	mainmenupage& mainmenupage_,
@@ -125,7 +128,7 @@ void menu_main::handle (
 			int nElementIndex = nAmountOfElements - 1;
 			bool bFoundElementClicked = false;
 			bool bShouldLoop = (nAmountOfElements != 0);
-			bEdit_sNewAdventureName = false;
+			bEditAString = false;
 			while (bShouldLoop) {
 				bShouldLoop = false;
 				se_p_ = vec_screenelement_p_[nElementIndex];
@@ -162,9 +165,11 @@ void menu_main::handle (
 							screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 							se_btn_p_->set_bIsHeldDown (false);
 							handle (
-								bEdit_sNewAdventureName,
+								bEditAString,
 								bHaveGameData,
 								bShowMainMenuNewGamePageChoice,
+								sNewAdventureName,
+								s_pToEdit,
 								gameaction_,
 								gamemode_p_,
 								mainmenupage_,
@@ -182,18 +187,18 @@ void menu_main::handle (
 			break;
 		}
 		case sf::Event::TextEntered: {
-			if (bEdit_sNewAdventureName) {
+			if (bEditAString) {
 				char chInput = eventToHandle.text.unicode;
 				if (chInput < 128) {
 					if (chInput == 8) { //Backspace
-						if(sNewAdventureName.size () > 0) {
-							sNewAdventureName.pop_back ();
+						if(s_pToEdit->size () > 0) {
+							s_pToEdit->pop_back ();
 							bShouldClear_vec_screenelement_p = true;
 						}
 					} else if (chInput == 13) { //Enter
 						//Maybe use later.
 					} else if (isalpha (chInput)) {
-						sNewAdventureName += chInput;
+						s_pToEdit->operator+= (chInput);
 						bShouldClear_vec_screenelement_p = true;
 					}
 				}
@@ -374,9 +379,11 @@ void menu_main::addPageNewGame (
 	}
 }
 void menu_main::handle (
-	bool& bEdit_sNewAdventureName,
+	bool& bEditAString,
 	bool& bHaveGameData,
 	bool& bShowMainMenuNewGamePageChoice,
+	std::string& sNewAdventureName,
+	std::string*& s_pToEdit,
 	gameaction& gameaction_,
 	gamemode*& gamemode_p_,
 	mainmenupage& mainmenupage_,
@@ -483,7 +490,8 @@ void menu_main::handle (
 			break;
 		}
 		case screenelement_button_enum::NewAdventureName: {
-			bEdit_sNewAdventureName = true;
+			s_pToEdit = &sNewAdventureName;
+			bEditAString = true;
 			break;
 		}
 	}

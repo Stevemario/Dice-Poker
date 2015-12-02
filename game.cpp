@@ -6,12 +6,13 @@
 int game::m_nCashInPot;
 int game::m_nSEClickedLast;
 bool game::m_bClickedAButtonJustNow = false;
-bool game::m_bEdit_sNewAdventureName = false;
+bool game::bEditAString = false;
 bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
 std::string game::m_sNewAdventureName = "TEST";
 std::string game::m_sSaveSpot = "default save.txt";
+std::string* game::m_s_pToEdit;
 sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::WorkMainMenu;
@@ -53,11 +54,12 @@ void game::play (
 				menu_main::work (
 					m_nSEClickedLast,
 					m_bClickedAButtonJustNow,
-					m_bEdit_sNewAdventureName,
+					bEditAString,
 					m_bHaveGameData,
 					m_bPrepared_vec_screenelement_p,
 					m_bShowMainMenuNewGamePageChoice,
 					m_sNewAdventureName,
+					m_s_pToEdit,
 					m_font,
 					m_rw,
 					m_gameaction,

@@ -11,12 +11,13 @@ namespace game {
 	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
 	extern bool m_bClickedAButtonJustNow;
-	extern bool m_bEdit_sNewAdventureName;
+	extern bool bEditAString;
 	extern bool m_bHaveGameData;
 	extern bool m_bPrepared_vec_screenelement_p;
 	extern bool m_bShowMainMenuNewGamePageChoice;
 	extern std::string m_sNewAdventureName;
 	extern std::string m_sSaveSpot;
+	extern std::string* m_s_pToEdit;
 	extern sf::Font m_font;
 	extern sf::RenderWindow m_rw;
 	extern gameaction m_gameaction;
