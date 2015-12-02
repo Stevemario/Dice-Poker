@@ -250,7 +250,7 @@ namespace mainmenu {
 		gamedata*&,
 		gamedata*&,
 		bool&,
-		screenelement_button_enum
+		const screenelement_button_enum&
 	);
 }
 #endif

@@ -217,7 +217,7 @@ void mainmenu::handle (
 	gamedata*& gamedata_pEnemy,
 	gamedata*& gamedata_pPlayer,
 	bool& bShouldClear_vec_screenelement_p,
-	screenelement_button_enum screenelement_button_enumToHandle
+	const screenelement_button_enum& screenelement_button_enumToHandle
 ) {
 	switch (screenelement_button_enumToHandle) {
 		case screenelement_button_enum::Exit: {
