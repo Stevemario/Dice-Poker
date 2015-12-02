@@ -5,7 +5,7 @@
 #include "gameaction.h"
 #include "gamemode.h"
 #include "mainmenupage.h"
-namespace menu_main {
+namespace mainmenu {
 	void prepare (
 		const bool&,
 		const bool&,

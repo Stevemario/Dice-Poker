@@ -87,7 +87,7 @@ void game::prepareScreenElements (
 		switch (m_gameaction) {
 			case gameaction::WorkMainMenu: {
 				const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
-				menu_main::prepare (
+				mainmenu::prepare (
 					m_bHaveGameData,
 					m_bShowMainMenuNewGamePageChoice,
 					m_sNewAdventureName,
@@ -235,7 +235,7 @@ void game::handleMousePress (
 				case screenelement_enum::Button: {
 					switch (m_gameaction) {
 						case gameaction::WorkMainMenu: {
-							menu_main::screenelement_button* se_btn_p_ = dynamic_cast <menu_main::screenelement_button*> (se_p_);
+							mainmenu::screenelement_button* se_btn_p_ = dynamic_cast <mainmenu::screenelement_button*> (se_p_);
 							se_btn_p_->set_bIsHeldDown (true);
 							break;
 						}
@@ -265,10 +265,10 @@ void game::handleMouseRelease (
 				case screenelement_enum::Button: {
 					switch (m_gameaction) {
 						case gameaction::WorkMainMenu: {
-							menu_main::screenelement_button* se_btn_p_ = dynamic_cast <menu_main::screenelement_button*> (se_p_);
-							menu_main::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
+							mainmenu::screenelement_button* se_btn_p_ = dynamic_cast <mainmenu::screenelement_button*> (se_p_);
+							mainmenu::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 							se_btn_p_->set_bIsHeldDown (false);
-							menu_main::handle (
+							mainmenu::handle (
 								m_bEditAString,
 								m_bHaveGameData,
 								m_bShowMainMenuNewGamePageChoice,
