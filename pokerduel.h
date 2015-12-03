@@ -8,6 +8,7 @@
 namespace pokerduel {
 	void prepare (
 		const int&,
+		const std::string&,
 		const sf::Font&,
 		const pokerduelstage*&,
 		const gamedata*&,
@@ -20,6 +21,7 @@ namespace pokerduel {
 	);
 	void prepareStage_BetInitial (
 		const int&,
+		const std::string&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
@@ -71,6 +73,7 @@ namespace pokerduel {
 		HeaderCashEnemy,
 		HeaderCashPlayer,
 		HeaderCashPot,
+		HeaderPromptBet,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_header_name_enemy : public screenelement_label {
@@ -118,6 +121,33 @@ namespace pokerduel {
 		public: screenelement_label_header_cash_pot (
 			const sf::Font&,
 			const int&
+		);
+	};
+	class screenelement_label_header_prompt_bet : public screenelement_label {
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_prompt_bet (
+			const sf::Font&
+		);
+	};
+	enum class screenelement_button_enum {
+		BetAmount,
+		BetSubmit,
+	};
+	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
+	class screenelement_button_bet_amount : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_bet_amount (
+			const std::string&,
+			const sf::Font&
+		);
+	};
+	class screenelement_button_bet_submit : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_bet_submit (
+			const sf::Font&
 		);
 	};
 }

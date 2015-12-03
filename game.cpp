@@ -10,6 +10,7 @@ bool game::m_bEditAString = false;
 bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
+std::string game::m_sBetAmount = "0";
 std::string game::m_sNewAdventureName = "TEST";
 std::string game::m_sSaveSpot = "default save.txt";
 std::string* game::m_s_pToEdit;
@@ -110,6 +111,7 @@ void game::prepareScreenElements (
 						const intx5* n5_pPlayerInitialConst = m_n5_pPlayerInitial;
 						pokerduel::prepare (
 							m_nCashInPot,
+							m_sBetAmount,
 							m_font,
 							pokerduelstage_p_Const,
 							gamedata_pEnemyConst,
