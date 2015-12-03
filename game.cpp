@@ -239,10 +239,21 @@ void game::handleMousePress (
 						case gameaction::WorkMainMenu: {
 							mainmenu::screenelement_button* se_btn_p_ = dynamic_cast <mainmenu::screenelement_button*> (se_p_);
 							se_btn_p_->set_bIsHeldDown (true);
+							m_bClickedAButtonJustNow = true;
+							break;
+						}
+						case gameaction::Play: {
+							switch (*m_gamemode_p) {
+								case gamemode::PokerDuel: {
+									pokerduel::screenelement_button* se_btn_p_ = dynamic_cast <pokerduel::screenelement_button*> (se_p_);
+									se_btn_p_->set_bIsHeldDown (true);
+									m_bClickedAButtonJustNow = true;
+									break;
+								}
+							}
 							break;
 						}
 					}
-					m_bClickedAButtonJustNow = true;
 					break;
 				}
 			}
@@ -284,6 +295,17 @@ void game::handleMouseRelease (
 								bShouldClear_vec_screenelement_p,
 								se_btn_e_
 							);
+							break;
+						}
+						case gameaction::Play: {
+							switch (*m_gamemode_p) {
+								case gamemode::PokerDuel: {
+									pokerduel::screenelement_button* se_btn_p_ = dynamic_cast <pokerduel::screenelement_button*> (se_p_);
+									pokerduel::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
+									se_btn_p_->set_bIsHeldDown (false);
+									break;
+								}
+							}
 							break;
 						}
 					}
