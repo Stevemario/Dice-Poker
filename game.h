@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+#include "mainmenu.h"
 #include "screenelement.h"
 #include "diceset.h"
 #include "gamedata.h"
@@ -62,6 +63,12 @@ namespace game {
 	void handleTextEntered (
 		bool&,
 		sf::Event&
+	);
+	void handle (
+		bool&,
+		const mainmenu::screenelement_button_enum&
+	);
+	void deleteGameData (
 	);
 }
 #endif

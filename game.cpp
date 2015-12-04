@@ -1,4 +1,3 @@
-#include "mainmenu.h"
 #include "pokerduel.h"
 #include "game.h"
 #include <ctime>
@@ -174,18 +173,7 @@ void game::shutDown (
 ) {
 	m_rw.close ();
 	if (m_bHaveGameData) {
-		switch (*m_gamemode_p) {
-			case gamemode::PokerDuel: {
-				delete m_pokerduelstage_p;
-				delete m_gamedata_pEnemy;
-				delete m_gamedata_pPlayer;
-				break;
-			}
-			case gamemode::Adventure: {
-				break;
-			}
-		}
-		delete m_gamemode_p;
+		deleteGameData ();
 	}
 }
 void game::load (
@@ -281,17 +269,7 @@ void game::handleMouseRelease (
 							mainmenu::screenelement_button* se_btn_p_ = dynamic_cast <mainmenu::screenelement_button*> (se_p_);
 							mainmenu::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 							se_btn_p_->set_bIsHeldDown (false);
-							mainmenu::handle (
-								m_bEditAString,
-								m_bHaveGameData,
-								m_bShowMainMenuNewGamePageChoice,
-								m_sNewAdventureName,
-								m_s_pToEdit,
-								m_gameaction,
-								m_gamemode_p,
-								m_mainmenupage,
-								m_gamedata_pEnemy,
-								m_gamedata_pPlayer,
+							handle (
 								bShouldClear_vec_screenelement_p,
 								se_btn_e_
 							);
@@ -336,4 +314,117 @@ void game::handleTextEntered (
 			}
 		}
 	}
+}
+void game::handle (
+	bool& bShouldClear_vec_screenelement_p,
+	const mainmenu::screenelement_button_enum& screenelement_button_enumToHandle
+) {
+	switch (screenelement_button_enumToHandle) {
+		case mainmenu::screenelement_button_enum::Exit: {
+			m_gameaction = gameaction::Exit;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::Adjust: {
+			if (m_mainmenupage != mainmenupage::Adjust) {
+				m_mainmenupage = mainmenupage::Adjust;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case mainmenu::screenelement_button_enum::Accredit: {
+			if (m_mainmenupage != mainmenupage::Accredit) {
+				m_mainmenupage = mainmenupage::Accredit;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case mainmenu::screenelement_button_enum::Play: {
+			if (m_bHaveGameData) {
+				m_gameaction = gameaction::Play;
+			} else {
+				if (m_mainmenupage == mainmenupage::NewGame) {
+					m_gamemode_p = new gamemode;
+					if (m_bShowMainMenuNewGamePageChoice)
+						*m_gamemode_p = gamemode::PokerDuel;
+					else
+						*m_gamemode_p = gamemode::Adventure;
+					m_gameaction = gameaction::Play;
+				} else {
+					m_mainmenupage = mainmenupage::NewGame;
+				}
+			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::NewGame: {
+			if (m_mainmenupage != mainmenupage::NewGame) {
+				m_mainmenupage = mainmenupage::NewGame;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case mainmenu::screenelement_button_enum::Save: {
+			if (m_mainmenupage != mainmenupage::Save) {
+				m_mainmenupage = mainmenupage::Save;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case mainmenu::screenelement_button_enum::Load: {
+			if (m_mainmenupage != mainmenupage::Load) {
+				m_mainmenupage = mainmenupage::Load;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case mainmenu::screenelement_button_enum::Review: {
+			if (m_mainmenupage != mainmenupage::Review) {
+				m_mainmenupage = mainmenupage::Review;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
+		case mainmenu::screenelement_button_enum::NewQuickGame: {
+			if (m_bHaveGameData) {
+				deleteGameData ();
+			}
+			m_gamemode_p = new gamemode;
+			*m_gamemode_p = gamemode::PokerDuel;
+			m_gameaction = gameaction::Play;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::NewAdventure: {
+			m_bShowMainMenuNewGamePageChoice = false;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::NewGameReturn: {
+			m_bShowMainMenuNewGamePageChoice = true;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::NewAdventureName: {
+			m_s_pToEdit = &m_sNewAdventureName;
+			m_bEditAString = true;
+			break;
+		}
+	}
+}
+void game::deleteGameData (
+) {
+	switch (*m_gamemode_p) {
+		case gamemode::PokerDuel: {
+			delete m_pokerduelstage_p;
+			delete m_gamedata_pEnemy;
+			delete m_gamedata_pPlayer;
+			break;
+		}
+		case gamemode::Adventure: {
+			//WILL DO LATER
+			break;
+		}
+	}
+	delete m_gamemode_p;
 }

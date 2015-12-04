@@ -238,19 +238,5 @@ namespace mainmenu {
 			const sf::Font&
 		);
 	};
-	void handle (
-		bool&,
-		bool&,
-		bool&,
-		std::string&,
-		std::string*&,
-		gameaction&,
-		gamemode*&,
-		mainmenupage&,
-		gamedata*&,
-		gamedata*&,
-		bool&,
-		const screenelement_button_enum&
-	);
 }
 #endif
