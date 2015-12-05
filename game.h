@@ -11,6 +11,11 @@
 namespace game {
 	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
+	extern bool m_bStringTakesUpper;
+	extern bool m_bStringTakesLower;
+	extern bool m_bStringTakesDigit;
+	extern bool m_bStringTakesPunctuation;
+	extern bool m_bStringTakesSpace;
 	extern bool m_bClickedAButtonJustNow;
 	extern bool m_bEditAString;
 	extern bool m_bHaveGameData;
@@ -69,6 +74,10 @@ namespace game {
 		const mainmenu::screenelement_button_enum&
 	);
 	void deleteGameData (
+	);
+	void makeStringTakeNothing (
+	);
+	void resetWhatStringTakes (
 	);
 }
 #endif

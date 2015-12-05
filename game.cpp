@@ -4,6 +4,11 @@
 #include <cstdlib>
 int game::m_nCashInPot;
 int game::m_nSEClickedLast;
+bool game::m_bStringTakesUpper = false;
+bool game::m_bStringTakesLower = false;
+bool game::m_bStringTakesDigit = false;
+bool game::m_bStringTakesPunctuation = false;
+bool game::m_bStringTakesSpace = false;
 bool game::m_bClickedAButtonJustNow = false;
 bool game::m_bEditAString = false;
 bool game::m_bHaveGameData = false;
@@ -299,18 +304,43 @@ void game::handleTextEntered (
 	sf::Event& eventToHandle
 ) {
 	if (m_bEditAString) {
-		char chInput = eventToHandle.text.unicode;
-		if (chInput < 128) {
+		sf::Uint32 nInput = eventToHandle.text.unicode;
+		if (nInput < 128) {
+			bool bAppendInputToString = false;
+			char chInput = nInput;
 			if (chInput == 8) { //Backspace
-				if(m_s_pToEdit->size () > 0) {
+				if (m_s_pToEdit->size () > 0) {
 					m_s_pToEdit->pop_back ();
+					resetWhatStringTakes ();
 					bShouldClear_vec_screenelement_p = true;
 				}
 			} else if (chInput == 13) { //Enter
 				//Maybe use later.
-			} else if (isalpha (chInput)) {
-				m_s_pToEdit->operator+= (chInput);
-				bShouldClear_vec_screenelement_p = true;
+			} else if (isupper (chInput)) {
+				if (m_bStringTakesUpper) {
+					bAppendInputToString = true;
+				}
+			} else if (islower (chInput)) {
+				if (m_bStringTakesLower) {
+					bAppendInputToString = true;
+				}
+			} else if (isdigit (chInput)) {
+				if (m_bStringTakesDigit) {
+					bAppendInputToString = true;
+				}
+			} else if (ispunct (chInput)) {
+				if (m_bStringTakesPunctuation) {
+					bAppendInputToString = true;
+				}
+			} else if (isspace (chInput)) {
+				if (m_bStringTakesSpace) {
+					bAppendInputToString = true;
+				}
+			}
+			if (bAppendInputToString) {
+					m_s_pToEdit->operator+= (chInput);
+					resetWhatStringTakes ();
+					bShouldClear_vec_screenelement_p = true;
 			}
 		}
 	}
@@ -407,6 +437,7 @@ void game::handle (
 		}
 		case mainmenu::screenelement_button_enum::NewAdventureName: {
 			m_s_pToEdit = &m_sNewAdventureName;
+			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
 		}
@@ -427,4 +458,21 @@ void game::deleteGameData (
 		}
 	}
 	delete m_gamemode_p;
+}
+void game::makeStringTakeNothing () {
+	m_bStringTakesUpper = false;
+	m_bStringTakesLower = false;
+	m_bStringTakesDigit = false;
+	m_bStringTakesPunctuation = false;
+	m_bStringTakesSpace = false;
+}
+void game::resetWhatStringTakes () {
+	makeStringTakeNothing ();
+	if (m_s_pToEdit == & m_sNewAdventureName) {
+		if (m_sNewAdventureName.size () == 0) {
+			m_bStringTakesUpper = true;
+		} else {
+			m_bStringTakesLower = true;
+		}
+	}
 }
