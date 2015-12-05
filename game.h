@@ -1,14 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
+#include "pokerduel.h"
 #include "mainmenu.h"
-#include "screenelement.h"
-#include "diceset.h"
-#include "gamedata.h"
-#include "gameaction.h"
-#include "gamemode.h"
-#include "mainmenupage.h"
-#include "pokerduelstage.h"
 namespace game {
+	extern int m_nBetAgreed;
 	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
 	extern bool m_bStringTakesUpper;
@@ -72,6 +67,10 @@ namespace game {
 	void handle (
 		bool&,
 		const mainmenu::screenelement_button_enum&
+	);
+	void handle (
+		bool&,
+		const pokerduel::screenelement_button_enum&
 	);
 	void deleteGameData (
 	);

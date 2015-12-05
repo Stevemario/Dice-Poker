@@ -1,7 +1,7 @@
-#include "pokerduel.h"
 #include "game.h"
 #include <ctime>
 #include <cstdlib>
+int game::m_nBetAgreed;
 int game::m_nCashInPot;
 int game::m_nSEClickedLast;
 bool game::m_bStringTakesUpper = false;
@@ -286,6 +286,10 @@ void game::handleMouseRelease (
 									pokerduel::screenelement_button* se_btn_p_ = dynamic_cast <pokerduel::screenelement_button*> (se_p_);
 									pokerduel::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 									se_btn_p_->set_bIsHeldDown (false);
+									handle (
+										bShouldClear_vec_screenelement_p,
+										se_btn_e_
+									);
 									break;
 								}
 							}
@@ -443,6 +447,30 @@ void game::handle (
 		}
 	}
 }
+void game::handle (
+	bool& bShouldClear_vec_screenelement_p,
+	const pokerduel::screenelement_button_enum& screenelement_button_enumToHandle
+) {
+	switch (screenelement_button_enumToHandle) {
+		case pokerduel::screenelement_button_enum::BetAmount: {
+			m_s_pToEdit = &m_sBetAmount;
+			resetWhatStringTakes ();
+			m_bEditAString = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::BetSubmit: {
+			int nBetEnemy = 10;
+			int nBetPlayer = std::stoi (m_sBetAmount);
+			m_nBetAgreed = std::min (std::min (std::max (0, nBetPlayer), m_gamedata_pPlayer->nDollarsCarried ()), nBetEnemy);
+			m_gamedata_pEnemy->set_nDollarsCarried (m_gamedata_pEnemy-> nDollarsCarried () - m_nBetAgreed);
+			m_gamedata_pPlayer->set_nDollarsCarried (m_gamedata_pPlayer-> nDollarsCarried () - m_nBetAgreed);
+			m_nCashInPot = 2 * m_nBetAgreed;
+			*m_pokerduelstage_p = pokerduelstage::BetInitialAlert;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+	}
+}
 void game::deleteGameData (
 ) {
 	switch (*m_gamemode_p) {
@@ -474,5 +502,7 @@ void game::resetWhatStringTakes () {
 		} else {
 			m_bStringTakesLower = true;
 		}
+	} else if (m_s_pToEdit == &m_sBetAmount) {
+		m_bStringTakesDigit = true;
 	}
 }
