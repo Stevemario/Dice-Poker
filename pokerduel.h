@@ -88,6 +88,10 @@ namespace pokerduel {
 		HeaderCashPot,
 		HeaderPromptBet,
 		HeaderAlertBet,
+		HeaderDiceRolled,
+		HeaderDiceEnemy,
+		HeaderDicePlayer,
+		HeaderSelectDiceToReroll,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {

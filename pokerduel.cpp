@@ -172,6 +172,42 @@ void pokerduel::prepareStage_RollInitial (
 	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
+	screenelement_label* se_lblHeaderDiceRolled = new screenelement_label_generic (
+		font_,
+		"These are the dice rolled:",
+		screenelement_label_enum::HeaderDiceRolled
+	);
+	screenelement_label* se_lblHeaderDiceEnemy = new screenelement_label_generic (
+		font_,
+		"Enemy's Dice",
+		screenelement_label_enum::HeaderDiceEnemy
+	);
+	screenelement_label* se_lblHeaderDicePlayer = new screenelement_label_generic (
+		font_,
+		"Your Dice",
+		screenelement_label_enum::HeaderDicePlayer
+	);
+	screenelement_label* se_lblHeaderSelectDiceToReroll = new screenelement_label_generic (
+		font_,
+		"You may select dice to reroll.",
+		screenelement_label_enum::HeaderSelectDiceToReroll
+	);
+	float fWidth_lblHeaderDiceRolled = se_lblHeaderDiceRolled->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderDiceEnemy = se_lblHeaderDiceEnemy->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderDicePlayer = se_lblHeaderDicePlayer->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderSelectDiceToReroll = se_lblHeaderSelectDiceToReroll->text_ ().getGlobalBounds ().width;
+	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
+	float fPosX_lblHeaderDiceEnemy = 2.f * 1350.f / 3.f - .5f * fWidth_lblHeaderDiceEnemy;
+	float fPosX_lblHeaderDicePlayer = 1350.f / 3.f - .5f * fWidth_lblHeaderDicePlayer;
+	float fPosX_lblHeaderSelectDiceToReroll = .5f * (1350.f - fWidth_lblHeaderSelectDiceToReroll);
+	se_lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 180.f);
+	se_lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 240.f);
+	se_lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 240.f);
+	se_lblHeaderSelectDiceToReroll->move (fPosX_lblHeaderSelectDiceToReroll, 1000.f);
+	vec_screenelement_p_.push_back (se_lblHeaderDiceRolled);
+	vec_screenelement_p_.push_back (se_lblHeaderDiceEnemy);
+	vec_screenelement_p_.push_back (se_lblHeaderDicePlayer);
+	vec_screenelement_p_.push_back (se_lblHeaderSelectDiceToReroll);
 	addLabelsCash (
 		nCashInPot,
 		font_,
