@@ -25,8 +25,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::AlertBetInitial: {
-			prepareStage_AlertBetInitial (
+		case pokerduelstage::AcknowledgeBetAndRollInitial: {
+			prepareStage_AcknowledgeBetAndRollInitial (
 				nBetAgreed,
 				nCashInPot,
 				font_,
@@ -36,8 +36,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::RollInitial: {
-			prepareStage_RollInitial (
+		case pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond: {
+			prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 				nCashInPot,
 				font_,
 				gamedata_pEnemy,
@@ -46,20 +46,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::RollRedo: {
-			prepareStage_RollRedo (
-				nCashInPot,
-				font_,
-				gamedata_pEnemy,
-				gamedata_pPlayer,
-				n5_pEnemy,
-				n5_pPlayer,
-				vec_screenelement_p_
-			);
-			break;
-		}
-		case pokerduelstage::BetRaise: {
-			prepareStage_BetRaise (
+		case pokerduelstage::AcknowledgeBetAndRollSecond: {
+			prepareStage_AcknowledgeBetAndRollSecond (
 				nCashInPot,
 				font_,
 				gamedata_pEnemy,
@@ -131,7 +119,7 @@ void pokerduel::prepareStage_BetInitial (
 		vec_screenelement_p_
 	);
 }
-void pokerduel::prepareStage_AlertBetInitial (
+void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 	const int& nBetAgreed,
 	const int& nCashInPot,
 	const sf::Font& font_,
@@ -165,7 +153,7 @@ void pokerduel::prepareStage_AlertBetInitial (
 		vec_screenelement_p_
 	);
 }
-void pokerduel::prepareStage_RollInitial (
+void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
@@ -216,24 +204,7 @@ void pokerduel::prepareStage_RollInitial (
 		vec_screenelement_p_
 	);
 }
-void pokerduel::prepareStage_RollRedo (
-	const int& nCashInPot,
-	const sf::Font& font_,
-	const gamedata*& gamedata_pEnemy,
-	const gamedata*& gamedata_pPlayer,
-	const intx5*& n5_pEnemy,
-	const intx5*& n5_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_p_
-) {
-	addLabelsCash (
-		nCashInPot,
-		font_,
-		gamedata_pEnemy,
-		gamedata_pPlayer,
-		vec_screenelement_p_
-	);
-}
-void pokerduel::prepareStage_BetRaise (
+void pokerduel::prepareStage_AcknowledgeBetAndRollSecond (
 	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,

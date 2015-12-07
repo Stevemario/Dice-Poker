@@ -28,7 +28,7 @@ namespace pokerduel {
 		const gamedata*&,
 		std::vector <screenelement*>&
 	);
-	void prepareStage_AlertBetInitial (
+	void prepareStage_AcknowledgeBetAndRollInitial (
 		const int&,
 		const int&,
 		const sf::Font&,
@@ -36,23 +36,14 @@ namespace pokerduel {
 		const gamedata*&,
 		std::vector <screenelement*>&
 	);
-	void prepareStage_RollInitial (
+	void prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
 		std::vector <screenelement*>&
 	);
-	void prepareStage_RollRedo (
-		const int&,
-		const sf::Font&,
-		const gamedata*&,
-		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
-		std::vector <screenelement*>&
-	);
-	void prepareStage_BetRaise (
+	void prepareStage_AcknowledgeBetAndRollSecond (
 		const int&,
 		const sf::Font&,
 		const gamedata*&,

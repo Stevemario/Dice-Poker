@@ -466,12 +466,12 @@ void game::handle (
 			m_gamedata_pEnemy->set_nDollarsCarried (m_gamedata_pEnemy-> nDollarsCarried () - m_nBetAgreed);
 			m_gamedata_pPlayer->set_nDollarsCarried (m_gamedata_pPlayer-> nDollarsCarried () - m_nBetAgreed);
 			m_nCashInPot += 2 * m_nBetAgreed;
-			*m_pokerduelstage_p = pokerduelstage::AlertBetInitial;
+			*m_pokerduelstage_p = pokerduelstage::AcknowledgeBetAndRollInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerduel::screenelement_button_enum::OKBetInitial: {
-			*m_pokerduelstage_p = pokerduelstage::RollInitial;
+			*m_pokerduelstage_p = pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond;
 			m_n5_pEnemyInitial = new intx5;
 			m_n5_pPlayerInitial = new intx5;
 			int nTemp;
@@ -497,7 +497,7 @@ void game::deleteGameData (
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
 			switch (*m_pokerduelstage_p) {
-				case pokerduelstage::RollInitial: {
+				case pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond: {
 					delete m_n5_pEnemyInitial;
 					delete m_n5_pPlayerInitial;
 					break;
