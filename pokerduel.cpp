@@ -85,7 +85,7 @@ void pokerduel::prepareStage_BetInitial (
 	screenelement_label* se_lblHeaderPromptBet = new screenelement_label_generic (
 		font_,
 		"Enter Your Bet:",
-		screenelement_label_enum::HeaderPromptBet
+		screenelement_label_enum::HeaderPromptBetInitial
 	);
 	screenelement_button* se_btnBetAmount = new screenelement_button_generic (
 		font_,
@@ -180,22 +180,31 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		"You may select dice to reroll.",
 		screenelement_label_enum::HeaderSelectDiceToReroll
 	);
+	screenelement_label* se_lblHeaderPromptBetSecond = new screenelement_label_generic (
+		font_,
+		"Bet:",
+		screenelement_label_enum::HeaderPromptBetSecond
+	);
 	float fWidth_lblHeaderDiceRolled = se_lblHeaderDiceRolled->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderDiceEnemy = se_lblHeaderDiceEnemy->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderDicePlayer = se_lblHeaderDicePlayer->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderSelectDiceToReroll = se_lblHeaderSelectDiceToReroll->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderPromptBetSecond = se_lblHeaderPromptBetSecond->text_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
 	float fPosX_lblHeaderDiceEnemy = 2.f * 1350.f / 3.f - .5f * fWidth_lblHeaderDiceEnemy;
 	float fPosX_lblHeaderDicePlayer = 1350.f / 3.f - .5f * fWidth_lblHeaderDicePlayer;
 	float fPosX_lblHeaderSelectDiceToReroll = .5f * (1350.f - fWidth_lblHeaderSelectDiceToReroll);
-	se_lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 180.f);
-	se_lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 240.f);
-	se_lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 240.f);
-	se_lblHeaderSelectDiceToReroll->move (fPosX_lblHeaderSelectDiceToReroll, 1000.f);
+	float fPosX_lblHeaderPromptBetSecond = .5f * 1350.f - 10.f - fWidth_lblHeaderPromptBetSecond;
+	se_lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 120.f);
+	se_lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 180.f);
+	se_lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 180.f);
+	se_lblHeaderSelectDiceToReroll->move (fPosX_lblHeaderSelectDiceToReroll, 740.f);
+	se_lblHeaderPromptBetSecond->move (fPosX_lblHeaderPromptBetSecond, 830.f);
 	vec_screenelement_p_.push_back (se_lblHeaderDiceRolled);
 	vec_screenelement_p_.push_back (se_lblHeaderDiceEnemy);
 	vec_screenelement_p_.push_back (se_lblHeaderDicePlayer);
 	vec_screenelement_p_.push_back (se_lblHeaderSelectDiceToReroll);
+	vec_screenelement_p_.push_back (se_lblHeaderPromptBetSecond);
 	addLabelsCash (
 		nCashInPot,
 		font_,
