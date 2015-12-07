@@ -37,12 +37,14 @@ namespace pokerduel {
 		std::vector <screenelement*>&
 	);
 	void prepareStage_RollInitial (
+		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
 		std::vector <screenelement*>&
 	);
 	void prepareStage_RollRedo (
+		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
@@ -51,6 +53,7 @@ namespace pokerduel {
 		std::vector <screenelement*>&
 	);
 	void prepareStage_BetRaise (
+		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
@@ -59,6 +62,7 @@ namespace pokerduel {
 		std::vector <screenelement*>&
 	);
 	void prepareStage_Conclusion (
+		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,

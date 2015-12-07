@@ -38,6 +38,7 @@ void pokerduel::prepare (
 		}
 		case pokerduelstage::RollInitial: {
 			prepareStage_RollInitial (
+				nCashInPot,
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
@@ -47,6 +48,7 @@ void pokerduel::prepare (
 		}
 		case pokerduelstage::RollRedo: {
 			prepareStage_RollRedo (
+				nCashInPot,
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
@@ -58,6 +60,7 @@ void pokerduel::prepare (
 		}
 		case pokerduelstage::BetRaise: {
 			prepareStage_BetRaise (
+				nCashInPot,
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
@@ -69,6 +72,7 @@ void pokerduel::prepare (
 		}
 		case pokerduelstage::Conclusion: {
 			prepareStage_Conclusion (
+				nCashInPot,
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
@@ -140,13 +144,22 @@ void pokerduel::prepareStage_AlertBetInitial (
 	);
 }
 void pokerduel::prepareStage_RollInitial (
+	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
+	addLabelsCash (
+		nCashInPot,
+		font_,
+		gamedata_pEnemy,
+		gamedata_pPlayer,
+		vec_screenelement_p_
+	);
 }
 void pokerduel::prepareStage_RollRedo (
+	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
@@ -154,8 +167,16 @@ void pokerduel::prepareStage_RollRedo (
 	const intx5*& n5_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
+	addLabelsCash (
+		nCashInPot,
+		font_,
+		gamedata_pEnemy,
+		gamedata_pPlayer,
+		vec_screenelement_p_
+	);
 }
 void pokerduel::prepareStage_BetRaise (
+	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
@@ -163,8 +184,16 @@ void pokerduel::prepareStage_BetRaise (
 	const intx5*& n5_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
+	addLabelsCash (
+		nCashInPot,
+		font_,
+		gamedata_pEnemy,
+		gamedata_pPlayer,
+		vec_screenelement_p_
+	);
 }
 void pokerduel::prepareStage_Conclusion (
+	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
@@ -174,6 +203,13 @@ void pokerduel::prepareStage_Conclusion (
 	const intx5*& n5_pPlayerInitial,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
+	addLabelsCash (
+		nCashInPot,
+		font_,
+		gamedata_pEnemy,
+		gamedata_pPlayer,
+		vec_screenelement_p_
+	);
 }
 void pokerduel::addLabelsCash (
 	const int& nCashInPot,
