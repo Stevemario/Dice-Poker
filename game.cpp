@@ -472,6 +472,21 @@ void game::handle (
 		}
 		case pokerduel::screenelement_button_enum::OKBetInitial: {
 			*m_pokerduelstage_p = pokerduelstage::RollInitial;
+			m_n5_pEnemyInitial = new intx5;
+			m_n5_pPlayerInitial = new intx5;
+			int nTemp;
+			for (int i = 0; i < 5; i++) {
+				nTemp = rand ();
+				nTemp %= 6;
+				nTemp += 1;
+				m_n5_pEnemyInitial->set_n (i, nTemp);
+			}
+			for (int i = 0; i < 5; i++) {
+				nTemp = rand ();
+				nTemp %= 6;
+				nTemp += 1;
+				m_n5_pPlayerInitial->set_n (i, nTemp);
+			}
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -481,6 +496,13 @@ void game::deleteGameData (
 ) {
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
+			switch (*m_pokerduelstage_p) {
+				case pokerduelstage::RollInitial: {
+					delete m_n5_pEnemyInitial;
+					delete m_n5_pPlayerInitial;
+					break;
+				}
+			}
 			delete m_pokerduelstage_p;
 			delete m_gamedata_pEnemy;
 			delete m_gamedata_pPlayer;
