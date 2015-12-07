@@ -40,15 +40,51 @@ void mainmenu::addButtonsPageSwitching (
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_buttons_page_switching ();
 	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (fontToUse);
-	screenelement_label* lblTitle = new screenelement_label_title (fontToUse);
-	screenelement_button* btnReview = new screenelement_button_review (fontToUse);
-	screenelement_button* btnLoad = new screenelement_button_load (fontToUse);
-	screenelement_button* btnSave = new screenelement_button_save (fontToUse);
-	screenelement_button* btnNewGame = new screenelement_button_new_game (fontToUse);
-	screenelement_button* btnPlay = new screenelement_button_play (fontToUse);
-	screenelement_button* btnAccredit = new screenelement_button_accredit (fontToUse);
-	screenelement_button* btnAdjust = new screenelement_button_adjust (fontToUse);
-	screenelement_button* btnExit = new screenelement_button_exit (fontToUse);
+	screenelement_label* lblTitle = new screenelement_label_generic (
+		fontToUse,
+		"Dice Poker",
+		screenelement_label_enum::Title
+	);
+	screenelement_button* btnReview = new screenelement_button_page_switching (
+		fontToUse,
+		"Review",
+		screenelement_button_enum::Review
+	);
+	screenelement_button* btnLoad = new screenelement_button_page_switching (
+		fontToUse,
+		"Load",
+		screenelement_button_enum::Load
+	);
+	screenelement_button* btnSave = new screenelement_button_page_switching (
+		fontToUse,
+		"Save",
+		screenelement_button_enum::Save
+	);
+	screenelement_button* btnNewGame = new screenelement_button_page_switching (
+		fontToUse,
+		"New Game",
+		screenelement_button_enum::NewGame
+	);
+	screenelement_button* btnPlay = new screenelement_button_page_switching (
+		fontToUse,
+		"Play",
+		screenelement_button_enum::Play
+	);
+	screenelement_button* btnAccredit = new screenelement_button_page_switching (
+		fontToUse,
+		"Accredit",
+		screenelement_button_enum::Accredit
+	);
+	screenelement_button* btnAdjust = new screenelement_button_page_switching (
+		fontToUse,
+		"Adjust",
+		screenelement_button_enum::Adjust
+	);
+	screenelement_button* btnExit = new screenelement_button_page_switching (
+		fontToUse,
+		"Exit",
+		screenelement_button_enum::Exit
+	);
 	float fWidth_btnLoad = btnLoad->rs_ ().getGlobalBounds ().width;
 	float fWidth_btnSave = btnSave->rs_ ().getGlobalBounds ().width;
 	float fWidth_btnNewGame = btnNewGame->rs_ ().getGlobalBounds ().width;
@@ -100,7 +136,11 @@ void mainmenu::addPageSplash (
 	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
-	screenelement_label* lblHeaderWelcome = new screenelement_label_header_welcome (fontToUse);
+	screenelement_label* lblHeaderWelcome = new screenelement_label_generic (
+		fontToUse,
+		"Welcome to Dice Poker!",
+		screenelement_label_enum::HeaderWelcome
+	);
 	float fWidth_lblHeaderWelcome = lblHeaderWelcome->text_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderWelcome = .5f * (1350.f - fWidth_lblHeaderWelcome);
 	rectBG->move (25.f, 150.f);
@@ -113,7 +153,11 @@ void mainmenu::addPageAdjust (
 	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
-	screenelement_label* lblHeaderOptions = new screenelement_label_header_options (fontToUse);
+	screenelement_label* lblHeaderOptions = new screenelement_label_generic (
+		fontToUse,
+		"Options",
+		screenelement_label_enum::HeaderOptions
+	);
 	float fWidth_lblHeaderOptions = lblHeaderOptions->text_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderOptions = .5f * (1350.f - fWidth_lblHeaderOptions);
 	rectBG->move (25.f, 150.f);
@@ -126,8 +170,16 @@ void mainmenu::addPageAccredit (
 	std::vector <screenelement*>& vec_screenelement_pToPrepare
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
-	screenelement_label* lblHeaderCredits = new screenelement_label_header_credits (fontToUse);
-	screenelement_label* lblParagraphCredits = new screenelement_label_paragraph_credits (fontToUse);
+	screenelement_label* lblHeaderCredits = new screenelement_label_generic (
+		fontToUse,
+		"Credits",
+		screenelement_label_enum::HeaderCredits
+	);
+	screenelement_label* lblParagraphCredits = new screenelement_label_generic (
+		fontToUse,
+		"Written by Steve Correa.  Copy of Witcher 2 minigame.",
+		screenelement_label_enum::ParagraphCredits
+	);
 	float fWidth_lblHeaderCredits = lblHeaderCredits->text_ ().getGlobalBounds ().width;
 	float fWidth_lblCredits = lblParagraphCredits->text_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderCredits = .5f * (1350.f - fWidth_lblHeaderCredits);
@@ -148,11 +200,26 @@ void mainmenu::addPageNewGame (
 ) {
 	if (bShowMainMenuNewGamePageChoice) {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
-		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
-		screenelement_label* lblHeaderNewQuickGameIfPlayClicked =
-			new screenelement_label_header_new_quick_game_if_play_clicked (fontToUse);
-		screenelement_button* btnNewQuickGame = new screenelement_button_new_quick_game (fontToUse);
-		screenelement_button* btnNewAdventure = new screenelement_button_new_adventure (fontToUse);
+		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
+			fontToUse,
+			"New Game",
+			screenelement_label_enum::HeaderNewGame
+		);
+		screenelement_label* lblHeaderNewQuickGameIfPlayClicked = new screenelement_label_generic (
+			fontToUse,
+			"Note: New Quick Game starts if Play is Clicked.",
+			screenelement_label_enum::HeaderNewQuickGameIfPlayClicked
+		);
+		screenelement_button* btnNewQuickGame = new screenelement_button_generic (
+			fontToUse,
+			"Quick Game",
+			screenelement_button_enum::NewQuickGame
+		);
+		screenelement_button* btnNewAdventure = new screenelement_button_generic (
+			fontToUse,
+			"Full Adventure",
+			screenelement_button_enum::NewAdventure
+		);
 		btnNewQuickGame->stretch (500.f, 0.f);
 		btnNewAdventure->stretch (500.f, 0.f);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
@@ -177,12 +244,32 @@ void mainmenu::addPageNewGame (
 		vec_screenelement_pToPrepare.push_back (btnNewAdventure);
 	} else {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
-		screenelement_label* lblHeaderNewGame = new screenelement_label_header_new_game (fontToUse);
-		screenelement_label* lblHeaderName = new screenelement_label_header_name (fontToUse);
-		screenelement_label* lblHeaderNewAdventureIfPlayClicked =
-			new screenelement_label_header_new_adventure_if_play_clicked (fontToUse);
-		screenelement_button* btnNewGameReturn = new screenelement_button_new_game_return (fontToUse);
-		screenelement_button* btnNewGameName = new screenelement_button_new_adventure_name (sNewAdventureName, fontToUse);
+		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
+			fontToUse,
+			"New Game",
+			screenelement_label_enum::HeaderNewGame
+		);
+		screenelement_label* lblHeaderName = new screenelement_label_generic (
+			fontToUse,
+			"Name",
+			screenelement_label_enum::HeaderName
+		);
+		screenelement_label* lblHeaderNewAdventureIfPlayClicked = new screenelement_label_generic (
+			fontToUse,
+			"Note: New Adventure starts if Play is Clicked.",
+			screenelement_label_enum::HeaderNewAdventureIfPlayClicked
+		);
+		screenelement_button* btnNewGameReturn = new screenelement_button_generic (
+			fontToUse,
+			"Back",
+			screenelement_button_enum::NewGameReturn
+		);
+		screenelement_button* btnNewGameName = new screenelement_button_generic (
+			fontToUse,
+			sNewAdventureName,
+			screenelement_button_enum::NewAdventureName
+		);
+		btnNewGameName->stretch ((1350.f - 4.f * 25.f) * 0.3f, 0.f);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
 		float fWidth_lblHeaderNewAdventureIfPlayClicked = lblHeaderNewAdventureIfPlayClicked->text_ ().getGlobalBounds ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
@@ -223,236 +310,54 @@ mainmenu::screenelement_rectangle_bg_screen_majority::screenelement_rectangle_bg
 	set_bIsHeldDown (false);
 	create (1300.f, 905.f, sf::Color (0, 0, 0, 255));
 }
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_title::screenelement_label_enum_ (
+mainmenu::screenelement_label_enum mainmenu::screenelement_label_generic::screenelement_label_enum_ (
 ) const {
-	return screenelement_label_enum::Title;
+	return m_screenelement_label_enum;
 }
-mainmenu::screenelement_label_title::screenelement_label_title (
-	const sf::Font& fontToUse
+mainmenu::screenelement_label_generic::screenelement_label_generic (
+	const sf::Font& font_,
+	const std::string& s_,
+	const screenelement_label_enum& screenelement_label_enum_
 ) {
 	set_bIsHeldDown (false);
-	create ("Dice Poker", fontToUse, 60, sf::Color::White);
+	m_screenelement_label_enum = screenelement_label_enum_;
+	create (s_, font_, 60, sf::Color::White);
 }
 mainmenu::screenelement_label_enum mainmenu::screenelement_label_title_shadow::screenelement_label_enum_ (
 ) const {
 	return screenelement_label_enum::TitleShadow;
 }
 mainmenu::screenelement_label_title_shadow::screenelement_label_title_shadow (
-	const sf::Font& fontToUse
+	const sf::Font& font_
 ) {
 	set_bIsHeldDown (false);
-	create ("Dice Poker", fontToUse, 60, sf::Color::Black);
+	create ("Dice Poker", font_, 60, sf::Color::Black);
 }
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_welcome::screenelement_label_enum_ (
+mainmenu::screenelement_button_enum mainmenu::screenelement_button_page_switching::screenelement_button_enum_ (
 ) const {
-	return screenelement_label_enum::HeaderWelcome;
+	return m_screenelement_button_enum;
 }
-mainmenu::screenelement_label_header_welcome::screenelement_label_header_welcome (
-	const sf::Font& fontToUse
+mainmenu::screenelement_button_page_switching::screenelement_button_page_switching (
+	const sf::Font& font_,
+	const std::string& s_,
+	const screenelement_button_enum& screenelement_button_enum_
 ) {
 	set_bIsHeldDown (false);
-	create ("Welcome to Dice Poker!", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_options::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderOptions;
-}
-mainmenu::screenelement_label_header_options::screenelement_label_header_options (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Options", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_credits::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderCredits;
-}
-mainmenu::screenelement_label_header_credits::screenelement_label_header_credits (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Credits", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_paragraph_credits::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::ParagraphCredits;
-}
-mainmenu::screenelement_label_paragraph_credits::screenelement_label_paragraph_credits (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Written by Steve Correa.  Copy of Witcher 2 minigame.", fontToUse, 45, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_new_game::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderNewGame;
-}
-mainmenu::screenelement_label_header_new_game::screenelement_label_header_new_game (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("New Game", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_new_quick_game_if_play_clicked::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderNewQuickGameIfPlayClicked;
-}
-mainmenu::screenelement_label_header_new_quick_game_if_play_clicked::screenelement_label_header_new_quick_game_if_play_clicked (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Note: New Quick Game starts if Play is Clicked.", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_name::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderName;
-}
-mainmenu::screenelement_label_header_name::screenelement_label_header_name (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Name", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_header_new_adventure_if_play_clicked::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderNewAdventureIfPlayClicked;
-}
-mainmenu::screenelement_label_header_new_adventure_if_play_clicked::screenelement_label_header_new_adventure_if_play_clicked (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Note: New Adventure starts if Play is Clicked.", fontToUse, 60, sf::Color::White);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_exit::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::Exit;
-}
-mainmenu::screenelement_button_exit::screenelement_button_exit (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Exit", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
+	m_screenelement_button_enum = screenelement_button_enum_;
+	create (s_, font_, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
 	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
 }
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_adjust::screenelement_button_enum_ (
+mainmenu::screenelement_button_enum mainmenu::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
-	return screenelement_button_enum::Adjust;
+	return m_screenelement_button_enum;
 }
-mainmenu::screenelement_button_adjust::screenelement_button_adjust (
-	const sf::Font& fontToUse
+mainmenu::screenelement_button_generic::screenelement_button_generic (
+	const sf::Font& font_,
+	const std::string& s_,
+	const screenelement_button_enum& screenelement_button_enum_
 ) {
 	set_bIsHeldDown (false);
-	create ("Adjust", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_accredit::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::Accredit;
-}
-mainmenu::screenelement_button_accredit::screenelement_button_accredit (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Accredit", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_play::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::Play;
-}
-mainmenu::screenelement_button_play::screenelement_button_play (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Play", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_game::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::NewGame;
-}
-mainmenu::screenelement_button_new_game::screenelement_button_new_game (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("New Game", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_save::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::Save;
-}
-mainmenu::screenelement_button_save::screenelement_button_save (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Save", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_load::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::Load;
-}
-mainmenu::screenelement_button_load::screenelement_button_load (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Load", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_review::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::Review;
-}
-mainmenu::screenelement_button_review::screenelement_button_review (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Review", fontToUse, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_quick_game::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::NewQuickGame;
-}
-mainmenu::screenelement_button_new_quick_game::screenelement_button_new_quick_game (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Quick Game", fontToUse, 60, sf::Color::Black, sf::Color::White);
+	m_screenelement_button_enum = screenelement_button_enum_;
+	create (s_, font_, 60, sf::Color::Black, sf::Color::White);
 	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_adventure::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::NewAdventure;
-}
-mainmenu::screenelement_button_new_adventure::screenelement_button_new_adventure (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Full Adventure", fontToUse, 60, sf::Color::Black, sf::Color::White);
-	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_game_return::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::NewGameReturn;
-}
-mainmenu::screenelement_button_new_game_return::screenelement_button_new_game_return (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Back", fontToUse, 60, sf::Color::Black, sf::Color::White);
-	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
-}
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_adventure_name::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::NewAdventureName;
-}
-mainmenu::screenelement_button_new_adventure_name::screenelement_button_new_adventure_name (
-	const std::string& sName,
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create (sName, fontToUse, 60, sf::Color::Black, sf::Color::White);
-	stretch ((1350.f - 4.f * 25.f) * 0.3f, 120.f);
 }
