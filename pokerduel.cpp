@@ -94,9 +94,23 @@ void pokerduel::prepareStage_BetInitial (
 	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
-	screenelement_label* se_lblHeaderPromptBet = new screenelement_label_header_prompt_bet (font_);
-	screenelement_button* se_btnBetAmount = new screenelement_button_bet_amount (sBetPlayer, font_);
-	screenelement_button* se_btnBetSubmit = new screenelement_button_submit_bet_initial (font_);
+	screenelement_label* se_lblHeaderPromptBet = new screenelement_label_generic (
+		font_,
+		"Enter Your Bet:",
+		screenelement_label_enum::HeaderPromptBet
+	);
+	screenelement_button* se_btnBetAmount = new screenelement_button_generic (
+		font_,
+		"$" + sBetPlayer,
+		screenelement_button_enum::BetAmount
+	);
+	screenelement_button* se_btnBetSubmit = new screenelement_button_generic (
+		font_,
+		"Submit",
+		screenelement_button_enum::SubmitBetInitial
+	);
+	se_btnBetAmount->stretch (360.f, 0.f);
+	se_btnBetSubmit->stretch (360.f, 0.f);
 	float fWidth_lblHeaderPromptBet = se_lblHeaderPromptBet->text_ ().getGlobalBounds ().width;
 	float fWidth_btnBetAmount = se_btnBetAmount->rs_ ().getGlobalBounds ().width;
 	float fWidth_btnBetSubmit = se_btnBetSubmit->rs_ ().getGlobalBounds ().width;
@@ -125,8 +139,16 @@ void pokerduel::prepareStage_AlertBetInitial (
 	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
-	screenelement_label* se_lblHeaderAlertBet = new screenelement_label_header_alert_bet (nBetAgreed, font_);
-	screenelement_button* se_btnOKBetInitial = new screenelement_button_ok_bet_initial (font_);
+	screenelement_label* se_lblHeaderAlertBet = new screenelement_label_generic (
+		font_,
+		"You've each bet $" + std::to_string (nBetAgreed) + ".",
+		screenelement_label_enum::HeaderAlertBet
+	);
+	screenelement_button* se_btnOKBetInitial = new screenelement_button_generic (
+		font_,
+		"OK",
+		screenelement_button_enum::OKBetInitial
+	);
 	float fWidth_lblHeaderAlertBet = se_lblHeaderAlertBet->text_ ().getGlobalBounds ().width;
 	float fWidth_btnOKBetInitial = se_btnOKBetInitial->rs_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderAlertBet = .5f * (1350.f - fWidth_lblHeaderAlertBet);
@@ -218,12 +240,31 @@ void pokerduel::addLabelsCash (
 	const gamedata*& gamedata_pPlayer,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
-	screenelement_label* se_lblHeaderNameEnemy = new screenelement_label_header_name_enemy (font_, gamedata_pEnemy);
-	screenelement_label* se_lblHeaderNamePlayer = new screenelement_label_header_name_player (font_, gamedata_pPlayer);
-	screenelement_label* se_lblHeaderPot = new screenelement_label_header_pot (font_);
-	screenelement_label* se_lblHeaderCashEnemy = new screenelement_label_header_cash_enemy (font_, gamedata_pEnemy);
-	screenelement_label* se_lblHeaderCashPlayer = new screenelement_label_header_cash_player (font_, gamedata_pPlayer);
-	screenelement_label* se_lblHeaderCashPot = new screenelement_label_header_cash_pot (font_, nCashInPot);
+	screenelement_label* se_lblHeaderNameEnemy = new screenelement_label_generic (font_,
+		gamedata_pEnemy->sPlayerName (),
+		screenelement_label_enum::HeaderNameEnemy
+	);
+	screenelement_label* se_lblHeaderNamePlayer = new screenelement_label_generic (font_,
+		gamedata_pPlayer->sPlayerName (),
+		screenelement_label_enum::HeaderNamePlayer
+	);
+	screenelement_label* se_lblHeaderPot = new screenelement_label_generic (font_,
+		"Pot",
+		screenelement_label_enum::HeaderPot
+	);
+	screenelement_label* se_lblHeaderCashEnemy = new screenelement_label_generic (font_,
+		std::to_string (gamedata_pEnemy->nDollarsCarried ()),
+		screenelement_label_enum::HeaderCashEnemy
+	);
+	screenelement_label* se_lblHeaderCashPlayer = new screenelement_label_generic (font_,
+		std::to_string (gamedata_pPlayer->nDollarsCarried ()),
+		screenelement_label_enum::HeaderCashPlayer
+	);
+	screenelement_label* se_lblHeaderCashPot = new screenelement_label_generic (
+		font_,
+		std::to_string (nCashInPot),
+		screenelement_label_enum::HeaderCashPot
+	);
 	float fWidth_lblHeaderNameEnemy = se_lblHeaderNameEnemy->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderNamePlayer = se_lblHeaderNamePlayer->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderPot = se_lblHeaderPot->text_ ().getGlobalBounds ().width;
@@ -249,123 +290,30 @@ void pokerduel::addLabelsCash (
 	vec_screenelement_p_.push_back (se_lblHeaderCashPlayer);
 	vec_screenelement_p_.push_back (se_lblHeaderCashPot);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_name_enemy::screenelement_label_enum_ (
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_generic::screenelement_label_enum_ (
 ) const {
-	return screenelement_label_enum::HeaderNameEnemy;
+	return m_screenelement_label_enum;
 }
-pokerduel::screenelement_label_header_name_enemy::screenelement_label_header_name_enemy (
+pokerduel::screenelement_label_generic::screenelement_label_generic (
 	const sf::Font& font_,
-	const gamedata*& gamedata_pEnemy
+	const std::string& s_,
+	const screenelement_label_enum& screenelement_label_enum_
 ) {
 	set_bIsHeldDown (false);
-	create (gamedata_pEnemy->sPlayerName (), font_, 60, sf::Color::White);
+	m_screenelement_label_enum = screenelement_label_enum_;
+	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_name_player::screenelement_label_enum_ (
+pokerduel::screenelement_button_enum pokerduel::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
-	return screenelement_label_enum::HeaderNamePlayer;
+	return m_screenelement_button_enum;
 }
-pokerduel::screenelement_label_header_name_player::screenelement_label_header_name_player (
+pokerduel::screenelement_button_generic::screenelement_button_generic (
 	const sf::Font& font_,
-	const gamedata*& gamedata_pPlayer
+	const std::string& s_,
+	const screenelement_button_enum& screenelement_button_enum_
 ) {
 	set_bIsHeldDown (false);
-	create (gamedata_pPlayer->sPlayerName (), font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_pot::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderPot;
-}
-pokerduel::screenelement_label_header_pot::screenelement_label_header_pot (
-	const sf::Font& font_
-) {
-	set_bIsHeldDown (false);
-	create ("Pot", font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash_enemy::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderCashEnemy;
-}
-pokerduel::screenelement_label_header_cash_enemy::screenelement_label_header_cash_enemy (
-	const sf::Font& font_,
-	const gamedata*& gamedata_pEnemy
-) {
-	set_bIsHeldDown (false);
-	create (std::to_string (gamedata_pEnemy->nDollarsCarried ()), font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash_player::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderCashPlayer;
-}
-pokerduel::screenelement_label_header_cash_player::screenelement_label_header_cash_player (
-	const sf::Font& font_,
-	const gamedata*& gamedata_pPlayer
-) {
-	set_bIsHeldDown (false);
-	create (std::to_string (gamedata_pPlayer->nDollarsCarried ()), font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash_pot::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderCashPot;
-}
-pokerduel::screenelement_label_header_cash_pot::screenelement_label_header_cash_pot (
-	const sf::Font& font_,
-	const int& nCashPot
-) {
-	set_bIsHeldDown (false);
-	create (std::to_string (nCashPot), font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_prompt_bet::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderPromptBet;
-}
-pokerduel::screenelement_label_header_prompt_bet::screenelement_label_header_prompt_bet (
-	const sf::Font& font_
-) {
-	set_bIsHeldDown (false);
-	create ("Enter Your Bet:", font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_bet::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderAlertBet;
-}
-pokerduel::screenelement_label_header_alert_bet::screenelement_label_header_alert_bet (
-	const int& nBetAgreed,
-	const sf::Font& font_
-) {
-	set_bIsHeldDown (false);
-	create ("You've each bet $" + std::to_string (nBetAgreed) + ".", font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_button_enum pokerduel::screenelement_button_bet_amount::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::BetAmount;
-}
-pokerduel::screenelement_button_bet_amount::screenelement_button_bet_amount (
-	const std::string& sBetPlayer,
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("$" + sBetPlayer, fontToUse, 60, sf::Color::White, sf::Color::Black);
-	stretch (360.f, 120.f);
-}
-pokerduel::screenelement_button_enum pokerduel::screenelement_button_submit_bet_initial::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::SubmitBetInitial;
-}
-pokerduel::screenelement_button_submit_bet_initial::screenelement_button_submit_bet_initial (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("Submit", fontToUse, 60, sf::Color::White, sf::Color::Black);
-	stretch (360.f, 120.f);
-}
-pokerduel::screenelement_button_enum pokerduel::screenelement_button_ok_bet_initial::screenelement_button_enum_ (
-) const {
-	return screenelement_button_enum::OKBetInitial;
-}
-pokerduel::screenelement_button_ok_bet_initial::screenelement_button_ok_bet_initial (
-	const sf::Font& fontToUse
-) {
-	set_bIsHeldDown (false);
-	create ("OK", fontToUse, 60, sf::Color::White, sf::Color::Black);
-	stretch (360.f, 120.f);
+	m_screenelement_button_enum = screenelement_button_enum_;
+	create (s_, font_, 60, sf::Color::White, sf::Color::Black);
+	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
 }
