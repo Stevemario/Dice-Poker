@@ -78,5 +78,11 @@ namespace game {
 	);
 	void resetWhatStringTakes (
 	);
+	void determineBetAmount (
+		const int&
+	);
+	void transactBet (
+		const int&
+	);
 }
 #endif

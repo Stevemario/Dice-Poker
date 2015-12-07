@@ -460,12 +460,8 @@ void game::handle (
 			break;
 		}
 		case pokerduel::screenelement_button_enum::SubmitBetInitial: {
-			int nBetEnemy = 10;
-			int nBetPlayer = std::stoi (m_sBetPlayer);
-			m_nBetAgreed = std::min (std::min (std::max (0, nBetPlayer), m_gamedata_pPlayer->nDollarsCarried ()), nBetEnemy);
-			m_gamedata_pEnemy->set_nDollarsCarried (m_gamedata_pEnemy-> nDollarsCarried () - m_nBetAgreed);
-			m_gamedata_pPlayer->set_nDollarsCarried (m_gamedata_pPlayer-> nDollarsCarried () - m_nBetAgreed);
-			m_nCashInPot += 2 * m_nBetAgreed;
+			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
+			transactBet (m_nBetAgreed);
 			*m_pokerduelstage_p = pokerduelstage::AcknowledgeBetAndRollInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
@@ -487,6 +483,13 @@ void game::handle (
 				nTemp += 1;
 				m_n5_pPlayerInitial->set_n (i, nTemp);
 			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::SubmitRerollAndSecondBet: {
+			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
+			transactBet (m_nBetAgreed);
+			*m_pokerduelstage_p = pokerduelstage::AcknowledgeBetAndRollSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -533,4 +536,15 @@ void game::resetWhatStringTakes () {
 	} else if (m_s_pToEdit == &m_sBetPlayer) {
 		m_bStringTakesDigit = true;
 	}
+}
+void game::determineBetAmount (const int& nBetEnemy) {
+	int nBetPlayer = std::stoi (m_sBetPlayer);
+	nBetPlayer = std::max (0, nBetPlayer); //Player can't bet a negative
+	nBetPlayer = std::min (nBetPlayer, m_gamedata_pPlayer->nDollarsCarried ()); //Player can't bet more than he has.
+	m_nBetAgreed = std::min (nBetPlayer, nBetEnemy); //Bet is the least of the bids placed.
+}
+void game::transactBet (const int& nBetAmount) {
+	m_gamedata_pEnemy->set_nDollarsCarried (m_gamedata_pEnemy-> nDollarsCarried () - nBetAmount);
+	m_gamedata_pPlayer->set_nDollarsCarried (m_gamedata_pPlayer-> nDollarsCarried () - nBetAmount);
+	m_nCashInPot += 2 * nBetAmount;
 }
