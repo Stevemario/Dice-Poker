@@ -38,9 +38,12 @@ namespace pokerduel {
 	);
 	void prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		const int&,
+		const std::string&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
+		const intx5*&,
+		const intx5*&,
 		std::vector <screenelement*>&
 	);
 	void prepareStage_AcknowledgeBetAndRollSecond (
@@ -48,8 +51,6 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
 		std::vector <screenelement*>&
 	);
 	void prepareStage_Conclusion (
@@ -57,8 +58,6 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
 		const intx5*&,
 		const intx5*&,
 		std::vector <screenelement*>&
@@ -100,6 +99,17 @@ namespace pokerduel {
 		BetAmount,
 		SubmitBetInitial,
 		OKBetInitial,
+		DiceEnemy0,
+		DiceEnemy1,
+		DiceEnemy2,
+		DiceEnemy3,
+		DiceEnemy4,
+		DicePlayer0,
+		DicePlayer1,
+		DicePlayer2,
+		DicePlayer3,
+		DicePlayer4,
+		SubmitRerollAndSecondBet,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_generic : public screenelement_button {
@@ -109,6 +119,16 @@ namespace pokerduel {
 		public: screenelement_button_generic (
 			const sf::Font&,
 			const std::string&,
+			const screenelement_button_enum&
+		);
+	};
+	class screenelement_button_dice : public screenelement_button {
+		private: screenelement_button_enum m_screenelement_button_enum;
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_dice (
+			const sf::Font&,
+			const int&,
 			const screenelement_button_enum&
 		);
 	};
