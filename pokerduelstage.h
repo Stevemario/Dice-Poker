@@ -2,11 +2,11 @@
 #define POKERDUELSTAGE_H
 enum class pokerduelstage {
 	BetInitial,
-	BetInitialAlert,
+	AlertBetInitial,
 	RollInitial,
 	RollRedo,
 	BetRaise,
-	BetRaiseAlert,
+	AlertBetRaise,
 	Conclusion,
 };
 #endif

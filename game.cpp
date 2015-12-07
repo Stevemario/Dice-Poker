@@ -14,7 +14,7 @@ bool game::m_bEditAString = false;
 bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
-std::string game::m_sBetAmount = "0";
+std::string game::m_sBetPlayer = "0";
 std::string game::m_sNewAdventureName = "TEST";
 std::string game::m_sSaveSpot = "default save.txt";
 std::string* game::m_s_pToEdit;
@@ -114,8 +114,9 @@ void game::prepareScreenElements (
 						const intx5* n5_pPlayerConst = m_n5_pPlayer;
 						const intx5* n5_pPlayerInitialConst = m_n5_pPlayerInitial;
 						pokerduel::prepare (
+							m_nBetAgreed,
 							m_nCashInPot,
-							m_sBetAmount,
+							m_sBetPlayer,
 							m_font,
 							pokerduelstage_p_Const,
 							gamedata_pEnemyConst,
@@ -453,19 +454,24 @@ void game::handle (
 ) {
 	switch (screenelement_button_enumToHandle) {
 		case pokerduel::screenelement_button_enum::BetAmount: {
-			m_s_pToEdit = &m_sBetAmount;
+			m_s_pToEdit = &m_sBetPlayer;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::BetSubmit: {
+		case pokerduel::screenelement_button_enum::SubmitBetInitial: {
 			int nBetEnemy = 10;
-			int nBetPlayer = std::stoi (m_sBetAmount);
+			int nBetPlayer = std::stoi (m_sBetPlayer);
 			m_nBetAgreed = std::min (std::min (std::max (0, nBetPlayer), m_gamedata_pPlayer->nDollarsCarried ()), nBetEnemy);
 			m_gamedata_pEnemy->set_nDollarsCarried (m_gamedata_pEnemy-> nDollarsCarried () - m_nBetAgreed);
 			m_gamedata_pPlayer->set_nDollarsCarried (m_gamedata_pPlayer-> nDollarsCarried () - m_nBetAgreed);
-			m_nCashInPot = 2 * m_nBetAgreed;
-			*m_pokerduelstage_p = pokerduelstage::BetInitialAlert;
+			m_nCashInPot += 2 * m_nBetAgreed;
+			*m_pokerduelstage_p = pokerduelstage::AlertBetInitial;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::OKBetInitial: {
+			*m_pokerduelstage_p = pokerduelstage::RollInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -502,7 +508,7 @@ void game::resetWhatStringTakes () {
 		} else {
 			m_bStringTakesLower = true;
 		}
-	} else if (m_s_pToEdit == &m_sBetAmount) {
+	} else if (m_s_pToEdit == &m_sBetPlayer) {
 		m_bStringTakesDigit = true;
 	}
 }
