@@ -78,6 +78,7 @@ namespace pokerduel {
 		HeaderCashPot,
 		HeaderPromptBetInitial,
 		HeaderAlertBet,
+		HeaderPressingRollWillOKBet,
 		HeaderDiceRolled,
 		HeaderDiceEnemy,
 		HeaderDicePlayer,
@@ -98,7 +99,8 @@ namespace pokerduel {
 	enum class screenelement_button_enum {
 		BetAmount,
 		SubmitBetInitial,
-		OKBetInitial,
+		ChangeBetInitial,
+		OKBetAndRollDiceInitial,
 		DiceEnemy0,
 		DiceEnemy1,
 		DiceEnemy2,

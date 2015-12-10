@@ -131,19 +131,36 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 		"You've each bet $" + std::to_string (nBetAgreed) + ".",
 		screenelement_label_enum::HeaderAlertBet
 	);
-	screenelement_button* se_btnOKBetInitial = new screenelement_button_generic (
+	screenelement_label* se_lblHeaderPressingRollWillOKBet = new screenelement_label_generic (
 		font_,
-		"OK",
-		screenelement_button_enum::OKBetInitial
+		"Pressing Roll will OK Bet.",
+		screenelement_label_enum::HeaderPressingRollWillOKBet
+	);
+	screenelement_button* se_btnChangeBetInitial = new screenelement_button_generic (
+		font_,
+		"Change Bet",
+		screenelement_button_enum::ChangeBetInitial
+	);
+	screenelement_button* se_btnOKBetAndRollDiceInitial = new screenelement_button_generic (
+		font_,
+		"Roll",
+		screenelement_button_enum::OKBetAndRollDiceInitial
 	);
 	float fWidth_lblHeaderAlertBet = se_lblHeaderAlertBet->text_ ().getGlobalBounds ().width;
-	float fWidth_btnOKBetInitial = se_btnOKBetInitial->rs_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderPressingRollWillOKBet = se_lblHeaderPressingRollWillOKBet->text_ ().getGlobalBounds ().width;
+	float fWidth_btnChangeBetInitial = se_btnChangeBetInitial->rs_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderAlertBet = .5f * (1350.f - fWidth_lblHeaderAlertBet);
-	float fPosX_btnOKBetInitial = .5f * (1350.f - fWidth_btnOKBetInitial);
+	float fPosX_lblHeaderPressingRollWillOKBet = .5f * (1350.f - fWidth_lblHeaderPressingRollWillOKBet);
+	float fPosX_btnChangeBetInitial = .5f * 1350.f  - 10.f - fWidth_btnChangeBetInitial;
+	float fPosX_btnOKBetAndRollDiceInitial = .5f * 1350.f  + 10.f;
 	se_lblHeaderAlertBet->move (fPosX_lblHeaderAlertBet, 300.f);
-	se_btnOKBetInitial->move (fPosX_btnOKBetInitial, 360.f);
+	se_lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 360.f);
+	se_btnChangeBetInitial->move (fPosX_btnChangeBetInitial, 420.f);
+	se_btnOKBetAndRollDiceInitial->move (fPosX_btnOKBetAndRollDiceInitial, 420.f);
 	vec_screenelement_p_.push_back (se_lblHeaderAlertBet);
-	vec_screenelement_p_.push_back (se_btnOKBetInitial);
+	vec_screenelement_p_.push_back (se_lblHeaderPressingRollWillOKBet);
+	vec_screenelement_p_.push_back (se_btnChangeBetInitial);
+	vec_screenelement_p_.push_back (se_btnOKBetAndRollDiceInitial);
 	addLabelsCash (
 		nCashInPot,
 		font_,

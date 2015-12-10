@@ -466,23 +466,28 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::OKBetInitial: {
-			*m_pokerduelstage_p = pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond;
-			m_n5_pEnemyInitial = new intx5;
-			m_n5_pPlayerInitial = new intx5;
+		case pokerduel::screenelement_button_enum::ChangeBetInitial: {
+			transactBet (-1.f * m_nBetAgreed);
+			*m_pokerduelstage_p = pokerduelstage::BetInitial;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::OKBetAndRollDiceInitial: {
 			int nTemp;
-			for (int i = 0; i < 5; i++) {
-				nTemp = rand ();
-				nTemp %= 6;
-				nTemp += 1;
-				m_n5_pEnemyInitial->set_n (i, nTemp);
+			intx5** n5Dice[2] = {
+				&m_n5_pEnemyInitial,
+				&m_n5_pPlayerInitial
+			};
+			for (int i = 0; i < 2; i++) {
+				*n5Dice[i] = new intx5;
+				for (int j = 0; j < 5; j++) {
+					nTemp = rand ();
+					nTemp %= 6;
+					nTemp += 1;
+					(*n5Dice[i])->set_n (j, nTemp);
+				}
 			}
-			for (int i = 0; i < 5; i++) {
-				nTemp = rand ();
-				nTemp %= 6;
-				nTemp += 1;
-				m_n5_pPlayerInitial->set_n (i, nTemp);
-			}
+			*m_pokerduelstage_p = pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
