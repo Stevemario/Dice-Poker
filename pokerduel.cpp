@@ -101,9 +101,9 @@ void pokerduel::prepareStage_BetInitial (
 	);
 	se_btnBetAmount->stretch (360.f, 0.f);
 	se_btnBetSubmit->stretch (360.f, 0.f);
-	float fWidth_lblHeaderPromptBet = se_lblHeaderPromptBet->text_ ().getGlobalBounds ().width;
-	float fWidth_btnBetAmount = se_btnBetAmount->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnBetSubmit = se_btnBetSubmit->rs_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderPromptBet = se_lblHeaderPromptBet->frBounds_text ().width;
+	float fWidth_btnBetAmount = se_btnBetAmount->frBounds_rs ().width;
+	float fWidth_btnBetSubmit = se_btnBetSubmit->frBounds_rs ().width;
 	float fPosX_lblHeaderPromptBet = .5f * (1350.f - fWidth_lblHeaderPromptBet);
 	float fPosX_btnBetAmount = .5f * (1350.f - fWidth_btnBetAmount);
 	float fPosX_btnBetSubmit = .5f * (1350.f - fWidth_btnBetSubmit);
@@ -149,9 +149,9 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 		"Roll",
 		screenelement_button_enum::OKBetAndRollDiceInitial
 	);
-	float fWidth_lblHeaderAlertBet = se_lblHeaderAlertBet->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderPressingRollWillOKBet = se_lblHeaderPressingRollWillOKBet->text_ ().getGlobalBounds ().width;
-	float fWidth_btnChangeBetInitial = se_btnChangeBetInitial->rs_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderAlertBet = se_lblHeaderAlertBet->frBounds_text ().width;
+	float fWidth_lblHeaderPressingRollWillOKBet = se_lblHeaderPressingRollWillOKBet->frBounds_text ().width;
+	float fWidth_btnChangeBetInitial = se_btnChangeBetInitial->frBounds_rs ().width;
 	float fPosX_lblHeaderAlertBet = .5f * (1350.f - fWidth_lblHeaderAlertBet);
 	float fPosX_lblHeaderPressingRollWillOKBet = .5f * (1350.f - fWidth_lblHeaderPressingRollWillOKBet);
 	float fPosX_btnChangeBetInitial = .5f * 1350.f  - 10.f - fWidth_btnChangeBetInitial;
@@ -273,21 +273,21 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		"Submit",
 		screenelement_button_enum::SubmitRerollAndSecondBet
 	);
-	sf::FloatRect frBounds_btnDicePlayer0 = se_btnDicePlayer0->rs_ ().getGlobalBounds ();
-	sf::FloatRect frBounds_btnDicePlayer1 = se_btnDicePlayer1->rs_ ().getGlobalBounds ();
-	sf::FloatRect frBounds_btnDicePlayer2 = se_btnDicePlayer2->rs_ ().getGlobalBounds ();
-	sf::FloatRect frBounds_btnDicePlayer3 = se_btnDicePlayer3->rs_ ().getGlobalBounds ();
-	sf::FloatRect frBounds_btnDicePlayer4 = se_btnDicePlayer4->rs_ ().getGlobalBounds ();
-	float fWidth_lblHeaderDiceRolled = se_lblHeaderDiceRolled->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderDiceEnemy = se_lblHeaderDiceEnemy->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderDicePlayer = se_lblHeaderDicePlayer->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderSelectDiceToReroll = se_lblHeaderSelectDiceToReroll->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderPromptBetSecond = se_lblHeaderPromptBetSecond->text_ ().getGlobalBounds ().width;
-	float fWidth_btnDiceEnemy0 = se_btnDiceEnemy0->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDiceEnemy1 = se_btnDiceEnemy1->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDiceEnemy2 = se_btnDiceEnemy2->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDiceEnemy3 = se_btnDiceEnemy3->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDiceEnemy4 = se_btnDiceEnemy4->rs_ ().getGlobalBounds ().width;
+	sf::FloatRect frBounds_btnDicePlayer0 = se_btnDicePlayer0->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer1 = se_btnDicePlayer1->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer2 = se_btnDicePlayer2->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer3 = se_btnDicePlayer3->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer4 = se_btnDicePlayer4->frBounds_rs ();
+	float fWidth_lblHeaderDiceRolled = se_lblHeaderDiceRolled->frBounds_text ().width;
+	float fWidth_lblHeaderDiceEnemy = se_lblHeaderDiceEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderDicePlayer = se_lblHeaderDicePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderSelectDiceToReroll = se_lblHeaderSelectDiceToReroll->frBounds_text ().width;
+	float fWidth_lblHeaderPromptBetSecond = se_lblHeaderPromptBetSecond->frBounds_text ().width;
+	float fWidth_btnDiceEnemy0 = se_btnDiceEnemy0->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy1 = se_btnDiceEnemy1->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy2 = se_btnDiceEnemy2->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy3 = se_btnDiceEnemy3->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy4 = se_btnDiceEnemy4->frBounds_rs ().width;
 	float fWidth_btnDicePlayer0 = frBounds_btnDicePlayer0.width;
 	float fWidth_btnDicePlayer1 = frBounds_btnDicePlayer1.width;
 	float fWidth_btnDicePlayer2 = frBounds_btnDicePlayer2.width;
@@ -298,7 +298,7 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	float fHeight_btnDicePlayer2 = frBounds_btnDicePlayer2.height;
 	float fHeight_btnDicePlayer3 = frBounds_btnDicePlayer3.height;
 	float fHeight_btnDicePlayer4 = frBounds_btnDicePlayer4.height;
-	float fWidth_btnSubmitRerollAndSecondBet = se_btnSubmitRerollAndSecondBet->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnSubmitRerollAndSecondBet = se_btnSubmitRerollAndSecondBet->frBounds_rs ().width;
 	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
 	float fPosX_lblHeaderDiceEnemy = 2.f * 1350.f / 3.f - .5f * fWidth_lblHeaderDiceEnemy;
 	float fPosX_lblHeaderDicePlayer = 1350.f / 3.f - .5f * fWidth_lblHeaderDicePlayer;
@@ -472,12 +472,12 @@ void pokerduel::addLabelsCash (
 		std::to_string (nCashInPot),
 		screenelement_label_enum::HeaderCashPot
 	);
-	float fWidth_lblHeaderNameEnemy = se_lblHeaderNameEnemy->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderNamePlayer = se_lblHeaderNamePlayer->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderPot = se_lblHeaderPot->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderCashEnemy = se_lblHeaderCashEnemy->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderCashPlayer = se_lblHeaderCashPlayer->text_ ().getGlobalBounds ().width;
-	float fWidth_lblHeaderCashPot = se_lblHeaderCashPot->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderNameEnemy = se_lblHeaderNameEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderNamePlayer = se_lblHeaderNamePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderPot = se_lblHeaderPot->frBounds_text ().width;
+	float fWidth_lblHeaderCashEnemy = se_lblHeaderCashEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderCashPlayer = se_lblHeaderCashPlayer->frBounds_text ().width;
+	float fWidth_lblHeaderCashPot = se_lblHeaderCashPot->frBounds_text ().width;
 	float fPosX_lblHeaderNameEnemy = 1350.f - 25.f - fWidth_lblHeaderNameEnemy;
 	float fPosX_lblHeaderNamePlayer = 25.f;
 	float fPosX_lblHeaderPot = .5f * (1350.f - fWidth_lblHeaderPot);
@@ -533,7 +533,7 @@ pokerduel::screenelement_button_generic::screenelement_button_generic (
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 60, sf::Color::White, sf::Color::Black);
-	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
+	stretch (frBounds_rs ().width + 24.f, 120.f);
 }
 pokerduel::screenelement_button_enum pokerduel::screenelement_button_dice::screenelement_button_enum_ (
 ) const {
@@ -547,5 +547,5 @@ pokerduel::screenelement_button_dice::screenelement_button_dice (
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (std::to_string (n_), font_, 40, sf::Color::White, sf::Color::Black);
-	stretch (rs_ ().getGlobalBounds ().width + 16.f, 80.f);
+	stretch (frBounds_rs ().width + 16.f, 80.f);
 }

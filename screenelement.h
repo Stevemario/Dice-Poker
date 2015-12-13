@@ -29,7 +29,7 @@ namespace screenelement_rectangle {
 		private: bool m_bIsHeldDown;
 		public: screenelement_enum screenelement_enum_ (
 		) const;
-		public: sf::RectangleShape rs_ (
+		private: sf::RectangleShape rs_ (
 		) const;
 		public: bool bClicked (
 			const sf::Event::MouseButtonEvent&
@@ -66,7 +66,9 @@ namespace screenelement_label {
 		private: bool m_bIsHeldDown;
 		public: screenelement_enum screenelement_enum_ (
 		) const;
-		public: sf::Text text_ (
+		private: sf::Text text_ (
+		) const;
+		public: sf::FloatRect frBounds_text (
 		) const;
 		public: bool bClicked (
 			const sf::Event::MouseButtonEvent&
@@ -101,7 +103,9 @@ namespace screenelement_button {
 		private: bool m_bIsHeldDown;
 		public: screenelement_enum screenelement_enum_ (
 		) const;
-		public: sf::RectangleShape rs_ (
+		private: sf::RectangleShape rs_ (
+		) const;
+		public: sf::FloatRect frBounds_rs (
 		) const;
 		public: bool bClicked (
 			const sf::Event::MouseButtonEvent&
@@ -243,6 +247,11 @@ namespace screenelement_label {
 		return m_text;
 	}
 	template <class screenelement_label_enum>
+	sf::FloatRect screenelement_label <screenelement_label_enum>::frBounds_text (
+	) const {
+		return m_text.getGlobalBounds ();
+	}
+	template <class screenelement_label_enum>
 	bool screenelement_label <screenelement_label_enum>::bClicked (
 		const sf::Event::MouseButtonEvent& mbe_
 	) const {
@@ -307,6 +316,11 @@ namespace screenelement_button {
 	sf::RectangleShape screenelement_button <screenelement_button_enum>::rs_ (
 	) const {
 		return m_rs;
+	}
+	template <class screenelement_button_enum>
+	sf::FloatRect screenelement_button <screenelement_button_enum>::frBounds_rs (
+	) const {
+		return m_rs.getGlobalBounds ();
 	}
 	template <class screenelement_button_enum>
 	bool screenelement_button <screenelement_button_enum>::bClicked (

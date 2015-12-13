@@ -85,13 +85,13 @@ void mainmenu::addButtonsPageSwitching (
 		"Exit",
 		screenelement_button_enum::Exit
 	);
-	float fWidth_btnLoad = btnLoad->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnSave = btnSave->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnNewGame = btnNewGame->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnPlay = btnPlay->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnAccredit = btnAccredit->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnAdjust = btnAdjust->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnExit = btnExit->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnLoad = btnLoad->frBounds_rs ().width;
+	float fWidth_btnSave = btnSave->frBounds_rs ().width;
+	float fWidth_btnNewGame = btnNewGame->frBounds_rs ().width;
+	float fWidth_btnPlay = btnPlay->frBounds_rs ().width;
+	float fWidth_btnAccredit = btnAccredit->frBounds_rs ().width;
+	float fWidth_btnAdjust = btnAdjust->frBounds_rs ().width;
+	float fWidth_btnExit = btnExit->frBounds_rs ().width;
 	float fPosX_lblTitleShadow;
 	float fPosX_lblTitle = 15.f;
 	float fPosX_btnReview;
@@ -141,7 +141,7 @@ void mainmenu::addPageSplash (
 		"Welcome to Dice Poker!",
 		screenelement_label_enum::HeaderWelcome
 	);
-	float fWidth_lblHeaderWelcome = lblHeaderWelcome->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderWelcome = lblHeaderWelcome->frBounds_text ().width;
 	float fPosX_lblHeaderWelcome = .5f * (1350.f - fWidth_lblHeaderWelcome);
 	rectBG->move (25.f, 150.f);
 	lblHeaderWelcome->move (fPosX_lblHeaderWelcome, 210.f);
@@ -158,7 +158,7 @@ void mainmenu::addPageAdjust (
 		"Options",
 		screenelement_label_enum::HeaderOptions
 	);
-	float fWidth_lblHeaderOptions = lblHeaderOptions->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderOptions = lblHeaderOptions->frBounds_text ().width;
 	float fPosX_lblHeaderOptions = .5f * (1350.f - fWidth_lblHeaderOptions);
 	rectBG->move (25.f, 150.f);
 	lblHeaderOptions->move (fPosX_lblHeaderOptions, 210.f);
@@ -180,8 +180,8 @@ void mainmenu::addPageAccredit (
 		"Written by Steve Correa.  Copy of Witcher 2 minigame.",
 		screenelement_label_enum::ParagraphCredits
 	);
-	float fWidth_lblHeaderCredits = lblHeaderCredits->text_ ().getGlobalBounds ().width;
-	float fWidth_lblCredits = lblParagraphCredits->text_ ().getGlobalBounds ().width;
+	float fWidth_lblHeaderCredits = lblHeaderCredits->frBounds_text ().width;
+	float fWidth_lblCredits = lblParagraphCredits->frBounds_text ().width;
 	float fPosX_lblHeaderCredits = .5f * (1350.f - fWidth_lblHeaderCredits);
 	float fPosX_lblCredits = .5f * (1350.f - fWidth_lblCredits);
 	rectBG->move (25.f, 150.f);
@@ -222,8 +222,8 @@ void mainmenu::addPageNewGame (
 		);
 		btnNewQuickGame->stretch (500.f, 0.f);
 		btnNewAdventure->stretch (500.f, 0.f);
-		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
-		float fWidth_lblHeaderNewQuickGameIfPlayClicked = lblHeaderNewQuickGameIfPlayClicked->text_ ().getGlobalBounds ().width;
+		float fWidth_lblHeaderNewGame = lblHeaderNewGame->frBounds_text ().width;
+		float fWidth_lblHeaderNewQuickGameIfPlayClicked = lblHeaderNewQuickGameIfPlayClicked->frBounds_text ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
 		float fPosX_lblHeaderNewQuickGameIfPlayClicked = (1350.f - fWidth_lblHeaderNewQuickGameIfPlayClicked) / 2.f;
 		float fLeftoverX = (1350.f - 2.f * 25.f - 2.f * 500.f) / 3.f;
@@ -270,8 +270,8 @@ void mainmenu::addPageNewGame (
 			screenelement_button_enum::NewAdventureName
 		);
 		btnNewGameName->stretch ((1350.f - 4.f * 25.f) * 0.3f, 0.f);
-		float fWidth_lblHeaderNewGame = lblHeaderNewGame->text_ ().getGlobalBounds ().width;
-		float fWidth_lblHeaderNewAdventureIfPlayClicked = lblHeaderNewAdventureIfPlayClicked->text_ ().getGlobalBounds ().width;
+		float fWidth_lblHeaderNewGame = lblHeaderNewGame->frBounds_text ().width;
+		float fWidth_lblHeaderNewAdventureIfPlayClicked = lblHeaderNewAdventureIfPlayClicked->frBounds_text ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
 		float fPosX_lblHeaderNewAdventureIfPlayClicked = (1350.f - fWidth_lblHeaderNewAdventureIfPlayClicked) / 2.f;
 		float fPosX_lbl_ = (1350.f - 4.f * 25.f) * 0.7f + 2.f * 25.f;
@@ -345,7 +345,7 @@ mainmenu::screenelement_button_page_switching::screenelement_button_page_switchi
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
-	stretch (rs_ ().getGlobalBounds ().width + 12.f, 60.f);
+	stretch (frBounds_rs ().width + 12.f, 60.f);
 }
 mainmenu::screenelement_button_enum mainmenu::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
@@ -359,5 +359,5 @@ mainmenu::screenelement_button_generic::screenelement_button_generic (
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 60, sf::Color::Black, sf::Color::White);
-	stretch (rs_ ().getGlobalBounds ().width + 24.f, 120.f);
+	stretch (frBounds_rs ().width + 24.f, 120.f);
 }
