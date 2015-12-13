@@ -14,12 +14,13 @@ class screenelement {
 		sf::RenderWindow&
 	) const = 0;
 };
+typedef std::vector <screenelement*> screenelements;
 void draw (
-	const std::vector <screenelement*>&,
+	const screenelements&,
 	sf::RenderWindow&
 );
 void clear (
-	std::vector <screenelement*>&
+	screenelements&
 );
 namespace screenelement_rectangle {
 	template <class screenelement_rectangle_enum>

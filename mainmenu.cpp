@@ -6,19 +6,19 @@ void mainmenu::prepare (
 	const sf::Font& fontToUse,
 	const mainmenupage& mainmenupage_,
 	const gamedata*& gamedata_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare
+	screenelements& ses_
 ) {
 	switch (mainmenupage_) {
 		case mainmenupage::Splash: {
-			addPageSplash (fontToUse, vec_screenelement_pToPrepare);
+			addPageSplash (fontToUse, ses_);
 			break;
 		}
 		case mainmenupage::Adjust: {
-			addPageAdjust (fontToUse, vec_screenelement_pToPrepare);
+			addPageAdjust (fontToUse, ses_);
 			break;
 		}
 		case mainmenupage::Accredit: {
-			addPageAccredit (fontToUse, vec_screenelement_pToPrepare);
+			addPageAccredit (fontToUse, ses_);
 			break;
 		}
 		case mainmenupage::NewGame: {
@@ -27,16 +27,16 @@ void mainmenu::prepare (
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
 				fontToUse,
-				vec_screenelement_pToPrepare
+				ses_
 			);
 			break;
 		}
 	}
-	addButtonsPageSwitching (fontToUse, vec_screenelement_pToPrepare);
+	addButtonsPageSwitching (fontToUse, ses_);
 }
 void mainmenu::addButtonsPageSwitching (
 	const sf::Font& fontToUse,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare
+	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_buttons_page_switching ();
 	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (fontToUse);
@@ -119,21 +119,21 @@ void mainmenu::addButtonsPageSwitching (
 	btnAccredit->move (fPosX_btnAccredit, 0.f);
 	btnAdjust->move (fPosX_btnAdjust, 0.f);
 	btnExit->move (fPosX_btnExit, 0.f);
-	vec_screenelement_pToPrepare.push_back (rectBG);
-	vec_screenelement_pToPrepare.push_back (lblTitleShadow);
-	vec_screenelement_pToPrepare.push_back (lblTitle);
-	vec_screenelement_pToPrepare.push_back (btnReview);
-	vec_screenelement_pToPrepare.push_back (btnLoad);
-	vec_screenelement_pToPrepare.push_back (btnSave);
-	vec_screenelement_pToPrepare.push_back (btnNewGame);
-	vec_screenelement_pToPrepare.push_back (btnPlay);
-	vec_screenelement_pToPrepare.push_back (btnAccredit);
-	vec_screenelement_pToPrepare.push_back (btnAdjust);
-	vec_screenelement_pToPrepare.push_back (btnExit);
+	ses_.push_back (rectBG);
+	ses_.push_back (lblTitleShadow);
+	ses_.push_back (lblTitle);
+	ses_.push_back (btnReview);
+	ses_.push_back (btnLoad);
+	ses_.push_back (btnSave);
+	ses_.push_back (btnNewGame);
+	ses_.push_back (btnPlay);
+	ses_.push_back (btnAccredit);
+	ses_.push_back (btnAdjust);
+	ses_.push_back (btnExit);
 }
 void mainmenu::addPageSplash (
 	const sf::Font& fontToUse,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare
+	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderWelcome = new screenelement_label_generic (
@@ -145,12 +145,12 @@ void mainmenu::addPageSplash (
 	float fPosX_lblHeaderWelcome = .5f * (1350.f - fWidth_lblHeaderWelcome);
 	rectBG->move (25.f, 150.f);
 	lblHeaderWelcome->move (fPosX_lblHeaderWelcome, 210.f);
-	vec_screenelement_pToPrepare.push_back (rectBG);
-	vec_screenelement_pToPrepare.push_back (lblHeaderWelcome);
+	ses_.push_back (rectBG);
+	ses_.push_back (lblHeaderWelcome);
 }
 void mainmenu::addPageAdjust (
 	const sf::Font& fontToUse,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare
+	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderOptions = new screenelement_label_generic (
@@ -162,12 +162,12 @@ void mainmenu::addPageAdjust (
 	float fPosX_lblHeaderOptions = .5f * (1350.f - fWidth_lblHeaderOptions);
 	rectBG->move (25.f, 150.f);
 	lblHeaderOptions->move (fPosX_lblHeaderOptions, 210.f);
-	vec_screenelement_pToPrepare.push_back (rectBG);
-	vec_screenelement_pToPrepare.push_back (lblHeaderOptions);
+	ses_.push_back (rectBG);
+	ses_.push_back (lblHeaderOptions);
 }
 void mainmenu::addPageAccredit (
 	const sf::Font& fontToUse,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare
+	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderCredits = new screenelement_label_generic (
@@ -187,16 +187,16 @@ void mainmenu::addPageAccredit (
 	rectBG->move (25.f, 150.f);
 	lblHeaderCredits->move (fPosX_lblHeaderCredits, 210.f);
 	lblParagraphCredits->move (fPosX_lblCredits, 285.f);
-	vec_screenelement_pToPrepare.push_back (rectBG);
-	vec_screenelement_pToPrepare.push_back (lblHeaderCredits);
-	vec_screenelement_pToPrepare.push_back (lblParagraphCredits);
+	ses_.push_back (rectBG);
+	ses_.push_back (lblHeaderCredits);
+	ses_.push_back (lblParagraphCredits);
 }
 void mainmenu::addPageNewGame (
 	const bool& bHaveGameData,
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	const sf::Font& fontToUse,
-	std::vector <screenelement*>& vec_screenelement_pToPrepare
+	screenelements& ses_
 ) {
 	if (bShowMainMenuNewGamePageChoice) {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
@@ -234,14 +234,14 @@ void mainmenu::addPageNewGame (
 		lblHeaderNewQuickGameIfPlayClicked->move (fPosX_lblHeaderNewQuickGameIfPlayClicked, 900.f);
 		btnNewQuickGame->move (fPosX_btnNewQuickGame, 345.f);
 		btnNewAdventure->move (fPosX_btnNewAdventure, 345.f);
-		vec_screenelement_pToPrepare.push_back (rectBG);
-		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
+		ses_.push_back (rectBG);
+		ses_.push_back (lblHeaderNewGame);
 		if (bHaveGameData)
 			delete lblHeaderNewQuickGameIfPlayClicked;
 		else
-			vec_screenelement_pToPrepare.push_back (lblHeaderNewQuickGameIfPlayClicked);
-		vec_screenelement_pToPrepare.push_back (btnNewQuickGame);
-		vec_screenelement_pToPrepare.push_back (btnNewAdventure);
+			ses_.push_back (lblHeaderNewQuickGameIfPlayClicked);
+		ses_.push_back (btnNewQuickGame);
+		ses_.push_back (btnNewAdventure);
 	} else {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
@@ -281,15 +281,15 @@ void mainmenu::addPageNewGame (
 		lblHeaderName->move (fPosX_lbl_, 345.f);
 		btnNewGameReturn->move (50.f, 175.f);
 		btnNewGameName->move (fPosX_lbl_, 405.f);
-		vec_screenelement_pToPrepare.push_back (rectBG);
-		vec_screenelement_pToPrepare.push_back (lblHeaderNewGame);
-		vec_screenelement_pToPrepare.push_back (lblHeaderName);
+		ses_.push_back (rectBG);
+		ses_.push_back (lblHeaderNewGame);
+		ses_.push_back (lblHeaderName);
 		if (bHaveGameData)
 			delete lblHeaderNewAdventureIfPlayClicked;
 		else
-			vec_screenelement_pToPrepare.push_back (lblHeaderNewAdventureIfPlayClicked);
-		vec_screenelement_pToPrepare.push_back (btnNewGameReturn);
-		vec_screenelement_pToPrepare.push_back (btnNewGameName);
+			ses_.push_back (lblHeaderNewAdventureIfPlayClicked);
+		ses_.push_back (btnNewGameReturn);
+		ses_.push_back (btnNewGameName);
 	}
 }
 mainmenu::screenelement_rectangle_enum mainmenu::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_enum_ (

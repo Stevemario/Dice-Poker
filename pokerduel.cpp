@@ -13,7 +13,7 @@ void pokerduel::prepare (
 	const intx5*& n5_pPlayer,
 	const intx5*& n5_pPlayerInitial,
 	const intx5*& n5_pPlayerReroll,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	switch (*pokerduelstage_p_) {
 		case pokerduelstage::BetInitial: {
@@ -23,7 +23,7 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				vec_screenelement_p_
+				ses_
 			);
 			break;
 		}
@@ -34,7 +34,7 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				vec_screenelement_p_
+				ses_
 			);
 			break;
 		}
@@ -48,7 +48,7 @@ void pokerduel::prepare (
 				n5_pEnemyInitial,
 				n5_pPlayerInitial,
 				n5_pPlayerReroll,
-				vec_screenelement_p_
+				ses_
 			);
 			break;
 		}
@@ -58,7 +58,7 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
-				vec_screenelement_p_
+				ses_
 			);
 			break;
 		}
@@ -70,7 +70,7 @@ void pokerduel::prepare (
 				gamedata_pPlayer,
 				n5_pEnemy,
 				n5_pPlayer,
-				vec_screenelement_p_
+				ses_
 			);
 			break;
 		}
@@ -82,7 +82,7 @@ void pokerduel::prepareStage_BetInitial (
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	screenelement_label* se_lblHeaderPromptBet = new screenelement_label_generic (
 		font_,
@@ -110,15 +110,15 @@ void pokerduel::prepareStage_BetInitial (
 	se_lblHeaderPromptBet->move (fPosX_lblHeaderPromptBet, 300.f);
 	se_btnBetAmount->move (fPosX_btnBetAmount, 360.f);
 	se_btnBetSubmit->move (fPosX_btnBetSubmit, 500.f);
-	vec_screenelement_p_.push_back (se_lblHeaderPromptBet);
-	vec_screenelement_p_.push_back (se_btnBetAmount);
-	vec_screenelement_p_.push_back (se_btnBetSubmit);
+	ses_.push_back (se_lblHeaderPromptBet);
+	ses_.push_back (se_btnBetAmount);
+	ses_.push_back (se_btnBetSubmit);
 	addLabelsCash (
 		nCashInPot,
 		font_,
 		gamedata_pEnemy,
 		gamedata_pPlayer,
-		vec_screenelement_p_
+		ses_
 	);
 }
 void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
@@ -127,7 +127,7 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	screenelement_label* se_lblHeaderAlertBet = new screenelement_label_generic (
 		font_,
@@ -160,16 +160,16 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 	se_lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 360.f);
 	se_btnChangeBetInitial->move (fPosX_btnChangeBetInitial, 420.f);
 	se_btnOKBetAndRollDiceInitial->move (fPosX_btnOKBetAndRollDiceInitial, 420.f);
-	vec_screenelement_p_.push_back (se_lblHeaderAlertBet);
-	vec_screenelement_p_.push_back (se_lblHeaderPressingRollWillOKBet);
-	vec_screenelement_p_.push_back (se_btnChangeBetInitial);
-	vec_screenelement_p_.push_back (se_btnOKBetAndRollDiceInitial);
+	ses_.push_back (se_lblHeaderAlertBet);
+	ses_.push_back (se_lblHeaderPressingRollWillOKBet);
+	ses_.push_back (se_btnChangeBetInitial);
+	ses_.push_back (se_btnOKBetAndRollDiceInitial);
 	addLabelsCash (
 		nCashInPot,
 		font_,
 		gamedata_pEnemy,
 		gamedata_pPlayer,
-		vec_screenelement_p_
+		ses_
 	);
 }
 void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
@@ -181,7 +181,7 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	const intx5*& n5_pEnemyInitial,
 	const intx5*& n5_pPlayerInitial,
 	const intx5*& n5_pPlayerReroll,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	screenelement_rectangle* se_rectDiceSelected0;
 	screenelement_rectangle* se_rectDiceSelected1;
@@ -358,54 +358,54 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	se_btnDicePlayer4->move (fPosX_btnDicePlayer4, 640.f);
 	se_btnBetAmount->move (fPosX_btnBetAmount, 800.f);
 	se_btnSubmitRerollAndSecondBet->move (fPosX_btnSubmitRerollAndSecondBet, 940.f);
-	vec_screenelement_p_.push_back (se_lblHeaderDiceRolled);
-	vec_screenelement_p_.push_back (se_lblHeaderDiceEnemy);
-	vec_screenelement_p_.push_back (se_lblHeaderDicePlayer);
-	vec_screenelement_p_.push_back (se_lblHeaderSelectDiceToReroll);
-	vec_screenelement_p_.push_back (se_lblHeaderPromptBetSecond);
-	vec_screenelement_p_.push_back (se_btnSubmitRerollAndSecondBet);
-	vec_screenelement_p_.push_back (se_btnBetAmount);
-	vec_screenelement_p_.push_back (se_btnDiceEnemy4);
+	ses_.push_back (se_lblHeaderDiceRolled);
+	ses_.push_back (se_lblHeaderDiceEnemy);
+	ses_.push_back (se_lblHeaderDicePlayer);
+	ses_.push_back (se_lblHeaderSelectDiceToReroll);
+	ses_.push_back (se_lblHeaderPromptBetSecond);
+	ses_.push_back (se_btnSubmitRerollAndSecondBet);
+	ses_.push_back (se_btnBetAmount);
+	ses_.push_back (se_btnDiceEnemy4);
 	if (n5_pPlayerReroll->n (4) == int (true)) {
-		vec_screenelement_p_.push_back (se_rectDiceSelected4);
+		ses_.push_back (se_rectDiceSelected4);
 	} else {
 		delete se_rectDiceSelected4;
 	}
-	vec_screenelement_p_.push_back (se_btnDicePlayer4);
-	vec_screenelement_p_.push_back (se_btnDiceEnemy3);
+	ses_.push_back (se_btnDicePlayer4);
+	ses_.push_back (se_btnDiceEnemy3);
 	if (n5_pPlayerReroll->n (3) == int (true)) {
-		vec_screenelement_p_.push_back (se_rectDiceSelected3);
+		ses_.push_back (se_rectDiceSelected3);
 	} else {
 		delete se_rectDiceSelected3;
 	}
-	vec_screenelement_p_.push_back (se_btnDicePlayer3);
-	vec_screenelement_p_.push_back (se_btnDiceEnemy2);
+	ses_.push_back (se_btnDicePlayer3);
+	ses_.push_back (se_btnDiceEnemy2);
 	if (n5_pPlayerReroll->n (2) == int (true)) {
-		vec_screenelement_p_.push_back (se_rectDiceSelected2);
+		ses_.push_back (se_rectDiceSelected2);
 	} else {
 		delete se_rectDiceSelected2;
 	}
-	vec_screenelement_p_.push_back (se_btnDicePlayer2);
-	vec_screenelement_p_.push_back (se_btnDiceEnemy1);
+	ses_.push_back (se_btnDicePlayer2);
+	ses_.push_back (se_btnDiceEnemy1);
 	if (n5_pPlayerReroll->n (1) == int (true)) {
-		vec_screenelement_p_.push_back (se_rectDiceSelected1);
+		ses_.push_back (se_rectDiceSelected1);
 	} else {
 		delete se_rectDiceSelected1;
 	}
-	vec_screenelement_p_.push_back (se_btnDicePlayer1);
-	vec_screenelement_p_.push_back (se_btnDiceEnemy0);
+	ses_.push_back (se_btnDicePlayer1);
+	ses_.push_back (se_btnDiceEnemy0);
 	if (n5_pPlayerReroll->n (0) == int (true)) {
-		vec_screenelement_p_.push_back (se_rectDiceSelected0);
+		ses_.push_back (se_rectDiceSelected0);
 	} else {
 		delete se_rectDiceSelected0;
 	}
-	vec_screenelement_p_.push_back (se_btnDicePlayer0);
+	ses_.push_back (se_btnDicePlayer0);
 	addLabelsCash (
 		nCashInPot,
 		font_,
 		gamedata_pEnemy,
 		gamedata_pPlayer,
-		vec_screenelement_p_
+		ses_
 	);
 }
 void pokerduel::prepareStage_AcknowledgeBetAndRollSecond (
@@ -413,14 +413,14 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollSecond (
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	addLabelsCash (
 		nCashInPot,
 		font_,
 		gamedata_pEnemy,
 		gamedata_pPlayer,
-		vec_screenelement_p_
+		ses_
 	);
 }
 void pokerduel::prepareStage_Conclusion (
@@ -430,14 +430,14 @@ void pokerduel::prepareStage_Conclusion (
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemy,
 	const intx5*& n5_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	addLabelsCash (
 		nCashInPot,
 		font_,
 		gamedata_pEnemy,
 		gamedata_pPlayer,
-		vec_screenelement_p_
+		ses_
 	);
 }
 void pokerduel::addLabelsCash (
@@ -445,7 +445,7 @@ void pokerduel::addLabelsCash (
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
-	std::vector <screenelement*>& vec_screenelement_p_
+	screenelements& ses_
 ) {
 	screenelement_label* se_lblHeaderNameEnemy = new screenelement_label_generic (font_,
 		gamedata_pEnemy->sPlayerName (),
@@ -490,12 +490,12 @@ void pokerduel::addLabelsCash (
 	se_lblHeaderCashEnemy->move (fPosX_lblHeaderCashEnemy, 60.f);
 	se_lblHeaderCashPlayer->move (fPosX_lblHeaderCashPlayer, 60.f);
 	se_lblHeaderCashPot->move (fPosX_lblHeaderCashPot, 60.f);
-	vec_screenelement_p_.push_back (se_lblHeaderNameEnemy);
-	vec_screenelement_p_.push_back (se_lblHeaderNamePlayer);
-	vec_screenelement_p_.push_back (se_lblHeaderPot);
-	vec_screenelement_p_.push_back (se_lblHeaderCashEnemy);
-	vec_screenelement_p_.push_back (se_lblHeaderCashPlayer);
-	vec_screenelement_p_.push_back (se_lblHeaderCashPot);
+	ses_.push_back (se_lblHeaderNameEnemy);
+	ses_.push_back (se_lblHeaderNamePlayer);
+	ses_.push_back (se_lblHeaderPot);
+	ses_.push_back (se_lblHeaderCashEnemy);
+	ses_.push_back (se_lblHeaderCashPlayer);
+	ses_.push_back (se_lblHeaderCashPot);
 }
 pokerduel::screenelement_rectangle_enum pokerduel::screenelement_rectangle_dice_selected_background::screenelement_rectangle_enum_ (
 ) const {

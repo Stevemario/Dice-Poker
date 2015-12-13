@@ -34,7 +34,7 @@ namespace game {
 	extern intx5* m_n5_pPlayer;
 	extern intx5* m_n5_pPlayerInitial;
 	extern intx5* m_n5_pPlayerReroll;
-	extern std::vector <screenelement*> m_vec_screenelement_p;
+	extern screenelements m_ses;
 	void play (
 	);
 	void startUp (

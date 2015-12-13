@@ -20,7 +20,7 @@ namespace pokerduel {
 		const intx5*&,
 		const intx5*&,
 		const intx5*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void prepareStage_BetInitial (
 		const int&,
@@ -28,7 +28,7 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void prepareStage_AcknowledgeBetAndRollInitial (
 		const int&,
@@ -36,7 +36,7 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		const int&,
@@ -47,14 +47,14 @@ namespace pokerduel {
 		const intx5*&,
 		const intx5*&,
 		const intx5*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void prepareStage_AcknowledgeBetAndRollSecond (
 		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void prepareStage_Conclusion (
 		const int&,
@@ -63,14 +63,14 @@ namespace pokerduel {
 		const gamedata*&,
 		const intx5*&,
 		const intx5*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void addLabelsCash (
 		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	enum class screenelement_rectangle_enum {
 		DiceSelectedBackground,

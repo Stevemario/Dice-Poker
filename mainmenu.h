@@ -13,30 +13,30 @@ namespace mainmenu {
 		const sf::Font&,
 		const mainmenupage&,
 		const gamedata*&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void addButtonsPageSwitching (
 		const sf::Font&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void addPageSplash (
 		const sf::Font&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void addPageAdjust (
 		const sf::Font&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void addPageAccredit (
 		const sf::Font&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	void addPageNewGame (
 		const bool&,
 		const bool&,
 		const std::string&,
 		const sf::Font&,
-		std::vector <screenelement*>&
+		screenelements&
 	);
 	enum class screenelement_rectangle_enum {
 		BgButtonsPageSwitching,

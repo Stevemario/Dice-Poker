@@ -32,7 +32,7 @@ intx5* game::m_n5_pEnemyReroll;
 intx5* game::m_n5_pPlayer;
 intx5* game::m_n5_pPlayerInitial;
 intx5* game::m_n5_pPlayerReroll;
-std::vector <screenelement*> game::m_vec_screenelement_p;
+screenelements game::m_ses;
 void game::play (
 ) {
 	startUp ();
@@ -40,7 +40,7 @@ void game::play (
 		m_rw.clear (sf::Color::Green);
 		prepareData ();
 		prepareScreenElements ();
-		draw (m_vec_screenelement_p, m_rw);
+		draw (m_ses, m_rw);
 		m_rw.display ();
 		handleEvents ();
 	}
@@ -101,7 +101,7 @@ void game::prepareScreenElements (
 					m_font,
 					m_mainmenupage,
 					gamedata_pPlayerConst,
-					m_vec_screenelement_p
+					m_ses
 				);
 				break;
 			}
@@ -131,7 +131,7 @@ void game::prepareScreenElements (
 							n5_pPlayerConst,
 							n5_pPlayerInitialConst,
 							n5_pPlayerRerollConst,
-							m_vec_screenelement_p
+							m_ses
 						);
 						break;
 					}
@@ -175,7 +175,7 @@ void game::handleEvents (
 				}
 			}
 			if (bShouldClear_vec_screenelement_p) {
-				clear (m_vec_screenelement_p);
+				clear (m_ses);
 				m_bPrepared_vec_screenelement_p = false;
 			}
 		}
@@ -221,14 +221,14 @@ void game::handleMousePress (
 ) {
 	sf::Event::MouseButtonEvent mbe_ = eventToHandle.mouseButton;
 	screenelement* se_p_;
-	unsigned int nAmountOfElements = m_vec_screenelement_p.size ();
+	unsigned int nAmountOfElements = m_ses.size ();
 	int nElementIndex = nAmountOfElements - 1;
 	bool bFoundElementClicked = false;
 	bool bShouldLoop = (nAmountOfElements != 0);
 	m_bEditAString = false;
 	while (bShouldLoop) {
 		bShouldLoop = false;
-		se_p_ = m_vec_screenelement_p[nElementIndex];
+		se_p_ = m_ses[nElementIndex];
 		if (se_p_->bClicked (mbe_)) {
 			bFoundElementClicked = true;
 			m_nSEClickedLast = nElementIndex;
@@ -271,7 +271,7 @@ void game::handleMouseRelease (
 ) {
 	if (m_bClickedAButtonJustNow) {
 		sf::Event::MouseButtonEvent mbe_ = eventToHandle.mouseButton;
-		screenelement* se_p_ = m_vec_screenelement_p[m_nSEClickedLast];
+		screenelement* se_p_ = m_ses[m_nSEClickedLast];
 		if (se_p_->bClicked (mbe_)) {
 			screenelement_enum se_e_ = se_p_->screenelement_enum_ ();
 			switch (se_e_) {
