@@ -28,8 +28,10 @@ gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
 intx5* game::m_n5_pEnemy;
 intx5* game::m_n5_pEnemyInitial;
+intx5* game::m_n5_pEnemyReroll;
 intx5* game::m_n5_pPlayer;
 intx5* game::m_n5_pPlayerInitial;
+intx5* game::m_n5_pPlayerReroll;
 std::vector <screenelement*> game::m_vec_screenelement_p;
 void game::play (
 ) {
@@ -111,8 +113,10 @@ void game::prepareScreenElements (
 						const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
 						const intx5* n5_pEnemyConst = m_n5_pEnemy;
 						const intx5* n5_pEnemyInitialConst = m_n5_pEnemyInitial;
+						const intx5* n5_pEnemyRerollConst = m_n5_pEnemyReroll;
 						const intx5* n5_pPlayerConst = m_n5_pPlayer;
 						const intx5* n5_pPlayerInitialConst = m_n5_pPlayerInitial;
+						const intx5* n5_pPlayerRerollConst = m_n5_pPlayerReroll;
 						pokerduel::prepare (
 							m_nBetAgreed,
 							m_nCashInPot,
@@ -123,8 +127,10 @@ void game::prepareScreenElements (
 							gamedata_pPlayerConst,
 							n5_pEnemyConst,
 							n5_pEnemyInitialConst,
+							n5_pEnemyRerollConst,
 							n5_pPlayerConst,
 							n5_pPlayerInitialConst,
+							n5_pPlayerRerollConst,
 							m_vec_screenelement_p
 						);
 						break;
@@ -467,27 +473,78 @@ void game::handle (
 			break;
 		}
 		case pokerduel::screenelement_button_enum::ChangeBetInitial: {
-			transactBet (-1.f * m_nBetAgreed);
+			transactBet (-1 * m_nBetAgreed);
 			*m_pokerduelstage_p = pokerduelstage::BetInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerduel::screenelement_button_enum::OKBetAndRollDiceInitial: {
 			int nTemp;
-			intx5** n5Dice[2] = {
+			intx5** n5Dice[4] = {
 				&m_n5_pEnemyInitial,
-				&m_n5_pPlayerInitial
+				&m_n5_pPlayerInitial,
+				&m_n5_pEnemyReroll,
+				&m_n5_pPlayerReroll
 			};
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 4; i++) {
 				*n5Dice[i] = new intx5;
 				for (int j = 0; j < 5; j++) {
-					nTemp = rand ();
-					nTemp %= 6;
-					nTemp += 1;
+					if (i < 2) {
+						nTemp = rand ();
+						nTemp %= 6;
+						nTemp += 1;
+					} else {
+						nTemp = false;
+					}
 					(*n5Dice[i])->set_n (j, nTemp);
 				}
 			}
 			*m_pokerduelstage_p = pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::DicePlayer0: {
+			if (m_n5_pPlayerReroll->n (0) == int (true)) {
+				m_n5_pPlayerReroll->set_n (0, int (false));
+			} else {
+				m_n5_pPlayerReroll->set_n (0, int (true));
+			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::DicePlayer1: {
+			if (m_n5_pPlayerReroll->n (1) == int (true)) {
+				m_n5_pPlayerReroll->set_n (1, int (false));
+			} else {
+				m_n5_pPlayerReroll->set_n (1, int (true));
+			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::DicePlayer2: {
+			if (m_n5_pPlayerReroll->n (2) == int (true)) {
+				m_n5_pPlayerReroll->set_n (2, int (false));
+			} else {
+				m_n5_pPlayerReroll->set_n (2, int (true));
+			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::DicePlayer3: {
+			if (m_n5_pPlayerReroll->n (3) == int (true)) {
+				m_n5_pPlayerReroll->set_n (3, int (false));
+			} else {
+				m_n5_pPlayerReroll->set_n (3, int (true));
+			}
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::DicePlayer4: {
+			if (m_n5_pPlayerReroll->n (4) == int (true)) {
+				m_n5_pPlayerReroll->set_n (4, int (false));
+			} else {
+				m_n5_pPlayerReroll->set_n (4, int (true));
+			}
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -505,9 +562,12 @@ void game::deleteGameData (
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
 			switch (*m_pokerduelstage_p) {
-				case pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond: {
+				case pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond:
+				case pokerduelstage::AcknowledgeBetAndRollSecond: {
 					delete m_n5_pEnemyInitial;
 					delete m_n5_pPlayerInitial;
+					delete m_n5_pEnemyReroll;
+					delete m_n5_pPlayerReroll;
 					break;
 				}
 			}

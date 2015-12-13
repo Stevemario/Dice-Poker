@@ -9,8 +9,10 @@ void pokerduel::prepare (
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemy,
 	const intx5*& n5_pEnemyInitial,
+	const intx5*& n5_pEnemyReroll,
 	const intx5*& n5_pPlayer,
 	const intx5*& n5_pPlayerInitial,
+	const intx5*& n5_pPlayerReroll,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
 	switch (*pokerduelstage_p_) {
@@ -45,6 +47,7 @@ void pokerduel::prepare (
 				gamedata_pPlayer,
 				n5_pEnemyInitial,
 				n5_pPlayerInitial,
+				n5_pPlayerReroll,
 				vec_screenelement_p_
 			);
 			break;
@@ -177,8 +180,14 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemyInitial,
 	const intx5*& n5_pPlayerInitial,
+	const intx5*& n5_pPlayerReroll,
 	std::vector <screenelement*>& vec_screenelement_p_
 ) {
+	screenelement_rectangle* se_rectDiceSelected0;
+	screenelement_rectangle* se_rectDiceSelected1;
+	screenelement_rectangle* se_rectDiceSelected2;
+	screenelement_rectangle* se_rectDiceSelected3;
+	screenelement_rectangle* se_rectDiceSelected4;
 	screenelement_label* se_lblHeaderDiceRolled = new screenelement_label_generic (
 		font_,
 		"These are the dice rolled:",
@@ -264,6 +273,11 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		"Submit",
 		screenelement_button_enum::SubmitRerollAndSecondBet
 	);
+	sf::FloatRect frBounds_btnDicePlayer0 = se_btnDicePlayer0->rs_ ().getGlobalBounds ();
+	sf::FloatRect frBounds_btnDicePlayer1 = se_btnDicePlayer1->rs_ ().getGlobalBounds ();
+	sf::FloatRect frBounds_btnDicePlayer2 = se_btnDicePlayer2->rs_ ().getGlobalBounds ();
+	sf::FloatRect frBounds_btnDicePlayer3 = se_btnDicePlayer3->rs_ ().getGlobalBounds ();
+	sf::FloatRect frBounds_btnDicePlayer4 = se_btnDicePlayer4->rs_ ().getGlobalBounds ();
 	float fWidth_lblHeaderDiceRolled = se_lblHeaderDiceRolled->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderDiceEnemy = se_lblHeaderDiceEnemy->text_ ().getGlobalBounds ().width;
 	float fWidth_lblHeaderDicePlayer = se_lblHeaderDicePlayer->text_ ().getGlobalBounds ().width;
@@ -274,11 +288,16 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	float fWidth_btnDiceEnemy2 = se_btnDiceEnemy2->rs_ ().getGlobalBounds ().width;
 	float fWidth_btnDiceEnemy3 = se_btnDiceEnemy3->rs_ ().getGlobalBounds ().width;
 	float fWidth_btnDiceEnemy4 = se_btnDiceEnemy4->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDicePlayer0 = se_btnDicePlayer0->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDicePlayer1 = se_btnDicePlayer1->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDicePlayer2 = se_btnDicePlayer2->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDicePlayer3 = se_btnDicePlayer3->rs_ ().getGlobalBounds ().width;
-	float fWidth_btnDicePlayer4 = se_btnDicePlayer4->rs_ ().getGlobalBounds ().width;
+	float fWidth_btnDicePlayer0 = frBounds_btnDicePlayer0.width;
+	float fWidth_btnDicePlayer1 = frBounds_btnDicePlayer1.width;
+	float fWidth_btnDicePlayer2 = frBounds_btnDicePlayer2.width;
+	float fWidth_btnDicePlayer3 = frBounds_btnDicePlayer3.width;
+	float fWidth_btnDicePlayer4 = frBounds_btnDicePlayer4.width;
+	float fHeight_btnDicePlayer0 = frBounds_btnDicePlayer0.height;
+	float fHeight_btnDicePlayer1 = frBounds_btnDicePlayer1.height;
+	float fHeight_btnDicePlayer2 = frBounds_btnDicePlayer2.height;
+	float fHeight_btnDicePlayer3 = frBounds_btnDicePlayer3.height;
+	float fHeight_btnDicePlayer4 = frBounds_btnDicePlayer4.height;
 	float fWidth_btnSubmitRerollAndSecondBet = se_btnSubmitRerollAndSecondBet->rs_ ().getGlobalBounds ().width;
 	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
 	float fPosX_lblHeaderDiceEnemy = 2.f * 1350.f / 3.f - .5f * fWidth_lblHeaderDiceEnemy;
@@ -297,6 +316,31 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	float fPosX_btnDicePlayer4 = 1350.f / 3.f - .5f * fWidth_btnDicePlayer4;
 	float fPosX_btnBetAmount = .5f * 1350.f + 10.f;
 	float fPosX_btnSubmitRerollAndSecondBet = .5f * (1350.f - fWidth_btnSubmitRerollAndSecondBet);
+	se_rectDiceSelected0 = new screenelement_rectangle_dice_selected_background (
+		fWidth_btnDicePlayer0 + 8.f,
+		fHeight_btnDicePlayer0 + 8.f
+	);
+	se_rectDiceSelected1 = new screenelement_rectangle_dice_selected_background (
+		fWidth_btnDicePlayer1 + 8.f,
+		fHeight_btnDicePlayer1 + 8.f
+	);
+	se_rectDiceSelected2 = new screenelement_rectangle_dice_selected_background (
+		fWidth_btnDicePlayer2 + 8.f,
+		fHeight_btnDicePlayer2 + 8.f
+	);
+	se_rectDiceSelected3 = new screenelement_rectangle_dice_selected_background (
+		fWidth_btnDicePlayer3 + 8.f,
+		fHeight_btnDicePlayer3 + 8.f
+	);
+	se_rectDiceSelected4 = new screenelement_rectangle_dice_selected_background (
+		fWidth_btnDicePlayer4 + 8.f,
+		fHeight_btnDicePlayer4 + 8.f
+	);
+	se_rectDiceSelected0->move (fPosX_btnDicePlayer0 - 4.f, 236.f);
+	se_rectDiceSelected1->move (fPosX_btnDicePlayer1 - 4.f, 336.f);
+	se_rectDiceSelected2->move (fPosX_btnDicePlayer2 - 4.f, 436.f);
+	se_rectDiceSelected3->move (fPosX_btnDicePlayer3 - 4.f, 536.f);
+	se_rectDiceSelected4->move (fPosX_btnDicePlayer4 - 4.f, 636.f);
 	se_lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 120.f);
 	se_lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 180.f);
 	se_lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 180.f);
@@ -322,14 +366,39 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	vec_screenelement_p_.push_back (se_btnSubmitRerollAndSecondBet);
 	vec_screenelement_p_.push_back (se_btnBetAmount);
 	vec_screenelement_p_.push_back (se_btnDiceEnemy4);
+	if (n5_pPlayerReroll->n (4) == int (true)) {
+		vec_screenelement_p_.push_back (se_rectDiceSelected4);
+	} else {
+		delete se_rectDiceSelected4;
+	}
 	vec_screenelement_p_.push_back (se_btnDicePlayer4);
 	vec_screenelement_p_.push_back (se_btnDiceEnemy3);
+	if (n5_pPlayerReroll->n (3) == int (true)) {
+		vec_screenelement_p_.push_back (se_rectDiceSelected3);
+	} else {
+		delete se_rectDiceSelected3;
+	}
 	vec_screenelement_p_.push_back (se_btnDicePlayer3);
 	vec_screenelement_p_.push_back (se_btnDiceEnemy2);
+	if (n5_pPlayerReroll->n (2) == int (true)) {
+		vec_screenelement_p_.push_back (se_rectDiceSelected2);
+	} else {
+		delete se_rectDiceSelected2;
+	}
 	vec_screenelement_p_.push_back (se_btnDicePlayer2);
 	vec_screenelement_p_.push_back (se_btnDiceEnemy1);
+	if (n5_pPlayerReroll->n (1) == int (true)) {
+		vec_screenelement_p_.push_back (se_rectDiceSelected1);
+	} else {
+		delete se_rectDiceSelected1;
+	}
 	vec_screenelement_p_.push_back (se_btnDicePlayer1);
 	vec_screenelement_p_.push_back (se_btnDiceEnemy0);
+	if (n5_pPlayerReroll->n (0) == int (true)) {
+		vec_screenelement_p_.push_back (se_rectDiceSelected0);
+	} else {
+		delete se_rectDiceSelected0;
+	}
 	vec_screenelement_p_.push_back (se_btnDicePlayer0);
 	addLabelsCash (
 		nCashInPot,
@@ -427,6 +496,17 @@ void pokerduel::addLabelsCash (
 	vec_screenelement_p_.push_back (se_lblHeaderCashEnemy);
 	vec_screenelement_p_.push_back (se_lblHeaderCashPlayer);
 	vec_screenelement_p_.push_back (se_lblHeaderCashPot);
+}
+pokerduel::screenelement_rectangle_enum pokerduel::screenelement_rectangle_dice_selected_background::screenelement_rectangle_enum_ (
+) const {
+	return screenelement_rectangle_enum::DiceSelectedBackground;
+}
+pokerduel::screenelement_rectangle_dice_selected_background::screenelement_rectangle_dice_selected_background (
+	const float& fWidth,
+	const float& fHeight
+) {
+	set_bIsHeldDown (false);
+	create (fWidth, fHeight, sf::Color (255, 255, 255, 255));
 }
 pokerduel::screenelement_label_enum pokerduel::screenelement_label_generic::screenelement_label_enum_ (
 ) const {

@@ -30,8 +30,10 @@ namespace game {
 	extern gamedata* m_gamedata_pPlayer;
 	extern intx5* m_n5_pEnemy;
 	extern intx5* m_n5_pEnemyInitial;
+	extern intx5* m_n5_pEnemyReroll;
 	extern intx5* m_n5_pPlayer;
 	extern intx5* m_n5_pPlayerInitial;
+	extern intx5* m_n5_pPlayerReroll;
 	extern std::vector <screenelement*> m_vec_screenelement_p;
 	void play (
 	);

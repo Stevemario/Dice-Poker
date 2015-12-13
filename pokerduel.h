@@ -18,6 +18,8 @@ namespace pokerduel {
 		const intx5*&,
 		const intx5*&,
 		const intx5*&,
+		const intx5*&,
+		const intx5*&,
 		std::vector <screenelement*>&
 	);
 	void prepareStage_BetInitial (
@@ -42,6 +44,7 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
+		const intx5*&,
 		const intx5*&,
 		const intx5*&,
 		std::vector <screenelement*>&
@@ -69,6 +72,18 @@ namespace pokerduel {
 		const gamedata*&,
 		std::vector <screenelement*>&
 	);
+	enum class screenelement_rectangle_enum {
+		DiceSelectedBackground,
+	};
+	typedef screenelement_rectangle::screenelement_rectangle <screenelement_rectangle_enum> screenelement_rectangle;
+	class screenelement_rectangle_dice_selected_background : public screenelement_rectangle {
+		public: screenelement_rectangle_enum screenelement_rectangle_enum_ (
+		) const;
+		public: screenelement_rectangle_dice_selected_background (
+			const float&,
+			const float&
+		);
+	};
 	enum class screenelement_label_enum {
 		HeaderNameEnemy,
 		HeaderNamePlayer,
