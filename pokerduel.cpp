@@ -16,8 +16,8 @@ void pokerduel::prepare (
 	screenelements& ses_
 ) {
 	switch (*pokerduelstage_p_) {
-		case pokerduelstage::BetInitial: {
-			prepareStage_BetInitial (
+		case pokerduelstage::SubmitInputInitial: {
+			prepareStage_SubmitInputInitial (
 				nCashInPot,
 				sBetPlayer,
 				font_,
@@ -27,8 +27,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::AcknowledgeBetAndRollInitial: {
-			prepareStage_AcknowledgeBetAndRollInitial (
+		case pokerduelstage::OKInputInitial: {
+			prepareStage_OKInputInitial (
 				nBetAgreed,
 				nCashInPot,
 				font_,
@@ -38,8 +38,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond: {
-			prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
+		case pokerduelstage::SubmitInputSecond: {
+			prepareStage_SubmitInputSecond (
 				nCashInPot,
 				sBetPlayer,
 				font_,
@@ -52,8 +52,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::AcknowledgeBetAndRollSecond: {
-			prepareStage_AcknowledgeBetAndRollSecond (
+		case pokerduelstage::OKInputSecond: {
+			prepareStage_OKInputSecond (
 				nBetAgreed,
 				nCashInPot,
 				font_,
@@ -63,8 +63,8 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::Conclusion: {
-			prepareStage_Conclusion (
+		case pokerduelstage::OKResults: {
+			prepareStage_OKResults (
 				nCashInPot,
 				font_,
 				gamedata_pEnemy,
@@ -77,7 +77,7 @@ void pokerduel::prepare (
 		}
 	}
 }
-void pokerduel::prepareStage_BetInitial (
+void pokerduel::prepareStage_SubmitInputInitial (
 	const int& nCashInPot,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
@@ -95,25 +95,25 @@ void pokerduel::prepareStage_BetInitial (
 		"$" + sBetPlayer,
 		screenelement_button_enum::BetAmount
 	);
-	screenelement_button* se_btnBetSubmit = new screenelement_button_generic (
+	screenelement_button* se_btnSubmitInputInitial = new screenelement_button_generic (
 		font_,
 		"Submit",
-		screenelement_button_enum::SubmitBetInitial
+		screenelement_button_enum::SubmitInputInitial
 	);
 	se_btnBetAmount->stretch (360.f, 0.f);
-	se_btnBetSubmit->stretch (360.f, 0.f);
+	se_btnSubmitInputInitial->stretch (360.f, 0.f);
 	float fWidth_lblHeaderPromptBet = se_lblHeaderPromptBet->frBounds_text ().width;
 	float fWidth_btnBetAmount = se_btnBetAmount->frBounds_rs ().width;
-	float fWidth_btnBetSubmit = se_btnBetSubmit->frBounds_rs ().width;
+	float fWidth_btnSubmitInputInitial = se_btnSubmitInputInitial->frBounds_rs ().width;
 	float fPosX_lblHeaderPromptBet = .5f * (1350.f - fWidth_lblHeaderPromptBet);
 	float fPosX_btnBetAmount = .5f * (1350.f - fWidth_btnBetAmount);
-	float fPosX_btnBetSubmit = .5f * (1350.f - fWidth_btnBetSubmit);
+	float fPosX_btnSubmitInputInitial = .5f * (1350.f - fWidth_btnSubmitInputInitial);
 	se_lblHeaderPromptBet->move (fPosX_lblHeaderPromptBet, 300.f);
 	se_btnBetAmount->move (fPosX_btnBetAmount, 360.f);
-	se_btnBetSubmit->move (fPosX_btnBetSubmit, 500.f);
+	se_btnSubmitInputInitial->move (fPosX_btnSubmitInputInitial, 500.f);
 	ses_.push_back (se_lblHeaderPromptBet);
 	ses_.push_back (se_btnBetAmount);
-	ses_.push_back (se_btnBetSubmit);
+	ses_.push_back (se_btnSubmitInputInitial);
 	addLabelsCash (
 		nCashInPot,
 		font_,
@@ -122,7 +122,7 @@ void pokerduel::prepareStage_BetInitial (
 		ses_
 	);
 }
-void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
+void pokerduel::prepareStage_OKInputInitial (
 	const int& nBetAgreed,
 	const int& nCashInPot,
 	const sf::Font& font_,
@@ -140,31 +140,31 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 		"Pressing Roll will OK Bet.",
 		screenelement_label_enum::HeaderPressingRollWillOKBet
 	);
-	screenelement_button* se_btnChangeBetInitial = new screenelement_button_generic (
+	screenelement_button* se_btnChangeInputInitial = new screenelement_button_generic (
 		font_,
 		"Change Bet",
-		screenelement_button_enum::ChangeBetInitial
+		screenelement_button_enum::ChangeInputInitial
 	);
-	screenelement_button* se_btnOKBetAndRollDiceInitial = new screenelement_button_generic (
+	screenelement_button* se_btnOKInputInitial = new screenelement_button_generic (
 		font_,
 		"Roll",
-		screenelement_button_enum::OKBetAndRollDiceInitial
+		screenelement_button_enum::OKInputInitial
 	);
 	float fWidth_lblHeaderAlertBet = se_lblHeaderAlertBet->frBounds_text ().width;
 	float fWidth_lblHeaderPressingRollWillOKBet = se_lblHeaderPressingRollWillOKBet->frBounds_text ().width;
-	float fWidth_btnChangeBetInitial = se_btnChangeBetInitial->frBounds_rs ().width;
+	float fWidth_btnChangeInputInitial = se_btnChangeInputInitial->frBounds_rs ().width;
 	float fPosX_lblHeaderAlertBet = .5f * (1350.f - fWidth_lblHeaderAlertBet);
 	float fPosX_lblHeaderPressingRollWillOKBet = .5f * (1350.f - fWidth_lblHeaderPressingRollWillOKBet);
-	float fPosX_btnChangeBetInitial = .5f * 1350.f  - 10.f - fWidth_btnChangeBetInitial;
-	float fPosX_btnOKBetAndRollDiceInitial = .5f * 1350.f  + 10.f;
+	float fPosX_btnChangeInputInitial = .5f * 1350.f  - 10.f - fWidth_btnChangeInputInitial;
+	float fPosX_btnOKInputInitial = .5f * 1350.f  + 10.f;
 	se_lblHeaderAlertBet->move (fPosX_lblHeaderAlertBet, 300.f);
 	se_lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 360.f);
-	se_btnChangeBetInitial->move (fPosX_btnChangeBetInitial, 420.f);
-	se_btnOKBetAndRollDiceInitial->move (fPosX_btnOKBetAndRollDiceInitial, 420.f);
+	se_btnChangeInputInitial->move (fPosX_btnChangeInputInitial, 420.f);
+	se_btnOKInputInitial->move (fPosX_btnOKInputInitial, 420.f);
 	ses_.push_back (se_lblHeaderAlertBet);
 	ses_.push_back (se_lblHeaderPressingRollWillOKBet);
-	ses_.push_back (se_btnChangeBetInitial);
-	ses_.push_back (se_btnOKBetAndRollDiceInitial);
+	ses_.push_back (se_btnChangeInputInitial);
+	ses_.push_back (se_btnOKInputInitial);
 	addLabelsCash (
 		nCashInPot,
 		font_,
@@ -173,7 +173,7 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollInitial (
 		ses_
 	);
 }
-void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
+void pokerduel::prepareStage_SubmitInputSecond (
 	const int& nCashInPot,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
@@ -269,10 +269,10 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		"$" + sBetPlayer,
 		screenelement_button_enum::BetAmount
 	);
-	screenelement_button* se_btnSubmitRerollAndSecondBet = new screenelement_button_generic (
+	screenelement_button* se_btnSubmitInputSecond = new screenelement_button_generic (
 		font_,
 		"Submit",
-		screenelement_button_enum::SubmitRerollAndSecondBet
+		screenelement_button_enum::SubmitInputSecond
 	);
 	sf::FloatRect frBounds_btnDicePlayer0 = se_btnDicePlayer0->frBounds_rs ();
 	sf::FloatRect frBounds_btnDicePlayer1 = se_btnDicePlayer1->frBounds_rs ();
@@ -299,7 +299,7 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	float fHeight_btnDicePlayer2 = frBounds_btnDicePlayer2.height;
 	float fHeight_btnDicePlayer3 = frBounds_btnDicePlayer3.height;
 	float fHeight_btnDicePlayer4 = frBounds_btnDicePlayer4.height;
-	float fWidth_btnSubmitRerollAndSecondBet = se_btnSubmitRerollAndSecondBet->frBounds_rs ().width;
+	float fWidth_btnSubmitInputSecond = se_btnSubmitInputSecond->frBounds_rs ().width;
 	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
 	float fPosX_lblHeaderDiceEnemy = 2.f * 1350.f / 3.f - .5f * fWidth_lblHeaderDiceEnemy;
 	float fPosX_lblHeaderDicePlayer = 1350.f / 3.f - .5f * fWidth_lblHeaderDicePlayer;
@@ -316,7 +316,7 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	float fPosX_btnDicePlayer3 = 1350.f / 3.f - .5f * fWidth_btnDicePlayer3;
 	float fPosX_btnDicePlayer4 = 1350.f / 3.f - .5f * fWidth_btnDicePlayer4;
 	float fPosX_btnBetAmount = .5f * 1350.f + 10.f;
-	float fPosX_btnSubmitRerollAndSecondBet = .5f * (1350.f - fWidth_btnSubmitRerollAndSecondBet);
+	float fPosX_btnSubmitInputSecond = .5f * (1350.f - fWidth_btnSubmitInputSecond);
 	se_rectDiceSelected0 = new screenelement_rectangle_dice_selected_background (
 		fWidth_btnDicePlayer0 + 8.f,
 		fHeight_btnDicePlayer0 + 8.f
@@ -358,13 +358,13 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	se_btnDicePlayer3->move (fPosX_btnDicePlayer3, 540.f);
 	se_btnDicePlayer4->move (fPosX_btnDicePlayer4, 640.f);
 	se_btnBetAmount->move (fPosX_btnBetAmount, 800.f);
-	se_btnSubmitRerollAndSecondBet->move (fPosX_btnSubmitRerollAndSecondBet, 940.f);
+	se_btnSubmitInputSecond->move (fPosX_btnSubmitInputSecond, 940.f);
 	ses_.push_back (se_lblHeaderDiceRolled);
 	ses_.push_back (se_lblHeaderDiceEnemy);
 	ses_.push_back (se_lblHeaderDicePlayer);
 	ses_.push_back (se_lblHeaderSelectDiceToReroll);
 	ses_.push_back (se_lblHeaderPromptBetSecond);
-	ses_.push_back (se_btnSubmitRerollAndSecondBet);
+	ses_.push_back (se_btnSubmitInputSecond);
 	ses_.push_back (se_btnBetAmount);
 	ses_.push_back (se_btnDiceEnemy4);
 	if (n5_pPlayerReroll->n (4) == int (true)) {
@@ -409,7 +409,7 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 		ses_
 	);
 }
-void pokerduel::prepareStage_AcknowledgeBetAndRollSecond (
+void pokerduel::prepareStage_OKInputSecond (
 	const int& nBetAgreed,
 	const int& nCashInPot,
 	const sf::Font& font_,
@@ -469,7 +469,7 @@ void pokerduel::prepareStage_AcknowledgeBetAndRollSecond (
 		ses_
 	);
 }
-void pokerduel::prepareStage_Conclusion (
+void pokerduel::prepareStage_OKResults (
 	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,

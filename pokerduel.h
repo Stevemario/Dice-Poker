@@ -22,7 +22,7 @@ namespace pokerduel {
 		const intx5*&,
 		screenelements&
 	);
-	void prepareStage_BetInitial (
+	void prepareStage_SubmitInputInitial (
 		const int&,
 		const std::string&,
 		const sf::Font&,
@@ -30,7 +30,7 @@ namespace pokerduel {
 		const gamedata*&,
 		screenelements&
 	);
-	void prepareStage_AcknowledgeBetAndRollInitial (
+	void prepareStage_OKInputInitial (
 		const int&,
 		const int&,
 		const sf::Font&,
@@ -38,7 +38,7 @@ namespace pokerduel {
 		const gamedata*&,
 		screenelements&
 	);
-	void prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
+	void prepareStage_SubmitInputSecond (
 		const int&,
 		const std::string&,
 		const sf::Font&,
@@ -49,7 +49,7 @@ namespace pokerduel {
 		const intx5*&,
 		screenelements&
 	);
-	void prepareStage_AcknowledgeBetAndRollSecond (
+	void prepareStage_OKInputSecond (
 		const int&,
 		const int&,
 		const sf::Font&,
@@ -57,7 +57,7 @@ namespace pokerduel {
 		const gamedata*&,
 		screenelements&
 	);
-	void prepareStage_Conclusion (
+	void prepareStage_OKResults (
 		const int&,
 		const sf::Font&,
 		const gamedata*&,
@@ -117,9 +117,9 @@ namespace pokerduel {
 	};
 	enum class screenelement_button_enum {
 		BetAmount,
-		SubmitBetInitial,
-		ChangeBetInitial,
-		OKBetAndRollDiceInitial,
+		SubmitInputInitial,
+		ChangeInputInitial,
+		OKInputInitial,
 		DiceEnemy0,
 		DiceEnemy1,
 		DiceEnemy2,
@@ -130,7 +130,7 @@ namespace pokerduel {
 		DicePlayer2,
 		DicePlayer3,
 		DicePlayer4,
-		SubmitRerollAndSecondBet,
+		SubmitInputSecond,
 		ChangeInputSecond,
 		OKInputSecond,
 	};

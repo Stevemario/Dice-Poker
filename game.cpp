@@ -76,7 +76,7 @@ void game::prepareData (
 					m_pokerduelstage_p = new pokerduelstage;
 					m_gamedata_pEnemy = new gamedata ("Steve's Bot");
 					m_gamedata_pPlayer = new gamedata ("Player");
-					*m_pokerduelstage_p = pokerduelstage::BetInitial;
+					*m_pokerduelstage_p = pokerduelstage::SubmitInputInitial;
 					m_bHaveGameData = true;
 					break;
 				}
@@ -465,20 +465,20 @@ void game::handle (
 			m_bEditAString = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::SubmitBetInitial: {
+		case pokerduel::screenelement_button_enum::SubmitInputInitial: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::AcknowledgeBetAndRollInitial;
+			*m_pokerduelstage_p = pokerduelstage::OKInputInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::ChangeBetInitial: {
+		case pokerduel::screenelement_button_enum::ChangeInputInitial: {
 			transactBet (-1 * m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::BetInitial;
+			*m_pokerduelstage_p = pokerduelstage::SubmitInputInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::OKBetAndRollDiceInitial: {
+		case pokerduel::screenelement_button_enum::OKInputInitial: {
 			int nTemp;
 			intx5** n5Dice[4] = {
 				&m_n5_pEnemyInitial,
@@ -499,7 +499,7 @@ void game::handle (
 					(*n5Dice[i])->set_n (j, nTemp);
 				}
 			}
-			*m_pokerduelstage_p = pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond;
+			*m_pokerduelstage_p = pokerduelstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -548,16 +548,16 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::SubmitRerollAndSecondBet: {
+		case pokerduel::screenelement_button_enum::SubmitInputSecond: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::AcknowledgeBetAndRollSecond;
+			*m_pokerduelstage_p = pokerduelstage::OKInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerduel::screenelement_button_enum::ChangeInputSecond: {
 			transactBet (-1 * m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond;
+			*m_pokerduelstage_p = pokerduelstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -586,7 +586,7 @@ void game::handle (
 					(*n5Dice[i+4])->set_n (j, nTemp);
 				}
 			}
-			*m_pokerduelstage_p = pokerduelstage::Conclusion;
+			*m_pokerduelstage_p = pokerduelstage::OKResults;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -597,15 +597,15 @@ void game::deleteGameData (
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
 			switch (*m_pokerduelstage_p) {
-				case pokerduelstage::AcknowledgeRollInitialSelectRerollAndBetSecond:
-				case pokerduelstage::AcknowledgeBetAndRollSecond: {
+				case pokerduelstage::SubmitInputSecond:
+				case pokerduelstage::OKInputSecond: {
 					delete m_n5_pEnemyInitial;
 					delete m_n5_pPlayerInitial;
 					delete m_n5_pEnemyReroll;
 					delete m_n5_pPlayerReroll;
 					break;
 				}
-				case pokerduelstage::Conclusion: {
+				case pokerduelstage::OKResults: {
 					delete m_n5_pEnemyInitial;
 					delete m_n5_pPlayerInitial;
 					delete m_n5_pEnemyReroll;
