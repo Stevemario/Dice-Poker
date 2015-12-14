@@ -108,9 +108,9 @@ void pokerduel::prepareStage_SubmitInputInitial (
 	float fPosX_lblHeaderPromptBet = .5f * (1350.f - fWidth_lblHeaderPromptBet);
 	float fPosX_btnBetAmount = .5f * (1350.f - fWidth_btnBetAmount);
 	float fPosX_btnSubmitInputInitial = .5f * (1350.f - fWidth_btnSubmitInputInitial);
-	lblHeaderPromptBet->move (fPosX_lblHeaderPromptBet, 300.f);
-	btnBetAmount->move (fPosX_btnBetAmount, 360.f);
-	btnSubmitInputInitial->move (fPosX_btnSubmitInputInitial, 500.f);
+	lblHeaderPromptBet->move (fPosX_lblHeaderPromptBet, 180.f);
+	btnBetAmount->move (fPosX_btnBetAmount, 240.f);
+	btnSubmitInputInitial->move (fPosX_btnSubmitInputInitial, 380.f);
 	ses_.push_back (lblHeaderPromptBet);
 	ses_.push_back (btnBetAmount);
 	ses_.push_back (btnSubmitInputInitial);
@@ -137,7 +137,7 @@ void pokerduel::prepareStage_OKInputInitial (
 	);
 	screenelement_label* lblHeaderPressingRollWillOKBet = new screenelement_label_generic (
 		font_,
-		"Pressing Roll will OK Bet.",
+		"Pressing OK Bet will roll the dice.",
 		screenelement_label_enum::HeaderPressingRollWillOKBet
 	);
 	screenelement_button* btnChangeInputInitial = new screenelement_button_generic (
@@ -147,7 +147,7 @@ void pokerduel::prepareStage_OKInputInitial (
 	);
 	screenelement_button* btnOKInputInitial = new screenelement_button_generic (
 		font_,
-		"Roll",
+		"OK Bet",
 		screenelement_button_enum::OKInputInitial
 	);
 	float fWidth_lblHeaderAlertBet = lblHeaderAlertBet->frBounds_text ().width;
@@ -157,10 +157,10 @@ void pokerduel::prepareStage_OKInputInitial (
 	float fPosX_lblHeaderPressingRollWillOKBet = .5f * (1350.f - fWidth_lblHeaderPressingRollWillOKBet);
 	float fPosX_btnChangeInputInitial = .5f * 1350.f  - 10.f - fWidth_btnChangeInputInitial;
 	float fPosX_btnOKInputInitial = .5f * 1350.f  + 10.f;
-	lblHeaderAlertBet->move (fPosX_lblHeaderAlertBet, 300.f);
-	lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 360.f);
-	btnChangeInputInitial->move (fPosX_btnChangeInputInitial, 420.f);
-	btnOKInputInitial->move (fPosX_btnOKInputInitial, 420.f);
+	lblHeaderAlertBet->move (fPosX_lblHeaderAlertBet, 180.f);
+	lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 380.f);
+	btnChangeInputInitial->move (fPosX_btnChangeInputInitial, 240.f);
+	btnOKInputInitial->move (fPosX_btnOKInputInitial, 240.f);
 	ses_.push_back (lblHeaderAlertBet);
 	ses_.push_back (lblHeaderPressingRollWillOKBet);
 	ses_.push_back (btnChangeInputInitial);
@@ -429,7 +429,7 @@ void pokerduel::prepareStage_OKInputSecond (
 	);
 	screenelement_label* lblHeaderPressingOKInputSecondWillRollSecond = new screenelement_label_generic (
 		font_,
-		"Pressing Roll will OK the dice rerolls and bet.",
+		"Pressing OK Input will roll the dice.",
 		screenelement_label_enum::HeaderPressingOKInputSecondWillRollSecond
 	);
 	screenelement_button* btnChangeInputSecond = new screenelement_button_generic (
@@ -451,11 +451,11 @@ void pokerduel::prepareStage_OKInputSecond (
 	float fPosX_lblHeaderPressingOKInputSecondWillRollSecond = .5f * (1350.f - fWidth_lblHeaderPressingOKInputSecondWillRollSecond);
 	float fPosX_btnChangeInputSecond = .5f * 1350.f  - 10.f - fWidth_btnChangeInputSecond;
 	float fPosX_btnOKInputSecond = .5f * 1350.f  + 10.f;
-	lblHeaderAlertDicePlayerWillKeep->move (fPosX_lblHeaderAlertDicePlayerWillKeep, 300.f);
-	lblHeaderAlertBetMore->move (fPosX_lblHeaderAlertBet, 360.f);
-	lblHeaderPressingOKInputSecondWillRollSecond->move (fPosX_lblHeaderPressingOKInputSecondWillRollSecond, 560.f);
-	btnChangeInputSecond->move (fPosX_btnChangeInputSecond, 420.f);
-	btnOKInputSecond->move (fPosX_btnOKInputSecond, 420.f);
+	lblHeaderAlertDicePlayerWillKeep->move (fPosX_lblHeaderAlertDicePlayerWillKeep, 180.f);
+	lblHeaderAlertBetMore->move (fPosX_lblHeaderAlertBet, 240.f);
+	lblHeaderPressingOKInputSecondWillRollSecond->move (fPosX_lblHeaderPressingOKInputSecondWillRollSecond, 440.f);
+	btnChangeInputSecond->move (fPosX_btnChangeInputSecond, 300.f);
+	btnOKInputSecond->move (fPosX_btnOKInputSecond, 300.f);
 	ses_.push_back (lblHeaderAlertDicePlayerWillKeep);
 	ses_.push_back (lblHeaderAlertBetMore);
 	ses_.push_back (lblHeaderPressingOKInputSecondWillRollSecond);
