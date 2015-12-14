@@ -36,10 +36,10 @@ namespace game {
 	extern pokerduelstage* m_pokerduelstage_p;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;
-	extern intx5* m_n5_pEnemy;
+	extern intx5* m_n5_pEnemyUltimate;
 	extern intx5* m_n5_pEnemyInitial;
 	extern intx5* m_n5_pEnemyReroll;
-	extern intx5* m_n5_pPlayer;
+	extern intx5* m_n5_pPlayerUltimate;
 	extern intx5* m_n5_pPlayerInitial;
 	extern intx5* m_n5_pPlayerReroll;
 	extern screenelements m_ses;

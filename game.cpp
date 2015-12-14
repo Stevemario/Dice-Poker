@@ -34,10 +34,10 @@ pokerduelresult* game::m_pokerduelresult_p;
 pokerduelstage* game::m_pokerduelstage_p;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
-intx5* game::m_n5_pEnemy;
+intx5* game::m_n5_pEnemyUltimate;
 intx5* game::m_n5_pEnemyInitial;
 intx5* game::m_n5_pEnemyReroll;
-intx5* game::m_n5_pPlayer;
+intx5* game::m_n5_pPlayerUltimate;
 intx5* game::m_n5_pPlayerInitial;
 intx5* game::m_n5_pPlayerReroll;
 screenelements game::m_ses;
@@ -120,12 +120,12 @@ void game::prepareScreenElements (
 						const pokerduelstage* pokerduelstage_p_Const = m_pokerduelstage_p;
 						const gamedata* gamedata_pEnemyConst = m_gamedata_pEnemy;
 						const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
-						const intx5* n5_pEnemyConst = m_n5_pEnemy;
 						const intx5* n5_pEnemyInitialConst = m_n5_pEnemyInitial;
 						const intx5* n5_pEnemyRerollConst = m_n5_pEnemyReroll;
-						const intx5* n5_pPlayerConst = m_n5_pPlayer;
+						const intx5* n5_pEnemyUltimateConst = m_n5_pEnemyUltimate;
 						const intx5* n5_pPlayerInitialConst = m_n5_pPlayerInitial;
 						const intx5* n5_pPlayerRerollConst = m_n5_pPlayerReroll;
+						const intx5* n5_pPlayerUltimateConst = m_n5_pPlayerUltimate;
 						pokerduel::prepare (
 							m_nBetAgreed,
 							m_nCashInPot,
@@ -140,12 +140,12 @@ void game::prepareScreenElements (
 							pokerduelstage_p_Const,
 							gamedata_pEnemyConst,
 							gamedata_pPlayerConst,
-							n5_pEnemyConst,
 							n5_pEnemyInitialConst,
 							n5_pEnemyRerollConst,
-							n5_pPlayerConst,
+							n5_pEnemyUltimateConst,
 							n5_pPlayerInitialConst,
 							n5_pPlayerRerollConst,
+							n5_pPlayerUltimateConst,
 							m_ses
 						);
 						break;
@@ -588,8 +588,8 @@ void game::handle (
 				&m_n5_pPlayerReroll,
 				&m_n5_pEnemyInitial,
 				&m_n5_pPlayerInitial,
-				&m_n5_pEnemy,
-				&m_n5_pPlayer
+				&m_n5_pEnemyUltimate,
+				&m_n5_pPlayerUltimate
 			};
 			diceset* dsEnemyInitial;
 			diceset* dsEnemyUltimate;
@@ -611,9 +611,9 @@ void game::handle (
 			}
 			m_nCashInPotBefore = m_nCashInPot;
 			dsEnemyInitial = diceset_p_ (*m_n5_pEnemyInitial);
-			dsEnemyUltimate = diceset_p_ (*m_n5_pEnemy);
+			dsEnemyUltimate = diceset_p_ (*m_n5_pEnemyUltimate);
 			dsPlayerInitial = diceset_p_ (*m_n5_pPlayerInitial);
-			dsPlayerUltimate = diceset_p_ (*m_n5_pPlayer);
+			dsPlayerUltimate = diceset_p_ (*m_n5_pPlayerUltimate);
 			m_nScoreEnemyInitial = dsEnemyInitial->nScore ();
 			m_nScoreEnemyUltimate = dsEnemyUltimate->nScore ();
 			m_nScorePlayerInitial = dsPlayerInitial->nScore ();
@@ -693,8 +693,8 @@ void game::deleteGameData (
 					delete m_n5_pPlayerInitial;
 					delete m_n5_pEnemyReroll;
 					delete m_n5_pPlayerReroll;
-					delete m_n5_pEnemy;
-					delete m_n5_pPlayer;
+					delete m_n5_pEnemyUltimate;
+					delete m_n5_pPlayerUltimate;
 					delete m_pokerduelresult_p;
 					break;
 				}

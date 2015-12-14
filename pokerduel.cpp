@@ -13,12 +13,12 @@ void pokerduel::prepare (
 	const pokerduelstage*& pokerduelstage_p_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
-	const intx5*& n5_pEnemy,
 	const intx5*& n5_pEnemyInitial,
 	const intx5*& n5_pEnemyReroll,
-	const intx5*& n5_pPlayer,
+	const intx5*& n5_pEnemyUltimate,
 	const intx5*& n5_pPlayerInitial,
 	const intx5*& n5_pPlayerReroll,
+	const intx5*& n5_pPlayerUltimate,
 	screenelements& ses_
 ) {
 	switch (*pokerduelstage_p_) {
@@ -82,11 +82,11 @@ void pokerduel::prepare (
 				gamedata_pEnemy,
 				gamedata_pPlayer,
 				n5_pEnemyInitial,
-				n5_pPlayerInitial,
 				n5_pEnemyReroll,
+				n5_pEnemyUltimate,
+				n5_pPlayerInitial,
 				n5_pPlayerReroll,
-				n5_pEnemy,
-				n5_pPlayer,
+				n5_pPlayerUltimate,
 				ses_
 			);
 			break;
@@ -497,11 +497,11 @@ void pokerduel::prepareStage_OKResults (
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemyInitial,
-	const intx5*& n5_pPlayerInitial,
 	const intx5*& n5_pEnemyReroll,
+	const intx5*& n5_pEnemyUltimate,
+	const intx5*& n5_pPlayerInitial,
 	const intx5*& n5_pPlayerReroll,
-	const intx5*& n5_pEnemy,
-	const intx5*& n5_pPlayer,
+	const intx5*& n5_pPlayerUltimate,
 	screenelements& ses_
 ) {
 	std::string sPlayerOutcome;
@@ -586,27 +586,27 @@ void pokerduel::prepareStage_OKResults (
 	);
 	screenelement_button* btnDiceEnemyUltimate0 = new screenelement_button_dice (
 		font_,
-		n5_pEnemy->n (0),
+		n5_pEnemyUltimate->n (0),
 		screenelement_button_enum::DiceEnemy0
 	);
 	screenelement_button* btnDiceEnemyUltimate1 = new screenelement_button_dice (
 		font_,
-		n5_pEnemy->n (1),
+		n5_pEnemyUltimate->n (1),
 		screenelement_button_enum::DiceEnemy1
 	);
 	screenelement_button* btnDiceEnemyUltimate2 = new screenelement_button_dice (
 		font_,
-		n5_pEnemy->n (2),
+		n5_pEnemyUltimate->n (2),
 		screenelement_button_enum::DiceEnemy2
 	);
 	screenelement_button* btnDiceEnemyUltimate3 = new screenelement_button_dice (
 		font_,
-		n5_pEnemy->n (3),
+		n5_pEnemyUltimate->n (3),
 		screenelement_button_enum::DiceEnemy3
 	);
 	screenelement_button* btnDiceEnemyUltimate4 = new screenelement_button_dice (
 		font_,
-		n5_pEnemy->n (4),
+		n5_pEnemyUltimate->n (4),
 		screenelement_button_enum::DiceEnemy4
 	);
 	screenelement_button* btnDicePlayerInitial0 = new screenelement_button_dice (
@@ -636,27 +636,27 @@ void pokerduel::prepareStage_OKResults (
 	);
 	screenelement_button* btnDicePlayerUltimate0 = new screenelement_button_dice (
 		font_,
-		n5_pPlayer->n (0),
+		n5_pPlayerUltimate->n (0),
 		screenelement_button_enum::DicePlayer0
 	);
 	screenelement_button* btnDicePlayerUltimate1 = new screenelement_button_dice (
 		font_,
-		n5_pPlayer->n (1),
+		n5_pPlayerUltimate->n (1),
 		screenelement_button_enum::DicePlayer1
 	);
 	screenelement_button* btnDicePlayerUltimate2 = new screenelement_button_dice (
 		font_,
-		n5_pPlayer->n (2),
+		n5_pPlayerUltimate->n (2),
 		screenelement_button_enum::DicePlayer2
 	);
 	screenelement_button* btnDicePlayerUltimate3 = new screenelement_button_dice (
 		font_,
-		n5_pPlayer->n (3),
+		n5_pPlayerUltimate->n (3),
 		screenelement_button_enum::DicePlayer3
 	);
 	screenelement_button* btnDicePlayerUltimate4 = new screenelement_button_dice (
 		font_,
-		n5_pPlayer->n (4),
+		n5_pPlayerUltimate->n (4),
 		screenelement_button_enum::DicePlayer4
 	);
 	screenelement_button* btnOKResult = new screenelement_button_generic (
