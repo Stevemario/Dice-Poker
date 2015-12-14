@@ -4,7 +4,14 @@
 #include "mainmenu.h"
 namespace game {
 	extern int m_nBetAgreed;
+	extern int m_nCashEnemy;
 	extern int m_nCashInPot;
+	extern int m_nCashInPotBefore;
+	extern int m_nCashPlayer;
+	extern int m_nScoreEnemyInitial;
+	extern int m_nScoreEnemyUltimate;
+	extern int m_nScorePlayerInitial;
+	extern int m_nScorePlayerUltimate;
 	extern int m_nSEClickedLast;
 	extern bool m_bStringTakesUpper;
 	extern bool m_bStringTakesLower;
@@ -25,6 +32,7 @@ namespace game {
 	extern gameaction m_gameaction;
 	extern gamemode* m_gamemode_p;
 	extern mainmenupage m_mainmenupage;
+	extern pokerduelresult* m_pokerduelresult_p;
 	extern pokerduelstage* m_pokerduelstage_p;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;

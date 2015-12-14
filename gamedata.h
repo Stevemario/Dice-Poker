@@ -13,6 +13,10 @@ class gamedata {
 		const std::string&
 	);
 	public: gamedata (
+		const std::string&,
+		const int&
+	);
+	public: gamedata (
 		std::ifstream&
 	);
 	public: void set_sPlayerName (

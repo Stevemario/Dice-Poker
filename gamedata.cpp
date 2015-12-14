@@ -14,6 +14,13 @@ gamedata::gamedata (
 	m_nDollarsCarried = 100;
 }
 gamedata::gamedata (
+	const std::string& sPlayerName,
+	const int& nDollarsCarried
+) {
+	m_sPlayerName = sPlayerName;
+	m_nDollarsCarried = nDollarsCarried;
+}
+gamedata::gamedata (
 	std::ifstream& ifstream_
 ) {
 	char* ch_p_ = new char;

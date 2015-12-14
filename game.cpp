@@ -2,7 +2,14 @@
 #include <ctime>
 #include <cstdlib>
 int game::m_nBetAgreed;
+int game::m_nCashEnemy;
 int game::m_nCashInPot;
+int game::m_nCashInPotBefore;
+int game::m_nCashPlayer;
+int game::m_nScoreEnemyInitial;
+int game::m_nScoreEnemyUltimate;
+int game::m_nScorePlayerInitial;
+int game::m_nScorePlayerUltimate;
 int game::m_nSEClickedLast;
 bool game::m_bStringTakesUpper = false;
 bool game::m_bStringTakesLower = false;
@@ -23,6 +30,7 @@ sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::WorkMainMenu;
 gamemode* game::m_gamemode_p;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
+pokerduelresult* game::m_pokerduelresult_p;
 pokerduelstage* game::m_pokerduelstage_p;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
@@ -74,8 +82,8 @@ void game::prepareData (
 				case gamemode::PokerDuel: {
 					m_nCashInPot = 0;
 					m_pokerduelstage_p = new pokerduelstage;
-					m_gamedata_pEnemy = new gamedata ("Steve's Bot");
-					m_gamedata_pPlayer = new gamedata ("Player");
+					m_gamedata_pEnemy = new gamedata ("Steve's Bot", m_nCashEnemy);
+					m_gamedata_pPlayer = new gamedata ("Player", m_nCashPlayer);
 					*m_pokerduelstage_p = pokerduelstage::SubmitInputInitial;
 					m_bHaveGameData = true;
 					break;
@@ -108,6 +116,7 @@ void game::prepareScreenElements (
 			case gameaction::Play: {
 				switch (*m_gamemode_p) {
 					case gamemode::PokerDuel: {
+						const pokerduelresult* pokerduelresult_p_Const = m_pokerduelresult_p;
 						const pokerduelstage* pokerduelstage_p_Const = m_pokerduelstage_p;
 						const gamedata* gamedata_pEnemyConst = m_gamedata_pEnemy;
 						const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
@@ -120,8 +129,14 @@ void game::prepareScreenElements (
 						pokerduel::prepare (
 							m_nBetAgreed,
 							m_nCashInPot,
+							m_nCashInPotBefore,
+							m_nScoreEnemyInitial,
+							m_nScoreEnemyUltimate,
+							m_nScorePlayerInitial,
+							m_nScorePlayerUltimate,
 							m_sBetPlayer,
 							m_font,
+							pokerduelresult_p_Const,
 							pokerduelstage_p_Const,
 							gamedata_pEnemyConst,
 							gamedata_pPlayerConst,
@@ -386,9 +401,11 @@ void game::handle (
 			} else {
 				if (m_mainmenupage == mainmenupage::NewGame) {
 					m_gamemode_p = new gamemode;
-					if (m_bShowMainMenuNewGamePageChoice)
+					if (m_bShowMainMenuNewGamePageChoice) {
 						*m_gamemode_p = gamemode::PokerDuel;
-					else
+						m_nCashEnemy = 100;
+						m_nCashPlayer = 100;
+					} else
 						*m_gamemode_p = gamemode::Adventure;
 					m_gameaction = gameaction::Play;
 				} else {
@@ -432,6 +449,8 @@ void game::handle (
 			}
 			m_gamemode_p = new gamemode;
 			*m_gamemode_p = gamemode::PokerDuel;
+			m_nCashEnemy = 100;
+			m_nCashPlayer = 100;
 			m_gameaction = gameaction::Play;
 			bShouldClear_vec_screenelement_p = true;
 			break;
@@ -572,6 +591,10 @@ void game::handle (
 				&m_n5_pEnemy,
 				&m_n5_pPlayer
 			};
+			diceset* dsEnemyInitial;
+			diceset* dsEnemyUltimate;
+			diceset* dsPlayerInitial;
+			diceset* dsPlayerUltimate;
 			for (int i = 0; i < 2; i++) {
 				*n5Dice[i+4] = new intx5;
 				for (int j = 0; j < 5; j++) {
@@ -586,7 +609,67 @@ void game::handle (
 					(*n5Dice[i+4])->set_n (j, nTemp);
 				}
 			}
+			m_nCashInPotBefore = m_nCashInPot;
+			dsEnemyInitial = diceset_p_ (*m_n5_pEnemyInitial);
+			dsEnemyUltimate = diceset_p_ (*m_n5_pEnemy);
+			dsPlayerInitial = diceset_p_ (*m_n5_pPlayerInitial);
+			dsPlayerUltimate = diceset_p_ (*m_n5_pPlayer);
+			m_nScoreEnemyInitial = dsEnemyInitial->nScore ();
+			m_nScoreEnemyUltimate = dsEnemyUltimate->nScore ();
+			m_nScorePlayerInitial = dsPlayerInitial->nScore ();
+			m_nScorePlayerUltimate = dsPlayerUltimate->nScore ();
+			delete dsEnemyInitial;
+			delete dsEnemyUltimate;
+			delete dsPlayerInitial;
+			delete dsPlayerUltimate;
+			m_pokerduelresult_p = new pokerduelresult;
+			if (m_nScorePlayerUltimate < m_nScoreEnemyUltimate) {
+				*m_pokerduelresult_p = pokerduelresult::Win;
+			} else if (m_nScorePlayerUltimate == m_nScoreEnemyUltimate) {
+				*m_pokerduelresult_p = pokerduelresult::Tie;
+			} else {
+				*m_pokerduelresult_p = pokerduelresult::Loss;
+			}
+			switch (*m_pokerduelresult_p) {
+				case pokerduelresult::Win: {
+					int nDollarsCarriedPlayerInitial = m_gamedata_pPlayer->nDollarsCarried ();
+					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_nCashInPot;
+					m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarriedPlayerResult);
+					break;
+				}
+				case pokerduelresult::Tie: {
+					int nDollarsCarriedEnemyInitial = m_gamedata_pEnemy->nDollarsCarried ();
+					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_nCashInPot / 2;
+					int nDollarsCarriedPlayerInitial = m_gamedata_pPlayer->nDollarsCarried ();
+					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_nCashInPot / 2;
+					m_gamedata_pEnemy->set_nDollarsCarried (nDollarsCarriedEnemyResult);
+					m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarriedPlayerResult);
+					break;
+				}
+				case pokerduelresult::Loss: {
+					int nDollarsCarriedEnemyInitial = m_gamedata_pEnemy->nDollarsCarried ();
+					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_nCashInPot;
+					m_gamedata_pEnemy->set_nDollarsCarried (nDollarsCarriedEnemyResult);
+					break;
+				}
+			}
+			m_nCashInPot = 0;
 			*m_pokerduelstage_p = pokerduelstage::OKResults;
+			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case pokerduel::screenelement_button_enum::OKResult: {
+			m_nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
+			m_nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
+			deleteGameData ();
+			m_bHaveGameData = false;
+			if (0 < m_nCashPlayer && 0 < m_nCashEnemy) {
+				m_gamemode_p = new gamemode;
+				*m_gamemode_p = gamemode::PokerDuel;
+			} else {
+				//GAME OVER
+				m_gameaction = gameaction::WorkMainMenu;
+			}
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -612,6 +695,7 @@ void game::deleteGameData (
 					delete m_n5_pPlayerReroll;
 					delete m_n5_pEnemy;
 					delete m_n5_pPlayer;
+					delete m_pokerduelresult_p;
 					break;
 				}
 			}

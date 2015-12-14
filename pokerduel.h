@@ -5,12 +5,19 @@
 #include "gamedata.h"
 #include "gameaction.h"
 #include "pokerduelstage.h"
+#include "pokerduelresult.h"
 namespace pokerduel {
 	void prepare (
 		const int&,
 		const int&,
+		const int&,
+		const int&,
+		const int&,
+		const int&,
+		const int&,
 		const std::string&,
 		const sf::Font&,
+		const pokerduelresult*&,
 		const pokerduelstage*&,
 		const gamedata*&,
 		const gamedata*&,
@@ -59,9 +66,19 @@ namespace pokerduel {
 	);
 	void prepareStage_OKResults (
 		const int&,
+		const int&,
+		const int&,
+		const int&,
+		const int&,
+		const int&,
 		const sf::Font&,
+		const pokerduelresult*&,
 		const gamedata*&,
 		const gamedata*&,
+		const intx5*&,
+		const intx5*&,
+		const intx5*&,
+		const intx5*&,
 		const intx5*&,
 		const intx5*&,
 		screenelements&
@@ -103,6 +120,11 @@ namespace pokerduel {
 		HeaderAlertDicePlayerWillKeep,
 		HeaderAlertBetSecond,
 		HeaderPressingOKInputSecondWillRollSecond,
+		HeaderAlertPlayerOutcome,
+		HeaderScoreEnemyInitial,
+		HeaderScoreEnemyUltimate,
+		HeaderScorePlayerInitial,
+		HeaderScorePlayerUltimate,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {
@@ -133,6 +155,7 @@ namespace pokerduel {
 		SubmitInputSecond,
 		ChangeInputSecond,
 		OKInputSecond,
+		OKResult,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_generic : public screenelement_button {

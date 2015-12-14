@@ -2,8 +2,14 @@
 void pokerduel::prepare (
 	const int& nBetAgreed,
 	const int& nCashInPot,
+	const int& nCashInPotBefore,
+	const int& nScoreEnemyInitial,
+	const int& nScoreEnemyUltimate,
+	const int& nScorePlayerInitial,
+	const int& nScorePlayerUltimate,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
+	const pokerduelresult*& pokerduelresult_p_,
 	const pokerduelstage*& pokerduelstage_p_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
@@ -66,9 +72,19 @@ void pokerduel::prepare (
 		case pokerduelstage::OKResults: {
 			prepareStage_OKResults (
 				nCashInPot,
+				nCashInPotBefore,
+				nScoreEnemyInitial,
+				nScoreEnemyUltimate,
+				nScorePlayerInitial,
+				nScorePlayerUltimate,
 				font_,
+				pokerduelresult_p_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
+				n5_pEnemyInitial,
+				n5_pPlayerInitial,
+				n5_pEnemyReroll,
+				n5_pPlayerReroll,
 				n5_pEnemy,
 				n5_pPlayer,
 				ses_
@@ -471,13 +487,299 @@ void pokerduel::prepareStage_OKInputSecond (
 }
 void pokerduel::prepareStage_OKResults (
 	const int& nCashInPot,
+	const int& nCashInPotBefore,
+	const int& nScoreEnemyInitial,
+	const int& nScoreEnemyUltimate,
+	const int& nScorePlayerInitial,
+	const int& nScorePlayerUltimate,
 	const sf::Font& font_,
+	const pokerduelresult*& pokerduelresult_p_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
+	const intx5*& n5_pEnemyInitial,
+	const intx5*& n5_pPlayerInitial,
+	const intx5*& n5_pEnemyReroll,
+	const intx5*& n5_pPlayerReroll,
 	const intx5*& n5_pEnemy,
 	const intx5*& n5_pPlayer,
 	screenelements& ses_
 ) {
+	std::string sPlayerOutcome;
+	switch (*pokerduelresult_p_) {
+		case pokerduelresult::Win: {
+			sPlayerOutcome = "won";
+			break;
+		}
+		case pokerduelresult::Tie: {
+			sPlayerOutcome = "tied for";
+			break;
+		}
+		case pokerduelresult::Loss: {
+			sPlayerOutcome = "lost";
+			break;
+		}
+	}
+	screenelement_label* lblHeaderDiceRolled = new screenelement_label_generic (
+		font_,
+		"These are the dice rolled:",
+		screenelement_label_enum::HeaderDiceRolled
+	);
+	screenelement_label* lblHeaderDiceEnemy = new screenelement_label_generic (
+		font_,
+		"Enemy's Dice",
+		screenelement_label_enum::HeaderDiceEnemy
+	);
+	screenelement_label* lblHeaderDicePlayer = new screenelement_label_generic (
+		font_,
+		"Your Dice",
+		screenelement_label_enum::HeaderDicePlayer
+	);
+	screenelement_label* lblHeaderAlertPlayerOutcome = new screenelement_label_generic (
+		font_,
+		"You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!",
+		screenelement_label_enum::HeaderAlertPlayerOutcome
+	);
+	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_generic (
+		font_,
+		"#" + std::to_string (nScoreEnemyInitial),
+		screenelement_label_enum::HeaderScoreEnemyInitial
+	);
+	screenelement_label* lblHeaderScoreEnemyUltimate = new screenelement_label_generic (
+		font_,
+		"#" + std::to_string (nScoreEnemyUltimate),
+		screenelement_label_enum::HeaderScoreEnemyUltimate
+	);
+	screenelement_label* lblHeaderScorePlayerInitial = new screenelement_label_generic (
+		font_,
+		"#" + std::to_string (nScorePlayerInitial),
+		screenelement_label_enum::HeaderScorePlayerInitial
+	);
+	screenelement_label* lblHeaderScorePlayerUltimate = new screenelement_label_generic (
+		font_,
+		"#" + std::to_string (nScorePlayerUltimate),
+		screenelement_label_enum::HeaderScorePlayerUltimate
+	);
+	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
+		font_,
+		n5_pEnemyInitial->n (0),
+		screenelement_button_enum::DiceEnemy0
+	);
+	screenelement_button* btnDiceEnemyInitial1 = new screenelement_button_dice (
+		font_,
+		n5_pEnemyInitial->n (1),
+		screenelement_button_enum::DiceEnemy1
+	);
+	screenelement_button* btnDiceEnemyInitial2 = new screenelement_button_dice (
+		font_,
+		n5_pEnemyInitial->n (2),
+		screenelement_button_enum::DiceEnemy2
+	);
+	screenelement_button* btnDiceEnemyInitial3 = new screenelement_button_dice (
+		font_,
+		n5_pEnemyInitial->n (3),
+		screenelement_button_enum::DiceEnemy3
+	);
+	screenelement_button* btnDiceEnemyInitial4 = new screenelement_button_dice (
+		font_,
+		n5_pEnemyInitial->n (4),
+		screenelement_button_enum::DiceEnemy4
+	);
+	screenelement_button* btnDiceEnemyUltimate0 = new screenelement_button_dice (
+		font_,
+		n5_pEnemy->n (0),
+		screenelement_button_enum::DiceEnemy0
+	);
+	screenelement_button* btnDiceEnemyUltimate1 = new screenelement_button_dice (
+		font_,
+		n5_pEnemy->n (1),
+		screenelement_button_enum::DiceEnemy1
+	);
+	screenelement_button* btnDiceEnemyUltimate2 = new screenelement_button_dice (
+		font_,
+		n5_pEnemy->n (2),
+		screenelement_button_enum::DiceEnemy2
+	);
+	screenelement_button* btnDiceEnemyUltimate3 = new screenelement_button_dice (
+		font_,
+		n5_pEnemy->n (3),
+		screenelement_button_enum::DiceEnemy3
+	);
+	screenelement_button* btnDiceEnemyUltimate4 = new screenelement_button_dice (
+		font_,
+		n5_pEnemy->n (4),
+		screenelement_button_enum::DiceEnemy4
+	);
+	screenelement_button* btnDicePlayerInitial0 = new screenelement_button_dice (
+		font_,
+		n5_pPlayerInitial->n (0),
+		screenelement_button_enum::DicePlayer0
+	);
+	screenelement_button* btnDicePlayerInitial1 = new screenelement_button_dice (
+		font_,
+		n5_pPlayerInitial->n (1),
+		screenelement_button_enum::DicePlayer1
+	);
+	screenelement_button* btnDicePlayerInitial2 = new screenelement_button_dice (
+		font_,
+		n5_pPlayerInitial->n (2),
+		screenelement_button_enum::DicePlayer2
+	);
+	screenelement_button* btnDicePlayerInitial3 = new screenelement_button_dice (
+		font_,
+		n5_pPlayerInitial->n (3),
+		screenelement_button_enum::DicePlayer3
+	);
+	screenelement_button* btnDicePlayerInitial4 = new screenelement_button_dice (
+		font_,
+		n5_pPlayerInitial->n (4),
+		screenelement_button_enum::DicePlayer4
+	);
+	screenelement_button* btnDicePlayerUltimate0 = new screenelement_button_dice (
+		font_,
+		n5_pPlayer->n (0),
+		screenelement_button_enum::DicePlayer0
+	);
+	screenelement_button* btnDicePlayerUltimate1 = new screenelement_button_dice (
+		font_,
+		n5_pPlayer->n (1),
+		screenelement_button_enum::DicePlayer1
+	);
+	screenelement_button* btnDicePlayerUltimate2 = new screenelement_button_dice (
+		font_,
+		n5_pPlayer->n (2),
+		screenelement_button_enum::DicePlayer2
+	);
+	screenelement_button* btnDicePlayerUltimate3 = new screenelement_button_dice (
+		font_,
+		n5_pPlayer->n (3),
+		screenelement_button_enum::DicePlayer3
+	);
+	screenelement_button* btnDicePlayerUltimate4 = new screenelement_button_dice (
+		font_,
+		n5_pPlayer->n (4),
+		screenelement_button_enum::DicePlayer4
+	);
+	screenelement_button* btnOKResult = new screenelement_button_generic (
+		font_,
+		"OK Result",
+		screenelement_button_enum::OKResult
+	);
+	float fWidth_lblHeaderDiceRolled = lblHeaderDiceRolled->frBounds_text ().width;
+	float fWidth_lblHeaderDiceEnemy = lblHeaderDiceEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderDicePlayer = lblHeaderDicePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderAlertPlayerOutcome = lblHeaderAlertPlayerOutcome->frBounds_text ().width;
+	float fWidth_lblHeaderScoreEnemyInitial = lblHeaderScoreEnemyInitial->frBounds_text ().width;
+	float fWidth_lblHeaderScoreEnemyUltimate = lblHeaderScoreEnemyUltimate->frBounds_text ().width;
+	float fWidth_lblHeaderScorePlayerInitial = lblHeaderScorePlayerInitial->frBounds_text ().width;
+	float fWidth_lblHeaderScorePlayerUltimate = lblHeaderScorePlayerUltimate->frBounds_text ().width;
+	float fWidth_btnDiceEnemyInitial0 = btnDiceEnemyInitial0->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyInitial1 = btnDiceEnemyInitial1->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyInitial2 = btnDiceEnemyInitial2->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyInitial3 = btnDiceEnemyInitial3->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyInitial4 = btnDiceEnemyInitial4->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyUltimate0 = btnDiceEnemyUltimate0->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyUltimate1 = btnDiceEnemyUltimate1->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyUltimate2 = btnDiceEnemyUltimate2->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyUltimate3 = btnDiceEnemyUltimate3->frBounds_rs ().width;
+	float fWidth_btnDiceEnemyUltimate4 = btnDiceEnemyUltimate4->frBounds_rs ().width;
+	float fWidth_btnDicePlayerInitial0 = btnDicePlayerInitial0->frBounds_rs ().width;
+	float fWidth_btnDicePlayerInitial1 = btnDicePlayerInitial1->frBounds_rs ().width;
+	float fWidth_btnDicePlayerInitial2 = btnDicePlayerInitial2->frBounds_rs ().width;
+	float fWidth_btnDicePlayerInitial3 = btnDicePlayerInitial3->frBounds_rs ().width;
+	float fWidth_btnDicePlayerInitial4 = btnDicePlayerInitial4->frBounds_rs ().width;
+	float fWidth_btnDicePlayerUltimate0 = btnDicePlayerUltimate0->frBounds_rs ().width;
+	float fWidth_btnDicePlayerUltimate1 = btnDicePlayerUltimate1->frBounds_rs ().width;
+	float fWidth_btnDicePlayerUltimate2 = btnDicePlayerUltimate2->frBounds_rs ().width;
+	float fWidth_btnDicePlayerUltimate3 = btnDicePlayerUltimate3->frBounds_rs ().width;
+	float fWidth_btnDicePlayerUltimate4 = btnDicePlayerUltimate4->frBounds_rs ().width;
+	float fWidth_btnOKResult = btnOKResult->frBounds_rs ().width;
+	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
+	float fPosX_lblHeaderDiceEnemy = 3.f * 1350.f / 4.f - .5f * fWidth_lblHeaderDiceEnemy;
+	float fPosX_lblHeaderDicePlayer = 1350.f / 4.f - .5f * fWidth_lblHeaderDicePlayer;
+	float fPosX_lblHeaderScoreEnemyInitial = 4.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyInitial;
+	float fPosX_lblHeaderScoreEnemyUltimate = 5.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyUltimate;
+	float fPosX_lblHeaderScorePlayerInitial = 1350.f / 6.f - .5f * fWidth_lblHeaderScorePlayerInitial;
+	float fPosX_lblHeaderScorePlayerUltimate = 2.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScorePlayerUltimate;
+	float fPosX_lblHeaderAlertPlayerOutcome = .5f * (1350.f - fWidth_lblHeaderAlertPlayerOutcome);
+	float fPosX_btnDiceEnemyInitial0 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial0;
+	float fPosX_btnDiceEnemyInitial1 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial1;
+	float fPosX_btnDiceEnemyInitial2 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial2;
+	float fPosX_btnDiceEnemyInitial3 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial3;
+	float fPosX_btnDiceEnemyInitial4 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial4;
+	float fPosX_btnDiceEnemyUltimate0 = 5.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyUltimate0;
+	float fPosX_btnDiceEnemyUltimate1 = 5.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyUltimate1;
+	float fPosX_btnDiceEnemyUltimate2 = 5.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyUltimate2;
+	float fPosX_btnDiceEnemyUltimate3 = 5.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyUltimate3;
+	float fPosX_btnDiceEnemyUltimate4 = 5.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyUltimate4;
+	float fPosX_btnDicePlayerInitial0 = 1350.f / 6.f - .5f * fWidth_btnDicePlayerInitial0;
+	float fPosX_btnDicePlayerInitial1 = 1350.f / 6.f - .5f * fWidth_btnDicePlayerInitial1;
+	float fPosX_btnDicePlayerInitial2 = 1350.f / 6.f - .5f * fWidth_btnDicePlayerInitial2;
+	float fPosX_btnDicePlayerInitial3 = 1350.f / 6.f - .5f * fWidth_btnDicePlayerInitial3;
+	float fPosX_btnDicePlayerInitial4 = 1350.f / 6.f - .5f * fWidth_btnDicePlayerInitial4;
+	float fPosX_btnDicePlayerUltimate0 = 2.f * 1350.f / 6.f - .5f * fWidth_btnDicePlayerUltimate0;
+	float fPosX_btnDicePlayerUltimate1 = 2.f * 1350.f / 6.f - .5f * fWidth_btnDicePlayerUltimate1;
+	float fPosX_btnDicePlayerUltimate2 = 2.f * 1350.f / 6.f - .5f * fWidth_btnDicePlayerUltimate2;
+	float fPosX_btnDicePlayerUltimate3 = 2.f * 1350.f / 6.f - .5f * fWidth_btnDicePlayerUltimate3;
+	float fPosX_btnDicePlayerUltimate4 = 2.f * 1350.f / 6.f - .5f * fWidth_btnDicePlayerUltimate4;
+	float fPosX_btnOKResult = .5f * (1350.f - fWidth_btnOKResult);
+	lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 120.f);
+	lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 180.f);
+	lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 180.f);
+	lblHeaderScoreEnemyInitial->move (fPosX_lblHeaderScoreEnemyInitial, 800.f);
+	lblHeaderScoreEnemyUltimate->move (fPosX_lblHeaderScoreEnemyUltimate, 800.f);
+	lblHeaderScorePlayerInitial->move (fPosX_lblHeaderScorePlayerInitial, 800.f);
+	lblHeaderScorePlayerUltimate->move (fPosX_lblHeaderScorePlayerUltimate, 800.f);
+	lblHeaderAlertPlayerOutcome->move (fPosX_lblHeaderAlertPlayerOutcome, 860.f);
+	btnDiceEnemyInitial0->move (fPosX_btnDiceEnemyInitial0, 300.f);
+	btnDiceEnemyInitial1->move (fPosX_btnDiceEnemyInitial1, 400.f);
+	btnDiceEnemyInitial2->move (fPosX_btnDiceEnemyInitial2, 500.f);
+	btnDiceEnemyInitial3->move (fPosX_btnDiceEnemyInitial3, 600.f);
+	btnDiceEnemyInitial4->move (fPosX_btnDiceEnemyInitial4, 700.f);
+	btnDiceEnemyUltimate0->move (fPosX_btnDiceEnemyUltimate0, 300.f);
+	btnDiceEnemyUltimate1->move (fPosX_btnDiceEnemyUltimate1, 400.f);
+	btnDiceEnemyUltimate2->move (fPosX_btnDiceEnemyUltimate2, 500.f);
+	btnDiceEnemyUltimate3->move (fPosX_btnDiceEnemyUltimate3, 600.f);
+	btnDiceEnemyUltimate4->move (fPosX_btnDiceEnemyUltimate4, 700.f);
+	btnDicePlayerInitial0->move (fPosX_btnDicePlayerInitial0, 300.f);
+	btnDicePlayerInitial1->move (fPosX_btnDicePlayerInitial1, 400.f);
+	btnDicePlayerInitial2->move (fPosX_btnDicePlayerInitial2, 500.f);
+	btnDicePlayerInitial3->move (fPosX_btnDicePlayerInitial3, 600.f);
+	btnDicePlayerInitial4->move (fPosX_btnDicePlayerInitial4, 700.f);
+	btnDicePlayerUltimate0->move (fPosX_btnDicePlayerUltimate0, 300.f);
+	btnDicePlayerUltimate1->move (fPosX_btnDicePlayerUltimate1, 400.f);
+	btnDicePlayerUltimate2->move (fPosX_btnDicePlayerUltimate2, 500.f);
+	btnDicePlayerUltimate3->move (fPosX_btnDicePlayerUltimate3, 600.f);
+	btnDicePlayerUltimate4->move (fPosX_btnDicePlayerUltimate4, 700.f);
+	btnOKResult->move (fPosX_btnOKResult, 920.f);
+	ses_.push_back (lblHeaderDiceRolled);
+	ses_.push_back (lblHeaderDiceEnemy);
+	ses_.push_back (lblHeaderDicePlayer);
+	ses_.push_back (lblHeaderScoreEnemyUltimate);
+	ses_.push_back (lblHeaderScoreEnemyInitial);
+	ses_.push_back (lblHeaderScorePlayerUltimate);
+	ses_.push_back (lblHeaderScorePlayerInitial);
+	ses_.push_back (lblHeaderAlertPlayerOutcome);
+	ses_.push_back (btnDiceEnemyUltimate4);
+	ses_.push_back (btnDiceEnemyInitial4);
+	ses_.push_back (btnDicePlayerUltimate4);
+	ses_.push_back (btnDicePlayerInitial4);
+	ses_.push_back (btnDiceEnemyUltimate3);
+	ses_.push_back (btnDiceEnemyInitial3);
+	ses_.push_back (btnDicePlayerUltimate3);
+	ses_.push_back (btnDicePlayerInitial3);
+	ses_.push_back (btnDiceEnemyUltimate2);
+	ses_.push_back (btnDiceEnemyInitial2);
+	ses_.push_back (btnDicePlayerUltimate2);
+	ses_.push_back (btnDicePlayerInitial2);
+	ses_.push_back (btnDiceEnemyUltimate1);
+	ses_.push_back (btnDiceEnemyInitial1);
+	ses_.push_back (btnDicePlayerUltimate1);
+	ses_.push_back (btnDicePlayerInitial1);
+	ses_.push_back (btnDiceEnemyUltimate0);
+	ses_.push_back (btnDiceEnemyInitial0);
+	ses_.push_back (btnDicePlayerUltimate0);
+	ses_.push_back (btnDicePlayerInitial0);
+	ses_.push_back (btnOKResult);
 	addLabelsCash (
 		nCashInPot,
 		font_,
