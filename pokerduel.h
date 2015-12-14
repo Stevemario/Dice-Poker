@@ -3,7 +3,6 @@
 #include "screenelement.h"
 #include "diceset.h"
 #include "gamedata.h"
-#include "gameaction.h"
 #include "pokerduelstage.h"
 #include "pokerduelresult.h"
 namespace pokerduel {
