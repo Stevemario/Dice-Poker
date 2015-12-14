@@ -51,6 +51,7 @@ namespace pokerduel {
 	);
 	void prepareStage_AcknowledgeBetAndRollSecond (
 		const int&,
+		const int&,
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
@@ -99,6 +100,9 @@ namespace pokerduel {
 		HeaderDicePlayer,
 		HeaderSelectDiceToReroll,
 		HeaderPromptBetSecond,
+		HeaderAlertDicePlayerWillKeep,
+		HeaderAlertBetSecond,
+		HeaderPressingOKInputSecondWillRollSecond,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {
@@ -127,6 +131,8 @@ namespace pokerduel {
 		DicePlayer3,
 		DicePlayer4,
 		SubmitRerollAndSecondBet,
+		ChangeInputSecond,
+		OKInputSecond,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_generic : public screenelement_button {

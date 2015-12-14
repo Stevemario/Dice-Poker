@@ -54,6 +54,7 @@ void pokerduel::prepare (
 		}
 		case pokerduelstage::AcknowledgeBetAndRollSecond: {
 			prepareStage_AcknowledgeBetAndRollSecond (
+				nBetAgreed,
 				nCashInPot,
 				font_,
 				gamedata_pEnemy,
@@ -409,12 +410,57 @@ void pokerduel::prepareStage_AcknowledgeRollInitialSelectRerollAndBetSecond (
 	);
 }
 void pokerduel::prepareStage_AcknowledgeBetAndRollSecond (
+	const int& nBetAgreed,
 	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
+	screenelement_label* lblHeaderAlertDicePlayerWillKeep = new screenelement_label_generic (
+		font_,
+		"You decided to keep...", //Finish this later
+		screenelement_label_enum::HeaderAlertDicePlayerWillKeep
+	);
+	screenelement_label* lblHeaderAlertBetMore = new screenelement_label_generic (
+		font_,
+		"You've each bet $" + std::to_string (nBetAgreed) + " more.",
+		screenelement_label_enum::HeaderAlertBetSecond
+	);
+	screenelement_label* lblHeaderPressingOKInputSecondWillRollSecond = new screenelement_label_generic (
+		font_,
+		"Pressing Roll will OK the dice rerolls and bet.",
+		screenelement_label_enum::HeaderPressingOKInputSecondWillRollSecond
+	);
+	screenelement_button* btnChangeInputSecond = new screenelement_button_generic (
+		font_,
+		"Change Input",
+		screenelement_button_enum::ChangeInputSecond
+	);
+	screenelement_button* btnOKInputSecond = new screenelement_button_generic (
+		font_,
+		"OK Input",
+		screenelement_button_enum::OKInputSecond
+	);
+	float fWidth_lblHeaderAlertDicePlayerWillKeep = lblHeaderAlertDicePlayerWillKeep->frBounds_text ().width;
+	float fWidth_lblHeaderAlertBet = lblHeaderAlertBetMore->frBounds_text ().width;
+	float fWidth_lblHeaderPressingOKInputSecondWillRollSecond = lblHeaderPressingOKInputSecondWillRollSecond->frBounds_text ().width;
+	float fWidth_btnChangeInputSecond = btnChangeInputSecond->frBounds_rs ().width;
+	float fPosX_lblHeaderAlertDicePlayerWillKeep = .5f * (1350.f - fWidth_lblHeaderAlertDicePlayerWillKeep);
+	float fPosX_lblHeaderAlertBet = .5f * (1350.f - fWidth_lblHeaderAlertBet);
+	float fPosX_lblHeaderPressingOKInputSecondWillRollSecond = .5f * (1350.f - fWidth_lblHeaderPressingOKInputSecondWillRollSecond);
+	float fPosX_btnChangeInputSecond = .5f * 1350.f  - 10.f - fWidth_btnChangeInputSecond;
+	float fPosX_btnOKInputSecond = .5f * 1350.f  + 10.f;
+	lblHeaderAlertDicePlayerWillKeep->move (fPosX_lblHeaderAlertDicePlayerWillKeep, 300.f);
+	lblHeaderAlertBetMore->move (fPosX_lblHeaderAlertBet, 360.f);
+	lblHeaderPressingOKInputSecondWillRollSecond->move (fPosX_lblHeaderPressingOKInputSecondWillRollSecond, 560.f);
+	btnChangeInputSecond->move (fPosX_btnChangeInputSecond, 420.f);
+	btnOKInputSecond->move (fPosX_btnOKInputSecond, 420.f);
+	ses_.push_back (lblHeaderAlertDicePlayerWillKeep);
+	ses_.push_back (lblHeaderAlertBetMore);
+	ses_.push_back (lblHeaderPressingOKInputSecondWillRollSecond);
+	ses_.push_back (btnChangeInputSecond);
+	ses_.push_back (btnOKInputSecond);
 	addLabelsCash (
 		nCashInPot,
 		font_,
