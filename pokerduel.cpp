@@ -85,35 +85,35 @@ void pokerduel::prepareStage_SubmitInputInitial (
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
-	screenelement_label* se_lblHeaderPromptBet = new screenelement_label_generic (
+	screenelement_label* lblHeaderPromptBet = new screenelement_label_generic (
 		font_,
 		"Enter Your Bet:",
 		screenelement_label_enum::HeaderPromptBetInitial
 	);
-	screenelement_button* se_btnBetAmount = new screenelement_button_generic (
+	screenelement_button* btnBetAmount = new screenelement_button_generic (
 		font_,
 		"$" + sBetPlayer,
 		screenelement_button_enum::BetAmount
 	);
-	screenelement_button* se_btnSubmitInputInitial = new screenelement_button_generic (
+	screenelement_button* btnSubmitInputInitial = new screenelement_button_generic (
 		font_,
 		"Submit",
 		screenelement_button_enum::SubmitInputInitial
 	);
-	se_btnBetAmount->stretch (360.f, 0.f);
-	se_btnSubmitInputInitial->stretch (360.f, 0.f);
-	float fWidth_lblHeaderPromptBet = se_lblHeaderPromptBet->frBounds_text ().width;
-	float fWidth_btnBetAmount = se_btnBetAmount->frBounds_rs ().width;
-	float fWidth_btnSubmitInputInitial = se_btnSubmitInputInitial->frBounds_rs ().width;
+	btnBetAmount->stretch (360.f, 0.f);
+	btnSubmitInputInitial->stretch (360.f, 0.f);
+	float fWidth_lblHeaderPromptBet = lblHeaderPromptBet->frBounds_text ().width;
+	float fWidth_btnBetAmount = btnBetAmount->frBounds_rs ().width;
+	float fWidth_btnSubmitInputInitial = btnSubmitInputInitial->frBounds_rs ().width;
 	float fPosX_lblHeaderPromptBet = .5f * (1350.f - fWidth_lblHeaderPromptBet);
 	float fPosX_btnBetAmount = .5f * (1350.f - fWidth_btnBetAmount);
 	float fPosX_btnSubmitInputInitial = .5f * (1350.f - fWidth_btnSubmitInputInitial);
-	se_lblHeaderPromptBet->move (fPosX_lblHeaderPromptBet, 300.f);
-	se_btnBetAmount->move (fPosX_btnBetAmount, 360.f);
-	se_btnSubmitInputInitial->move (fPosX_btnSubmitInputInitial, 500.f);
-	ses_.push_back (se_lblHeaderPromptBet);
-	ses_.push_back (se_btnBetAmount);
-	ses_.push_back (se_btnSubmitInputInitial);
+	lblHeaderPromptBet->move (fPosX_lblHeaderPromptBet, 300.f);
+	btnBetAmount->move (fPosX_btnBetAmount, 360.f);
+	btnSubmitInputInitial->move (fPosX_btnSubmitInputInitial, 500.f);
+	ses_.push_back (lblHeaderPromptBet);
+	ses_.push_back (btnBetAmount);
+	ses_.push_back (btnSubmitInputInitial);
 	addLabelsCash (
 		nCashInPot,
 		font_,
@@ -130,41 +130,41 @@ void pokerduel::prepareStage_OKInputInitial (
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
-	screenelement_label* se_lblHeaderAlertBet = new screenelement_label_generic (
+	screenelement_label* lblHeaderAlertBet = new screenelement_label_generic (
 		font_,
 		"You've each bet $" + std::to_string (nBetAgreed) + ".",
 		screenelement_label_enum::HeaderAlertBet
 	);
-	screenelement_label* se_lblHeaderPressingRollWillOKBet = new screenelement_label_generic (
+	screenelement_label* lblHeaderPressingRollWillOKBet = new screenelement_label_generic (
 		font_,
 		"Pressing Roll will OK Bet.",
 		screenelement_label_enum::HeaderPressingRollWillOKBet
 	);
-	screenelement_button* se_btnChangeInputInitial = new screenelement_button_generic (
+	screenelement_button* btnChangeInputInitial = new screenelement_button_generic (
 		font_,
 		"Change Bet",
 		screenelement_button_enum::ChangeInputInitial
 	);
-	screenelement_button* se_btnOKInputInitial = new screenelement_button_generic (
+	screenelement_button* btnOKInputInitial = new screenelement_button_generic (
 		font_,
 		"Roll",
 		screenelement_button_enum::OKInputInitial
 	);
-	float fWidth_lblHeaderAlertBet = se_lblHeaderAlertBet->frBounds_text ().width;
-	float fWidth_lblHeaderPressingRollWillOKBet = se_lblHeaderPressingRollWillOKBet->frBounds_text ().width;
-	float fWidth_btnChangeInputInitial = se_btnChangeInputInitial->frBounds_rs ().width;
+	float fWidth_lblHeaderAlertBet = lblHeaderAlertBet->frBounds_text ().width;
+	float fWidth_lblHeaderPressingRollWillOKBet = lblHeaderPressingRollWillOKBet->frBounds_text ().width;
+	float fWidth_btnChangeInputInitial = btnChangeInputInitial->frBounds_rs ().width;
 	float fPosX_lblHeaderAlertBet = .5f * (1350.f - fWidth_lblHeaderAlertBet);
 	float fPosX_lblHeaderPressingRollWillOKBet = .5f * (1350.f - fWidth_lblHeaderPressingRollWillOKBet);
 	float fPosX_btnChangeInputInitial = .5f * 1350.f  - 10.f - fWidth_btnChangeInputInitial;
 	float fPosX_btnOKInputInitial = .5f * 1350.f  + 10.f;
-	se_lblHeaderAlertBet->move (fPosX_lblHeaderAlertBet, 300.f);
-	se_lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 360.f);
-	se_btnChangeInputInitial->move (fPosX_btnChangeInputInitial, 420.f);
-	se_btnOKInputInitial->move (fPosX_btnOKInputInitial, 420.f);
-	ses_.push_back (se_lblHeaderAlertBet);
-	ses_.push_back (se_lblHeaderPressingRollWillOKBet);
-	ses_.push_back (se_btnChangeInputInitial);
-	ses_.push_back (se_btnOKInputInitial);
+	lblHeaderAlertBet->move (fPosX_lblHeaderAlertBet, 300.f);
+	lblHeaderPressingRollWillOKBet->move (fPosX_lblHeaderPressingRollWillOKBet, 360.f);
+	btnChangeInputInitial->move (fPosX_btnChangeInputInitial, 420.f);
+	btnOKInputInitial->move (fPosX_btnOKInputInitial, 420.f);
+	ses_.push_back (lblHeaderAlertBet);
+	ses_.push_back (lblHeaderPressingRollWillOKBet);
+	ses_.push_back (btnChangeInputInitial);
+	ses_.push_back (btnOKInputInitial);
 	addLabelsCash (
 		nCashInPot,
 		font_,
@@ -184,111 +184,111 @@ void pokerduel::prepareStage_SubmitInputSecond (
 	const intx5*& n5_pPlayerReroll,
 	screenelements& ses_
 ) {
-	screenelement_rectangle* se_rectDiceSelected0;
-	screenelement_rectangle* se_rectDiceSelected1;
-	screenelement_rectangle* se_rectDiceSelected2;
-	screenelement_rectangle* se_rectDiceSelected3;
-	screenelement_rectangle* se_rectDiceSelected4;
-	screenelement_label* se_lblHeaderDiceRolled = new screenelement_label_generic (
+	screenelement_rectangle* rectDiceSelected0;
+	screenelement_rectangle* rectDiceSelected1;
+	screenelement_rectangle* rectDiceSelected2;
+	screenelement_rectangle* rectDiceSelected3;
+	screenelement_rectangle* rectDiceSelected4;
+	screenelement_label* lblHeaderDiceRolled = new screenelement_label_generic (
 		font_,
 		"These are the dice rolled:",
 		screenelement_label_enum::HeaderDiceRolled
 	);
-	screenelement_label* se_lblHeaderDiceEnemy = new screenelement_label_generic (
+	screenelement_label* lblHeaderDiceEnemy = new screenelement_label_generic (
 		font_,
 		"Enemy's Dice",
 		screenelement_label_enum::HeaderDiceEnemy
 	);
-	screenelement_label* se_lblHeaderDicePlayer = new screenelement_label_generic (
+	screenelement_label* lblHeaderDicePlayer = new screenelement_label_generic (
 		font_,
 		"Your Dice",
 		screenelement_label_enum::HeaderDicePlayer
 	);
-	screenelement_label* se_lblHeaderSelectDiceToReroll = new screenelement_label_generic (
+	screenelement_label* lblHeaderSelectDiceToReroll = new screenelement_label_generic (
 		font_,
 		"You may select dice to reroll.",
 		screenelement_label_enum::HeaderSelectDiceToReroll
 	);
-	screenelement_label* se_lblHeaderPromptBetSecond = new screenelement_label_generic (
+	screenelement_label* lblHeaderPromptBetSecond = new screenelement_label_generic (
 		font_,
 		"Bet:",
 		screenelement_label_enum::HeaderPromptBetSecond
 	);
-	screenelement_button* se_btnDiceEnemy0 = new screenelement_button_dice (
+	screenelement_button* btnDiceEnemy0 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (0),
 		screenelement_button_enum::DiceEnemy0
 	);
-	screenelement_button* se_btnDiceEnemy1 = new screenelement_button_dice (
+	screenelement_button* btnDiceEnemy1 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (1),
 		screenelement_button_enum::DiceEnemy1
 	);
-	screenelement_button* se_btnDiceEnemy2 = new screenelement_button_dice (
+	screenelement_button* btnDiceEnemy2 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (2),
 		screenelement_button_enum::DiceEnemy2
 	);
-	screenelement_button* se_btnDiceEnemy3 = new screenelement_button_dice (
+	screenelement_button* btnDiceEnemy3 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (3),
 		screenelement_button_enum::DiceEnemy3
 	);
-	screenelement_button* se_btnDiceEnemy4 = new screenelement_button_dice (
+	screenelement_button* btnDiceEnemy4 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (4),
 		screenelement_button_enum::DiceEnemy4
 	);
-	screenelement_button* se_btnDicePlayer0 = new screenelement_button_dice (
+	screenelement_button* btnDicePlayer0 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (0),
 		screenelement_button_enum::DicePlayer0
 	);
-	screenelement_button* se_btnDicePlayer1 = new screenelement_button_dice (
+	screenelement_button* btnDicePlayer1 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (1),
 		screenelement_button_enum::DicePlayer1
 	);
-	screenelement_button* se_btnDicePlayer2 = new screenelement_button_dice (
+	screenelement_button* btnDicePlayer2 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (2),
 		screenelement_button_enum::DicePlayer2
 	);
-	screenelement_button* se_btnDicePlayer3 = new screenelement_button_dice (
+	screenelement_button* btnDicePlayer3 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (3),
 		screenelement_button_enum::DicePlayer3
 	);
-	screenelement_button* se_btnDicePlayer4 = new screenelement_button_dice (
+	screenelement_button* btnDicePlayer4 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (4),
 		screenelement_button_enum::DicePlayer4
 	);
-	screenelement_button* se_btnBetAmount = new screenelement_button_generic (
+	screenelement_button* btnBetAmount = new screenelement_button_generic (
 		font_,
 		"$" + sBetPlayer,
 		screenelement_button_enum::BetAmount
 	);
-	screenelement_button* se_btnSubmitInputSecond = new screenelement_button_generic (
+	screenelement_button* btnSubmitInputSecond = new screenelement_button_generic (
 		font_,
 		"Submit",
 		screenelement_button_enum::SubmitInputSecond
 	);
-	sf::FloatRect frBounds_btnDicePlayer0 = se_btnDicePlayer0->frBounds_rs ();
-	sf::FloatRect frBounds_btnDicePlayer1 = se_btnDicePlayer1->frBounds_rs ();
-	sf::FloatRect frBounds_btnDicePlayer2 = se_btnDicePlayer2->frBounds_rs ();
-	sf::FloatRect frBounds_btnDicePlayer3 = se_btnDicePlayer3->frBounds_rs ();
-	sf::FloatRect frBounds_btnDicePlayer4 = se_btnDicePlayer4->frBounds_rs ();
-	float fWidth_lblHeaderDiceRolled = se_lblHeaderDiceRolled->frBounds_text ().width;
-	float fWidth_lblHeaderDiceEnemy = se_lblHeaderDiceEnemy->frBounds_text ().width;
-	float fWidth_lblHeaderDicePlayer = se_lblHeaderDicePlayer->frBounds_text ().width;
-	float fWidth_lblHeaderSelectDiceToReroll = se_lblHeaderSelectDiceToReroll->frBounds_text ().width;
-	float fWidth_lblHeaderPromptBetSecond = se_lblHeaderPromptBetSecond->frBounds_text ().width;
-	float fWidth_btnDiceEnemy0 = se_btnDiceEnemy0->frBounds_rs ().width;
-	float fWidth_btnDiceEnemy1 = se_btnDiceEnemy1->frBounds_rs ().width;
-	float fWidth_btnDiceEnemy2 = se_btnDiceEnemy2->frBounds_rs ().width;
-	float fWidth_btnDiceEnemy3 = se_btnDiceEnemy3->frBounds_rs ().width;
-	float fWidth_btnDiceEnemy4 = se_btnDiceEnemy4->frBounds_rs ().width;
+	sf::FloatRect frBounds_btnDicePlayer0 = btnDicePlayer0->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer1 = btnDicePlayer1->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer2 = btnDicePlayer2->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer3 = btnDicePlayer3->frBounds_rs ();
+	sf::FloatRect frBounds_btnDicePlayer4 = btnDicePlayer4->frBounds_rs ();
+	float fWidth_lblHeaderDiceRolled = lblHeaderDiceRolled->frBounds_text ().width;
+	float fWidth_lblHeaderDiceEnemy = lblHeaderDiceEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderDicePlayer = lblHeaderDicePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderSelectDiceToReroll = lblHeaderSelectDiceToReroll->frBounds_text ().width;
+	float fWidth_lblHeaderPromptBetSecond = lblHeaderPromptBetSecond->frBounds_text ().width;
+	float fWidth_btnDiceEnemy0 = btnDiceEnemy0->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy1 = btnDiceEnemy1->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy2 = btnDiceEnemy2->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy3 = btnDiceEnemy3->frBounds_rs ().width;
+	float fWidth_btnDiceEnemy4 = btnDiceEnemy4->frBounds_rs ().width;
 	float fWidth_btnDicePlayer0 = frBounds_btnDicePlayer0.width;
 	float fWidth_btnDicePlayer1 = frBounds_btnDicePlayer1.width;
 	float fWidth_btnDicePlayer2 = frBounds_btnDicePlayer2.width;
@@ -299,7 +299,7 @@ void pokerduel::prepareStage_SubmitInputSecond (
 	float fHeight_btnDicePlayer2 = frBounds_btnDicePlayer2.height;
 	float fHeight_btnDicePlayer3 = frBounds_btnDicePlayer3.height;
 	float fHeight_btnDicePlayer4 = frBounds_btnDicePlayer4.height;
-	float fWidth_btnSubmitInputSecond = se_btnSubmitInputSecond->frBounds_rs ().width;
+	float fWidth_btnSubmitInputSecond = btnSubmitInputSecond->frBounds_rs ().width;
 	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
 	float fPosX_lblHeaderDiceEnemy = 2.f * 1350.f / 3.f - .5f * fWidth_lblHeaderDiceEnemy;
 	float fPosX_lblHeaderDicePlayer = 1350.f / 3.f - .5f * fWidth_lblHeaderDicePlayer;
@@ -317,90 +317,90 @@ void pokerduel::prepareStage_SubmitInputSecond (
 	float fPosX_btnDicePlayer4 = 1350.f / 3.f - .5f * fWidth_btnDicePlayer4;
 	float fPosX_btnBetAmount = .5f * 1350.f + 10.f;
 	float fPosX_btnSubmitInputSecond = .5f * (1350.f - fWidth_btnSubmitInputSecond);
-	se_rectDiceSelected0 = new screenelement_rectangle_dice_selected_background (
+	rectDiceSelected0 = new screenelement_rectangle_dice_selected_background (
 		fWidth_btnDicePlayer0 + 8.f,
 		fHeight_btnDicePlayer0 + 8.f
 	);
-	se_rectDiceSelected1 = new screenelement_rectangle_dice_selected_background (
+	rectDiceSelected1 = new screenelement_rectangle_dice_selected_background (
 		fWidth_btnDicePlayer1 + 8.f,
 		fHeight_btnDicePlayer1 + 8.f
 	);
-	se_rectDiceSelected2 = new screenelement_rectangle_dice_selected_background (
+	rectDiceSelected2 = new screenelement_rectangle_dice_selected_background (
 		fWidth_btnDicePlayer2 + 8.f,
 		fHeight_btnDicePlayer2 + 8.f
 	);
-	se_rectDiceSelected3 = new screenelement_rectangle_dice_selected_background (
+	rectDiceSelected3 = new screenelement_rectangle_dice_selected_background (
 		fWidth_btnDicePlayer3 + 8.f,
 		fHeight_btnDicePlayer3 + 8.f
 	);
-	se_rectDiceSelected4 = new screenelement_rectangle_dice_selected_background (
+	rectDiceSelected4 = new screenelement_rectangle_dice_selected_background (
 		fWidth_btnDicePlayer4 + 8.f,
 		fHeight_btnDicePlayer4 + 8.f
 	);
-	se_rectDiceSelected0->move (fPosX_btnDicePlayer0 - 4.f, 236.f);
-	se_rectDiceSelected1->move (fPosX_btnDicePlayer1 - 4.f, 336.f);
-	se_rectDiceSelected2->move (fPosX_btnDicePlayer2 - 4.f, 436.f);
-	se_rectDiceSelected3->move (fPosX_btnDicePlayer3 - 4.f, 536.f);
-	se_rectDiceSelected4->move (fPosX_btnDicePlayer4 - 4.f, 636.f);
-	se_lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 120.f);
-	se_lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 180.f);
-	se_lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 180.f);
-	se_lblHeaderSelectDiceToReroll->move (fPosX_lblHeaderSelectDiceToReroll, 740.f);
-	se_lblHeaderPromptBetSecond->move (fPosX_lblHeaderPromptBetSecond, 830.f);
-	se_btnDiceEnemy0->move (fPosX_btnDiceEnemy0, 240.f);
-	se_btnDiceEnemy1->move (fPosX_btnDiceEnemy1, 340.f);
-	se_btnDiceEnemy2->move (fPosX_btnDiceEnemy2, 440.f);
-	se_btnDiceEnemy3->move (fPosX_btnDiceEnemy3, 540.f);
-	se_btnDiceEnemy4->move (fPosX_btnDiceEnemy4, 640.f);
-	se_btnDicePlayer0->move (fPosX_btnDicePlayer0, 240.f);
-	se_btnDicePlayer1->move (fPosX_btnDicePlayer1, 340.f);
-	se_btnDicePlayer2->move (fPosX_btnDicePlayer2, 440.f);
-	se_btnDicePlayer3->move (fPosX_btnDicePlayer3, 540.f);
-	se_btnDicePlayer4->move (fPosX_btnDicePlayer4, 640.f);
-	se_btnBetAmount->move (fPosX_btnBetAmount, 800.f);
-	se_btnSubmitInputSecond->move (fPosX_btnSubmitInputSecond, 940.f);
-	ses_.push_back (se_lblHeaderDiceRolled);
-	ses_.push_back (se_lblHeaderDiceEnemy);
-	ses_.push_back (se_lblHeaderDicePlayer);
-	ses_.push_back (se_lblHeaderSelectDiceToReroll);
-	ses_.push_back (se_lblHeaderPromptBetSecond);
-	ses_.push_back (se_btnSubmitInputSecond);
-	ses_.push_back (se_btnBetAmount);
-	ses_.push_back (se_btnDiceEnemy4);
+	rectDiceSelected0->move (fPosX_btnDicePlayer0 - 4.f, 236.f);
+	rectDiceSelected1->move (fPosX_btnDicePlayer1 - 4.f, 336.f);
+	rectDiceSelected2->move (fPosX_btnDicePlayer2 - 4.f, 436.f);
+	rectDiceSelected3->move (fPosX_btnDicePlayer3 - 4.f, 536.f);
+	rectDiceSelected4->move (fPosX_btnDicePlayer4 - 4.f, 636.f);
+	lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 120.f);
+	lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 180.f);
+	lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 180.f);
+	lblHeaderSelectDiceToReroll->move (fPosX_lblHeaderSelectDiceToReroll, 740.f);
+	lblHeaderPromptBetSecond->move (fPosX_lblHeaderPromptBetSecond, 830.f);
+	btnDiceEnemy0->move (fPosX_btnDiceEnemy0, 240.f);
+	btnDiceEnemy1->move (fPosX_btnDiceEnemy1, 340.f);
+	btnDiceEnemy2->move (fPosX_btnDiceEnemy2, 440.f);
+	btnDiceEnemy3->move (fPosX_btnDiceEnemy3, 540.f);
+	btnDiceEnemy4->move (fPosX_btnDiceEnemy4, 640.f);
+	btnDicePlayer0->move (fPosX_btnDicePlayer0, 240.f);
+	btnDicePlayer1->move (fPosX_btnDicePlayer1, 340.f);
+	btnDicePlayer2->move (fPosX_btnDicePlayer2, 440.f);
+	btnDicePlayer3->move (fPosX_btnDicePlayer3, 540.f);
+	btnDicePlayer4->move (fPosX_btnDicePlayer4, 640.f);
+	btnBetAmount->move (fPosX_btnBetAmount, 800.f);
+	btnSubmitInputSecond->move (fPosX_btnSubmitInputSecond, 940.f);
+	ses_.push_back (lblHeaderDiceRolled);
+	ses_.push_back (lblHeaderDiceEnemy);
+	ses_.push_back (lblHeaderDicePlayer);
+	ses_.push_back (lblHeaderSelectDiceToReroll);
+	ses_.push_back (lblHeaderPromptBetSecond);
+	ses_.push_back (btnSubmitInputSecond);
+	ses_.push_back (btnBetAmount);
+	ses_.push_back (btnDiceEnemy4);
 	if (n5_pPlayerReroll->n (4) == int (true)) {
-		ses_.push_back (se_rectDiceSelected4);
+		ses_.push_back (rectDiceSelected4);
 	} else {
-		delete se_rectDiceSelected4;
+		delete rectDiceSelected4;
 	}
-	ses_.push_back (se_btnDicePlayer4);
-	ses_.push_back (se_btnDiceEnemy3);
+	ses_.push_back (btnDicePlayer4);
+	ses_.push_back (btnDiceEnemy3);
 	if (n5_pPlayerReroll->n (3) == int (true)) {
-		ses_.push_back (se_rectDiceSelected3);
+		ses_.push_back (rectDiceSelected3);
 	} else {
-		delete se_rectDiceSelected3;
+		delete rectDiceSelected3;
 	}
-	ses_.push_back (se_btnDicePlayer3);
-	ses_.push_back (se_btnDiceEnemy2);
+	ses_.push_back (btnDicePlayer3);
+	ses_.push_back (btnDiceEnemy2);
 	if (n5_pPlayerReroll->n (2) == int (true)) {
-		ses_.push_back (se_rectDiceSelected2);
+		ses_.push_back (rectDiceSelected2);
 	} else {
-		delete se_rectDiceSelected2;
+		delete rectDiceSelected2;
 	}
-	ses_.push_back (se_btnDicePlayer2);
-	ses_.push_back (se_btnDiceEnemy1);
+	ses_.push_back (btnDicePlayer2);
+	ses_.push_back (btnDiceEnemy1);
 	if (n5_pPlayerReroll->n (1) == int (true)) {
-		ses_.push_back (se_rectDiceSelected1);
+		ses_.push_back (rectDiceSelected1);
 	} else {
-		delete se_rectDiceSelected1;
+		delete rectDiceSelected1;
 	}
-	ses_.push_back (se_btnDicePlayer1);
-	ses_.push_back (se_btnDiceEnemy0);
+	ses_.push_back (btnDicePlayer1);
+	ses_.push_back (btnDiceEnemy0);
 	if (n5_pPlayerReroll->n (0) == int (true)) {
-		ses_.push_back (se_rectDiceSelected0);
+		ses_.push_back (rectDiceSelected0);
 	} else {
-		delete se_rectDiceSelected0;
+		delete rectDiceSelected0;
 	}
-	ses_.push_back (se_btnDicePlayer0);
+	ses_.push_back (btnDicePlayer0);
 	addLabelsCash (
 		nCashInPot,
 		font_,
@@ -493,55 +493,55 @@ void pokerduel::addLabelsCash (
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
-	screenelement_label* se_lblHeaderNameEnemy = new screenelement_label_generic (font_,
+	screenelement_label* lblHeaderNameEnemy = new screenelement_label_generic (font_,
 		gamedata_pEnemy->sPlayerName (),
 		screenelement_label_enum::HeaderNameEnemy
 	);
-	screenelement_label* se_lblHeaderNamePlayer = new screenelement_label_generic (font_,
+	screenelement_label* lblHeaderNamePlayer = new screenelement_label_generic (font_,
 		gamedata_pPlayer->sPlayerName (),
 		screenelement_label_enum::HeaderNamePlayer
 	);
-	screenelement_label* se_lblHeaderPot = new screenelement_label_generic (font_,
+	screenelement_label* lblHeaderPot = new screenelement_label_generic (font_,
 		"Pot",
 		screenelement_label_enum::HeaderPot
 	);
-	screenelement_label* se_lblHeaderCashEnemy = new screenelement_label_generic (font_,
+	screenelement_label* lblHeaderCashEnemy = new screenelement_label_generic (font_,
 		std::to_string (gamedata_pEnemy->nDollarsCarried ()),
 		screenelement_label_enum::HeaderCashEnemy
 	);
-	screenelement_label* se_lblHeaderCashPlayer = new screenelement_label_generic (font_,
+	screenelement_label* lblHeaderCashPlayer = new screenelement_label_generic (font_,
 		std::to_string (gamedata_pPlayer->nDollarsCarried ()),
 		screenelement_label_enum::HeaderCashPlayer
 	);
-	screenelement_label* se_lblHeaderCashPot = new screenelement_label_generic (
+	screenelement_label* lblHeaderCashPot = new screenelement_label_generic (
 		font_,
 		std::to_string (nCashInPot),
 		screenelement_label_enum::HeaderCashPot
 	);
-	float fWidth_lblHeaderNameEnemy = se_lblHeaderNameEnemy->frBounds_text ().width;
-	float fWidth_lblHeaderNamePlayer = se_lblHeaderNamePlayer->frBounds_text ().width;
-	float fWidth_lblHeaderPot = se_lblHeaderPot->frBounds_text ().width;
-	float fWidth_lblHeaderCashEnemy = se_lblHeaderCashEnemy->frBounds_text ().width;
-	float fWidth_lblHeaderCashPlayer = se_lblHeaderCashPlayer->frBounds_text ().width;
-	float fWidth_lblHeaderCashPot = se_lblHeaderCashPot->frBounds_text ().width;
+	float fWidth_lblHeaderNameEnemy = lblHeaderNameEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderNamePlayer = lblHeaderNamePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderPot = lblHeaderPot->frBounds_text ().width;
+	float fWidth_lblHeaderCashEnemy = lblHeaderCashEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderCashPlayer = lblHeaderCashPlayer->frBounds_text ().width;
+	float fWidth_lblHeaderCashPot = lblHeaderCashPot->frBounds_text ().width;
 	float fPosX_lblHeaderNameEnemy = 1350.f - 25.f - fWidth_lblHeaderNameEnemy;
 	float fPosX_lblHeaderNamePlayer = 25.f;
 	float fPosX_lblHeaderPot = .5f * (1350.f - fWidth_lblHeaderPot);
 	float fPosX_lblHeaderCashEnemy = 1350.f - 25.f - fWidth_lblHeaderCashEnemy;
 	float fPosX_lblHeaderCashPlayer = 25.f;
 	float fPosX_lblHeaderCashPot = .5f * (1350.f - fWidth_lblHeaderCashPot);
-	se_lblHeaderNameEnemy->move (fPosX_lblHeaderNameEnemy, 0.f);
-	se_lblHeaderNamePlayer->move (fPosX_lblHeaderNamePlayer, 0.f);
-	se_lblHeaderPot->move (fPosX_lblHeaderPot, 0.f);
-	se_lblHeaderCashEnemy->move (fPosX_lblHeaderCashEnemy, 60.f);
-	se_lblHeaderCashPlayer->move (fPosX_lblHeaderCashPlayer, 60.f);
-	se_lblHeaderCashPot->move (fPosX_lblHeaderCashPot, 60.f);
-	ses_.push_back (se_lblHeaderNameEnemy);
-	ses_.push_back (se_lblHeaderNamePlayer);
-	ses_.push_back (se_lblHeaderPot);
-	ses_.push_back (se_lblHeaderCashEnemy);
-	ses_.push_back (se_lblHeaderCashPlayer);
-	ses_.push_back (se_lblHeaderCashPot);
+	lblHeaderNameEnemy->move (fPosX_lblHeaderNameEnemy, 0.f);
+	lblHeaderNamePlayer->move (fPosX_lblHeaderNamePlayer, 0.f);
+	lblHeaderPot->move (fPosX_lblHeaderPot, 0.f);
+	lblHeaderCashEnemy->move (fPosX_lblHeaderCashEnemy, 60.f);
+	lblHeaderCashPlayer->move (fPosX_lblHeaderCashPlayer, 60.f);
+	lblHeaderCashPot->move (fPosX_lblHeaderCashPot, 60.f);
+	ses_.push_back (lblHeaderNameEnemy);
+	ses_.push_back (lblHeaderNamePlayer);
+	ses_.push_back (lblHeaderPot);
+	ses_.push_back (lblHeaderCashEnemy);
+	ses_.push_back (lblHeaderCashPlayer);
+	ses_.push_back (lblHeaderCashPot);
 }
 pokerduel::screenelement_rectangle_enum pokerduel::screenelement_rectangle_dice_selected_background::screenelement_rectangle_enum_ (
 ) const {
