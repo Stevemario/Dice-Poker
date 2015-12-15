@@ -119,6 +119,8 @@ namespace pokerduel {
 		HeaderAlertDicePlayerWillKeep,
 		HeaderAlertBetSecond,
 		HeaderPressingOKInputSecondWillRollSecond,
+		HeaderDiceInitial,
+		HeaderDiceUltimate,
 		HeaderScoreEnemyInitial,
 		HeaderScoreEnemyUltimate,
 		HeaderScorePlayerInitial,

@@ -519,6 +519,26 @@ void pokerduel::prepareStage_OKResults (
 		"Your Dice",
 		screenelement_label_enum::HeaderDicePlayer
 	);
+	screenelement_label* lblHeaderDiceInitialEnemy = new screenelement_label_generic (
+		font_,
+		"#1",
+		screenelement_label_enum::HeaderDiceInitial
+	);
+	screenelement_label* lblHeaderDiceInitialPlayer = new screenelement_label_generic (
+		font_,
+		"#1",
+		screenelement_label_enum::HeaderDiceInitial
+	);
+	screenelement_label* lblHeaderDiceUltimateEnemy = new screenelement_label_generic (
+		font_,
+		"#2",
+		screenelement_label_enum::HeaderDiceUltimate
+	);
+	screenelement_label* lblHeaderDiceUltimatePlayer = new screenelement_label_generic (
+		font_,
+		"#2",
+		screenelement_label_enum::HeaderDiceUltimate
+	);
 	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_generic (
 		font_,
 		"#" + std::to_string (nScoreEnemyInitial),
@@ -652,6 +672,10 @@ void pokerduel::prepareStage_OKResults (
 	float fWidth_lblHeaderDiceRolled = lblHeaderDiceRolled->frBounds_text ().width;
 	float fWidth_lblHeaderDiceEnemy = lblHeaderDiceEnemy->frBounds_text ().width;
 	float fWidth_lblHeaderDicePlayer = lblHeaderDicePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderDiceInitialEnemy = lblHeaderDiceInitialEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderDiceInitialPlayer = lblHeaderDiceInitialPlayer->frBounds_text ().width;
+	float fWidth_lblHeaderDiceUltimateEnemy = lblHeaderDiceUltimateEnemy->frBounds_text ().width;
+	float fWidth_lblHeaderDiceUltimatePlayer = lblHeaderDiceUltimatePlayer->frBounds_text ().width;
 	float fWidth_lblHeaderScoreEnemyInitial = lblHeaderScoreEnemyInitial->frBounds_text ().width;
 	float fWidth_lblHeaderScoreEnemyUltimate = lblHeaderScoreEnemyUltimate->frBounds_text ().width;
 	float fWidth_lblHeaderScorePlayerInitial = lblHeaderScorePlayerInitial->frBounds_text ().width;
@@ -681,6 +705,10 @@ void pokerduel::prepareStage_OKResults (
 	float fPosX_lblHeaderDiceRolled = .5f * (1350.f - fWidth_lblHeaderDiceRolled);
 	float fPosX_lblHeaderDiceEnemy = 3.f * 1350.f / 4.f - .5f * fWidth_lblHeaderDiceEnemy;
 	float fPosX_lblHeaderDicePlayer = 1350.f / 4.f - .5f * fWidth_lblHeaderDicePlayer;
+	float fPosX_lblHeaderDiceInitialEnemy = 4.f * 1350.f / 6.f - .5f * fWidth_lblHeaderDiceInitialEnemy;
+	float fPosX_lblHeaderDiceInitialPlayer = 1350.f / 6.f - .5f * fWidth_lblHeaderDiceInitialPlayer;
+	float fPosX_lblHeaderDiceUltimateEnemy = 5.f * 1350.f / 6.f - .5f * fWidth_lblHeaderDiceUltimateEnemy;
+	float fPosX_lblHeaderDiceUltimatePlayer = 2.f * 1350.f / 6.f - .5f * fWidth_lblHeaderDiceUltimatePlayer;
 	float fPosX_lblHeaderScoreEnemyInitial = 4.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyInitial;
 	float fPosX_lblHeaderScoreEnemyUltimate = 5.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyUltimate;
 	float fPosX_lblHeaderScorePlayerInitial = 1350.f / 6.f - .5f * fWidth_lblHeaderScorePlayerInitial;
@@ -710,6 +738,10 @@ void pokerduel::prepareStage_OKResults (
 	lblHeaderDiceRolled->move (fPosX_lblHeaderDiceRolled, 120.f);
 	lblHeaderDiceEnemy->move (fPosX_lblHeaderDiceEnemy, 180.f);
 	lblHeaderDicePlayer->move (fPosX_lblHeaderDicePlayer, 180.f);
+	lblHeaderDiceInitialEnemy->move (fPosX_lblHeaderDiceInitialEnemy, 240.f);
+	lblHeaderDiceInitialPlayer->move (fPosX_lblHeaderDiceInitialPlayer, 240.f);
+	lblHeaderDiceUltimateEnemy->move (fPosX_lblHeaderDiceUltimateEnemy, 240.f);
+	lblHeaderDiceUltimatePlayer->move (fPosX_lblHeaderDiceUltimatePlayer, 240.f);
 	lblHeaderScoreEnemyInitial->move (fPosX_lblHeaderScoreEnemyInitial, 800.f);
 	lblHeaderScoreEnemyUltimate->move (fPosX_lblHeaderScoreEnemyUltimate, 800.f);
 	lblHeaderScorePlayerInitial->move (fPosX_lblHeaderScorePlayerInitial, 800.f);
@@ -741,6 +773,10 @@ void pokerduel::prepareStage_OKResults (
 	ses_.push_back (lblHeaderScoreEnemyInitial);
 	ses_.push_back (lblHeaderScorePlayerUltimate);
 	ses_.push_back (lblHeaderScorePlayerInitial);
+	ses_.push_back (lblHeaderDiceUltimateEnemy);
+	ses_.push_back (lblHeaderDiceInitialEnemy);
+	ses_.push_back (lblHeaderDiceUltimatePlayer);
+	ses_.push_back (lblHeaderDiceInitialPlayer);
 	ses_.push_back (lblHeaderDiceEnemy);
 	ses_.push_back (lblHeaderDicePlayer);
 	ses_.push_back (lblHeaderDiceRolled);
