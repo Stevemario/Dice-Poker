@@ -528,12 +528,6 @@ void pokerduel::prepareStage_OKResults (
 		font_,
 		screenelement_label_enum::HeaderDiceUltimate
 	);
-	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_header_score (
-		font_,
-		nScoreEnemyInitial,
-		true,
-		true
-	);
 	screenelement_label* lblHeaderAlertRerollEnemy0 = new screenelement_label_header_alert_reroll (
 		font_,
 		n5_pEnemyReroll,
@@ -583,6 +577,12 @@ void pokerduel::prepareStage_OKResults (
 		font_,
 		n5_pPlayerReroll,
 		4
+	);
+	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_header_score (
+		font_,
+		nScoreEnemyInitial,
+		true,
+		true
 	);
 	screenelement_label* lblHeaderScoreEnemyUltimate = new screenelement_label_header_score (
 		font_,
@@ -1093,6 +1093,19 @@ pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement
 	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_reroll::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderAlertReroll;
+}
+pokerduel::screenelement_label_header_alert_reroll::screenelement_label_header_alert_reroll (
+	const sf::Font& font_,
+	const intx5*& n5Reroll,
+	const int& nDiceIndex
+) {
+	bool bRerolled = n5Reroll->n (nDiceIndex) == int (true);
+	set_bIsHeldDown (false);
+	create (bRerolled ? "ROLL" : "->", font_, 40, sf::Color::White);
+}
 pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_score::screenelement_label_enum_ (
 ) const {
 	return m_screenelement_label_enum;
@@ -1144,19 +1157,6 @@ pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_
 	}
 	set_bIsHeldDown (false);
 	create ("You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!", font_, 60, sf::Color::White);
-}
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_reroll::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::HeaderAlertReroll;
-}
-pokerduel::screenelement_label_header_alert_reroll::screenelement_label_header_alert_reroll (
-	const sf::Font& font_,
-	const intx5*& n5Reroll,
-	const int& nDiceIndex
-) {
-	bool bRerolled = n5Reroll->n (nDiceIndex) == int (true);
-	set_bIsHeldDown (false);
-	create (bRerolled ? "ROLL" : "->", font_, 40, sf::Color::White);
 }
 pokerduel::screenelement_button_enum pokerduel::screenelement_button_generic::screenelement_button_enum_ (
 ) const {

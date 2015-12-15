@@ -186,6 +186,15 @@ namespace pokerduel {
 			const intx5*&
 		);
 	};
+	class screenelement_label_header_alert_reroll : public screenelement_label {
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_alert_reroll (
+			const sf::Font&,
+			const intx5*&,
+			const int&
+		);
+	};
 	class screenelement_label_header_score : public screenelement_label {
 		private: screenelement_label_enum m_screenelement_label_enum;
 		public: screenelement_label_enum screenelement_label_enum_ (
@@ -203,15 +212,6 @@ namespace pokerduel {
 		public: screenelement_label_header_alert_outcome_player (
 			const sf::Font&,
 			const pokerduelresult*&,
-			const int&
-		);
-	};
-	class screenelement_label_header_alert_reroll : public screenelement_label {
-		public: screenelement_label_enum screenelement_label_enum_ (
-		) const;
-		public: screenelement_label_header_alert_reroll (
-			const sf::Font&,
-			const intx5*&,
 			const int&
 		);
 	};
