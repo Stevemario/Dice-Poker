@@ -107,10 +107,9 @@ void pokerduel::prepareStage_SubmitInputInitial (
 		font_,
 		screenelement_label_enum::HeaderPromptBetInitial
 	);
-	screenelement_button* btnBetAmount = new screenelement_button_generic (
+	screenelement_button* btnBetAmount = new screenelement_button_bet_amount (
 		font_,
-		"$" + sBetPlayer,
-		screenelement_button_enum::BetAmount
+		sBetPlayer
 	);
 	screenelement_button* btnSubmitInputInitial = new screenelement_button_generic (
 		font_,
@@ -285,10 +284,9 @@ void pokerduel::prepareStage_SubmitInputSecond (
 		false,
 		4
 	);
-	screenelement_button* btnBetAmount = new screenelement_button_generic (
+	screenelement_button* btnBetAmount = new screenelement_button_bet_amount (
 		font_,
-		"$" + sBetPlayer,
-		screenelement_button_enum::BetAmount
+		sBetPlayer
 	);
 	screenelement_button* btnSubmitInputSecond = new screenelement_button_generic (
 		font_,
@@ -1199,6 +1197,19 @@ pokerduel::screenelement_button_generic::screenelement_button_generic (
 ) {
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
+	create (s_, font_, 60, sf::Color::White, sf::Color::Black);
+	stretch (frBounds_rs ().width + 24.f, 120.f);
+}
+pokerduel::screenelement_button_enum pokerduel::screenelement_button_bet_amount::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::BetAmount;
+}
+pokerduel::screenelement_button_bet_amount::screenelement_button_bet_amount (
+	const sf::Font& font_,
+	const std::string& sBetPlayer
+) {
+	std::string s_ = "$" + sBetPlayer;
+	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White, sf::Color::Black);
 	stretch (frBounds_rs ().width + 24.f, 120.f);
 }

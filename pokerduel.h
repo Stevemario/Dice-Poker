@@ -246,6 +246,14 @@ namespace pokerduel {
 			const screenelement_button_enum&
 		);
 	};
+	class screenelement_button_bet_amount : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_bet_amount (
+			const sf::Font&,
+			const std::string&
+		);
+	};
 	class screenelement_button_dice : public screenelement_button {
 		private: screenelement_button_enum m_screenelement_button_enum;
 		public: screenelement_button_enum screenelement_button_enum_ (
