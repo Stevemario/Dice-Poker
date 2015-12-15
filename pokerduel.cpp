@@ -105,7 +105,6 @@ void pokerduel::prepareStage_SubmitInputInitial (
 ) {
 	screenelement_label* lblHeaderPromptBet = new screenelement_label_generic (
 		font_,
-		"Enter Your Bet:",
 		screenelement_label_enum::HeaderPromptBetInitial
 	);
 	screenelement_button* btnBetAmount = new screenelement_button_generic (
@@ -148,14 +147,13 @@ void pokerduel::prepareStage_OKInputInitial (
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
-	screenelement_label* lblHeaderAlertBet = new screenelement_label_generic (
+	screenelement_label* lblHeaderAlertBet = new screenelement_label_header_alert_bet (
 		font_,
-		"You've each bet $" + std::to_string (nBetAgreed) + ".",
-		screenelement_label_enum::HeaderAlertBet
+		nBetAgreed,
+		true
 	);
 	screenelement_label* lblHeaderPressingRollWillOKBet = new screenelement_label_generic (
 		font_,
-		"Pressing OK Bet will roll the dice.",
 		screenelement_label_enum::HeaderPressingRollWillOKBet
 	);
 	screenelement_button* btnChangeInputInitial = new screenelement_button_generic (
@@ -209,27 +207,22 @@ void pokerduel::prepareStage_SubmitInputSecond (
 	screenelement_rectangle* rectDiceSelected4;
 	screenelement_label* lblHeaderDiceRolled = new screenelement_label_generic (
 		font_,
-		"These are the dice rolled:",
 		screenelement_label_enum::HeaderDiceRolled
 	);
 	screenelement_label* lblHeaderDiceEnemy = new screenelement_label_generic (
 		font_,
-		"Enemy's Dice",
 		screenelement_label_enum::HeaderDiceEnemy
 	);
 	screenelement_label* lblHeaderDicePlayer = new screenelement_label_generic (
 		font_,
-		"Your Dice",
 		screenelement_label_enum::HeaderDicePlayer
 	);
 	screenelement_label* lblHeaderSelectDiceToReroll = new screenelement_label_generic (
 		font_,
-		"You may select dice to reroll.",
 		screenelement_label_enum::HeaderSelectDiceToReroll
 	);
 	screenelement_label* lblHeaderPromptBetSecond = new screenelement_label_generic (
 		font_,
-		"Bet:",
 		screenelement_label_enum::HeaderPromptBetSecond
 	);
 	screenelement_button* btnDiceEnemy0 = new screenelement_button_dice (
@@ -442,14 +435,13 @@ void pokerduel::prepareStage_OKInputSecond (
 		n5_pPlayerInitial,
 		n5_pPlayerReroll
 	);
-	screenelement_label* lblHeaderAlertBetMore = new screenelement_label_generic (
+	screenelement_label* lblHeaderAlertBetMore = new screenelement_label_header_alert_bet (
 		font_,
-		"You've each bet $" + std::to_string (nBetAgreed) + " more.",
-		screenelement_label_enum::HeaderAlertBetSecond
+		nBetAgreed,
+		false
 	);
 	screenelement_label* lblHeaderPressingOKInputSecondWillRollSecond = new screenelement_label_generic (
 		font_,
-		"Pressing OK Input will roll the dice.",
 		screenelement_label_enum::HeaderPressingOKInputSecondWillRollSecond
 	);
 	screenelement_button* btnChangeInputSecond = new screenelement_button_generic (
@@ -510,43 +502,37 @@ void pokerduel::prepareStage_OKResults (
 ) {
 	screenelement_label* lblHeaderDiceRolled = new screenelement_label_generic (
 		font_,
-		"These are the dice rolled:",
 		screenelement_label_enum::HeaderDiceRolled
 	);
 	screenelement_label* lblHeaderDiceEnemy = new screenelement_label_generic (
 		font_,
-		"Enemy's Dice",
 		screenelement_label_enum::HeaderDiceEnemy
 	);
 	screenelement_label* lblHeaderDicePlayer = new screenelement_label_generic (
 		font_,
-		"Your Dice",
 		screenelement_label_enum::HeaderDicePlayer
 	);
 	screenelement_label* lblHeaderDiceInitialEnemy = new screenelement_label_generic (
 		font_,
-		"#1",
 		screenelement_label_enum::HeaderDiceInitial
 	);
 	screenelement_label* lblHeaderDiceInitialPlayer = new screenelement_label_generic (
 		font_,
-		"#1",
 		screenelement_label_enum::HeaderDiceInitial
 	);
 	screenelement_label* lblHeaderDiceUltimateEnemy = new screenelement_label_generic (
 		font_,
-		"#2",
 		screenelement_label_enum::HeaderDiceUltimate
 	);
 	screenelement_label* lblHeaderDiceUltimatePlayer = new screenelement_label_generic (
 		font_,
-		"#2",
 		screenelement_label_enum::HeaderDiceUltimate
 	);
-	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_generic (
+	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_header_score (
 		font_,
-		"#" + std::to_string (nScoreEnemyInitial),
-		screenelement_label_enum::HeaderScoreEnemyInitial
+		nScoreEnemyInitial,
+		true,
+		true
 	);
 	screenelement_label* lblHeaderAlertRerollEnemy0 = new screenelement_label_header_alert_reroll (
 		font_,
@@ -598,20 +584,23 @@ void pokerduel::prepareStage_OKResults (
 		n5_pPlayerReroll,
 		4
 	);
-	screenelement_label* lblHeaderScoreEnemyUltimate = new screenelement_label_generic (
+	screenelement_label* lblHeaderScoreEnemyUltimate = new screenelement_label_header_score (
 		font_,
-		"#" + std::to_string (nScoreEnemyUltimate),
-		screenelement_label_enum::HeaderScoreEnemyUltimate
+		nScoreEnemyUltimate,
+		true,
+		false
 	);
-	screenelement_label* lblHeaderScorePlayerInitial = new screenelement_label_generic (
+	screenelement_label* lblHeaderScorePlayerInitial = new screenelement_label_header_score (
 		font_,
-		"#" + std::to_string (nScorePlayerInitial),
-		screenelement_label_enum::HeaderScorePlayerInitial
+		nScorePlayerInitial,
+		false,
+		true
 	);
-	screenelement_label* lblHeaderScorePlayerUltimate = new screenelement_label_generic (
+	screenelement_label* lblHeaderScorePlayerUltimate = new screenelement_label_header_score (
 		font_,
-		"#" + std::to_string (nScorePlayerUltimate),
-		screenelement_label_enum::HeaderScorePlayerUltimate
+		nScorePlayerUltimate,
+		false,
+		false
 	);
 	screenelement_label* lblHeaderAlertOutcomePlayer = new screenelement_label_header_alert_outcome_player (
 		font_,
@@ -910,30 +899,33 @@ void pokerduel::addLabelsCash (
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
-	screenelement_label* lblHeaderNameEnemy = new screenelement_label_generic (font_,
-		gamedata_pEnemy->sPlayerName (),
-		screenelement_label_enum::HeaderNameEnemy
+	screenelement_label* lblHeaderNameEnemy = new screenelement_label_header_name (
+		font_,
+		gamedata_pEnemy,
+		true
 	);
-	screenelement_label* lblHeaderNamePlayer = new screenelement_label_generic (font_,
-		gamedata_pPlayer->sPlayerName (),
-		screenelement_label_enum::HeaderNamePlayer
+	screenelement_label* lblHeaderNamePlayer = new screenelement_label_header_name (
+		font_,
+		gamedata_pPlayer,
+		false
 	);
-	screenelement_label* lblHeaderPot = new screenelement_label_generic (font_,
-		"Pot",
+	screenelement_label* lblHeaderPot = new screenelement_label_generic (
+		font_,
 		screenelement_label_enum::HeaderPot
 	);
-	screenelement_label* lblHeaderCashEnemy = new screenelement_label_generic (font_,
-		std::to_string (gamedata_pEnemy->nDollarsCarried ()),
-		screenelement_label_enum::HeaderCashEnemy
-	);
-	screenelement_label* lblHeaderCashPlayer = new screenelement_label_generic (font_,
-		std::to_string (gamedata_pPlayer->nDollarsCarried ()),
-		screenelement_label_enum::HeaderCashPlayer
-	);
-	screenelement_label* lblHeaderCashPot = new screenelement_label_generic (
+	screenelement_label* lblHeaderCashEnemy = new screenelement_label_header_cash (
 		font_,
-		std::to_string (nCashInPot),
-		screenelement_label_enum::HeaderCashPot
+		gamedata_pEnemy,
+		true
+	);
+	screenelement_label* lblHeaderCashPlayer = new screenelement_label_header_cash (
+		font_,
+		gamedata_pPlayer,
+		false
+	);
+	screenelement_label* lblHeaderCashPot = new screenelement_label_header_cash_pot (
+		font_,
+		nCashInPot
 	);
 	float fWidth_lblHeaderNameEnemy = lblHeaderNameEnemy->frBounds_text ().width;
 	float fWidth_lblHeaderNamePlayer = lblHeaderNamePlayer->frBounds_text ().width;
@@ -977,11 +969,85 @@ pokerduel::screenelement_label_enum pokerduel::screenelement_label_generic::scre
 }
 pokerduel::screenelement_label_generic::screenelement_label_generic (
 	const sf::Font& font_,
-	const std::string& s_,
 	const screenelement_label_enum& screenelement_label_enum_
 ) {
+	std::string s_;
+	switch (screenelement_label_enum_) {
+		case screenelement_label_enum::HeaderPot: { s_ = "Pot"; break; }
+		case screenelement_label_enum::HeaderPromptBetInitial: { s_ = "Enter Your Bet:"; break; }
+		case screenelement_label_enum::HeaderPressingRollWillOKBet: { s_ = "Pressing OK Bet will roll the dice."; break; }
+		case screenelement_label_enum::HeaderDiceRolled: { s_ = "These are the dice rolled:"; break; }
+		case screenelement_label_enum::HeaderDiceEnemy: { s_ = "Enemy's Dice"; break; }
+		case screenelement_label_enum::HeaderDicePlayer: { s_ = "Your Dice"; break; }
+		case screenelement_label_enum::HeaderSelectDiceToReroll: { s_ = "You may select dice to reroll."; break; }
+		case screenelement_label_enum::HeaderPromptBetSecond: { s_ = "Bet:"; break; }
+		case screenelement_label_enum::HeaderPressingOKInputSecondWillRollSecond: { s_ = "Pressing OK Input will roll the dice.";
+			break; }
+		case screenelement_label_enum::HeaderDiceInitial: { s_ = "#1"; break; }
+		case screenelement_label_enum::HeaderDiceUltimate: { s_ = "#2"; break; }
+		default: { s_ = "UNDEFINED"; break; }
+	}
 	set_bIsHeldDown (false);
 	m_screenelement_label_enum = screenelement_label_enum_;
+	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_name::screenelement_label_enum_ (
+) const {
+	return m_screenelement_label_enum;
+}
+pokerduel::screenelement_label_header_name::screenelement_label_header_name (
+	const sf::Font& font_,
+	const gamedata*& gamedata_p_,
+	const bool& bNameEnemy
+) {
+	std::string s_ = gamedata_p_->sPlayerName ();
+	set_bIsHeldDown (false);
+	if (bNameEnemy)
+		m_screenelement_label_enum = screenelement_label_enum::HeaderNameEnemy;
+	else
+		m_screenelement_label_enum = screenelement_label_enum::HeaderNamePlayer;
+	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash::screenelement_label_enum_ (
+) const {
+	return m_screenelement_label_enum;
+}
+pokerduel::screenelement_label_header_cash::screenelement_label_header_cash (
+	const sf::Font& font_,
+	const gamedata*& gamedata_p_,
+	const bool& bCashEnemy
+) {
+	std::string s_ = "$" + std::to_string (gamedata_p_->nDollarsCarried ());
+	set_bIsHeldDown (false);
+	if (bCashEnemy)
+		m_screenelement_label_enum = screenelement_label_enum::HeaderCashEnemy;
+	else
+		m_screenelement_label_enum = screenelement_label_enum::HeaderCashPlayer;
+	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash_pot::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderCashPot;
+}
+pokerduel::screenelement_label_header_cash_pot::screenelement_label_header_cash_pot (
+	const sf::Font& font_,
+	const int& nCashInPot
+) {
+	std::string s_ = "$" + std::to_string (nCashInPot);
+	set_bIsHeldDown (false);
+	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_bet::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderAlertBet;
+}
+pokerduel::screenelement_label_header_alert_bet::screenelement_label_header_alert_bet (
+	const sf::Font& font_,
+	const int& nBetAgreed,
+	const bool& bBetInitial
+) {
+	std::string s_ = "You've each bet $" + std::to_string (nBetAgreed) + (bBetInitial ? "." : " more.");
+	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
 pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_enum_ (
@@ -1023,6 +1089,31 @@ pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement
 			std::to_string (vec_nDiceKept[3]) + ".";
 	} else {
 		s_ += "all of your dice.";
+	}
+	set_bIsHeldDown (false);
+	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_score::screenelement_label_enum_ (
+) const {
+	return m_screenelement_label_enum;
+}
+pokerduel::screenelement_label_header_score::screenelement_label_header_score (
+	const sf::Font& font_,
+	const int& nScore,
+	const bool& bScoreEnemy,
+	const bool& bScoreInitial
+) {
+	std::string s_ = "#" + std::to_string (nScore);
+	if (bScoreEnemy) {
+		if (bScoreInitial)
+			m_screenelement_label_enum = screenelement_label_enum::HeaderScoreEnemyInitial;
+		else
+			m_screenelement_label_enum = screenelement_label_enum::HeaderScoreEnemyUltimate;
+	} else {
+		if (bScoreInitial)
+			m_screenelement_label_enum = screenelement_label_enum::HeaderScorePlayerInitial;
+		else
+			m_screenelement_label_enum = screenelement_label_enum::HeaderScorePlayerUltimate;
 	}
 	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);

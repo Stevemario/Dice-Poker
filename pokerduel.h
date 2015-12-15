@@ -137,8 +137,44 @@ namespace pokerduel {
 		) const;
 		public: screenelement_label_generic (
 			const sf::Font&,
-			const std::string&,
 			const screenelement_label_enum&
+		);
+	};
+	class screenelement_label_header_name : public screenelement_label {
+		private: screenelement_label_enum m_screenelement_label_enum;
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_name (
+			const sf::Font&,
+			const gamedata*&,
+			const bool&
+		);
+	};
+	class screenelement_label_header_cash : public screenelement_label {
+		private: screenelement_label_enum m_screenelement_label_enum;
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_cash (
+			const sf::Font&,
+			const gamedata*&,
+			const bool&
+		);
+	};
+	class screenelement_label_header_cash_pot : public screenelement_label {
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_cash_pot (
+			const sf::Font&,
+			const int&
+		);
+	};
+	class screenelement_label_header_alert_bet : public screenelement_label {
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_alert_bet (
+			const sf::Font&,
+			const int&,
+			const bool&
 		);
 	};
 	class screenelement_label_header_alert_dice_player_will_keep : public screenelement_label {
@@ -148,6 +184,17 @@ namespace pokerduel {
 			const sf::Font&,
 			const intx5*&,
 			const intx5*&
+		);
+	};
+	class screenelement_label_header_score : public screenelement_label {
+		private: screenelement_label_enum m_screenelement_label_enum;
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_score (
+			const sf::Font&,
+			const int&,
+			const bool&,
+			const bool&
 		);
 	};
 	class screenelement_label_header_alert_outcome_player : public screenelement_label {
