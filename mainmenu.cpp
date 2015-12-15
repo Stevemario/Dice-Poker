@@ -46,42 +46,34 @@ void mainmenu::addButtonsPageSwitching (
 	);
 	screenelement_button* btnReview = new screenelement_button_page_switching (
 		fontToUse,
-		"Review",
 		screenelement_button_enum::Review
 	);
 	screenelement_button* btnLoad = new screenelement_button_page_switching (
 		fontToUse,
-		"Load",
 		screenelement_button_enum::Load
 	);
 	screenelement_button* btnSave = new screenelement_button_page_switching (
 		fontToUse,
-		"Save",
 		screenelement_button_enum::Save
 	);
 	screenelement_button* btnNewGame = new screenelement_button_page_switching (
 		fontToUse,
-		"New Game",
 		screenelement_button_enum::NewGame
 	);
 	screenelement_button* btnPlay = new screenelement_button_page_switching (
 		fontToUse,
-		"Play",
 		screenelement_button_enum::Play
 	);
 	screenelement_button* btnAccredit = new screenelement_button_page_switching (
 		fontToUse,
-		"Accredit",
 		screenelement_button_enum::Accredit
 	);
 	screenelement_button* btnAdjust = new screenelement_button_page_switching (
 		fontToUse,
-		"Adjust",
 		screenelement_button_enum::Adjust
 	);
 	screenelement_button* btnExit = new screenelement_button_page_switching (
 		fontToUse,
-		"Exit",
 		screenelement_button_enum::Exit
 	);
 	float fWidth_btnLoad = btnLoad->frBounds_rs ().width;
@@ -205,12 +197,10 @@ void mainmenu::addPageNewGame (
 		);
 		screenelement_button* btnNewQuickGame = new screenelement_button_generic (
 			fontToUse,
-			"Quick Game",
 			screenelement_button_enum::NewQuickGame
 		);
 		screenelement_button* btnNewAdventure = new screenelement_button_generic (
 			fontToUse,
-			"Full Adventure",
 			screenelement_button_enum::NewAdventure
 		);
 		btnNewQuickGame->stretch (500.f, 0.f);
@@ -251,13 +241,11 @@ void mainmenu::addPageNewGame (
 		);
 		screenelement_button* btnNewGameReturn = new screenelement_button_generic (
 			fontToUse,
-			"Back",
 			screenelement_button_enum::NewGameReturn
 		);
-		screenelement_button* btnNewGameName = new screenelement_button_generic (
+		screenelement_button* btnNewGameName = new screenelement_button_new_adventure_name (
 			fontToUse,
-			sNewAdventureName,
-			screenelement_button_enum::NewAdventureName
+			sNewAdventureName
 		);
 		btnNewGameName->stretch ((1350.f - 4.f * 25.f) * 0.3f, 0.f);
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->frBounds_text ().width;
@@ -343,9 +331,20 @@ mainmenu::screenelement_button_enum mainmenu::screenelement_button_page_switchin
 }
 mainmenu::screenelement_button_page_switching::screenelement_button_page_switching (
 	const sf::Font& font_,
-	const std::string& s_,
 	const screenelement_button_enum& screenelement_button_enum_
 ) {
+	std::string s_;
+	switch (screenelement_button_enum_) {
+		case screenelement_button_enum::Exit: { s_ = "Exit"; break; }
+		case screenelement_button_enum::Adjust: { s_ = "Adjust"; break; }
+		case screenelement_button_enum::Accredit: { s_ = "Accredit"; break; }
+		case screenelement_button_enum::Play: { s_ = "Play"; break; }
+		case screenelement_button_enum::NewGame: { s_ = "New Game"; break; }
+		case screenelement_button_enum::Save: { s_ = "Save"; break; }
+		case screenelement_button_enum::Load: { s_ = "Load"; break; }
+		case screenelement_button_enum::Review: { s_ = "Review"; break; }
+		default: { s_ = "UNDEFINED"; }
+	}
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
@@ -357,11 +356,29 @@ mainmenu::screenelement_button_enum mainmenu::screenelement_button_generic::scre
 }
 mainmenu::screenelement_button_generic::screenelement_button_generic (
 	const sf::Font& font_,
-	const std::string& s_,
 	const screenelement_button_enum& screenelement_button_enum_
 ) {
+	std::string s_;
+	switch (screenelement_button_enum_) {
+		case screenelement_button_enum::NewQuickGame: { s_ = "Quick Game"; break; }
+		case screenelement_button_enum::NewAdventure: { s_ = "Full Adventure"; break; }
+		case screenelement_button_enum::NewGameReturn: { s_ = "Back"; break; }
+		default: { s_ = "UNDEFINED"; }
+	}
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
+	create (s_, font_, 60, sf::Color::Black, sf::Color::White);
+	stretch (frBounds_rs ().width + 24.f, 120.f);
+}
+mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_adventure_name::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::NewAdventureName;
+}
+mainmenu::screenelement_button_new_adventure_name::screenelement_button_new_adventure_name (
+	const sf::Font& font_,
+	const std::string& s_
+) {
+	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::Black, sf::Color::White);
 	stretch (frBounds_rs ().width + 24.f, 120.f);
 }

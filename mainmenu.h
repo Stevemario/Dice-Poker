@@ -105,7 +105,6 @@ namespace mainmenu {
 		) const;
 		public: screenelement_button_page_switching (
 			const sf::Font&,
-			const std::string&,
 			const screenelement_button_enum&
 		);
 	};
@@ -115,8 +114,15 @@ namespace mainmenu {
 		) const;
 		public: screenelement_button_generic (
 			const sf::Font&,
-			const std::string&,
 			const screenelement_button_enum&
+		);
+	};
+	class screenelement_button_new_adventure_name : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_new_adventure_name (
+			const sf::Font&,
+			const std::string&
 		);
 	};
 }
