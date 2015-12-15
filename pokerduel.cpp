@@ -65,6 +65,8 @@ void pokerduel::prepare (
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
+				n5_pPlayerInitial,
+				n5_pPlayerReroll,
 				ses_
 			);
 			break;
@@ -431,12 +433,14 @@ void pokerduel::prepareStage_OKInputSecond (
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
+	const intx5*& n5_pPlayerInitial,
+	const intx5*& n5_pPlayerReroll,
 	screenelements& ses_
 ) {
-	screenelement_label* lblHeaderAlertDicePlayerWillKeep = new screenelement_label_generic (
+	screenelement_label* lblHeaderAlertDicePlayerWillKeep = new screenelement_label_header_alert_dice_player_will_keep (
 		font_,
-		"You decided to keep...", //Finish this later
-		screenelement_label_enum::HeaderAlertDicePlayerWillKeep
+		n5_pPlayerInitial,
+		n5_pPlayerReroll
 	);
 	screenelement_label* lblHeaderAlertBetMore = new screenelement_label_generic (
 		font_,
@@ -978,6 +982,49 @@ pokerduel::screenelement_label_generic::screenelement_label_generic (
 ) {
 	set_bIsHeldDown (false);
 	m_screenelement_label_enum = screenelement_label_enum_;
+	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderAlertDicePlayerWillKeep;
+}
+pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_header_alert_dice_player_will_keep (
+	const sf::Font& font_,
+	const intx5*& n5_pDicePlayerInitial,
+	const intx5*& n5_pDicePlayerReroll
+) {
+	int nDiceKept;
+	std::string s_ = "You decided to keep ";
+	std::vector<int> vec_nDiceKept;
+	for (int i = 0; i < 5; i++) {
+		if (n5_pDicePlayerReroll-> n(i) != int (true))
+			vec_nDiceKept.push_back (n5_pDicePlayerInitial-> n(i));
+	}
+	nDiceKept = vec_nDiceKept.size ();
+	if (nDiceKept == 0) {
+		s_ += "none of your dice.";
+	} else if (nDiceKept == 1) {
+		s_ += "a dice showing " +
+			std::to_string (vec_nDiceKept[0]) + ".";
+	} else if (nDiceKept == 2) {
+		s_ += "dice showing " +
+			std::to_string (vec_nDiceKept[0]) + " and " +
+			std::to_string (vec_nDiceKept[1]) + ".";
+	} else if (nDiceKept == 3) {
+		s_ += "dice showing " +
+			std::to_string (vec_nDiceKept[0]) + ", " +
+			std::to_string (vec_nDiceKept[1]) + " and " +
+			std::to_string (vec_nDiceKept[2]) + ".";
+	} else if (nDiceKept == 4) {
+		s_ += "dice showing " +
+			std::to_string (vec_nDiceKept[0]) + ", " +
+			std::to_string (vec_nDiceKept[1]) + ", " +
+			std::to_string (vec_nDiceKept[2]) + " and " +
+			std::to_string (vec_nDiceKept[3]) + ".";
+	} else {
+		s_ += "all of your dice.";
+	}
+	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
 pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_enum_ (

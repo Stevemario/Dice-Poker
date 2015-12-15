@@ -61,6 +61,8 @@ namespace pokerduel {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
+		const intx5*&,
+		const intx5*&,
 		screenelements&
 	);
 	void prepareStage_OKResults (
@@ -137,6 +139,15 @@ namespace pokerduel {
 			const sf::Font&,
 			const std::string&,
 			const screenelement_label_enum&
+		);
+	};
+	class screenelement_label_header_alert_dice_player_will_keep : public screenelement_label {
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_alert_dice_player_will_keep (
+			const sf::Font&,
+			const intx5*&,
+			const intx5*&
 		);
 	};
 	class screenelement_label_header_alert_outcome_player : public screenelement_label {
