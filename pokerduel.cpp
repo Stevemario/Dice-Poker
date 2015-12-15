@@ -228,52 +228,62 @@ void pokerduel::prepareStage_SubmitInputSecond (
 	screenelement_button* btnDiceEnemy0 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (0),
-		screenelement_button_enum::DiceEnemy0
+		true,
+		0
 	);
 	screenelement_button* btnDiceEnemy1 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (1),
-		screenelement_button_enum::DiceEnemy1
+		true,
+		1
 	);
 	screenelement_button* btnDiceEnemy2 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (2),
-		screenelement_button_enum::DiceEnemy2
+		true,
+		2
 	);
 	screenelement_button* btnDiceEnemy3 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (3),
-		screenelement_button_enum::DiceEnemy3
+		true,
+		3
 	);
 	screenelement_button* btnDiceEnemy4 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (4),
-		screenelement_button_enum::DiceEnemy4
+		true,
+		4
 	);
 	screenelement_button* btnDicePlayer0 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (0),
-		screenelement_button_enum::DicePlayer0
+		false,
+		0
 	);
 	screenelement_button* btnDicePlayer1 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (1),
-		screenelement_button_enum::DicePlayer1
+		false,
+		1
 	);
 	screenelement_button* btnDicePlayer2 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (2),
-		screenelement_button_enum::DicePlayer2
+		false,
+		2
 	);
 	screenelement_button* btnDicePlayer3 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (3),
-		screenelement_button_enum::DicePlayer3
+		false,
+		3
 	);
 	screenelement_button* btnDicePlayer4 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (4),
-		screenelement_button_enum::DicePlayer4
+		false,
+		4
 	);
 	screenelement_button* btnBetAmount = new screenelement_button_generic (
 		font_,
@@ -610,102 +620,122 @@ void pokerduel::prepareStage_OKResults (
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (0),
-		screenelement_button_enum::DiceEnemy0
+		true,
+		0
 	);
 	screenelement_button* btnDiceEnemyInitial1 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (1),
-		screenelement_button_enum::DiceEnemy1
+		true,
+		1
 	);
 	screenelement_button* btnDiceEnemyInitial2 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (2),
-		screenelement_button_enum::DiceEnemy2
+		true,
+		2
 	);
 	screenelement_button* btnDiceEnemyInitial3 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (3),
-		screenelement_button_enum::DiceEnemy3
+		true,
+		3
 	);
 	screenelement_button* btnDiceEnemyInitial4 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyInitial->n (4),
-		screenelement_button_enum::DiceEnemy4
+		true,
+		4
 	);
 	screenelement_button* btnDiceEnemyUltimate0 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyUltimate->n (0),
-		screenelement_button_enum::DiceEnemy0
+		true,
+		0
 	);
 	screenelement_button* btnDiceEnemyUltimate1 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyUltimate->n (1),
-		screenelement_button_enum::DiceEnemy1
+		true,
+		1
 	);
 	screenelement_button* btnDiceEnemyUltimate2 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyUltimate->n (2),
-		screenelement_button_enum::DiceEnemy2
+		true,
+		2
 	);
 	screenelement_button* btnDiceEnemyUltimate3 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyUltimate->n (3),
-		screenelement_button_enum::DiceEnemy3
+		true,
+		3
 	);
 	screenelement_button* btnDiceEnemyUltimate4 = new screenelement_button_dice (
 		font_,
 		n5_pEnemyUltimate->n (4),
-		screenelement_button_enum::DiceEnemy4
+		true,
+		4
 	);
 	screenelement_button* btnDicePlayerInitial0 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (0),
-		screenelement_button_enum::DicePlayer0
+		false,
+		0
 	);
 	screenelement_button* btnDicePlayerInitial1 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (1),
-		screenelement_button_enum::DicePlayer1
+		false,
+		1
 	);
 	screenelement_button* btnDicePlayerInitial2 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (2),
-		screenelement_button_enum::DicePlayer2
+		false,
+		2
 	);
 	screenelement_button* btnDicePlayerInitial3 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (3),
-		screenelement_button_enum::DicePlayer3
+		false,
+		3
 	);
 	screenelement_button* btnDicePlayerInitial4 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerInitial->n (4),
-		screenelement_button_enum::DicePlayer4
+		false,
+		4
 	);
 	screenelement_button* btnDicePlayerUltimate0 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerUltimate->n (0),
-		screenelement_button_enum::DicePlayer0
+		false,
+		1
 	);
 	screenelement_button* btnDicePlayerUltimate1 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerUltimate->n (1),
-		screenelement_button_enum::DicePlayer1
+		false,
+		1
 	);
 	screenelement_button* btnDicePlayerUltimate2 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerUltimate->n (2),
-		screenelement_button_enum::DicePlayer2
+		false,
+		2
 	);
 	screenelement_button* btnDicePlayerUltimate3 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerUltimate->n (3),
-		screenelement_button_enum::DicePlayer3
+		false,
+		3
 	);
 	screenelement_button* btnDicePlayerUltimate4 = new screenelement_button_dice (
 		font_,
 		n5_pPlayerUltimate->n (4),
-		screenelement_button_enum::DicePlayer4
+		false,
+		4
 	);
 	screenelement_button* btnOKResult = new screenelement_button_generic (
 		font_,
@@ -1179,10 +1209,27 @@ pokerduel::screenelement_button_enum pokerduel::screenelement_button_dice::scree
 pokerduel::screenelement_button_dice::screenelement_button_dice (
 	const sf::Font& font_,
 	const int& n_,
-	const screenelement_button_enum& screenelement_button_enum_
+	const bool& bEnemy,
+	const int& nDiceIndex
 ) {
 	set_bIsHeldDown (false);
-	m_screenelement_button_enum = screenelement_button_enum_;
+	if (bEnemy) {
+		switch (nDiceIndex) {
+			case 0: { m_screenelement_button_enum = screenelement_button_enum::DiceEnemy0; break; }
+			case 1: { m_screenelement_button_enum = screenelement_button_enum::DiceEnemy1; break; }
+			case 2: { m_screenelement_button_enum = screenelement_button_enum::DiceEnemy2; break; }
+			case 3: { m_screenelement_button_enum = screenelement_button_enum::DiceEnemy3; break; }
+			case 4: { m_screenelement_button_enum = screenelement_button_enum::DiceEnemy4; break; }
+		}
+	} else {
+		switch (nDiceIndex) {
+			case 0: { m_screenelement_button_enum = screenelement_button_enum::DicePlayer0; break; }
+			case 1: { m_screenelement_button_enum = screenelement_button_enum::DicePlayer1; break; }
+			case 2: { m_screenelement_button_enum = screenelement_button_enum::DicePlayer2; break; }
+			case 3: { m_screenelement_button_enum = screenelement_button_enum::DicePlayer3; break; }
+			case 4: { m_screenelement_button_enum = screenelement_button_enum::DicePlayer4; break; }
+		}
+	}
 	create (std::to_string (n_), font_, 40, sf::Color::White, sf::Color::Black);
 	stretch (frBounds_rs ().width + 16.f, 80.f);
 }

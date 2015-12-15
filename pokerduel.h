@@ -253,7 +253,8 @@ namespace pokerduel {
 		public: screenelement_button_dice (
 			const sf::Font&,
 			const int&,
-			const screenelement_button_enum&
+			const bool&,
+			const int&
 		);
 	};
 }
