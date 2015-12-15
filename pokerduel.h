@@ -140,7 +140,6 @@ namespace pokerduel {
 		);
 	};
 	class screenelement_label_header_alert_outcome_player : public screenelement_label {
-		private: screenelement_label_enum m_screenelement_label_enum;
 		public: screenelement_label_enum screenelement_label_enum_ (
 		) const;
 		public: screenelement_label_header_alert_outcome_player (
