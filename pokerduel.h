@@ -119,11 +119,11 @@ namespace pokerduel {
 		HeaderAlertDicePlayerWillKeep,
 		HeaderAlertBetSecond,
 		HeaderPressingOKInputSecondWillRollSecond,
-		HeaderAlertPlayerOutcome,
 		HeaderScoreEnemyInitial,
 		HeaderScoreEnemyUltimate,
 		HeaderScorePlayerInitial,
 		HeaderScorePlayerUltimate,
+		HeaderAlertPlayerOutcome,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {

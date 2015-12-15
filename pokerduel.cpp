@@ -534,11 +534,6 @@ void pokerduel::prepareStage_OKResults (
 		"Your Dice",
 		screenelement_label_enum::HeaderDicePlayer
 	);
-	screenelement_label* lblHeaderAlertPlayerOutcome = new screenelement_label_generic (
-		font_,
-		"You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!",
-		screenelement_label_enum::HeaderAlertPlayerOutcome
-	);
 	screenelement_label* lblHeaderScoreEnemyInitial = new screenelement_label_generic (
 		font_,
 		"#" + std::to_string (nScoreEnemyInitial),
@@ -558,6 +553,11 @@ void pokerduel::prepareStage_OKResults (
 		font_,
 		"#" + std::to_string (nScorePlayerUltimate),
 		screenelement_label_enum::HeaderScorePlayerUltimate
+	);
+	screenelement_label* lblHeaderAlertPlayerOutcome = new screenelement_label_generic (
+		font_,
+		"You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!",
+		screenelement_label_enum::HeaderAlertPlayerOutcome
 	);
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
 		font_,
@@ -667,11 +667,11 @@ void pokerduel::prepareStage_OKResults (
 	float fWidth_lblHeaderDiceRolled = lblHeaderDiceRolled->frBounds_text ().width;
 	float fWidth_lblHeaderDiceEnemy = lblHeaderDiceEnemy->frBounds_text ().width;
 	float fWidth_lblHeaderDicePlayer = lblHeaderDicePlayer->frBounds_text ().width;
-	float fWidth_lblHeaderAlertPlayerOutcome = lblHeaderAlertPlayerOutcome->frBounds_text ().width;
 	float fWidth_lblHeaderScoreEnemyInitial = lblHeaderScoreEnemyInitial->frBounds_text ().width;
 	float fWidth_lblHeaderScoreEnemyUltimate = lblHeaderScoreEnemyUltimate->frBounds_text ().width;
 	float fWidth_lblHeaderScorePlayerInitial = lblHeaderScorePlayerInitial->frBounds_text ().width;
 	float fWidth_lblHeaderScorePlayerUltimate = lblHeaderScorePlayerUltimate->frBounds_text ().width;
+	float fWidth_lblHeaderAlertPlayerOutcome = lblHeaderAlertPlayerOutcome->frBounds_text ().width;
 	float fWidth_btnDiceEnemyInitial0 = btnDiceEnemyInitial0->frBounds_rs ().width;
 	float fWidth_btnDiceEnemyInitial1 = btnDiceEnemyInitial1->frBounds_rs ().width;
 	float fWidth_btnDiceEnemyInitial2 = btnDiceEnemyInitial2->frBounds_rs ().width;
@@ -751,14 +751,14 @@ void pokerduel::prepareStage_OKResults (
 	btnDicePlayerUltimate3->move (fPosX_btnDicePlayerUltimate3, 600.f);
 	btnDicePlayerUltimate4->move (fPosX_btnDicePlayerUltimate4, 700.f);
 	btnOKResult->move (fPosX_btnOKResult, 920.f);
-	ses_.push_back (lblHeaderDiceRolled);
-	ses_.push_back (lblHeaderDiceEnemy);
-	ses_.push_back (lblHeaderDicePlayer);
+	ses_.push_back (lblHeaderAlertPlayerOutcome);
 	ses_.push_back (lblHeaderScoreEnemyUltimate);
 	ses_.push_back (lblHeaderScoreEnemyInitial);
 	ses_.push_back (lblHeaderScorePlayerUltimate);
 	ses_.push_back (lblHeaderScorePlayerInitial);
-	ses_.push_back (lblHeaderAlertPlayerOutcome);
+	ses_.push_back (lblHeaderDiceEnemy);
+	ses_.push_back (lblHeaderDicePlayer);
+	ses_.push_back (lblHeaderDiceRolled);
 	ses_.push_back (btnDiceEnemyUltimate4);
 	ses_.push_back (btnDiceEnemyInitial4);
 	ses_.push_back (btnDicePlayerUltimate4);
