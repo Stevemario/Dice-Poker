@@ -123,7 +123,7 @@ namespace pokerduel {
 		HeaderScoreEnemyUltimate,
 		HeaderScorePlayerInitial,
 		HeaderScorePlayerUltimate,
-		HeaderAlertPlayerOutcome,
+		HeaderAlertOutcomePlayer,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {
@@ -134,6 +134,16 @@ namespace pokerduel {
 			const sf::Font&,
 			const std::string&,
 			const screenelement_label_enum&
+		);
+	};
+	class screenelement_label_header_alert_outcome_player : public screenelement_label {
+		private: screenelement_label_enum m_screenelement_label_enum;
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_header_alert_outcome_player (
+			const sf::Font&,
+			const pokerduelresult*&,
+			const int&
 		);
 	};
 	enum class screenelement_button_enum {

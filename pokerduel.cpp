@@ -504,21 +504,6 @@ void pokerduel::prepareStage_OKResults (
 	const intx5*& n5_pPlayerUltimate,
 	screenelements& ses_
 ) {
-	std::string sPlayerOutcome;
-	switch (*pokerduelresult_p_) {
-		case pokerduelresult::Win: {
-			sPlayerOutcome = "won";
-			break;
-		}
-		case pokerduelresult::Tie: {
-			sPlayerOutcome = "tied for";
-			break;
-		}
-		case pokerduelresult::Loss: {
-			sPlayerOutcome = "lost";
-			break;
-		}
-	}
 	screenelement_label* lblHeaderDiceRolled = new screenelement_label_generic (
 		font_,
 		"These are the dice rolled:",
@@ -554,10 +539,10 @@ void pokerduel::prepareStage_OKResults (
 		"#" + std::to_string (nScorePlayerUltimate),
 		screenelement_label_enum::HeaderScorePlayerUltimate
 	);
-	screenelement_label* lblHeaderAlertPlayerOutcome = new screenelement_label_generic (
+	screenelement_label* lblHeaderAlertOutcomePlayer = new screenelement_label_header_alert_outcome_player (
 		font_,
-		"You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!",
-		screenelement_label_enum::HeaderAlertPlayerOutcome
+		pokerduelresult_p_,
+		nCashInPotBefore
 	);
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
 		font_,
@@ -671,7 +656,7 @@ void pokerduel::prepareStage_OKResults (
 	float fWidth_lblHeaderScoreEnemyUltimate = lblHeaderScoreEnemyUltimate->frBounds_text ().width;
 	float fWidth_lblHeaderScorePlayerInitial = lblHeaderScorePlayerInitial->frBounds_text ().width;
 	float fWidth_lblHeaderScorePlayerUltimate = lblHeaderScorePlayerUltimate->frBounds_text ().width;
-	float fWidth_lblHeaderAlertPlayerOutcome = lblHeaderAlertPlayerOutcome->frBounds_text ().width;
+	float fWidth_lblHeaderAlertOutcomePlayer = lblHeaderAlertOutcomePlayer->frBounds_text ().width;
 	float fWidth_btnDiceEnemyInitial0 = btnDiceEnemyInitial0->frBounds_rs ().width;
 	float fWidth_btnDiceEnemyInitial1 = btnDiceEnemyInitial1->frBounds_rs ().width;
 	float fWidth_btnDiceEnemyInitial2 = btnDiceEnemyInitial2->frBounds_rs ().width;
@@ -700,7 +685,7 @@ void pokerduel::prepareStage_OKResults (
 	float fPosX_lblHeaderScoreEnemyUltimate = 5.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyUltimate;
 	float fPosX_lblHeaderScorePlayerInitial = 1350.f / 6.f - .5f * fWidth_lblHeaderScorePlayerInitial;
 	float fPosX_lblHeaderScorePlayerUltimate = 2.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScorePlayerUltimate;
-	float fPosX_lblHeaderAlertPlayerOutcome = .5f * (1350.f - fWidth_lblHeaderAlertPlayerOutcome);
+	float fPosX_lblHeaderAlertOutcomePlayer = .5f * (1350.f - fWidth_lblHeaderAlertOutcomePlayer);
 	float fPosX_btnDiceEnemyInitial0 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial0;
 	float fPosX_btnDiceEnemyInitial1 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial1;
 	float fPosX_btnDiceEnemyInitial2 = 4.f * 1350.f / 6.f - .5f * fWidth_btnDiceEnemyInitial2;
@@ -729,7 +714,7 @@ void pokerduel::prepareStage_OKResults (
 	lblHeaderScoreEnemyUltimate->move (fPosX_lblHeaderScoreEnemyUltimate, 800.f);
 	lblHeaderScorePlayerInitial->move (fPosX_lblHeaderScorePlayerInitial, 800.f);
 	lblHeaderScorePlayerUltimate->move (fPosX_lblHeaderScorePlayerUltimate, 800.f);
-	lblHeaderAlertPlayerOutcome->move (fPosX_lblHeaderAlertPlayerOutcome, 860.f);
+	lblHeaderAlertOutcomePlayer->move (fPosX_lblHeaderAlertOutcomePlayer, 860.f);
 	btnDiceEnemyInitial0->move (fPosX_btnDiceEnemyInitial0, 300.f);
 	btnDiceEnemyInitial1->move (fPosX_btnDiceEnemyInitial1, 400.f);
 	btnDiceEnemyInitial2->move (fPosX_btnDiceEnemyInitial2, 500.f);
@@ -751,7 +736,7 @@ void pokerduel::prepareStage_OKResults (
 	btnDicePlayerUltimate3->move (fPosX_btnDicePlayerUltimate3, 600.f);
 	btnDicePlayerUltimate4->move (fPosX_btnDicePlayerUltimate4, 700.f);
 	btnOKResult->move (fPosX_btnOKResult, 920.f);
-	ses_.push_back (lblHeaderAlertPlayerOutcome);
+	ses_.push_back (lblHeaderAlertOutcomePlayer);
 	ses_.push_back (lblHeaderScoreEnemyUltimate);
 	ses_.push_back (lblHeaderScoreEnemyInitial);
 	ses_.push_back (lblHeaderScorePlayerUltimate);
@@ -868,6 +853,33 @@ pokerduel::screenelement_label_generic::screenelement_label_generic (
 	set_bIsHeldDown (false);
 	m_screenelement_label_enum = screenelement_label_enum_;
 	create (s_, font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderAlertOutcomePlayer;
+}
+pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_header_alert_outcome_player (
+	const sf::Font& font_,
+	const pokerduelresult*& pokerduelresult_p_,
+	const int& nCashInPotBefore
+) {
+	std::string sPlayerOutcome;
+	switch (*pokerduelresult_p_) {
+		case pokerduelresult::Win: {
+			sPlayerOutcome = "won";
+			break;
+		}
+		case pokerduelresult::Tie: {
+			sPlayerOutcome = "tied for";
+			break;
+		}
+		case pokerduelresult::Loss: {
+			sPlayerOutcome = "lost";
+			break;
+		}
+	}
+	set_bIsHeldDown (false);
+	create ("You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!", font_, 60, sf::Color::White);
 }
 pokerduel::screenelement_button_enum pokerduel::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
