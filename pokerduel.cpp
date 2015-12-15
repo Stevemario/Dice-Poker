@@ -113,7 +113,6 @@ void pokerduel::prepareStage_SubmitInputInitial (
 	);
 	screenelement_button* btnSubmitInputInitial = new screenelement_button_generic (
 		font_,
-		"Submit",
 		screenelement_button_enum::SubmitInputInitial
 	);
 	btnBetAmount->stretch (360.f, 0.f);
@@ -157,12 +156,10 @@ void pokerduel::prepareStage_OKInputInitial (
 	);
 	screenelement_button* btnChangeInputInitial = new screenelement_button_generic (
 		font_,
-		"Change Bet",
 		screenelement_button_enum::ChangeInputInitial
 	);
 	screenelement_button* btnOKInputInitial = new screenelement_button_generic (
 		font_,
-		"OK Bet",
 		screenelement_button_enum::OKInputInitial
 	);
 	float fWidth_lblHeaderAlertBet = lblHeaderAlertBet->frBounds_text ().width;
@@ -290,7 +287,6 @@ void pokerduel::prepareStage_SubmitInputSecond (
 	);
 	screenelement_button* btnSubmitInputSecond = new screenelement_button_generic (
 		font_,
-		"Submit",
 		screenelement_button_enum::SubmitInputSecond
 	);
 	sf::FloatRect frBounds_btnDicePlayer0 = btnDicePlayer0->frBounds_rs ();
@@ -454,12 +450,10 @@ void pokerduel::prepareStage_OKInputSecond (
 	);
 	screenelement_button* btnChangeInputSecond = new screenelement_button_generic (
 		font_,
-		"Change Input",
 		screenelement_button_enum::ChangeInputSecond
 	);
 	screenelement_button* btnOKInputSecond = new screenelement_button_generic (
 		font_,
-		"OK Input",
 		screenelement_button_enum::OKInputSecond
 	);
 	float fWidth_lblHeaderAlertDicePlayerWillKeep = lblHeaderAlertDicePlayerWillKeep->frBounds_text ().width;
@@ -737,7 +731,6 @@ void pokerduel::prepareStage_OKResults (
 	);
 	screenelement_button* btnOKResult = new screenelement_button_generic (
 		font_,
-		"OK Result",
 		screenelement_button_enum::OKResult
 	);
 	float fWidth_lblHeaderDiceRolled = lblHeaderDiceRolled->frBounds_text ().width;
@@ -1192,9 +1185,19 @@ pokerduel::screenelement_button_enum pokerduel::screenelement_button_generic::sc
 }
 pokerduel::screenelement_button_generic::screenelement_button_generic (
 	const sf::Font& font_,
-	const std::string& s_,
 	const screenelement_button_enum& screenelement_button_enum_
 ) {
+	std::string s_;
+	switch (screenelement_button_enum_) {
+		case screenelement_button_enum::SubmitInputInitial: { s_ = "Submit"; break; };
+		case screenelement_button_enum::ChangeInputInitial: { s_ = "Change Bet"; break; };
+		case screenelement_button_enum::OKInputInitial: { s_ = "OK Bet"; break; };
+		case screenelement_button_enum::SubmitInputSecond: { s_ = "Submit Input"; break; };
+		case screenelement_button_enum::ChangeInputSecond: { s_ = "Change Input"; break; };
+		case screenelement_button_enum::OKInputSecond: { s_ = "OK Input"; break; };
+		case screenelement_button_enum::OKResult: { s_ = "OK Result"; break; };
+		default: { s_ = "UNDEFINED"; };
+	}
 	set_bIsHeldDown (false);
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 60, sf::Color::White, sf::Color::Black);

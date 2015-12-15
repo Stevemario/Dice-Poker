@@ -242,7 +242,6 @@ namespace pokerduel {
 		) const;
 		public: screenelement_button_generic (
 			const sf::Font&,
-			const std::string&,
 			const screenelement_button_enum&
 		);
 	};
