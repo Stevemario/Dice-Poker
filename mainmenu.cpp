@@ -42,7 +42,6 @@ void mainmenu::addButtonsPageSwitching (
 	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (fontToUse);
 	screenelement_label* lblTitle = new screenelement_label_generic (
 		fontToUse,
-		"Dice Poker",
 		screenelement_label_enum::Title
 	);
 	screenelement_button* btnReview = new screenelement_button_page_switching (
@@ -138,7 +137,6 @@ void mainmenu::addPageSplash (
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderWelcome = new screenelement_label_generic (
 		fontToUse,
-		"Welcome to Dice Poker!",
 		screenelement_label_enum::HeaderWelcome
 	);
 	float fWidth_lblHeaderWelcome = lblHeaderWelcome->frBounds_text ().width;
@@ -155,7 +153,6 @@ void mainmenu::addPageAdjust (
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderOptions = new screenelement_label_generic (
 		fontToUse,
-		"Options",
 		screenelement_label_enum::HeaderOptions
 	);
 	float fWidth_lblHeaderOptions = lblHeaderOptions->frBounds_text ().width;
@@ -172,12 +169,10 @@ void mainmenu::addPageAccredit (
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderCredits = new screenelement_label_generic (
 		fontToUse,
-		"Credits",
 		screenelement_label_enum::HeaderCredits
 	);
 	screenelement_label* lblParagraphCredits = new screenelement_label_generic (
 		fontToUse,
-		"Written by Steve Correa.  Copy of Witcher 2 minigame.",
 		screenelement_label_enum::ParagraphCredits
 	);
 	float fWidth_lblHeaderCredits = lblHeaderCredits->frBounds_text ().width;
@@ -202,12 +197,10 @@ void mainmenu::addPageNewGame (
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
 			fontToUse,
-			"New Game",
 			screenelement_label_enum::HeaderNewGame
 		);
 		screenelement_label* lblHeaderNewQuickGameIfPlayClicked = new screenelement_label_generic (
 			fontToUse,
-			"Note: New Quick Game starts if Play is Clicked.",
 			screenelement_label_enum::HeaderNewQuickGameIfPlayClicked
 		);
 		screenelement_button* btnNewQuickGame = new screenelement_button_generic (
@@ -246,17 +239,14 @@ void mainmenu::addPageNewGame (
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
 			fontToUse,
-			"New Game",
 			screenelement_label_enum::HeaderNewGame
 		);
 		screenelement_label* lblHeaderName = new screenelement_label_generic (
 			fontToUse,
-			"Name",
 			screenelement_label_enum::HeaderName
 		);
 		screenelement_label* lblHeaderNewAdventureIfPlayClicked = new screenelement_label_generic (
 			fontToUse,
-			"Note: New Adventure starts if Play is Clicked.",
 			screenelement_label_enum::HeaderNewAdventureIfPlayClicked
 		);
 		screenelement_button* btnNewGameReturn = new screenelement_button_generic (
@@ -316,9 +306,23 @@ mainmenu::screenelement_label_enum mainmenu::screenelement_label_generic::screen
 }
 mainmenu::screenelement_label_generic::screenelement_label_generic (
 	const sf::Font& font_,
-	const std::string& s_,
 	const screenelement_label_enum& screenelement_label_enum_
 ) {
+	std::string s_;
+	switch (screenelement_label_enum_) {
+		case screenelement_label_enum::Title: { s_ = "Dice Poker"; break; }
+		case screenelement_label_enum::HeaderWelcome: { s_ = "Welcome to Dice Poker!"; break; }
+		case screenelement_label_enum::HeaderOptions: { s_ = "Options"; break; }
+		case screenelement_label_enum::HeaderCredits: { s_ = "Credits"; break; }
+		case screenelement_label_enum::ParagraphCredits: { s_ = "Written by Steve Correa.  Copy of Witcher 2 minigame."; break; }
+		case screenelement_label_enum::HeaderNewGame: { s_ = "New Game"; break; }
+		case screenelement_label_enum::HeaderNewQuickGameIfPlayClicked: { s_ = "Note: New Quick Game starts if Play is Clicked.";
+			break; }
+		case screenelement_label_enum::HeaderName: { s_ = "Name"; break; }
+		case screenelement_label_enum::HeaderNewAdventureIfPlayClicked: { s_ = "Note: New Adventure starts if Play is Clicked.";
+			break; }
+		default: { s_ = "UNDEFINED"; break; }
+	}
 	set_bIsHeldDown (false);
 	m_screenelement_label_enum = screenelement_label_enum_;
 	create (s_, font_, 60, sf::Color::White);

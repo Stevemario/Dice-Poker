@@ -74,7 +74,6 @@ namespace mainmenu {
 		) const;
 		public: screenelement_label_generic (
 			const sf::Font&,
-			const std::string&,
 			const screenelement_label_enum&
 		);
 	};
