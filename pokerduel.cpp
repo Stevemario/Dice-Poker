@@ -544,6 +544,56 @@ void pokerduel::prepareStage_OKResults (
 		"#" + std::to_string (nScoreEnemyInitial),
 		screenelement_label_enum::HeaderScoreEnemyInitial
 	);
+	screenelement_label* lblHeaderAlertRerollEnemy0 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pEnemyReroll,
+		0
+	);
+	screenelement_label* lblHeaderAlertRerollEnemy1 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pEnemyReroll,
+		1
+	);
+	screenelement_label* lblHeaderAlertRerollEnemy2 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pEnemyReroll,
+		2
+	);
+	screenelement_label* lblHeaderAlertRerollEnemy3 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pEnemyReroll,
+		3
+	);
+	screenelement_label* lblHeaderAlertRerollEnemy4 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pEnemyReroll,
+		4
+	);
+	screenelement_label* lblHeaderAlertRerollPlayer0 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pPlayerReroll,
+		0
+	);
+	screenelement_label* lblHeaderAlertRerollPlayer1 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pPlayerReroll,
+		1
+	);
+	screenelement_label* lblHeaderAlertRerollPlayer2 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pPlayerReroll,
+		2
+	);
+	screenelement_label* lblHeaderAlertRerollPlayer3 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pPlayerReroll,
+		3
+	);
+	screenelement_label* lblHeaderAlertRerollPlayer4 = new screenelement_label_header_alert_reroll (
+		font_,
+		n5_pPlayerReroll,
+		4
+	);
 	screenelement_label* lblHeaderScoreEnemyUltimate = new screenelement_label_generic (
 		font_,
 		"#" + std::to_string (nScoreEnemyUltimate),
@@ -676,6 +726,16 @@ void pokerduel::prepareStage_OKResults (
 	float fWidth_lblHeaderDiceInitialPlayer = lblHeaderDiceInitialPlayer->frBounds_text ().width;
 	float fWidth_lblHeaderDiceUltimateEnemy = lblHeaderDiceUltimateEnemy->frBounds_text ().width;
 	float fWidth_lblHeaderDiceUltimatePlayer = lblHeaderDiceUltimatePlayer->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollEnemy0 = lblHeaderAlertRerollEnemy0->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollEnemy1 = lblHeaderAlertRerollEnemy1->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollEnemy2 = lblHeaderAlertRerollEnemy2->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollEnemy3 = lblHeaderAlertRerollEnemy3->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollEnemy4 = lblHeaderAlertRerollEnemy4->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollPlayer0 = lblHeaderAlertRerollPlayer0->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollPlayer1 = lblHeaderAlertRerollPlayer1->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollPlayer2 = lblHeaderAlertRerollPlayer2->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollPlayer3 = lblHeaderAlertRerollPlayer3->frBounds_text ().width;
+	float fWidth_lblHeaderAlertRerollPlayer4 = lblHeaderAlertRerollPlayer4->frBounds_text ().width;
 	float fWidth_lblHeaderScoreEnemyInitial = lblHeaderScoreEnemyInitial->frBounds_text ().width;
 	float fWidth_lblHeaderScoreEnemyUltimate = lblHeaderScoreEnemyUltimate->frBounds_text ().width;
 	float fWidth_lblHeaderScorePlayerInitial = lblHeaderScorePlayerInitial->frBounds_text ().width;
@@ -709,6 +769,16 @@ void pokerduel::prepareStage_OKResults (
 	float fPosX_lblHeaderDiceInitialPlayer = 1350.f / 6.f - .5f * fWidth_lblHeaderDiceInitialPlayer;
 	float fPosX_lblHeaderDiceUltimateEnemy = 5.f * 1350.f / 6.f - .5f * fWidth_lblHeaderDiceUltimateEnemy;
 	float fPosX_lblHeaderDiceUltimatePlayer = 2.f * 1350.f / 6.f - .5f * fWidth_lblHeaderDiceUltimatePlayer;
+	float fPosX_lblHeaderAlertRerollEnemy0 = 9.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollEnemy0;
+	float fPosX_lblHeaderAlertRerollEnemy1 = 9.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollEnemy1;
+	float fPosX_lblHeaderAlertRerollEnemy2 = 9.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollEnemy2;
+	float fPosX_lblHeaderAlertRerollEnemy3 = 9.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollEnemy3;
+	float fPosX_lblHeaderAlertRerollEnemy4 = 9.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollEnemy4;
+	float fPosX_lblHeaderAlertRerollPlayer0 = 3.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollPlayer0;
+	float fPosX_lblHeaderAlertRerollPlayer1 = 3.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollPlayer1;
+	float fPosX_lblHeaderAlertRerollPlayer2 = 3.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollPlayer2;
+	float fPosX_lblHeaderAlertRerollPlayer3 = 3.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollPlayer3;
+	float fPosX_lblHeaderAlertRerollPlayer4 = 3.f * 1350.f / 12.f - .5f * fWidth_lblHeaderAlertRerollPlayer4;
 	float fPosX_lblHeaderScoreEnemyInitial = 4.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyInitial;
 	float fPosX_lblHeaderScoreEnemyUltimate = 5.f * 1350.f / 6.f - .5f * fWidth_lblHeaderScoreEnemyUltimate;
 	float fPosX_lblHeaderScorePlayerInitial = 1350.f / 6.f - .5f * fWidth_lblHeaderScorePlayerInitial;
@@ -742,6 +812,16 @@ void pokerduel::prepareStage_OKResults (
 	lblHeaderDiceInitialPlayer->move (fPosX_lblHeaderDiceInitialPlayer, 240.f);
 	lblHeaderDiceUltimateEnemy->move (fPosX_lblHeaderDiceUltimateEnemy, 240.f);
 	lblHeaderDiceUltimatePlayer->move (fPosX_lblHeaderDiceUltimatePlayer, 240.f);
+	lblHeaderAlertRerollEnemy0->move (fPosX_lblHeaderAlertRerollEnemy0, 320.f);
+	lblHeaderAlertRerollEnemy1->move (fPosX_lblHeaderAlertRerollEnemy1, 420.f);
+	lblHeaderAlertRerollEnemy2->move (fPosX_lblHeaderAlertRerollEnemy2, 520.f);
+	lblHeaderAlertRerollEnemy3->move (fPosX_lblHeaderAlertRerollEnemy3, 620.f);
+	lblHeaderAlertRerollEnemy4->move (fPosX_lblHeaderAlertRerollEnemy4, 720.f);
+	lblHeaderAlertRerollPlayer0->move (fPosX_lblHeaderAlertRerollPlayer0, 320.f);
+	lblHeaderAlertRerollPlayer1->move (fPosX_lblHeaderAlertRerollPlayer1, 420.f);
+	lblHeaderAlertRerollPlayer2->move (fPosX_lblHeaderAlertRerollPlayer2, 520.f);
+	lblHeaderAlertRerollPlayer3->move (fPosX_lblHeaderAlertRerollPlayer3, 620.f);
+	lblHeaderAlertRerollPlayer4->move (fPosX_lblHeaderAlertRerollPlayer4, 720.f);
 	lblHeaderScoreEnemyInitial->move (fPosX_lblHeaderScoreEnemyInitial, 800.f);
 	lblHeaderScoreEnemyUltimate->move (fPosX_lblHeaderScoreEnemyUltimate, 800.f);
 	lblHeaderScorePlayerInitial->move (fPosX_lblHeaderScorePlayerInitial, 800.f);
@@ -773,6 +853,16 @@ void pokerduel::prepareStage_OKResults (
 	ses_.push_back (lblHeaderScoreEnemyInitial);
 	ses_.push_back (lblHeaderScorePlayerUltimate);
 	ses_.push_back (lblHeaderScorePlayerInitial);
+	ses_.push_back (lblHeaderAlertRerollEnemy4);
+	ses_.push_back (lblHeaderAlertRerollPlayer4);
+	ses_.push_back (lblHeaderAlertRerollEnemy3);
+	ses_.push_back (lblHeaderAlertRerollPlayer3);
+	ses_.push_back (lblHeaderAlertRerollEnemy2);
+	ses_.push_back (lblHeaderAlertRerollPlayer2);
+	ses_.push_back (lblHeaderAlertRerollEnemy1);
+	ses_.push_back (lblHeaderAlertRerollPlayer1);
+	ses_.push_back (lblHeaderAlertRerollEnemy0);
+	ses_.push_back (lblHeaderAlertRerollPlayer0);
 	ses_.push_back (lblHeaderDiceUltimateEnemy);
 	ses_.push_back (lblHeaderDiceInitialEnemy);
 	ses_.push_back (lblHeaderDiceUltimatePlayer);
@@ -916,6 +1006,19 @@ pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_
 	}
 	set_bIsHeldDown (false);
 	create ("You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!", font_, 60, sf::Color::White);
+}
+pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_reroll::screenelement_label_enum_ (
+) const {
+	return screenelement_label_enum::HeaderAlertReroll;
+}
+pokerduel::screenelement_label_header_alert_reroll::screenelement_label_header_alert_reroll (
+	const sf::Font& font_,
+	const intx5*& n5Reroll,
+	const int& nDiceIndex
+) {
+	bool bRerolled = n5Reroll->n (nDiceIndex) == int (true);
+	set_bIsHeldDown (false);
+	create (bRerolled ? "ROLL" : "->", font_, 40, sf::Color::White);
 }
 pokerduel::screenelement_button_enum pokerduel::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
