@@ -655,6 +655,16 @@ void game::handle (
 			break;
 		}
 		case pokerround::screenelement_button_enum::OKResult: {
+			handlePokerRoundEnd (bShouldClear_vec_screenelement_p);
+			break;
+		}
+	}
+}
+void game::handlePokerRoundEnd (
+	bool& bShouldClear_vec_screenelement_p
+) {
+	switch (*m_gamemode_p) {
+		case gamemode::PokerDuel: {
 			int nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
 			int nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
 			deletePokerRoundData ();
@@ -667,10 +677,14 @@ void game::handle (
 				delete m_gamemode_p;
 				m_gameaction = gameaction::WorkMainMenu;
 			}
-			bShouldClear_vec_screenelement_p = true;
+			break;
+		}
+		case gamemode::Adventure: {
+			//WILL DO LATER
 			break;
 		}
 	}
+	bShouldClear_vec_screenelement_p = true;
 }
 void game::deleteGameData (
 ) {

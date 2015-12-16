@@ -80,6 +80,9 @@ namespace game {
 		bool&,
 		const pokerround::screenelement_button_enum&
 	);
+	void handlePokerRoundEnd (
+		bool&
+	);
 	void deleteGameData (
 	);
 	void deletePokerRoundData (
