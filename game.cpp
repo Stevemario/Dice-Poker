@@ -667,14 +667,16 @@ void game::handlePokerRoundEnd (
 		case gamemode::PokerDuel: {
 			int nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
 			int nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
-			deletePokerRoundData ();
-			m_bHaveGameData = false;
-			if (nCashPlayer <= 0 || nCashEnemy <= 0) {
+			bool bKeepPlaying = 0 < nCashPlayer && 0 < nCashEnemy;
+			if (bKeepPlaying) {
+				deletePokerRoundData ();
+				m_bHaveGameData = false;
+				//Since both m_gameaction and m_gamemode_p are left untouched,
+				//this will create a new poker round with the same participants.
+			} else {
 				//GAME OVER
-				delete m_gamedata_pEnemy;
-				delete m_gamedata_pPlayer;
-				delete m_pokerroundstage_p;
-				delete m_gamemode_p;
+				deleteGameData ();
+				m_bHaveGameData = false;
 				m_gameaction = gameaction::WorkMainMenu;
 			}
 			break;
@@ -691,7 +693,6 @@ void game::deleteGameData (
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
 			deletePokerRoundData ();
-			delete m_pokerroundstage_p;
 			delete m_gamedata_pEnemy;
 			delete m_gamedata_pPlayer;
 			break;
@@ -725,6 +726,7 @@ void game::deletePokerRoundData (
 			break;
 		}
 	}
+	delete m_pokerroundstage_p;
 }
 void game::makeStringTakeNothing () {
 	m_bStringTakesUpper = false;
