@@ -54,11 +54,6 @@ namespace game {
 	void shutDown (
 	);
 	void load (
-		bool&,
-		gamemode*&,
-		pokerroundstage*&,
-		gamedata*&,
-		gamedata*&,
 		std::ifstream&
 	);
 	void handleMousePress (

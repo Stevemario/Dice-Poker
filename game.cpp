@@ -62,11 +62,6 @@ void game::startUp (
 	ifstream_.open (m_sSaveSpot);
 	if (ifstream_.is_open ()) {
 		load (
-			m_bHaveGameData,
-			m_gamemode_p,
-			m_pokerroundstage_p,
-			m_gamedata_pEnemy,
-			m_gamedata_pPlayer,
 			ifstream_
 		);
 		ifstream_.close ();
@@ -200,24 +195,19 @@ void game::shutDown (
 	}
 }
 void game::load (
-	bool& bHaveGameData,
-	gamemode*& gamemode_p_,
-	pokerroundstage*& pokerroundstage_p_,
-	gamedata*& gamedata_pEnemy,
-	gamedata*& gamedata_pPlayer,
 	std::ifstream& ifstream_
 ) {
 	char* ch_p_ = new char;
 	ifstream_.read (ch_p_, 1);
-	gamemode_p_ = new gamemode;
-	*gamemode_p_ = gamemode (*ch_p_);
-	switch (*gamemode_p_) {
+	m_gamemode_p = new gamemode;
+	*m_gamemode_p = gamemode (*ch_p_);
+	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
-			pokerroundstage_p_ = new pokerroundstage;
+			m_pokerroundstage_p = new pokerroundstage;
 			ifstream_.read (ch_p_, 1);
-			*pokerroundstage_p_ = pokerroundstage (*ch_p_);
-			gamedata_pEnemy = new gamedata (ifstream_);
-			gamedata_pPlayer = new gamedata (ifstream_);
+			*m_pokerroundstage_p = pokerroundstage (*ch_p_);
+			m_gamedata_pEnemy = new gamedata (ifstream_);
+			m_gamedata_pPlayer = new gamedata (ifstream_);
 			break;
 		}
 		case gamemode::Adventure: {
@@ -225,7 +215,7 @@ void game::load (
 		}
 	}
 	delete ch_p_;
-	bHaveGameData = true;
+	m_bHaveGameData = true;
 }
 void game::handleMousePress (
 	sf::Event& eventToHandle
