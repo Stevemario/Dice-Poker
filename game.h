@@ -4,10 +4,8 @@
 #include "mainmenu.h"
 namespace game {
 	extern int m_nBetAgreed;
-	extern int m_nCashEnemy;
 	extern int m_nCashInPot;
 	extern int m_nCashInPotBefore;
-	extern int m_nCashPlayer;
 	extern int m_nScoreEnemyInitial;
 	extern int m_nScoreEnemyUltimate;
 	extern int m_nScorePlayerInitial;
@@ -83,6 +81,8 @@ namespace game {
 		const pokerround::screenelement_button_enum&
 	);
 	void deleteGameData (
+	);
+	void deletePokerRoundData (
 	);
 	void makeStringTakeNothing (
 	);

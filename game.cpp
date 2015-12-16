@@ -2,10 +2,8 @@
 #include <ctime>
 #include <cstdlib>
 int game::m_nBetAgreed;
-int game::m_nCashEnemy;
 int game::m_nCashInPot;
 int game::m_nCashInPotBefore;
-int game::m_nCashPlayer;
 int game::m_nScoreEnemyInitial;
 int game::m_nScoreEnemyUltimate;
 int game::m_nScorePlayerInitial;
@@ -82,8 +80,6 @@ void game::prepareData (
 				case gamemode::PokerDuel: {
 					m_nCashInPot = 0;
 					m_pokerroundstage_p = new pokerroundstage;
-					m_gamedata_pEnemy = new gamedata ("Steve's Bot", m_nCashEnemy);
-					m_gamedata_pPlayer = new gamedata ("Player", m_nCashPlayer);
 					*m_pokerroundstage_p = pokerroundstage::SubmitInputInitial;
 					m_bHaveGameData = true;
 					break;
@@ -403,8 +399,8 @@ void game::handle (
 					m_gamemode_p = new gamemode;
 					if (m_bShowMainMenuNewGamePageChoice) {
 						*m_gamemode_p = gamemode::PokerDuel;
-						m_nCashEnemy = 100;
-						m_nCashPlayer = 100;
+						m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
+						m_gamedata_pPlayer = new gamedata ("Player", 100);
 					} else
 						*m_gamemode_p = gamemode::Adventure;
 					m_gameaction = gameaction::Play;
@@ -449,8 +445,8 @@ void game::handle (
 			}
 			m_gamemode_p = new gamemode;
 			*m_gamemode_p = gamemode::PokerDuel;
-			m_nCashEnemy = 100;
-			m_nCashPlayer = 100;
+			m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
+			m_gamedata_pPlayer = new gamedata ("Player", 100);
 			m_gameaction = gameaction::Play;
 			bShouldClear_vec_screenelement_p = true;
 			break;
@@ -659,15 +655,16 @@ void game::handle (
 			break;
 		}
 		case pokerround::screenelement_button_enum::OKResult: {
-			m_nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
-			m_nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
-			deleteGameData ();
+			int nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
+			int nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
+			deletePokerRoundData ();
 			m_bHaveGameData = false;
-			if (0 < m_nCashPlayer && 0 < m_nCashEnemy) {
-				m_gamemode_p = new gamemode;
-				*m_gamemode_p = gamemode::PokerDuel;
-			} else {
+			if (nCashPlayer <= 0 || nCashEnemy <= 0) {
 				//GAME OVER
+				delete m_gamedata_pEnemy;
+				delete m_gamedata_pPlayer;
+				delete m_pokerroundstage_p;
+				delete m_gamemode_p;
 				m_gameaction = gameaction::WorkMainMenu;
 			}
 			bShouldClear_vec_screenelement_p = true;
@@ -679,26 +676,7 @@ void game::deleteGameData (
 ) {
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
-			switch (*m_pokerroundstage_p) {
-				case pokerroundstage::SubmitInputSecond:
-				case pokerroundstage::OKInputSecond: {
-					delete m_n5_pEnemyInitial;
-					delete m_n5_pPlayerInitial;
-					delete m_n5_pEnemyReroll;
-					delete m_n5_pPlayerReroll;
-					break;
-				}
-				case pokerroundstage::OKResults: {
-					delete m_n5_pEnemyInitial;
-					delete m_n5_pPlayerInitial;
-					delete m_n5_pEnemyReroll;
-					delete m_n5_pPlayerReroll;
-					delete m_n5_pEnemyUltimate;
-					delete m_n5_pPlayerUltimate;
-					delete m_pokerroundresult_p;
-					break;
-				}
-			}
+			deletePokerRoundData ();
 			delete m_pokerroundstage_p;
 			delete m_gamedata_pEnemy;
 			delete m_gamedata_pPlayer;
@@ -710,6 +688,29 @@ void game::deleteGameData (
 		}
 	}
 	delete m_gamemode_p;
+}
+void game::deletePokerRoundData (
+) {
+	switch (*m_pokerroundstage_p) {
+		case pokerroundstage::SubmitInputSecond:
+		case pokerroundstage::OKInputSecond: {
+			delete m_n5_pEnemyInitial;
+			delete m_n5_pPlayerInitial;
+			delete m_n5_pEnemyReroll;
+			delete m_n5_pPlayerReroll;
+			break;
+		}
+		case pokerroundstage::OKResults: {
+			delete m_n5_pEnemyInitial;
+			delete m_n5_pPlayerInitial;
+			delete m_n5_pEnemyReroll;
+			delete m_n5_pPlayerReroll;
+			delete m_n5_pEnemyUltimate;
+			delete m_n5_pPlayerUltimate;
+			delete m_pokerroundresult_p;
+			break;
+		}
+	}
 }
 void game::makeStringTakeNothing () {
 	m_bStringTakesUpper = false;
