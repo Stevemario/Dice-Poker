@@ -1,6 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
-#include "pokerduel.h"
+#include "pokerround.h"
 #include "mainmenu.h"
 namespace game {
 	extern int m_nBetAgreed;
@@ -32,8 +32,8 @@ namespace game {
 	extern gameaction m_gameaction;
 	extern gamemode* m_gamemode_p;
 	extern mainmenupage m_mainmenupage;
-	extern pokerduelresult* m_pokerduelresult_p;
-	extern pokerduelstage* m_pokerduelstage_p;
+	extern pokerroundresult* m_pokerroundresult_p;
+	extern pokerroundstage* m_pokerroundstage_p;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;
 	extern intx5* m_n5_pEnemyUltimate;
@@ -58,7 +58,7 @@ namespace game {
 	void load (
 		bool&,
 		gamemode*&,
-		pokerduelstage*&,
+		pokerroundstage*&,
 		gamedata*&,
 		gamedata*&,
 		std::ifstream&
@@ -80,7 +80,7 @@ namespace game {
 	);
 	void handle (
 		bool&,
-		const pokerduel::screenelement_button_enum&
+		const pokerround::screenelement_button_enum&
 	);
 	void deleteGameData (
 	);

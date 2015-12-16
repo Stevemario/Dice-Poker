@@ -1,5 +1,5 @@
-#include "pokerduel.h"
-void pokerduel::prepare (
+#include "pokerround.h"
+void pokerround::prepare (
 	const int& nBetAgreed,
 	const int& nCashInPot,
 	const int& nCashInPotBefore,
@@ -9,8 +9,8 @@ void pokerduel::prepare (
 	const int& nScorePlayerUltimate,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
-	const pokerduelresult*& pokerduelresult_p_,
-	const pokerduelstage*& pokerduelstage_p_,
+	const pokerroundresult*& pokerroundresult_p_,
+	const pokerroundstage*& pokerroundstage_p_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemyInitial,
@@ -21,8 +21,8 @@ void pokerduel::prepare (
 	const intx5*& n5_pPlayerUltimate,
 	screenelements& ses_
 ) {
-	switch (*pokerduelstage_p_) {
-		case pokerduelstage::SubmitInputInitial: {
+	switch (*pokerroundstage_p_) {
+		case pokerroundstage::SubmitInputInitial: {
 			prepareStage_SubmitInputInitial (
 				nCashInPot,
 				sBetPlayer,
@@ -33,7 +33,7 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::OKInputInitial: {
+		case pokerroundstage::OKInputInitial: {
 			prepareStage_OKInputInitial (
 				nBetAgreed,
 				nCashInPot,
@@ -44,7 +44,7 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::SubmitInputSecond: {
+		case pokerroundstage::SubmitInputSecond: {
 			prepareStage_SubmitInputSecond (
 				nCashInPot,
 				sBetPlayer,
@@ -58,7 +58,7 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::OKInputSecond: {
+		case pokerroundstage::OKInputSecond: {
 			prepareStage_OKInputSecond (
 				nBetAgreed,
 				nCashInPot,
@@ -71,7 +71,7 @@ void pokerduel::prepare (
 			);
 			break;
 		}
-		case pokerduelstage::OKResults: {
+		case pokerroundstage::OKResults: {
 			prepareStage_OKResults (
 				nCashInPot,
 				nCashInPotBefore,
@@ -80,7 +80,7 @@ void pokerduel::prepare (
 				nScorePlayerInitial,
 				nScorePlayerUltimate,
 				font_,
-				pokerduelresult_p_,
+				pokerroundresult_p_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
 				n5_pEnemyInitial,
@@ -95,7 +95,7 @@ void pokerduel::prepare (
 		}
 	}
 }
-void pokerduel::prepareStage_SubmitInputInitial (
+void pokerround::prepareStage_SubmitInputInitial (
 	const int& nCashInPot,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
@@ -137,7 +137,7 @@ void pokerduel::prepareStage_SubmitInputInitial (
 		ses_
 	);
 }
-void pokerduel::prepareStage_OKInputInitial (
+void pokerround::prepareStage_OKInputInitial (
 	const int& nBetAgreed,
 	const int& nCashInPot,
 	const sf::Font& font_,
@@ -185,7 +185,7 @@ void pokerduel::prepareStage_OKInputInitial (
 		ses_
 	);
 }
-void pokerduel::prepareStage_SubmitInputSecond (
+void pokerround::prepareStage_SubmitInputSecond (
 	const int& nCashInPot,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
@@ -424,7 +424,7 @@ void pokerduel::prepareStage_SubmitInputSecond (
 		ses_
 	);
 }
-void pokerduel::prepareStage_OKInputSecond (
+void pokerround::prepareStage_OKInputSecond (
 	const int& nBetAgreed,
 	const int& nCashInPot,
 	const sf::Font& font_,
@@ -483,7 +483,7 @@ void pokerduel::prepareStage_OKInputSecond (
 		ses_
 	);
 }
-void pokerduel::prepareStage_OKResults (
+void pokerround::prepareStage_OKResults (
 	const int& nCashInPot,
 	const int& nCashInPotBefore,
 	const int& nScoreEnemyInitial,
@@ -491,7 +491,7 @@ void pokerduel::prepareStage_OKResults (
 	const int& nScorePlayerInitial,
 	const int& nScorePlayerUltimate,
 	const sf::Font& font_,
-	const pokerduelresult*& pokerduelresult_p_,
+	const pokerroundresult*& pokerroundresult_p_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	const intx5*& n5_pEnemyInitial,
@@ -606,7 +606,7 @@ void pokerduel::prepareStage_OKResults (
 	);
 	screenelement_label* lblHeaderAlertOutcomePlayer = new screenelement_label_header_alert_outcome_player (
 		font_,
-		pokerduelresult_p_,
+		pokerroundresult_p_,
 		nCashInPotBefore
 	);
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
@@ -913,7 +913,7 @@ void pokerduel::prepareStage_OKResults (
 		ses_
 	);
 }
-void pokerduel::addLabelsCash (
+void pokerround::addLabelsCash (
 	const int& nCashInPot,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
@@ -973,22 +973,22 @@ void pokerduel::addLabelsCash (
 	ses_.push_back (lblHeaderCashPlayer);
 	ses_.push_back (lblHeaderCashPot);
 }
-pokerduel::screenelement_rectangle_enum pokerduel::screenelement_rectangle_dice_selected_background::screenelement_rectangle_enum_ (
+pokerround::screenelement_rectangle_enum pokerround::screenelement_rectangle_dice_selected_background::screenelement_rectangle_enum_ (
 ) const {
 	return screenelement_rectangle_enum::DiceSelectedBackground;
 }
-pokerduel::screenelement_rectangle_dice_selected_background::screenelement_rectangle_dice_selected_background (
+pokerround::screenelement_rectangle_dice_selected_background::screenelement_rectangle_dice_selected_background (
 	const float& fWidth,
 	const float& fHeight
 ) {
 	set_bIsHeldDown (false);
 	create (fWidth, fHeight, sf::Color (255, 255, 255, 255));
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_generic::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_generic::screenelement_label_enum_ (
 ) const {
 	return m_screenelement_label_enum;
 }
-pokerduel::screenelement_label_generic::screenelement_label_generic (
+pokerround::screenelement_label_generic::screenelement_label_generic (
 	const sf::Font& font_,
 	const screenelement_label_enum& screenelement_label_enum_
 ) {
@@ -1012,11 +1012,11 @@ pokerduel::screenelement_label_generic::screenelement_label_generic (
 	m_screenelement_label_enum = screenelement_label_enum_;
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_name::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_name::screenelement_label_enum_ (
 ) const {
 	return m_screenelement_label_enum;
 }
-pokerduel::screenelement_label_header_name::screenelement_label_header_name (
+pokerround::screenelement_label_header_name::screenelement_label_header_name (
 	const sf::Font& font_,
 	const gamedata*& gamedata_p_,
 	const bool& bNameEnemy
@@ -1029,11 +1029,11 @@ pokerduel::screenelement_label_header_name::screenelement_label_header_name (
 		m_screenelement_label_enum = screenelement_label_enum::HeaderNamePlayer;
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_cash::screenelement_label_enum_ (
 ) const {
 	return m_screenelement_label_enum;
 }
-pokerduel::screenelement_label_header_cash::screenelement_label_header_cash (
+pokerround::screenelement_label_header_cash::screenelement_label_header_cash (
 	const sf::Font& font_,
 	const gamedata*& gamedata_p_,
 	const bool& bCashEnemy
@@ -1046,11 +1046,11 @@ pokerduel::screenelement_label_header_cash::screenelement_label_header_cash (
 		m_screenelement_label_enum = screenelement_label_enum::HeaderCashPlayer;
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_cash_pot::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_cash_pot::screenelement_label_enum_ (
 ) const {
 	return screenelement_label_enum::HeaderCashPot;
 }
-pokerduel::screenelement_label_header_cash_pot::screenelement_label_header_cash_pot (
+pokerround::screenelement_label_header_cash_pot::screenelement_label_header_cash_pot (
 	const sf::Font& font_,
 	const int& nCashInPot
 ) {
@@ -1058,11 +1058,11 @@ pokerduel::screenelement_label_header_cash_pot::screenelement_label_header_cash_
 	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_bet::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_alert_bet::screenelement_label_enum_ (
 ) const {
 	return screenelement_label_enum::HeaderAlertBet;
 }
-pokerduel::screenelement_label_header_alert_bet::screenelement_label_header_alert_bet (
+pokerround::screenelement_label_header_alert_bet::screenelement_label_header_alert_bet (
 	const sf::Font& font_,
 	const int& nBetAgreed,
 	const bool& bBetInitial
@@ -1071,11 +1071,11 @@ pokerduel::screenelement_label_header_alert_bet::screenelement_label_header_aler
 	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_enum_ (
 ) const {
 	return screenelement_label_enum::HeaderAlertDicePlayerWillKeep;
 }
-pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_header_alert_dice_player_will_keep (
+pokerround::screenelement_label_header_alert_dice_player_will_keep::screenelement_label_header_alert_dice_player_will_keep (
 	const sf::Font& font_,
 	const intx5*& n5_pDicePlayerInitial,
 	const intx5*& n5_pDicePlayerReroll
@@ -1114,11 +1114,11 @@ pokerduel::screenelement_label_header_alert_dice_player_will_keep::screenelement
 	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_reroll::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_alert_reroll::screenelement_label_enum_ (
 ) const {
 	return screenelement_label_enum::HeaderAlertReroll;
 }
-pokerduel::screenelement_label_header_alert_reroll::screenelement_label_header_alert_reroll (
+pokerround::screenelement_label_header_alert_reroll::screenelement_label_header_alert_reroll (
 	const sf::Font& font_,
 	const intx5*& n5Reroll,
 	const int& nDiceIndex
@@ -1127,11 +1127,11 @@ pokerduel::screenelement_label_header_alert_reroll::screenelement_label_header_a
 	set_bIsHeldDown (false);
 	create (bRerolled ? "ROLL" : "->", font_, 40, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_score::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_score::screenelement_label_enum_ (
 ) const {
 	return m_screenelement_label_enum;
 }
-pokerduel::screenelement_label_header_score::screenelement_label_header_score (
+pokerround::screenelement_label_header_score::screenelement_label_header_score (
 	const sf::Font& font_,
 	const int& nScore,
 	const bool& bScoreEnemy,
@@ -1152,26 +1152,26 @@ pokerduel::screenelement_label_header_score::screenelement_label_header_score (
 	set_bIsHeldDown (false);
 	create (s_, font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_label_enum pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_enum_ (
+pokerround::screenelement_label_enum pokerround::screenelement_label_header_alert_outcome_player::screenelement_label_enum_ (
 ) const {
 	return screenelement_label_enum::HeaderAlertOutcomePlayer;
 }
-pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_header_alert_outcome_player (
+pokerround::screenelement_label_header_alert_outcome_player::screenelement_label_header_alert_outcome_player (
 	const sf::Font& font_,
-	const pokerduelresult*& pokerduelresult_p_,
+	const pokerroundresult*& pokerroundresult_p_,
 	const int& nCashInPotBefore
 ) {
 	std::string sPlayerOutcome;
-	switch (*pokerduelresult_p_) {
-		case pokerduelresult::Win: {
+	switch (*pokerroundresult_p_) {
+		case pokerroundresult::Win: {
 			sPlayerOutcome = "won";
 			break;
 		}
-		case pokerduelresult::Tie: {
+		case pokerroundresult::Tie: {
 			sPlayerOutcome = "tied for";
 			break;
 		}
-		case pokerduelresult::Loss: {
+		case pokerroundresult::Loss: {
 			sPlayerOutcome = "lost";
 			break;
 		}
@@ -1179,11 +1179,11 @@ pokerduel::screenelement_label_header_alert_outcome_player::screenelement_label_
 	set_bIsHeldDown (false);
 	create ("You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!", font_, 60, sf::Color::White);
 }
-pokerduel::screenelement_button_enum pokerduel::screenelement_button_generic::screenelement_button_enum_ (
+pokerround::screenelement_button_enum pokerround::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
 	return m_screenelement_button_enum;
 }
-pokerduel::screenelement_button_generic::screenelement_button_generic (
+pokerround::screenelement_button_generic::screenelement_button_generic (
 	const sf::Font& font_,
 	const screenelement_button_enum& screenelement_button_enum_
 ) {
@@ -1203,11 +1203,11 @@ pokerduel::screenelement_button_generic::screenelement_button_generic (
 	create (s_, font_, 60, sf::Color::White, sf::Color::Black);
 	stretch (frBounds_rs ().width + 24.f, 120.f);
 }
-pokerduel::screenelement_button_enum pokerduel::screenelement_button_bet_amount::screenelement_button_enum_ (
+pokerround::screenelement_button_enum pokerround::screenelement_button_bet_amount::screenelement_button_enum_ (
 ) const {
 	return screenelement_button_enum::BetAmount;
 }
-pokerduel::screenelement_button_bet_amount::screenelement_button_bet_amount (
+pokerround::screenelement_button_bet_amount::screenelement_button_bet_amount (
 	const sf::Font& font_,
 	const std::string& sBetPlayer
 ) {
@@ -1216,11 +1216,11 @@ pokerduel::screenelement_button_bet_amount::screenelement_button_bet_amount (
 	create (s_, font_, 60, sf::Color::White, sf::Color::Black);
 	stretch (frBounds_rs ().width + 24.f, 120.f);
 }
-pokerduel::screenelement_button_enum pokerduel::screenelement_button_dice::screenelement_button_enum_ (
+pokerround::screenelement_button_enum pokerround::screenelement_button_dice::screenelement_button_enum_ (
 ) const {
 	return m_screenelement_button_enum;
 }
-pokerduel::screenelement_button_dice::screenelement_button_dice (
+pokerround::screenelement_button_dice::screenelement_button_dice (
 	const sf::Font& font_,
 	const int& n_,
 	const bool& bEnemy,

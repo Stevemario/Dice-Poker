@@ -1,6 +1,6 @@
-#ifndef POKERDUELSTAGE_H
-#define POKERDUELSTAGE_H
-enum class pokerduelstage {
+#ifndef POKERROUNDSTAGE_H
+#define POKERROUNDSTAGE_H
+enum class pokerroundstage {
 	SubmitInputInitial,
 	OKInputInitial,
 	SubmitInputSecond,

@@ -1,11 +1,11 @@
-#ifndef POKERDUEL_H
-#define POKERDUEL_H
+#ifndef POKERROUND_H
+#define POKERROUND_H
 #include "screenelement.h"
 #include "diceset.h"
 #include "gamedata.h"
-#include "pokerduelstage.h"
-#include "pokerduelresult.h"
-namespace pokerduel {
+#include "pokerroundstage.h"
+#include "pokerroundresult.h"
+namespace pokerround {
 	void prepare (
 		const int&,
 		const int&,
@@ -16,8 +16,8 @@ namespace pokerduel {
 		const int&,
 		const std::string&,
 		const sf::Font&,
-		const pokerduelresult*&,
-		const pokerduelstage*&,
+		const pokerroundresult*&,
+		const pokerroundstage*&,
 		const gamedata*&,
 		const gamedata*&,
 		const intx5*&,
@@ -73,7 +73,7 @@ namespace pokerduel {
 		const int&,
 		const int&,
 		const sf::Font&,
-		const pokerduelresult*&,
+		const pokerroundresult*&,
 		const gamedata*&,
 		const gamedata*&,
 		const intx5*&,
@@ -211,7 +211,7 @@ namespace pokerduel {
 		) const;
 		public: screenelement_label_header_alert_outcome_player (
 			const sf::Font&,
-			const pokerduelresult*&,
+			const pokerroundresult*&,
 			const int&
 		);
 	};

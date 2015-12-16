@@ -30,8 +30,8 @@ sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::WorkMainMenu;
 gamemode* game::m_gamemode_p;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
-pokerduelresult* game::m_pokerduelresult_p;
-pokerduelstage* game::m_pokerduelstage_p;
+pokerroundresult* game::m_pokerroundresult_p;
+pokerroundstage* game::m_pokerroundstage_p;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
 intx5* game::m_n5_pEnemyUltimate;
@@ -66,7 +66,7 @@ void game::startUp (
 		load (
 			m_bHaveGameData,
 			m_gamemode_p,
-			m_pokerduelstage_p,
+			m_pokerroundstage_p,
 			m_gamedata_pEnemy,
 			m_gamedata_pPlayer,
 			ifstream_
@@ -81,10 +81,10 @@ void game::prepareData (
 			switch (*m_gamemode_p) {
 				case gamemode::PokerDuel: {
 					m_nCashInPot = 0;
-					m_pokerduelstage_p = new pokerduelstage;
+					m_pokerroundstage_p = new pokerroundstage;
 					m_gamedata_pEnemy = new gamedata ("Steve's Bot", m_nCashEnemy);
 					m_gamedata_pPlayer = new gamedata ("Player", m_nCashPlayer);
-					*m_pokerduelstage_p = pokerduelstage::SubmitInputInitial;
+					*m_pokerroundstage_p = pokerroundstage::SubmitInputInitial;
 					m_bHaveGameData = true;
 					break;
 				}
@@ -116,8 +116,8 @@ void game::prepareScreenElements (
 			case gameaction::Play: {
 				switch (*m_gamemode_p) {
 					case gamemode::PokerDuel: {
-						const pokerduelresult* pokerduelresult_p_Const = m_pokerduelresult_p;
-						const pokerduelstage* pokerduelstage_p_Const = m_pokerduelstage_p;
+						const pokerroundresult* pokerroundresult_p_Const = m_pokerroundresult_p;
+						const pokerroundstage* pokerroundstage_p_Const = m_pokerroundstage_p;
 						const gamedata* gamedata_pEnemyConst = m_gamedata_pEnemy;
 						const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
 						const intx5* n5_pEnemyInitialConst = m_n5_pEnemyInitial;
@@ -126,7 +126,7 @@ void game::prepareScreenElements (
 						const intx5* n5_pPlayerInitialConst = m_n5_pPlayerInitial;
 						const intx5* n5_pPlayerRerollConst = m_n5_pPlayerReroll;
 						const intx5* n5_pPlayerUltimateConst = m_n5_pPlayerUltimate;
-						pokerduel::prepare (
+						pokerround::prepare (
 							m_nBetAgreed,
 							m_nCashInPot,
 							m_nCashInPotBefore,
@@ -136,8 +136,8 @@ void game::prepareScreenElements (
 							m_nScorePlayerUltimate,
 							m_sBetPlayer,
 							m_font,
-							pokerduelresult_p_Const,
-							pokerduelstage_p_Const,
+							pokerroundresult_p_Const,
+							pokerroundstage_p_Const,
 							gamedata_pEnemyConst,
 							gamedata_pPlayerConst,
 							n5_pEnemyInitialConst,
@@ -206,7 +206,7 @@ void game::shutDown (
 void game::load (
 	bool& bHaveGameData,
 	gamemode*& gamemode_p_,
-	pokerduelstage*& pokerduelstage_p_,
+	pokerroundstage*& pokerroundstage_p_,
 	gamedata*& gamedata_pEnemy,
 	gamedata*& gamedata_pPlayer,
 	std::ifstream& ifstream_
@@ -217,9 +217,9 @@ void game::load (
 	*gamemode_p_ = gamemode (*ch_p_);
 	switch (*gamemode_p_) {
 		case gamemode::PokerDuel: {
-			pokerduelstage_p_ = new pokerduelstage;
+			pokerroundstage_p_ = new pokerroundstage;
 			ifstream_.read (ch_p_, 1);
-			*pokerduelstage_p_ = pokerduelstage (*ch_p_);
+			*pokerroundstage_p_ = pokerroundstage (*ch_p_);
 			gamedata_pEnemy = new gamedata (ifstream_);
 			gamedata_pPlayer = new gamedata (ifstream_);
 			break;
@@ -260,7 +260,7 @@ void game::handleMousePress (
 						case gameaction::Play: {
 							switch (*m_gamemode_p) {
 								case gamemode::PokerDuel: {
-									pokerduel::screenelement_button* se_btn_p_ = dynamic_cast <pokerduel::screenelement_button*> (se_p_);
+									pokerround::screenelement_button* se_btn_p_ = dynamic_cast <pokerround::screenelement_button*> (se_p_);
 									se_btn_p_->set_bIsHeldDown (true);
 									m_bClickedAButtonJustNow = true;
 									break;
@@ -305,8 +305,8 @@ void game::handleMouseRelease (
 						case gameaction::Play: {
 							switch (*m_gamemode_p) {
 								case gamemode::PokerDuel: {
-									pokerduel::screenelement_button* se_btn_p_ = dynamic_cast <pokerduel::screenelement_button*> (se_p_);
-									pokerduel::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
+									pokerround::screenelement_button* se_btn_p_ = dynamic_cast <pokerround::screenelement_button*> (se_p_);
+									pokerround::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 									se_btn_p_->set_bIsHeldDown (false);
 									handle (
 										bShouldClear_vec_screenelement_p,
@@ -475,29 +475,29 @@ void game::handle (
 }
 void game::handle (
 	bool& bShouldClear_vec_screenelement_p,
-	const pokerduel::screenelement_button_enum& screenelement_button_enumToHandle
+	const pokerround::screenelement_button_enum& screenelement_button_enumToHandle
 ) {
 	switch (screenelement_button_enumToHandle) {
-		case pokerduel::screenelement_button_enum::BetAmount: {
+		case pokerround::screenelement_button_enum::BetAmount: {
 			m_s_pToEdit = &m_sBetPlayer;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::SubmitInputInitial: {
+		case pokerround::screenelement_button_enum::SubmitInputInitial: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::OKInputInitial;
+			*m_pokerroundstage_p = pokerroundstage::OKInputInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::ChangeInputInitial: {
+		case pokerround::screenelement_button_enum::ChangeInputInitial: {
 			transactBet (-1 * m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::SubmitInputInitial;
+			*m_pokerroundstage_p = pokerroundstage::SubmitInputInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::OKInputInitial: {
+		case pokerround::screenelement_button_enum::OKInputInitial: {
 			int nTemp;
 			intx5** n5Dice[4] = {
 				&m_n5_pEnemyInitial,
@@ -518,11 +518,11 @@ void game::handle (
 					(*n5Dice[i])->set_n (j, nTemp);
 				}
 			}
-			*m_pokerduelstage_p = pokerduelstage::SubmitInputSecond;
+			*m_pokerroundstage_p = pokerroundstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::DicePlayer0: {
+		case pokerround::screenelement_button_enum::DicePlayer0: {
 			if (m_n5_pPlayerReroll->n (0) == int (true)) {
 				m_n5_pPlayerReroll->set_n (0, int (false));
 			} else {
@@ -531,7 +531,7 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::DicePlayer1: {
+		case pokerround::screenelement_button_enum::DicePlayer1: {
 			if (m_n5_pPlayerReroll->n (1) == int (true)) {
 				m_n5_pPlayerReroll->set_n (1, int (false));
 			} else {
@@ -540,7 +540,7 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::DicePlayer2: {
+		case pokerround::screenelement_button_enum::DicePlayer2: {
 			if (m_n5_pPlayerReroll->n (2) == int (true)) {
 				m_n5_pPlayerReroll->set_n (2, int (false));
 			} else {
@@ -549,7 +549,7 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::DicePlayer3: {
+		case pokerround::screenelement_button_enum::DicePlayer3: {
 			if (m_n5_pPlayerReroll->n (3) == int (true)) {
 				m_n5_pPlayerReroll->set_n (3, int (false));
 			} else {
@@ -558,7 +558,7 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::DicePlayer4: {
+		case pokerround::screenelement_button_enum::DicePlayer4: {
 			if (m_n5_pPlayerReroll->n (4) == int (true)) {
 				m_n5_pPlayerReroll->set_n (4, int (false));
 			} else {
@@ -567,20 +567,20 @@ void game::handle (
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::SubmitInputSecond: {
+		case pokerround::screenelement_button_enum::SubmitInputSecond: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::OKInputSecond;
+			*m_pokerroundstage_p = pokerroundstage::OKInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::ChangeInputSecond: {
+		case pokerround::screenelement_button_enum::ChangeInputSecond: {
 			transactBet (-1 * m_nBetAgreed);
-			*m_pokerduelstage_p = pokerduelstage::SubmitInputSecond;
+			*m_pokerroundstage_p = pokerroundstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::OKInputSecond: {
+		case pokerround::screenelement_button_enum::OKInputSecond: {
 			int nTemp;
 			bool bWantToReroll;
 			intx5** n5Dice[6] = {
@@ -622,22 +622,22 @@ void game::handle (
 			delete dsEnemyUltimate;
 			delete dsPlayerInitial;
 			delete dsPlayerUltimate;
-			m_pokerduelresult_p = new pokerduelresult;
+			m_pokerroundresult_p = new pokerroundresult;
 			if (m_nScorePlayerUltimate < m_nScoreEnemyUltimate) {
-				*m_pokerduelresult_p = pokerduelresult::Win;
+				*m_pokerroundresult_p = pokerroundresult::Win;
 			} else if (m_nScorePlayerUltimate == m_nScoreEnemyUltimate) {
-				*m_pokerduelresult_p = pokerduelresult::Tie;
+				*m_pokerroundresult_p = pokerroundresult::Tie;
 			} else {
-				*m_pokerduelresult_p = pokerduelresult::Loss;
+				*m_pokerroundresult_p = pokerroundresult::Loss;
 			}
-			switch (*m_pokerduelresult_p) {
-				case pokerduelresult::Win: {
+			switch (*m_pokerroundresult_p) {
+				case pokerroundresult::Win: {
 					int nDollarsCarriedPlayerInitial = m_gamedata_pPlayer->nDollarsCarried ();
 					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_nCashInPot;
 					m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarriedPlayerResult);
 					break;
 				}
-				case pokerduelresult::Tie: {
+				case pokerroundresult::Tie: {
 					int nDollarsCarriedEnemyInitial = m_gamedata_pEnemy->nDollarsCarried ();
 					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_nCashInPot / 2;
 					int nDollarsCarriedPlayerInitial = m_gamedata_pPlayer->nDollarsCarried ();
@@ -646,7 +646,7 @@ void game::handle (
 					m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarriedPlayerResult);
 					break;
 				}
-				case pokerduelresult::Loss: {
+				case pokerroundresult::Loss: {
 					int nDollarsCarriedEnemyInitial = m_gamedata_pEnemy->nDollarsCarried ();
 					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_nCashInPot;
 					m_gamedata_pEnemy->set_nDollarsCarried (nDollarsCarriedEnemyResult);
@@ -654,11 +654,11 @@ void game::handle (
 				}
 			}
 			m_nCashInPot = 0;
-			*m_pokerduelstage_p = pokerduelstage::OKResults;
+			*m_pokerroundstage_p = pokerroundstage::OKResults;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
-		case pokerduel::screenelement_button_enum::OKResult: {
+		case pokerround::screenelement_button_enum::OKResult: {
 			m_nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
 			m_nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
 			deleteGameData ();
@@ -679,27 +679,27 @@ void game::deleteGameData (
 ) {
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
-			switch (*m_pokerduelstage_p) {
-				case pokerduelstage::SubmitInputSecond:
-				case pokerduelstage::OKInputSecond: {
+			switch (*m_pokerroundstage_p) {
+				case pokerroundstage::SubmitInputSecond:
+				case pokerroundstage::OKInputSecond: {
 					delete m_n5_pEnemyInitial;
 					delete m_n5_pPlayerInitial;
 					delete m_n5_pEnemyReroll;
 					delete m_n5_pPlayerReroll;
 					break;
 				}
-				case pokerduelstage::OKResults: {
+				case pokerroundstage::OKResults: {
 					delete m_n5_pEnemyInitial;
 					delete m_n5_pPlayerInitial;
 					delete m_n5_pEnemyReroll;
 					delete m_n5_pPlayerReroll;
 					delete m_n5_pEnemyUltimate;
 					delete m_n5_pPlayerUltimate;
-					delete m_pokerduelresult_p;
+					delete m_pokerroundresult_p;
 					break;
 				}
 			}
-			delete m_pokerduelstage_p;
+			delete m_pokerroundstage_p;
 			delete m_gamedata_pEnemy;
 			delete m_gamedata_pPlayer;
 			break;
