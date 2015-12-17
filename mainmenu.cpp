@@ -4,22 +4,22 @@ void mainmenu::prepare (
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
 	const std::string& sSaveSpot,
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	const mainmenupage& mainmenupage_,
 	const gamedata*& gamedata_pPlayer,
 	screenelements& ses_
 ) {
 	switch (mainmenupage_) {
 		case mainmenupage::Splash: {
-			addPageSplash (fontToUse, ses_);
+			addPageSplash (font_, ses_);
 			break;
 		}
 		case mainmenupage::Adjust: {
-			addPageAdjust (fontToUse, ses_);
+			addPageAdjust (font_, ses_);
 			break;
 		}
 		case mainmenupage::Accredit: {
-			addPageAccredit (fontToUse, ses_);
+			addPageAccredit (font_, ses_);
 			break;
 		}
 		case mainmenupage::NewGame: {
@@ -27,7 +27,7 @@ void mainmenu::prepare (
 				bHaveGameData,
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
-				fontToUse,
+				font_,
 				ses_
 			);
 			break;
@@ -36,54 +36,54 @@ void mainmenu::prepare (
 			addPageSave (
 				bHaveGameData,
 				sSaveSpot,
-				fontToUse,
+				font_,
 				ses_
 			);
 			break;
 		}
 	}
-	addButtonsPageSwitching (fontToUse, ses_);
+	addButtonsPageSwitching (font_, ses_);
 }
 void mainmenu::addButtonsPageSwitching (
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_buttons_page_switching ();
-	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (fontToUse);
+	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (font_);
 	screenelement_label* lblTitle = new screenelement_label_generic (
-		fontToUse,
+		font_,
 		screenelement_label_enum::Title
 	);
 	screenelement_button* btnReview = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Review
 	);
 	screenelement_button* btnLoad = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Load
 	);
 	screenelement_button* btnSave = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Save
 	);
 	screenelement_button* btnNewGame = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::NewGame
 	);
 	screenelement_button* btnPlay = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Play
 	);
 	screenelement_button* btnAccredit = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Accredit
 	);
 	screenelement_button* btnAdjust = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Adjust
 	);
 	screenelement_button* btnExit = new screenelement_button_page_switching (
-		fontToUse,
+		font_,
 		screenelement_button_enum::Exit
 	);
 	float fWidth_btnLoad = btnLoad->frBounds_rs ().width;
@@ -133,12 +133,12 @@ void mainmenu::addButtonsPageSwitching (
 	ses_.push_back (btnExit);
 }
 void mainmenu::addPageSplash (
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderWelcome = new screenelement_label_generic (
-		fontToUse,
+		font_,
 		screenelement_label_enum::HeaderWelcome
 	);
 	float fWidth_lblHeaderWelcome = lblHeaderWelcome->frBounds_text ().width;
@@ -149,12 +149,12 @@ void mainmenu::addPageSplash (
 	ses_.push_back (lblHeaderWelcome);
 }
 void mainmenu::addPageAdjust (
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderOptions = new screenelement_label_generic (
-		fontToUse,
+		font_,
 		screenelement_label_enum::HeaderOptions
 	);
 	float fWidth_lblHeaderOptions = lblHeaderOptions->frBounds_text ().width;
@@ -165,16 +165,16 @@ void mainmenu::addPageAdjust (
 	ses_.push_back (lblHeaderOptions);
 }
 void mainmenu::addPageAccredit (
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 	screenelement_label* lblHeaderCredits = new screenelement_label_generic (
-		fontToUse,
+		font_,
 		screenelement_label_enum::HeaderCredits
 	);
 	screenelement_label* lblParagraphCredits = new screenelement_label_generic (
-		fontToUse,
+		font_,
 		screenelement_label_enum::ParagraphCredits
 	);
 	float fWidth_lblHeaderCredits = lblHeaderCredits->frBounds_text ().width;
@@ -192,25 +192,25 @@ void mainmenu::addPageNewGame (
 	const bool& bHaveGameData,
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	screenelements& ses_
 ) {
 	if (bShowMainMenuNewGamePageChoice) {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
-			fontToUse,
+			font_,
 			screenelement_label_enum::HeaderNewGame
 		);
 		screenelement_label* lblHeaderNewQuickGameIfPlayClicked = new screenelement_label_generic (
-			fontToUse,
+			font_,
 			screenelement_label_enum::HeaderNewQuickGameIfPlayClicked
 		);
 		screenelement_button* btnNewQuickGame = new screenelement_button_generic (
-			fontToUse,
+			font_,
 			screenelement_button_enum::NewQuickGame
 		);
 		screenelement_button* btnNewAdventure = new screenelement_button_generic (
-			fontToUse,
+			font_,
 			screenelement_button_enum::NewAdventure
 		);
 		btnNewQuickGame->stretch (500.f, 0.f);
@@ -238,23 +238,23 @@ void mainmenu::addPageNewGame (
 	} else {
 		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
 		screenelement_label* lblHeaderNewGame = new screenelement_label_generic (
-			fontToUse,
+			font_,
 			screenelement_label_enum::HeaderNewGame
 		);
 		screenelement_label* lblHeaderName = new screenelement_label_generic (
-			fontToUse,
+			font_,
 			screenelement_label_enum::HeaderName
 		);
 		screenelement_label* lblHeaderNewAdventureIfPlayClicked = new screenelement_label_generic (
-			fontToUse,
+			font_,
 			screenelement_label_enum::HeaderNewAdventureIfPlayClicked
 		);
 		screenelement_button* btnNewGameReturn = new screenelement_button_generic (
-			fontToUse,
+			font_,
 			screenelement_button_enum::NewGameReturn
 		);
 		screenelement_button* btnNewGameName = new screenelement_button_new_adventure_name (
-			fontToUse,
+			font_,
 			sNewAdventureName
 		);
 		btnNewGameName->stretch ((1350.f - 4.f * 25.f) * 0.3f, 0.f);
@@ -283,7 +283,7 @@ void mainmenu::addPageNewGame (
 void mainmenu::addPageSave (
 	const bool& bHaveGameData,
 	const std::string& sSaveSpot,
-	const sf::Font& fontToUse,
+	const sf::Font& font_,
 	screenelements& ses_
 ) {
 }
