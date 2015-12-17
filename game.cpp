@@ -175,17 +175,12 @@ void game::shutDown (
 void game::load (
 	std::ifstream& ifstream_
 ) {
-	char* ch_p_ = new char;
-	ifstream_.read (ch_p_, 1);
-	m_gamemode_p = new gamemode;
-	*m_gamemode_p = gamemode (*ch_p_);
+	m_gamemode_p = new gamemode (gamemode (iofunctions::nReading (ifstream_)));
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
 			m_gamedata_pEnemy = new gamedata (ifstream_);
 			m_gamedata_pPlayer = new gamedata (ifstream_);
-			ifstream_.read (ch_p_, 1);
-			m_pokerroundstage_p = new pokerroundstage;
-			*m_pokerroundstage_p = pokerroundstage (*ch_p_);
+			m_pokerroundstage_p = new pokerroundstage (pokerroundstage (iofunctions::nReading (ifstream_)));
 			switch (*m_pokerroundstage_p) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
@@ -204,7 +199,6 @@ void game::load (
 			break;
 		}
 	}
-	delete ch_p_;
 	m_bHaveGameData = true;
 }
 void game::handleMousePress (

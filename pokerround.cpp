@@ -80,16 +80,13 @@ pokerround::variableset2::variableset2 (
 pokerround::variableset2::variableset2 (
 	std::ifstream& ifstream_
 ) {
-	char* ch_p_ = new char;
 	set_nScoreEnemyInitial (iofunctions::nReading (ifstream_));
 	set_nScoreEnemyUltimate (iofunctions::nReading (ifstream_));
 	set_nScorePlayerInitial (iofunctions::nReading (ifstream_));
 	set_nScorePlayerUltimate (iofunctions::nReading (ifstream_));
-	ifstream_.read (ch_p_, 1);
-	set_pokerroundresult (pokerroundresult (*ch_p_));
+	set_pokerroundresult (pokerroundresult (iofunctions::nReading (ifstream_)));
 	set_n5DiceEnemyUltimate (intx5 (ifstream_));
 	set_n5DicePlayerUltimate (intx5 (ifstream_));
-	delete ch_p_;
 }
 void pokerround::variableset2::set_nScoreEnemyInitial (
 	const int& n_
