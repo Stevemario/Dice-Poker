@@ -21,6 +21,9 @@ namespace pokerround {
 		) const;
 		public: variableset1 (
 		);
+		public: variableset1 (
+			std::ifstream&
+		);
 		public: void set_n5DiceEnemyInitial (
 			const intx5&
 		);
@@ -57,6 +60,9 @@ namespace pokerround {
 		public: intx5 n5DicePlayerUltimate (
 		) const;
 		public: variableset2 (
+		);
+		public: variableset2 (
+			std::ifstream&
 		);
 		public: void set_nScoreEnemyInitial (
 			const int&

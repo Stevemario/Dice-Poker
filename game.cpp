@@ -189,28 +189,12 @@ void game::load (
 			switch (*m_pokerroundstage_p) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
-					m_prvs1_p = new pokerround::variableset1;
-					m_prvs1_p->set_n5DiceEnemyInitial (intx5 (ifstream_));
-					m_prvs1_p->set_n5DiceEnemyReroll (intx5 (ifstream_));
-					m_prvs1_p->set_n5DicePlayerInitial (intx5 (ifstream_));
-					m_prvs1_p->set_n5DicePlayerReroll (intx5 (ifstream_));
+					m_prvs1_p = new pokerround::variableset1 (ifstream_);
 					break;
 				}
 				case pokerroundstage::OKResults: {
-					m_prvs1_p = new pokerround::variableset1;
-					m_prvs1_p->set_n5DiceEnemyInitial (intx5 (ifstream_));
-					m_prvs1_p->set_n5DiceEnemyReroll (intx5 (ifstream_));
-					m_prvs1_p->set_n5DicePlayerInitial (intx5 (ifstream_));
-					m_prvs1_p->set_n5DicePlayerReroll (intx5 (ifstream_));
-					m_prvs2_p = new pokerround::variableset2;
-					m_prvs2_p->set_nScoreEnemyInitial (iofunctions::nReading (ifstream_));
-					m_prvs2_p->set_nScoreEnemyUltimate (iofunctions::nReading (ifstream_));
-					m_prvs2_p->set_nScorePlayerInitial (iofunctions::nReading (ifstream_));
-					m_prvs2_p->set_nScorePlayerUltimate (iofunctions::nReading (ifstream_));
-					ifstream_.read (ch_p_, 1);
-					m_prvs2_p->set_pokerroundresult (pokerroundresult (*ch_p_));
-					m_prvs2_p->set_n5DiceEnemyUltimate (intx5 (ifstream_));
-					m_prvs2_p->set_n5DicePlayerUltimate (intx5 (ifstream_));
+					m_prvs1_p = new pokerround::variableset1 (ifstream_);
+					m_prvs2_p = new pokerround::variableset2 (ifstream_);
 					break;
 				}
 			}
