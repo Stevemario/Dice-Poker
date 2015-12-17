@@ -3,6 +3,7 @@ void mainmenu::prepare (
 	const bool& bHaveGameData,
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sNewAdventureName,
+	const std::string& sSaveSpot,
 	const sf::Font& fontToUse,
 	const mainmenupage& mainmenupage_,
 	const gamedata*& gamedata_pPlayer,
@@ -26,6 +27,15 @@ void mainmenu::prepare (
 				bHaveGameData,
 				bShowMainMenuNewGamePageChoice,
 				sNewAdventureName,
+				fontToUse,
+				ses_
+			);
+			break;
+		}
+		case mainmenupage::Save: {
+			addPageSave (
+				bHaveGameData,
+				sSaveSpot,
 				fontToUse,
 				ses_
 			);
@@ -269,6 +279,13 @@ void mainmenu::addPageNewGame (
 		ses_.push_back (btnNewGameReturn);
 		ses_.push_back (btnNewGameName);
 	}
+}
+void mainmenu::addPageSave (
+	const bool& bHaveGameData,
+	const std::string& sSaveSpot,
+	const sf::Font& fontToUse,
+	screenelements& ses_
+) {
 }
 mainmenu::screenelement_rectangle_enum mainmenu::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_enum_ (
 ) const {

@@ -89,6 +89,7 @@ void game::prepareScreenElements (
 					m_bHaveGameData,
 					m_bShowMainMenuNewGamePageChoice,
 					m_sNewAdventureName,
+					m_sSaveSpot,
 					m_font,
 					m_mainmenupage,
 					gamedata_pPlayerConst,

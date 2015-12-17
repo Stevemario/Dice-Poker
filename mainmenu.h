@@ -10,6 +10,7 @@ namespace mainmenu {
 		const bool&,
 		const bool&,
 		const std::string&,
+		const std::string&,
 		const sf::Font&,
 		const mainmenupage&,
 		const gamedata*&,
@@ -33,6 +34,12 @@ namespace mainmenu {
 	);
 	void addPageNewGame (
 		const bool&,
+		const bool&,
+		const std::string&,
+		const sf::Font&,
+		screenelements&
+	);
+	void addPageSave (
 		const bool&,
 		const std::string&,
 		const sf::Font&,
