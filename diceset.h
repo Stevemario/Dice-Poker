@@ -1,5 +1,6 @@
 #ifndef DICESET_H
 #define DICESET_H
+#include "iofunctions.h"
 class intx2 {
 	private: int n0;
 	private: int n1;
@@ -38,6 +39,11 @@ class intx5 {
 	public: void set_n (
 		int,
 		int
+	);
+	public: intx5 (
+	);
+	public: intx5 (
+		std::ifstream&
 	);
 };
 class diceset {

@@ -70,6 +70,18 @@ void intx5::set_n (
 		case 4: n4 = nValue; break;
 	}
 }
+intx5::intx5 (
+) {
+}
+intx5::intx5 (
+	std::ifstream& ifstream_
+) {
+	int nTemp;
+	for (int i = 0; i < 5; i++) {
+		nTemp = iofunctions::nReading (ifstream_);
+		set_n (i, nTemp);
+	}
+}
 bool bHasDice (
 	const intx5& n5Dice,
 	int nDiceValue
