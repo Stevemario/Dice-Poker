@@ -1,4 +1,5 @@
 #include "game.h"
+#include "iofunctions.h"
 #include <ctime>
 #include <cstdlib>
 int game::m_nBetAgreed;
@@ -208,6 +209,28 @@ void game::load (
 			ifstream_.read (ch_p_, 1);
 			m_pokerroundstage_p = new pokerroundstage;
 			*m_pokerroundstage_p = pokerroundstage (*ch_p_);
+			switch (*m_pokerroundstage_p) {
+				case pokerroundstage::SubmitInputSecond:
+				case pokerroundstage::OKInputSecond: {
+					m_n5_pEnemyInitial = new intx5 (ifstream_);
+					m_n5_pEnemyReroll = new intx5 (ifstream_);
+					m_n5_pPlayerInitial = new intx5 (ifstream_);
+					m_n5_pPlayerReroll = new intx5 (ifstream_);
+					break;
+				}
+				case pokerroundstage::OKResults: {
+					m_n5_pEnemyInitial = new intx5 (ifstream_);
+					m_n5_pEnemyReroll = new intx5 (ifstream_);
+					m_n5_pEnemyUltimate = new intx5 (ifstream_);
+					m_n5_pPlayerInitial = new intx5 (ifstream_);
+					m_n5_pPlayerReroll = new intx5 (ifstream_);
+					m_n5_pPlayerUltimate = new intx5 (ifstream_);
+					ifstream_.read (ch_p_, 1);
+					m_pokerroundresult_p = new pokerroundresult;
+					*m_pokerroundresult_p = pokerroundresult (*ch_p_);
+					break;
+				}
+			}
 			break;
 		}
 		case gamemode::Adventure: {
