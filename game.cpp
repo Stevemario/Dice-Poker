@@ -172,35 +172,6 @@ void game::shutDown (
 		deleteGameData ();
 	}
 }
-void game::load (
-	std::ifstream& ifstream_
-) {
-	m_gamemode_p = new gamemode (gamemode (iofunctions::nReading (ifstream_)));
-	switch (*m_gamemode_p) {
-		case gamemode::PokerDuel: {
-			m_gamedata_pEnemy = new gamedata (ifstream_);
-			m_gamedata_pPlayer = new gamedata (ifstream_);
-			m_pokerroundstage_p = new pokerroundstage (pokerroundstage (iofunctions::nReading (ifstream_)));
-			switch (*m_pokerroundstage_p) {
-				case pokerroundstage::SubmitInputSecond:
-				case pokerroundstage::OKInputSecond: {
-					m_prvs1_p = new pokerround::variableset1 (ifstream_);
-					break;
-				}
-				case pokerroundstage::OKResults: {
-					m_prvs1_p = new pokerround::variableset1 (ifstream_);
-					m_prvs2_p = new pokerround::variableset2 (ifstream_);
-					break;
-				}
-			}
-			break;
-		}
-		case gamemode::Adventure: {
-			break;
-		}
-	}
-	m_bHaveGameData = true;
-}
 void game::handleMousePress (
 	sf::Event& eventToHandle
 ) {
@@ -674,6 +645,65 @@ void game::handlePokerRoundEnd (
 		}
 	}
 	bShouldClear_vec_screenelement_p = true;
+}
+void game::load (
+	std::ifstream& ifstream_
+) {
+	m_gamemode_p = new gamemode (gamemode (iofunctions::nReading (ifstream_)));
+	switch (*m_gamemode_p) {
+		case gamemode::PokerDuel: {
+			m_gamedata_pEnemy = new gamedata (ifstream_);
+			m_gamedata_pPlayer = new gamedata (ifstream_);
+			m_pokerroundstage_p = new pokerroundstage (pokerroundstage (iofunctions::nReading (ifstream_)));
+			switch (*m_pokerroundstage_p) {
+				case pokerroundstage::SubmitInputSecond:
+				case pokerroundstage::OKInputSecond: {
+					m_prvs1_p = new pokerround::variableset1 (ifstream_);
+					break;
+				}
+				case pokerroundstage::OKResults: {
+					m_prvs1_p = new pokerround::variableset1 (ifstream_);
+					m_prvs2_p = new pokerround::variableset2 (ifstream_);
+					break;
+				}
+			}
+			break;
+		}
+		case gamemode::Adventure: {
+			//WILL DO LATER
+			break;
+		}
+	}
+	m_bHaveGameData = true;
+}
+void game::save (
+	std::ofstream& ofstream_
+) {
+	iofunctions::write (int (*m_gamemode_p), ofstream_);
+	switch (*m_gamemode_p) {
+		case gamemode::PokerDuel: {
+			m_gamedata_pEnemy->save (ofstream_);
+			m_gamedata_pPlayer->save (ofstream_);
+			iofunctions::write (int (*m_pokerroundstage_p), ofstream_);
+			switch (*m_pokerroundstage_p) {
+				case pokerroundstage::SubmitInputSecond:
+				case pokerroundstage::OKInputSecond: {
+					m_prvs1_p->write (ofstream_);
+					break;
+				}
+				case pokerroundstage::OKResults: {
+					m_prvs1_p->write (ofstream_);
+					m_prvs2_p->write (ofstream_);
+					break;
+				}
+			}
+			break;
+		}
+		case gamemode::Adventure: {
+			//WILL DO LATER
+			break;
+		}
+	}
 }
 void game::deleteGameData (
 ) {

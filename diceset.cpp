@@ -70,6 +70,13 @@ void intx5::set_n (
 		case 4: n4 = nValue; break;
 	}
 }
+void intx5::write (
+	std::ofstream& ofstream_
+) const {
+	for (int i = 0; i < 5; i++) {
+		iofunctions::write (n (i), ofstream_);
+	}
+}
 intx5::intx5 (
 ) {
 }

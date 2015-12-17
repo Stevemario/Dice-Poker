@@ -15,6 +15,14 @@ intx5 pokerround::variableset1::n5DicePlayerReroll (
 ) const {
 	return m_n5DicePlayerReroll;
 }
+void pokerround::variableset1::write (
+	std::ofstream& ofstream_
+) const {
+	m_n5DiceEnemyInitial.write (ofstream_);
+	m_n5DiceEnemyReroll.write (ofstream_);
+	m_n5DicePlayerInitial.write (ofstream_);
+	m_n5DicePlayerReroll.write (ofstream_);
+}
 pokerround::variableset1::variableset1 (
 ) {
 }
@@ -73,6 +81,17 @@ intx5 pokerround::variableset2::n5DiceEnemyUltimate (
 intx5 pokerround::variableset2::n5DicePlayerUltimate (
 ) const {
 	return m_n5DicePlayerUltimate;
+}
+void pokerround::variableset2::write (
+	std::ofstream& ofstream_
+) const {
+	iofunctions::write (m_nScoreEnemyInitial, ofstream_);
+	iofunctions::write (m_nScoreEnemyUltimate, ofstream_);
+	iofunctions::write (m_nScorePlayerInitial, ofstream_);
+	iofunctions::write (m_nScorePlayerUltimate, ofstream_);
+	iofunctions::write (int (m_pokerroundresult), ofstream_);
+	m_n5DiceEnemyUltimate.write (ofstream_);
+	m_n5DicePlayerUltimate.write (ofstream_);
 }
 pokerround::variableset2::variableset2 (
 ) {

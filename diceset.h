@@ -40,6 +40,9 @@ class intx5 {
 		int,
 		int
 	);
+	public: void write (
+		std::ofstream&
+	) const;
 	public: intx5 (
 	);
 	public: intx5 (

@@ -44,9 +44,6 @@ namespace game {
 	);
 	void shutDown (
 	);
-	void load (
-		std::ifstream&
-	);
 	void handleMousePress (
 		sf::Event&
 	);
@@ -68,6 +65,12 @@ namespace game {
 	);
 	void handlePokerRoundEnd (
 		bool&
+	);
+	void load (
+		std::ifstream&
+	);
+	void save (
+		std::ofstream&
 	);
 	void deleteGameData (
 	);
