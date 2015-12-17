@@ -203,11 +203,11 @@ void game::load (
 	*m_gamemode_p = gamemode (*ch_p_);
 	switch (*m_gamemode_p) {
 		case gamemode::PokerDuel: {
-			m_pokerroundstage_p = new pokerroundstage;
-			ifstream_.read (ch_p_, 1);
-			*m_pokerroundstage_p = pokerroundstage (*ch_p_);
 			m_gamedata_pEnemy = new gamedata (ifstream_);
 			m_gamedata_pPlayer = new gamedata (ifstream_);
+			ifstream_.read (ch_p_, 1);
+			m_pokerroundstage_p = new pokerroundstage;
+			*m_pokerroundstage_p = pokerroundstage (*ch_p_);
 			break;
 		}
 		case gamemode::Adventure: {
