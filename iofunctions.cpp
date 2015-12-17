@@ -1,4 +1,10 @@
 #include "iofunctions.h"
+int iofunctions::nReading (
+	std::ifstream& ifstream_
+) {
+	int n_ = std::stoi (sReading (ifstream_));
+	return n_;
+}
 std::string iofunctions::sReading (
 	std::ifstream& ifstream_
 ) {
@@ -12,14 +18,15 @@ std::string iofunctions::sReading (
 	delete ch_p_;
 	return s_;
 }
-int iofunctions::nReading (
-	std::ifstream& ifstream_
+void iofunctions::write (
+	const int& n_,
+	std::ofstream& ofstream_
 ) {
-	int n_ = std::stoi (sReading (ifstream_));
-	return n_;
+	std::string s_ = std::to_string (n_);
+	write (s_, ofstream_);
 }
 void iofunctions::write (
-	const std::string s_,
+	const std::string& s_,
 	std::ofstream& ofstream_
 ) {
 	char* ch_p_ = new char;

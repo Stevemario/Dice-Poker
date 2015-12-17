@@ -12,7 +12,7 @@ void gamedata::save (
 	std::ofstream& ofstream_
 ) const {
 	iofunctions::write (m_sPlayerName, ofstream_);
-	iofunctions::write (std::to_string (m_nDollarsCarried), ofstream_);
+	iofunctions::write (m_nDollarsCarried, ofstream_);
 }
 gamedata::gamedata (
 	const std::string& sPlayerName,
