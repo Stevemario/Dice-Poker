@@ -6,26 +6,91 @@
 #include "pokerroundstage.h"
 #include "pokerroundresult.h"
 namespace pokerround {
+	class variableset1 {
+		private: intx5 m_n5DiceEnemyInitial;
+		private: intx5 m_n5DiceEnemyReroll;
+		private: intx5 m_n5DicePlayerInitial;
+		private: intx5 m_n5DicePlayerReroll;
+		public: intx5 n5DiceEnemyInitial (
+		) const;
+		public: intx5 n5DiceEnemyReroll (
+		) const;
+		public: intx5 n5DicePlayerInitial (
+		) const;
+		public: intx5 n5DicePlayerReroll (
+		) const;
+		public: variableset1 (
+		);
+		public: void set_n5DiceEnemyInitial (
+			const intx5&
+		);
+		public: void set_n5DiceEnemyReroll (
+			const intx5&
+		);
+		public: void set_n5DicePlayerInitial (
+			const intx5&
+		);
+		public: void set_n5DicePlayerReroll (
+			const intx5&
+		);
+	};
+	class variableset2 {
+		private: int m_nScoreEnemyInitial;
+		private: int m_nScoreEnemyUltimate;
+		private: int m_nScorePlayerInitial;
+		private: int m_nScorePlayerUltimate;
+		private: pokerroundresult m_pokerroundresult;
+		private: intx5 m_n5DiceEnemyUltimate;
+		private: intx5 m_n5DicePlayerUltimate;
+		public: int nScoreEnemyInitial (
+		) const;
+		public: int nScoreEnemyUltimate (
+		) const;
+		public: int nScorePlayerInitial (
+		) const;
+		public: int nScorePlayerUltimate (
+		) const;
+		public: pokerroundresult pokerroundresult_ (
+		) const;
+		public: intx5 n5DiceEnemyUltimate (
+		) const;
+		public: intx5 n5DicePlayerUltimate (
+		) const;
+		public: variableset2 (
+		);
+		public: void set_nScoreEnemyInitial (
+			const int&
+		);
+		public: void set_nScoreEnemyUltimate (
+			const int&
+		);
+		public: void set_nScorePlayerInitial (
+			const int&
+		);
+		public: void set_nScorePlayerUltimate (
+			const int&
+		);
+		public: void set_pokerroundresult (
+			const pokerroundresult&
+		);
+		public: void set_n5DiceEnemyUltimate (
+			const intx5&
+		);
+		public: void set_n5DicePlayerUltimate (
+			const intx5&
+		);
+	};
 	void prepare (
-		const int&,
-		const int&,
-		const int&,
-		const int&,
 		const int&,
 		const int&,
 		const int&,
 		const std::string&,
 		const sf::Font&,
-		const pokerroundresult*&,
 		const pokerroundstage*&,
 		const gamedata*&,
 		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
+		const variableset1*&,
+		const variableset2*&,
 		screenelements&
 	);
 	void prepareStage_SubmitInputInitial (
@@ -50,9 +115,9 @@ namespace pokerround {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
+		const intx5&,
+		const intx5&,
+		const intx5&,
 		screenelements&
 	);
 	void prepareStage_OKInputSecond (
@@ -61,27 +126,21 @@ namespace pokerround {
 		const sf::Font&,
 		const gamedata*&,
 		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
+		const intx5&,
+		const intx5&,
 		screenelements&
 	);
 	void prepareStage_OKResults (
 		const int&,
 		const int&,
-		const int&,
-		const int&,
-		const int&,
-		const int&,
 		const sf::Font&,
-		const pokerroundresult*&,
 		const gamedata*&,
 		const gamedata*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
-		const intx5*&,
+		const intx5&,
+		const intx5&,
+		const intx5&,
+		const intx5&,
+		const variableset2*&,
 		screenelements&
 	);
 	void addLabelsCash (
@@ -182,8 +241,8 @@ namespace pokerround {
 		) const;
 		public: screenelement_label_header_alert_dice_player_will_keep (
 			const sf::Font&,
-			const intx5*&,
-			const intx5*&
+			const intx5&,
+			const intx5&
 		);
 	};
 	class screenelement_label_header_alert_reroll : public screenelement_label {
@@ -191,7 +250,7 @@ namespace pokerround {
 		) const;
 		public: screenelement_label_header_alert_reroll (
 			const sf::Font&,
-			const intx5*&,
+			const intx5&,
 			const int&
 		);
 	};
@@ -211,7 +270,7 @@ namespace pokerround {
 		) const;
 		public: screenelement_label_header_alert_outcome_player (
 			const sf::Font&,
-			const pokerroundresult*&,
+			const pokerroundresult&,
 			const int&
 		);
 	};
