@@ -2,6 +2,7 @@
 void mainmenu::prepare (
 	const bool& bHaveGameData,
 	const bool& bShowMainMenuNewGamePageChoice,
+	const std::string& sLoadSource,
 	const std::string& sNewAdventureName,
 	const std::string& sSaveSpot,
 	const sf::Font& font_,
@@ -36,6 +37,14 @@ void mainmenu::prepare (
 			addPageSave (
 				bHaveGameData,
 				sSaveSpot,
+				font_,
+				ses_
+			);
+			break;
+		}
+		case mainmenupage::Load: {
+			addPageLoad (
+				sLoadSource,
 				font_,
 				ses_
 			);
@@ -320,6 +329,44 @@ void mainmenu::addPageSave (
 	ses_.push_back (lblHeaderSaveIfSaveClicked);
 	ses_.push_back (btnSaveName);
 }
+void mainmenu::addPageLoad (
+	const std::string& sLoadSource,
+	const sf::Font& font_,
+	screenelements& ses_
+) {
+	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+	screenelement_label* lblHeaderLoad = new screenelement_label_generic (
+		font_,
+		screenelement_label_enum::HeaderLoad
+	);
+	screenelement_label* lblHeaderLoadSource = new screenelement_label_generic (
+		font_,
+		screenelement_label_enum::HeaderLoadSource
+	);
+	screenelement_label* lblHeaderLoadIfLoadClicked = new screenelement_label_generic (
+		font_,
+		screenelement_label_enum::HeaderLoadIfLoadClicked
+	);
+	screenelement_button* btnLoadSource = new screenelement_button_generic_textfield (
+		font_,
+		screenelement_button_enum::LoadSource,
+		sLoadSource
+	);
+	float fWidth_lblHeaderLoad = lblHeaderLoad->frBounds_text ().width;
+	float fWidth_lblHeaderLoadIfLoadClicked = lblHeaderLoadIfLoadClicked->frBounds_text ().width;
+	float fPosX_lblHeaderLoad = .5f * (1350.f - fWidth_lblHeaderLoad);
+	float fPosX_lblHeaderLoadIfLoadClicked = .5f * (1350.f - fWidth_lblHeaderLoadIfLoadClicked);
+	rectBG->move (25.f, 150.f);
+	lblHeaderLoad->move (fPosX_lblHeaderLoad, 210.f);
+	lblHeaderLoadSource->move (50.f, 290.f);
+	lblHeaderLoadIfLoadClicked->move (fPosX_lblHeaderLoadIfLoadClicked, 900.f);
+	btnLoadSource->move (50.f, 350.f);
+	ses_.push_back (rectBG);
+	ses_.push_back (lblHeaderLoad);
+	ses_.push_back (lblHeaderLoadSource);
+	ses_.push_back (lblHeaderLoadIfLoadClicked);
+	ses_.push_back (btnLoadSource);
+}
 mainmenu::screenelement_rectangle_enum mainmenu::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_enum_ (
 ) const {
 	return screenelement_rectangle_enum::BgButtonsPageSwitching;
@@ -362,6 +409,9 @@ mainmenu::screenelement_label_generic::screenelement_label_generic (
 		case screenelement_label_enum::HeaderSave: { s_ = "Save"; break; }
 		case screenelement_label_enum::HeaderSaveDestination: { s_ = "Destination"; break; }
 		case screenelement_label_enum::HeaderSaveIfSaveClicked: { s_ = "Note: Game Data saves if Save is Clicked"; break; }
+		case screenelement_label_enum::HeaderLoad: { s_ = "Load"; break; }
+		case screenelement_label_enum::HeaderLoadSource: { s_ = "Source"; break; }
+		case screenelement_label_enum::HeaderLoadIfLoadClicked: { s_ = "Note: Game Data loads if Load is Clicked"; break; }
 		default: { s_ = "UNDEFINED"; break; }
 	}
 	set_bIsHeldDown (false);

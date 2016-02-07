@@ -18,6 +18,7 @@ namespace game {
 	extern bool m_bPrepared_vec_screenelement_p;
 	extern bool m_bShowMainMenuNewGamePageChoice;
 	extern std::string m_sBetPlayer;
+	extern std::string m_sLoadSource;
 	extern std::string m_sNewAdventureName;
 	extern std::string m_sSaveSpot;
 	extern std::string* m_s_pToEdit;

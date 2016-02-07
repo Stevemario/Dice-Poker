@@ -11,6 +11,7 @@ namespace mainmenu {
 		const bool&,
 		const std::string&,
 		const std::string&,
+		const std::string&,
 		const sf::Font&,
 		const mainmenupage&,
 		const gamedata*&,
@@ -41,6 +42,11 @@ namespace mainmenu {
 	);
 	void addPageSave (
 		const bool&,
+		const std::string&,
+		const sf::Font&,
+		screenelements&
+	);
+	void addPageLoad (
 		const std::string&,
 		const sf::Font&,
 		screenelements&
@@ -76,6 +82,9 @@ namespace mainmenu {
 		HeaderSave,
 		HeaderSaveDestination,
 		HeaderSaveIfSaveClicked,
+		HeaderLoad,
+		HeaderLoadSource,
+		HeaderLoadIfLoadClicked,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {
@@ -108,6 +117,7 @@ namespace mainmenu {
 		NewGameReturn,
 		NewAdventureName,
 		SaveName,
+		LoadSource,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_page_switching : public screenelement_button {

@@ -17,6 +17,7 @@ bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_vec_screenelement_p = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
 std::string game::m_sBetPlayer = "0";
+std::string game::m_sLoadSource = "default save.txt";
 std::string game::m_sNewAdventureName = "TEST";
 std::string game::m_sSaveSpot = "default save.txt";
 std::string* game::m_s_pToEdit;
@@ -88,6 +89,7 @@ void game::prepareScreenElements (
 				mainmenu::prepare (
 					m_bHaveGameData,
 					m_bShowMainMenuNewGamePageChoice,
+					m_sLoadSource,
 					m_sNewAdventureName,
 					m_sSaveSpot,
 					m_font,
@@ -386,6 +388,15 @@ void game::handle (
 			if (m_mainmenupage != mainmenupage::Load) {
 				m_mainmenupage = mainmenupage::Load;
 				bShouldClear_vec_screenelement_p = true;
+			} else {
+				std::ifstream ifstream_;
+				ifstream_.open (m_sLoadSource);
+				if (ifstream_.is_open ()) {
+					load (
+						ifstream_
+					);
+					ifstream_.close ();
+				}
 			}
 			break;
 		}
@@ -426,6 +437,12 @@ void game::handle (
 		}
 		case mainmenu::screenelement_button_enum::SaveName: {
 			m_s_pToEdit = &m_sSaveSpot;
+			resetWhatStringTakes ();
+			m_bEditAString = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::LoadSource: {
+			m_s_pToEdit = &m_sLoadSource;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
@@ -764,7 +781,12 @@ void game::makeStringTakeNothing () {
 }
 void game::resetWhatStringTakes () {
 	makeStringTakeNothing ();
-	if (m_s_pToEdit == & m_sNewAdventureName) {
+	if (m_s_pToEdit == & m_sLoadSource) {
+		m_bStringTakesDigit = true;
+		m_bStringTakesLower = true;
+		m_bStringTakesSpace = true;
+		m_bStringTakesUpper = true;
+	} else if (m_s_pToEdit == & m_sNewAdventureName) {
 		if (m_sNewAdventureName.size () == 0) {
 			m_bStringTakesUpper = true;
 		} else {
