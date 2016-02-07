@@ -73,6 +73,9 @@ namespace mainmenu {
 		HeaderNewQuickGameIfPlayClicked,
 		HeaderName,
 		HeaderNewAdventureIfPlayClicked,
+		HeaderSave,
+		HeaderSaveDestination,
+		HeaderSaveIfSaveClicked,
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {
@@ -104,6 +107,7 @@ namespace mainmenu {
 		NewAdventure,
 		NewGameReturn,
 		NewAdventureName,
+		SaveName,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;
 	class screenelement_button_page_switching : public screenelement_button {
@@ -124,11 +128,13 @@ namespace mainmenu {
 			const screenelement_button_enum&
 		);
 	};
-	class screenelement_button_new_adventure_name : public screenelement_button {
+	class screenelement_button_generic_textfield : public screenelement_button {
+		private: screenelement_button_enum m_screenelement_button_enum;
 		public: screenelement_button_enum screenelement_button_enum_ (
 		) const;
-		public: screenelement_button_new_adventure_name (
+		public: screenelement_button_generic_textfield (
 			const sf::Font&,
+			const screenelement_button_enum&,
 			const std::string&
 		);
 	};

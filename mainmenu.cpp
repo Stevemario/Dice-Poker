@@ -253,8 +253,9 @@ void mainmenu::addPageNewGame (
 			font_,
 			screenelement_button_enum::NewGameReturn
 		);
-		screenelement_button* btnNewGameName = new screenelement_button_new_adventure_name (
+		screenelement_button* btnNewGameName = new screenelement_button_generic_textfield (
 			font_,
+			screenelement_button_enum::NewAdventureName,
 			sNewAdventureName
 		);
 		btnNewGameName->stretch ((1350.f - 4.f * 25.f) * 0.3f, 0.f);
@@ -286,6 +287,38 @@ void mainmenu::addPageSave (
 	const sf::Font& font_,
 	screenelements& ses_
 ) {
+	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+	screenelement_label* lblHeaderSave = new screenelement_label_generic (
+		font_,
+		screenelement_label_enum::HeaderSave
+	);
+	screenelement_label* lblHeaderSaveDestination = new screenelement_label_generic (
+		font_,
+		screenelement_label_enum::HeaderSaveDestination
+	);
+	screenelement_label* lblHeaderSaveIfSaveClicked = new screenelement_label_generic (
+		font_,
+		screenelement_label_enum::HeaderSaveIfSaveClicked
+	);
+	screenelement_button* btnSaveName = new screenelement_button_generic_textfield (
+		font_,
+		screenelement_button_enum::SaveName,
+		sSaveSpot
+	);
+	float fWidth_lblHeaderSave = lblHeaderSave->frBounds_text ().width;
+	float fWidth_lblHeaderSaveIfSaveClicked = lblHeaderSaveIfSaveClicked->frBounds_text ().width;
+	float fPosX_lblHeaderSave = .5f * (1350.f - fWidth_lblHeaderSave);
+	float fPosX_lblHeaderSaveIfSaveClicked = .5f * (1350.f - fWidth_lblHeaderSaveIfSaveClicked);
+	rectBG->move (25.f, 150.f);
+	lblHeaderSave->move (fPosX_lblHeaderSave, 210.f);
+	lblHeaderSaveDestination->move (50.f, 290.f);
+	lblHeaderSaveIfSaveClicked->move (fPosX_lblHeaderSaveIfSaveClicked, 900.f);
+	btnSaveName->move (50.f, 350.f);
+	ses_.push_back (rectBG);
+	ses_.push_back (lblHeaderSave);
+	ses_.push_back (lblHeaderSaveDestination);
+	ses_.push_back (lblHeaderSaveIfSaveClicked);
+	ses_.push_back (btnSaveName);
 }
 mainmenu::screenelement_rectangle_enum mainmenu::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_enum_ (
 ) const {
@@ -326,6 +359,9 @@ mainmenu::screenelement_label_generic::screenelement_label_generic (
 		case screenelement_label_enum::HeaderName: { s_ = "Name"; break; }
 		case screenelement_label_enum::HeaderNewAdventureIfPlayClicked: { s_ = "Note: New Adventure starts if Play is Clicked.";
 			break; }
+		case screenelement_label_enum::HeaderSave: { s_ = "Save"; break; }
+		case screenelement_label_enum::HeaderSaveDestination: { s_ = "Destination"; break; }
+		case screenelement_label_enum::HeaderSaveIfSaveClicked: { s_ = "Note: Game Data saves if Save is Clicked"; break; }
 		default: { s_ = "UNDEFINED"; break; }
 	}
 	set_bIsHeldDown (false);
@@ -387,15 +423,17 @@ mainmenu::screenelement_button_generic::screenelement_button_generic (
 	create (s_, font_, 60, sf::Color::Black, sf::Color::White);
 	stretch (frBounds_rs ().width + 24.f, 120.f);
 }
-mainmenu::screenelement_button_enum mainmenu::screenelement_button_new_adventure_name::screenelement_button_enum_ (
+mainmenu::screenelement_button_enum mainmenu::screenelement_button_generic_textfield::screenelement_button_enum_ (
 ) const {
-	return screenelement_button_enum::NewAdventureName;
+	return m_screenelement_button_enum;
 }
-mainmenu::screenelement_button_new_adventure_name::screenelement_button_new_adventure_name (
+mainmenu::screenelement_button_generic_textfield::screenelement_button_generic_textfield (
 	const sf::Font& font_,
+	const screenelement_button_enum& screenelement_button_enum_,
 	const std::string& s_
 ) {
 	set_bIsHeldDown (false);
+	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 60, sf::Color::Black, sf::Color::White);
 	stretch (frBounds_rs ().width + 24.f, 120.f);
 }
