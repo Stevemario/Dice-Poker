@@ -781,7 +781,9 @@ void game::makeStringTakeNothing () {
 }
 void game::resetWhatStringTakes () {
 	makeStringTakeNothing ();
-	if (m_s_pToEdit == & m_sLoadSource) {
+	if (m_s_pToEdit == &m_sBetPlayer) {
+		m_bStringTakesDigit = true;
+	} else if (m_s_pToEdit == & m_sLoadSource) {
 		m_bStringTakesDigit = true;
 		m_bStringTakesLower = true;
 		m_bStringTakesSpace = true;
@@ -797,8 +799,6 @@ void game::resetWhatStringTakes () {
 		m_bStringTakesLower = true;
 		m_bStringTakesSpace = true;
 		m_bStringTakesUpper = true;
-	} else if (m_s_pToEdit == &m_sBetPlayer) {
-		m_bStringTakesDigit = true;
 	}
 }
 void game::determineBetAmount (const int& nBetEnemy) {
