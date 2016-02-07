@@ -730,7 +730,8 @@ void pokerround::prepareStage_OKResults (
 	screenelement_label* lblHeaderAlertOutcomePlayer = new screenelement_label_header_alert_outcome_player (
 		font_,
 		pokerroundresultConst,
-		nCashInPotBefore
+		nCashInPotBefore,
+		gamedata_pEnemy
 	);
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
 		font_,
@@ -1282,25 +1283,28 @@ pokerround::screenelement_label_enum pokerround::screenelement_label_header_aler
 pokerround::screenelement_label_header_alert_outcome_player::screenelement_label_header_alert_outcome_player (
 	const sf::Font& font_,
 	const pokerroundresult& pokerroundresult_,
-	const int& nCashInPotBefore
+	const int& nCashInPotBefore,
+	const gamedata*& gamedata_pEnemy
 ) {
-	std::string sPlayerOutcome;
+	int nGains = nCashInPotBefore;
+	std::string sWinners;
 	switch (pokerroundresult_) {
 		case pokerroundresult::Win: {
-			sPlayerOutcome = "won";
+			sWinners = "You";
 			break;
 		}
 		case pokerroundresult::Tie: {
-			sPlayerOutcome = "tied for";
+			sWinners = "You both";
+			nGains /= 2;
 			break;
 		}
 		case pokerroundresult::Loss: {
-			sPlayerOutcome = "lost";
+			sWinners = gamedata_pEnemy->sPlayerName ();
 			break;
 		}
 	}
 	set_bIsHeldDown (false);
-	create ("You " + sPlayerOutcome + " $" + std::to_string (nCashInPotBefore) + "!", font_, 60, sf::Color::White);
+	create (sWinners + " won $" + std::to_string (nGains) + "!", font_, 60, sf::Color::White);
 }
 pokerround::screenelement_button_enum pokerround::screenelement_button_generic::screenelement_button_enum_ (
 ) const {

@@ -283,7 +283,8 @@ namespace pokerround {
 		public: screenelement_label_header_alert_outcome_player (
 			const sf::Font&,
 			const pokerroundresult&,
-			const int&
+			const int&,
+			const gamedata*&
 		);
 	};
 	enum class screenelement_button_enum {
