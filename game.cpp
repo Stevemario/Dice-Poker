@@ -368,6 +368,17 @@ void game::handle (
 			if (m_mainmenupage != mainmenupage::Save) {
 				m_mainmenupage = mainmenupage::Save;
 				bShouldClear_vec_screenelement_p = true;
+			} else {
+				if (m_bHaveGameData) {
+					std::ofstream ofstream_;
+					ofstream_.open (m_sSaveSpot);
+					if (ofstream_.is_open ()) {
+						save (
+							ofstream_
+						);
+						ofstream_.close ();
+					}
+				}
 			}
 			break;
 		}
@@ -409,6 +420,12 @@ void game::handle (
 		}
 		case mainmenu::screenelement_button_enum::NewAdventureName: {
 			m_s_pToEdit = &m_sNewAdventureName;
+			resetWhatStringTakes ();
+			m_bEditAString = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::SaveName: {
+			m_s_pToEdit = &m_sSaveSpot;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
@@ -753,6 +770,11 @@ void game::resetWhatStringTakes () {
 		} else {
 			m_bStringTakesLower = true;
 		}
+	} else if (m_s_pToEdit == &m_sSaveSpot) {
+		m_bStringTakesDigit = true;
+		m_bStringTakesLower = true;
+		m_bStringTakesSpace = true;
+		m_bStringTakesUpper = true;
 	} else if (m_s_pToEdit == &m_sBetPlayer) {
 		m_bStringTakesDigit = true;
 	}
