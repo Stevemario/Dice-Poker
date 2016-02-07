@@ -178,12 +178,12 @@ void mainmenu::addPageAccredit (
 		screenelement_label_enum::ParagraphCredits
 	);
 	float fWidth_lblHeaderCredits = lblHeaderCredits->frBounds_text ().width;
-	float fWidth_lblCredits = lblParagraphCredits->frBounds_text ().width;
+	float fWidth_lblParagraphCredits = lblParagraphCredits->frBounds_text ().width;
 	float fPosX_lblHeaderCredits = .5f * (1350.f - fWidth_lblHeaderCredits);
-	float fPosX_lblCredits = .5f * (1350.f - fWidth_lblCredits);
+	float fPosX_lblParagraphCredits = .5f * (1350.f - fWidth_lblParagraphCredits);
 	rectBG->move (25.f, 150.f);
 	lblHeaderCredits->move (fPosX_lblHeaderCredits, 210.f);
-	lblParagraphCredits->move (fPosX_lblCredits, 285.f);
+	lblParagraphCredits->move (fPosX_lblParagraphCredits, 285.f);
 	ses_.push_back (rectBG);
 	ses_.push_back (lblHeaderCredits);
 	ses_.push_back (lblParagraphCredits);
