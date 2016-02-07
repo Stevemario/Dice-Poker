@@ -772,14 +772,16 @@ void game::deletePokerRoundData (
 	}
 	delete m_pokerroundstage_p;
 }
-void game::makeStringTakeNothing () {
+void game::makeStringTakeNothing (
+) {
 	m_bStringTakesUpper = false;
 	m_bStringTakesLower = false;
 	m_bStringTakesDigit = false;
 	m_bStringTakesPunctuation = false;
 	m_bStringTakesSpace = false;
 }
-void game::resetWhatStringTakes () {
+void game::resetWhatStringTakes (
+) {
 	makeStringTakeNothing ();
 	if (m_s_pToEdit == &m_sBetPlayer) {
 		m_bStringTakesDigit = true;
@@ -801,13 +803,17 @@ void game::resetWhatStringTakes () {
 		m_bStringTakesUpper = true;
 	}
 }
-void game::determineBetAmount (const int& nBetEnemy) {
+void game::determineBetAmount (
+	const int& nBetEnemy
+) {
 	int nBetPlayer = std::stoi (m_sBetPlayer);
 	nBetPlayer = std::max (0, nBetPlayer); //Player can't bet a negative
 	nBetPlayer = std::min (nBetPlayer, m_gamedata_pPlayer->nDollarsCarried ()); //Player can't bet more than he has.
 	m_nBetAgreed = std::min (nBetPlayer, nBetEnemy); //Bet is the least of the bids placed.
 }
-void game::transactBet (const int& nBetAmount) {
+void game::transactBet (
+	const int& nBetAmount
+) {
 	m_gamedata_pEnemy->set_nDollarsCarried (m_gamedata_pEnemy-> nDollarsCarried () - nBetAmount);
 	m_gamedata_pPlayer->set_nDollarsCarried (m_gamedata_pPlayer-> nDollarsCarried () - nBetAmount);
 	m_nCashInPot += 2 * nBetAmount;
