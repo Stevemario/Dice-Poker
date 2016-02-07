@@ -19,7 +19,7 @@ bool game::m_bShowMainMenuNewGamePageChoice = true;
 std::string game::m_sBetPlayer = "0";
 std::string game::m_sLoadSource = "default save.txt";
 std::string game::m_sNewAdventureName = "TEST";
-std::string game::m_sSaveSpot = "default save.txt";
+std::string game::m_sSaveDestination = "default save.txt";
 std::string* game::m_s_pToEdit;
 sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
@@ -52,7 +52,7 @@ void game::startUp (
 	m_rw.setFramerateLimit (60); //Stops my video card from making noise.  don't really want this.
 	m_font.loadFromFile ("C:/Windows/Fonts/arial.ttf");
 	std::ifstream ifstream_;
-	ifstream_.open (m_sSaveSpot);
+	ifstream_.open (m_sSaveDestination);
 	if (ifstream_.is_open ()) {
 		load (
 			ifstream_
@@ -91,7 +91,7 @@ void game::prepareScreenElements (
 					m_bShowMainMenuNewGamePageChoice,
 					m_sLoadSource,
 					m_sNewAdventureName,
-					m_sSaveSpot,
+					m_sSaveDestination,
 					m_font,
 					m_mainmenupage,
 					gamedata_pPlayerConst,
@@ -373,7 +373,7 @@ void game::handle (
 			} else {
 				if (m_bHaveGameData) {
 					std::ofstream ofstream_;
-					ofstream_.open (m_sSaveSpot);
+					ofstream_.open (m_sSaveDestination);
 					if (ofstream_.is_open ()) {
 						save (
 							ofstream_
@@ -435,8 +435,8 @@ void game::handle (
 			m_bEditAString = true;
 			break;
 		}
-		case mainmenu::screenelement_button_enum::SaveName: {
-			m_s_pToEdit = &m_sSaveSpot;
+		case mainmenu::screenelement_button_enum::SaveDestination: {
+			m_s_pToEdit = &m_sSaveDestination;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
@@ -794,7 +794,7 @@ void game::resetWhatStringTakes () {
 		} else {
 			m_bStringTakesLower = true;
 		}
-	} else if (m_s_pToEdit == &m_sSaveSpot) {
+	} else if (m_s_pToEdit == &m_sSaveDestination) {
 		m_bStringTakesDigit = true;
 		m_bStringTakesLower = true;
 		m_bStringTakesSpace = true;

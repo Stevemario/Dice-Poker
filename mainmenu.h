@@ -41,7 +41,6 @@ namespace mainmenu {
 		screenelements&
 	);
 	void addPageSave (
-		const bool&,
 		const std::string&,
 		const sf::Font&,
 		screenelements&
@@ -116,7 +115,7 @@ namespace mainmenu {
 		NewAdventure,
 		NewGameReturn,
 		NewAdventureName,
-		SaveName,
+		SaveDestination,
 		LoadSource,
 	};
 	typedef screenelement_button::screenelement_button <screenelement_button_enum> screenelement_button;

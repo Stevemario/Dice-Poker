@@ -20,7 +20,7 @@ namespace game {
 	extern std::string m_sBetPlayer;
 	extern std::string m_sLoadSource;
 	extern std::string m_sNewAdventureName;
-	extern std::string m_sSaveSpot;
+	extern std::string m_sSaveDestination;
 	extern std::string* m_s_pToEdit;
 	extern sf::Font m_font;
 	extern sf::RenderWindow m_rw;

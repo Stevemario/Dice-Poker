@@ -4,7 +4,7 @@ void mainmenu::prepare (
 	const bool& bShowMainMenuNewGamePageChoice,
 	const std::string& sLoadSource,
 	const std::string& sNewAdventureName,
-	const std::string& sSaveSpot,
+	const std::string& sSaveDestination,
 	const sf::Font& font_,
 	const mainmenupage& mainmenupage_,
 	const gamedata*& gamedata_pPlayer,
@@ -35,8 +35,7 @@ void mainmenu::prepare (
 		}
 		case mainmenupage::Save: {
 			addPageSave (
-				bHaveGameData,
-				sSaveSpot,
+				sSaveDestination,
 				font_,
 				ses_
 			);
@@ -291,8 +290,7 @@ void mainmenu::addPageNewGame (
 	}
 }
 void mainmenu::addPageSave (
-	const bool& bHaveGameData,
-	const std::string& sSaveSpot,
+	const std::string& sSaveDestination,
 	const sf::Font& font_,
 	screenelements& ses_
 ) {
@@ -309,10 +307,10 @@ void mainmenu::addPageSave (
 		font_,
 		screenelement_label_enum::HeaderSaveIfSaveClicked
 	);
-	screenelement_button* btnSaveName = new screenelement_button_generic_textfield (
+	screenelement_button* btnSaveDestination = new screenelement_button_generic_textfield (
 		font_,
-		screenelement_button_enum::SaveName,
-		sSaveSpot
+		screenelement_button_enum::SaveDestination,
+		sSaveDestination
 	);
 	float fWidth_lblHeaderSave = lblHeaderSave->frBounds_text ().width;
 	float fWidth_lblHeaderSaveIfSaveClicked = lblHeaderSaveIfSaveClicked->frBounds_text ().width;
@@ -322,12 +320,12 @@ void mainmenu::addPageSave (
 	lblHeaderSave->move (fPosX_lblHeaderSave, 210.f);
 	lblHeaderSaveDestination->move (50.f, 290.f);
 	lblHeaderSaveIfSaveClicked->move (fPosX_lblHeaderSaveIfSaveClicked, 900.f);
-	btnSaveName->move (50.f, 350.f);
+	btnSaveDestination->move (50.f, 350.f);
 	ses_.push_back (rectBG);
 	ses_.push_back (lblHeaderSave);
 	ses_.push_back (lblHeaderSaveDestination);
 	ses_.push_back (lblHeaderSaveIfSaveClicked);
-	ses_.push_back (btnSaveName);
+	ses_.push_back (btnSaveDestination);
 }
 void mainmenu::addPageLoad (
 	const std::string& sLoadSource,
