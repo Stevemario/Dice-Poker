@@ -407,6 +407,13 @@ void game::handle (
 			}
 			break;
 		}
+		case mainmenu::screenelement_button_enum::Title: {
+			if (m_mainmenupage != mainmenupage::Splash) {
+				m_mainmenupage = mainmenupage::Splash;
+				bShouldClear_vec_screenelement_p = true;
+			}
+			break;
+		}
 		case mainmenu::screenelement_button_enum::NewQuickGame: {
 			if (m_bHaveGameData) {
 				deleteGameData ();

@@ -68,8 +68,6 @@ namespace mainmenu {
 		);
 	};
 	enum class screenelement_label_enum {
-		Title,
-		TitleShadow,
 		HeaderWelcome,
 		HeaderOptions,
 		HeaderCredits,
@@ -95,13 +93,6 @@ namespace mainmenu {
 			const screenelement_label_enum&
 		);
 	};
-	class screenelement_label_title_shadow : public screenelement_label {
-		public: screenelement_label_enum screenelement_label_enum_ (
-		) const;
-		public: screenelement_label_title_shadow (
-			const sf::Font&
-		);
-	};
 	enum class screenelement_button_enum {
 		Exit,
 		Adjust,
@@ -111,6 +102,7 @@ namespace mainmenu {
 		Save,
 		Load,
 		Review,
+		Title,
 		NewQuickGame,
 		NewAdventure,
 		NewGameReturn,
@@ -126,6 +118,13 @@ namespace mainmenu {
 		public: screenelement_button_page_switching (
 			const sf::Font&,
 			const screenelement_button_enum&
+		);
+	};
+	class screenelement_button_title : public screenelement_button {
+		public: screenelement_button_enum screenelement_button_enum_ (
+		) const;
+		public: screenelement_button_title (
+			const sf::Font&
 		);
 	};
 	class screenelement_button_generic : public screenelement_button {

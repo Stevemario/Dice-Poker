@@ -57,10 +57,8 @@ void mainmenu::addButtonsPageSwitching (
 	screenelements& ses_
 ) {
 	screenelement_rectangle* rectBG = new screenelement_rectangle_bg_buttons_page_switching ();
-	screenelement_label* lblTitleShadow = new screenelement_label_title_shadow (font_);
-	screenelement_label* lblTitle = new screenelement_label_generic (
-		font_,
-		screenelement_label_enum::Title
+	screenelement_button* btnTitle = new screenelement_button_title (
+		font_
 	);
 	screenelement_button* btnReview = new screenelement_button_page_switching (
 		font_,
@@ -101,8 +99,7 @@ void mainmenu::addButtonsPageSwitching (
 	float fWidth_btnAccredit = btnAccredit->frBounds_rs ().width;
 	float fWidth_btnAdjust = btnAdjust->frBounds_rs ().width;
 	float fWidth_btnExit = btnExit->frBounds_rs ().width;
-	float fPosX_lblTitleShadow;
-	float fPosX_lblTitle = 15.f;
+	float fPosX_btnTitle = 0.f;
 	float fPosX_btnReview;
 	float fPosX_btnLoad;
 	float fPosX_btnSave;
@@ -111,15 +108,13 @@ void mainmenu::addButtonsPageSwitching (
 	float fPosX_btnAccredit;
 	float fPosX_btnAdjust;
 	float fPosX_btnExit = 1350.f - fWidth_btnExit;
-	fPosX_lblTitleShadow = fPosX_lblTitle + 1.f;
 	fPosX_btnAdjust = fPosX_btnExit - fWidth_btnAdjust;
 	fPosX_btnAccredit = fPosX_btnAdjust - fWidth_btnAccredit;
 	fPosX_btnNewGame = fPosX_btnPlay + fWidth_btnPlay;
 	fPosX_btnSave = fPosX_btnNewGame + fWidth_btnNewGame;
 	fPosX_btnLoad = fPosX_btnSave + fWidth_btnSave;
 	fPosX_btnReview = fPosX_btnLoad + fWidth_btnLoad;
-	lblTitleShadow->move (fPosX_lblTitleShadow, 76.f);
-	lblTitle->move (fPosX_lblTitle, 75.f);
+	btnTitle->move (fPosX_btnTitle, 60.f);
 	btnReview->move (fPosX_btnReview, 0.f);
 	btnLoad->move (fPosX_btnLoad, 0.f);
 	btnSave->move (fPosX_btnSave, 0.f);
@@ -129,8 +124,7 @@ void mainmenu::addButtonsPageSwitching (
 	btnAdjust->move (fPosX_btnAdjust, 0.f);
 	btnExit->move (fPosX_btnExit, 0.f);
 	ses_.push_back (rectBG);
-	ses_.push_back (lblTitleShadow);
-	ses_.push_back (lblTitle);
+	ses_.push_back (btnTitle);
 	ses_.push_back (btnReview);
 	ses_.push_back (btnLoad);
 	ses_.push_back (btnSave);
@@ -393,7 +387,6 @@ mainmenu::screenelement_label_generic::screenelement_label_generic (
 ) {
 	std::string s_;
 	switch (screenelement_label_enum_) {
-		case screenelement_label_enum::Title: { s_ = "Dice Poker"; break; }
 		case screenelement_label_enum::HeaderWelcome: { s_ = "Welcome to Dice Poker!"; break; }
 		case screenelement_label_enum::HeaderOptions: { s_ = "Options"; break; }
 		case screenelement_label_enum::HeaderCredits: { s_ = "Credits"; break; }
@@ -415,16 +408,6 @@ mainmenu::screenelement_label_generic::screenelement_label_generic (
 	set_bIsHeldDown (false);
 	m_screenelement_label_enum = screenelement_label_enum_;
 	create (s_, font_, 60, sf::Color::White);
-}
-mainmenu::screenelement_label_enum mainmenu::screenelement_label_title_shadow::screenelement_label_enum_ (
-) const {
-	return screenelement_label_enum::TitleShadow;
-}
-mainmenu::screenelement_label_title_shadow::screenelement_label_title_shadow (
-	const sf::Font& font_
-) {
-	set_bIsHeldDown (false);
-	create ("Dice Poker", font_, 60, sf::Color::Black);
 }
 mainmenu::screenelement_button_enum mainmenu::screenelement_button_page_switching::screenelement_button_enum_ (
 ) const {
@@ -450,6 +433,17 @@ mainmenu::screenelement_button_page_switching::screenelement_button_page_switchi
 	m_screenelement_button_enum = screenelement_button_enum_;
 	create (s_, font_, 30, sf::Color::White, sf::Color (255, 128, 0, 0));
 	stretch (frBounds_rs ().width + 12.f, 60.f);
+}
+mainmenu::screenelement_button_enum mainmenu::screenelement_button_title::screenelement_button_enum_ (
+) const {
+	return screenelement_button_enum::Title;
+}
+mainmenu::screenelement_button_title::screenelement_button_title (
+	const sf::Font& font_
+) {
+	set_bIsHeldDown (false);
+	create ("Dice Poker", font_, 60, sf::Color::Blue, sf::Color (255, 128, 0, 0));
+	stretch (frBounds_rs ().width + 24.f, 90.f);
 }
 mainmenu::screenelement_button_enum mainmenu::screenelement_button_generic::screenelement_button_enum_ (
 ) const {
