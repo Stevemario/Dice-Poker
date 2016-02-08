@@ -49,6 +49,15 @@ void mainmenu::prepare (
 			);
 			break;
 		}
+		case mainmenupage::Review: {
+			addPageReview (
+				bHaveGameData,
+				font_,
+				gamedata_pPlayer,
+				ses_
+			);
+			break;
+		}
 	}
 	addButtonsPageSwitching (font_, ses_);
 }
@@ -359,6 +368,73 @@ void mainmenu::addPageLoad (
 	ses_.push_back (lblHeaderLoadIfLoadClicked);
 	ses_.push_back (btnLoadSource);
 }
+void mainmenu::addPageReview (
+	const bool& bHaveGameData,
+	const sf::Font& font_,
+	const gamedata*& gamedata_pPlayer,
+	screenelements& ses_
+) {
+	if (bHaveGameData) {
+		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+		screenelement_label* lblHeaderReview = new screenelement_label_generic (
+			font_,
+			screenelement_label_enum::HeaderReview
+		);
+		screenelement_label* lblHeaderName = new screenelement_label_generic (
+			font_,
+			screenelement_label_enum::HeaderName
+		);
+		screenelement_label* lblHeaderNamePlayer = new screenelement_label_variable (
+			font_,
+			screenelement_label_enum::HeaderNamePlayer,
+			gamedata_pPlayer->sPlayerName ()
+		);
+		screenelement_label* lblHeaderCash = new screenelement_label_generic (
+			font_,
+			screenelement_label_enum::HeaderCash
+		);
+		screenelement_label* lblHeaderCashPlayer = new screenelement_label_variable (
+			font_,
+			screenelement_label_enum::HeaderCashPlayer,
+			std::to_string (gamedata_pPlayer->nDollarsCarried ())
+		);
+		float fWidth_lblHeaderReview = lblHeaderReview->frBounds_text ().width;
+		float fPosX_lblHeaderReview = .5f * (1350.f - fWidth_lblHeaderReview);
+		float fPosX_lbl_ = (1350.f - 4.f * 25.f) * 0.7f + 2.f * 25.f;
+		rectBG->move (25.f, 150.f);
+		lblHeaderReview->move (fPosX_lblHeaderReview, 210.f);
+		lblHeaderName->move (fPosX_lbl_, 345.f);
+		lblHeaderNamePlayer->move (fPosX_lbl_, 405.f);
+		lblHeaderCash->move (fPosX_lbl_, 485.f);
+		lblHeaderCashPlayer->move (fPosX_lbl_, 545.f);
+		ses_.push_back (rectBG);
+		ses_.push_back (lblHeaderReview);
+		ses_.push_back (lblHeaderName);
+		ses_.push_back (lblHeaderNamePlayer);
+		ses_.push_back (lblHeaderCash);
+		ses_.push_back (lblHeaderCashPlayer);
+	} else {
+		screenelement_rectangle* rectBG = new screenelement_rectangle_bg_screen_majority ();
+		screenelement_label* lblHeaderReview = new screenelement_label_generic (
+			font_,
+			screenelement_label_enum::HeaderReview
+		);
+		screenelement_label* lblHeaderNoDataToReview = new screenelement_label_generic (
+			font_,
+			screenelement_label_enum::HeaderNoDataToReview
+		);
+		float fWidth_lblHeaderReview = lblHeaderReview->frBounds_text ().width;
+		float fWidth_lblHeaderNoDataToReview = lblHeaderNoDataToReview->frBounds_text ().width;
+		float fPosX_lblHeaderReview = .5f * (1350.f - fWidth_lblHeaderReview);
+		float fPosX_lblHeaderNoDataToReview = .5f * (1350.f - fWidth_lblHeaderNoDataToReview);
+		rectBG->move (25.f, 150.f);
+		lblHeaderReview->move (fPosX_lblHeaderReview, 210.f);
+		lblHeaderNoDataToReview->move (fPosX_lblHeaderNoDataToReview, 290.f);
+		ses_.push_back (rectBG);
+		ses_.push_back (lblHeaderReview);
+		ses_.push_back (lblHeaderNoDataToReview);
+	}
+}
 mainmenu::screenelement_rectangle_enum mainmenu::screenelement_rectangle_bg_buttons_page_switching::screenelement_rectangle_enum_ (
 ) const {
 	return screenelement_rectangle_enum::BgButtonsPageSwitching;
@@ -403,8 +479,24 @@ mainmenu::screenelement_label_generic::screenelement_label_generic (
 		case screenelement_label_enum::HeaderLoad: { s_ = "Load"; break; }
 		case screenelement_label_enum::HeaderLoadSource: { s_ = "Source"; break; }
 		case screenelement_label_enum::HeaderLoadIfLoadClicked: { s_ = "Note: Game Data loads if Load is Clicked"; break; }
+		case screenelement_label_enum::HeaderReview: { s_ = "Review"; break; }
+		case screenelement_label_enum::HeaderCash: { s_ = "Cash"; break; }
+		case screenelement_label_enum::HeaderNoDataToReview: { s_ = "No Data To Review"; break; }
 		default: { s_ = "UNDEFINED"; break; }
 	}
+	set_bIsHeldDown (false);
+	m_screenelement_label_enum = screenelement_label_enum_;
+	create (s_, font_, 60, sf::Color::White);
+}
+mainmenu::screenelement_label_enum mainmenu::screenelement_label_variable::screenelement_label_enum_ (
+) const {
+	return m_screenelement_label_enum;
+}
+mainmenu::screenelement_label_variable::screenelement_label_variable (
+	const sf::Font& font_,
+	const screenelement_label_enum& screenelement_label_enum_,
+	const std::string s_
+) {
 	set_bIsHeldDown (false);
 	m_screenelement_label_enum = screenelement_label_enum_;
 	create (s_, font_, 60, sf::Color::White);

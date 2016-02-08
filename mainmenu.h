@@ -50,6 +50,12 @@ namespace mainmenu {
 		const sf::Font&,
 		screenelements&
 	);
+	void addPageReview (
+		const bool&,
+		const sf::Font&,
+		const gamedata*&,
+		screenelements&
+	);
 	enum class screenelement_rectangle_enum {
 		BgButtonsPageSwitching,
 		BgScreenMajority,
@@ -82,6 +88,11 @@ namespace mainmenu {
 		HeaderLoad,
 		HeaderLoadSource,
 		HeaderLoadIfLoadClicked,
+		HeaderReview,
+		HeaderNamePlayer,
+		HeaderCash,
+		HeaderCashPlayer,
+		HeaderNoDataToReview
 	};
 	typedef screenelement_label::screenelement_label <screenelement_label_enum> screenelement_label;
 	class screenelement_label_generic : public screenelement_label {
@@ -91,6 +102,16 @@ namespace mainmenu {
 		public: screenelement_label_generic (
 			const sf::Font&,
 			const screenelement_label_enum&
+		);
+	};
+	class screenelement_label_variable : public screenelement_label {
+		private: screenelement_label_enum m_screenelement_label_enum;
+		public: screenelement_label_enum screenelement_label_enum_ (
+		) const;
+		public: screenelement_label_variable (
+			const sf::Font&,
+			const screenelement_label_enum&,
+			const std::string
 		);
 	};
 	enum class screenelement_button_enum {
