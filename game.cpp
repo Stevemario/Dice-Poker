@@ -731,6 +731,8 @@ void game::load (
 		case gamemode::PokerDuel: {
 			m_gamedata_pEnemy = new gamedata (ifstream_);
 			m_gamedata_pPlayer = new gamedata (ifstream_);
+			m_nBetAgreed = iofunctions::nReading (ifstream_);
+			m_nCashInPot = iofunctions::nReading (ifstream_);
 			m_pokerroundstage_p = new pokerroundstage (pokerroundstage (iofunctions::nReading (ifstream_)));
 			switch (*m_pokerroundstage_p) {
 				case pokerroundstage::SubmitInputSecond:
@@ -761,6 +763,8 @@ void game::save (
 		case gamemode::PokerDuel: {
 			m_gamedata_pEnemy->save (ofstream_);
 			m_gamedata_pPlayer->save (ofstream_);
+			iofunctions::write (m_nBetAgreed, ofstream_);
+			iofunctions::write (m_nCashInPot, ofstream_);
 			iofunctions::write (int (*m_pokerroundstage_p), ofstream_);
 			switch (*m_pokerroundstage_p) {
 				case pokerroundstage::SubmitInputSecond:
