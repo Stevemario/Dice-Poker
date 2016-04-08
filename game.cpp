@@ -74,6 +74,7 @@ void game::prepareData (
 				}
 				case gamemode::Adventure: {
 					//WILL DO LATER
+					m_bHaveGameData = true;
 					break;
 				}
 			}
@@ -274,45 +275,69 @@ void game::handleTextEntered (
 	sf::Event& eventToHandle
 ) {
 	if (m_bEditAString) {
-		sf::Uint32 nInput = eventToHandle.text.unicode;
-		if (nInput < 128) {
-			bool bAppendInputToString = false;
-			char chInput = nInput;
-			if (chInput == 8) { //Backspace
-				if (m_s_pToEdit->size () > 0) {
-					m_s_pToEdit->pop_back ();
-					resetWhatStringTakes ();
-					bShouldClear_vec_screenelement_p = true;
-				}
-			} else if (chInput == 13) { //Enter
-				//Maybe use later.
-			} else if (isupper (chInput)) {
-				if (m_bStringTakesUpper) {
-					bAppendInputToString = true;
-				}
-			} else if (islower (chInput)) {
-				if (m_bStringTakesLower) {
-					bAppendInputToString = true;
-				}
-			} else if (isdigit (chInput)) {
-				if (m_bStringTakesDigit) {
-					bAppendInputToString = true;
-				}
-			} else if (ispunct (chInput)) {
-				if (m_bStringTakesPunctuation) {
-					bAppendInputToString = true;
-				}
-			} else if (isspace (chInput)) {
-				if (m_bStringTakesSpace) {
-					bAppendInputToString = true;
-				}
+		editAString (
+			bShouldClear_vec_screenelement_p,
+			eventToHandle.text.unicode
+		);
+	} else {
+		if (m_gameaction == gameaction::Play) {
+			handlePlayBind (
+				bShouldClear_vec_screenelement_p,
+				eventToHandle.text.unicode
+			);
+		}
+	}
+}
+void game::editAString (
+	bool& bShouldClear_vec_screenelement_p,
+	const sf::Uint32& nInput
+) {
+	if (nInput < 128) {
+		bool bAppendInputToString = false;
+		char chInput = nInput;
+		if (chInput == 8) { //Backspace
+			if (m_s_pToEdit->size () > 0) {
+				m_s_pToEdit->pop_back ();
+				resetWhatStringTakes ();
+				bShouldClear_vec_screenelement_p = true;
 			}
-			if (bAppendInputToString) {
-					m_s_pToEdit->operator+= (chInput);
-					resetWhatStringTakes ();
-					bShouldClear_vec_screenelement_p = true;
+		} else if (chInput == 13) { //Enter
+			//Maybe use later.
+		} else if (isupper (chInput)) {
+			if (m_bStringTakesUpper) {
+				bAppendInputToString = true;
+			}
+		} else if (islower (chInput)) {
+			if (m_bStringTakesLower) {
+				bAppendInputToString = true;
+			}
+		} else if (isdigit (chInput)) {
+			if (m_bStringTakesDigit) {
+				bAppendInputToString = true;
+			}
+		} else if (ispunct (chInput)) {
+			if (m_bStringTakesPunctuation) {
+				bAppendInputToString = true;
+			}
+		} else if (isspace (chInput)) {
+			if (m_bStringTakesSpace) {
+				bAppendInputToString = true;
 			}
 		}
+		if (bAppendInputToString) {
+				m_s_pToEdit->operator+= (chInput);
+				resetWhatStringTakes ();
+				bShouldClear_vec_screenelement_p = true;
+		}
+	}
+}
+void game::handlePlayBind (
+	bool& bShouldClear_vec_screenelement_p,
+	const sf::Uint32& nInput
+) {
+	if (nInput == 27) { //Escape
+		m_gameaction = gameaction::WorkMainMenu;
+		bShouldClear_vec_screenelement_p = true;
 	}
 }
 void game::handle (
@@ -417,6 +442,7 @@ void game::handle (
 		case mainmenu::screenelement_button_enum::NewQuickGame: {
 			if (m_bHaveGameData) {
 				deleteGameData ();
+				m_bHaveGameData = false;
 			}
 			m_gamemode_p = new gamemode;
 			*m_gamemode_p = gamemode::PokerDuel;
@@ -440,6 +466,17 @@ void game::handle (
 			m_s_pToEdit = &m_sNewAdventureName;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
+			break;
+		}
+		case mainmenu::screenelement_button_enum::NewAdventureStart: {
+			if (m_bHaveGameData) {
+				deleteGameData ();
+				m_bHaveGameData = false;
+			}
+			m_gamemode_p = new gamemode;
+			*m_gamemode_p = gamemode::Adventure;
+			m_gameaction = gameaction::Play;
+			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::SaveDestination: {

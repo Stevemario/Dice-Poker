@@ -56,6 +56,14 @@ namespace game {
 		bool&,
 		sf::Event&
 	);
+	void editAString (
+		bool&,
+		const sf::Uint32&
+	);
+	void handlePlayBind (
+		bool&,
+		const sf::Uint32&
+	);
 	void handle (
 		bool&,
 		const mainmenu::screenelement_button_enum&

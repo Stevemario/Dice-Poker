@@ -269,18 +269,25 @@ void mainmenu::addPageNewGame (
 			screenelement_button_enum::NewAdventureName,
 			sNewAdventureName
 		);
-		btnNewGameName->stretch ((1350.f - 4.f * 25.f) * 0.3f, 0.f);
+		screenelement_button* btnNewAdventureStart = new screenelement_button_generic (
+			font_,
+			screenelement_button_enum::NewAdventureStart
+		);
+		float fWidth_btn = (1350.f - 4.f * 25.f) * 0.3f;
 		float fWidth_lblHeaderNewGame = lblHeaderNewGame->frBounds_text ().width;
 		float fWidth_lblHeaderNewAdventureIfPlayClicked = lblHeaderNewAdventureIfPlayClicked->frBounds_text ().width;
 		float fPosX_lblHeaderNewGame = (1350.f - fWidth_lblHeaderNewGame) / 2.f;
 		float fPosX_lblHeaderNewAdventureIfPlayClicked = (1350.f - fWidth_lblHeaderNewAdventureIfPlayClicked) / 2.f;
 		float fPosX_lbl_ = (1350.f - 4.f * 25.f) * 0.7f + 2.f * 25.f;
+		btnNewGameName->stretch (fWidth_btn, 0.f);
+		btnNewAdventureStart->stretch (fWidth_btn, 0.f);
 		rectBG->move (25.f, 150.f);
 		lblHeaderNewGame->move (fPosX_lblHeaderNewGame, 210.f);
 		lblHeaderNewAdventureIfPlayClicked->move (fPosX_lblHeaderNewAdventureIfPlayClicked, 900.f);
 		lblHeaderName->move (fPosX_lbl_, 345.f);
 		btnNewGameReturn->move (50.f, 175.f);
 		btnNewGameName->move (fPosX_lbl_, 405.f);
+		btnNewAdventureStart->move (fPosX_lbl_, 545.f);
 		ses_.push_back (rectBG);
 		ses_.push_back (lblHeaderNewGame);
 		ses_.push_back (lblHeaderName);
@@ -290,6 +297,7 @@ void mainmenu::addPageNewGame (
 			ses_.push_back (lblHeaderNewAdventureIfPlayClicked);
 		ses_.push_back (btnNewGameReturn);
 		ses_.push_back (btnNewGameName);
+		ses_.push_back (btnNewAdventureStart);
 	}
 }
 void mainmenu::addPageSave (
@@ -550,6 +558,7 @@ mainmenu::screenelement_button_generic::screenelement_button_generic (
 		case screenelement_button_enum::NewQuickGame: { s_ = "Quick Game"; break; }
 		case screenelement_button_enum::NewAdventure: { s_ = "Full Adventure"; break; }
 		case screenelement_button_enum::NewGameReturn: { s_ = "Back"; break; }
+		case screenelement_button_enum::NewAdventureStart: { s_ = "START"; break; }
 		default: { s_ = "UNDEFINED"; }
 	}
 	set_bIsHeldDown (false);

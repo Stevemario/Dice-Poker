@@ -128,6 +128,7 @@ namespace mainmenu {
 		NewAdventure,
 		NewGameReturn,
 		NewAdventureName,
+		NewAdventureStart,
 		SaveDestination,
 		LoadSource,
 	};
