@@ -372,8 +372,10 @@ void game::handle (
 						*m_gamemode_p = gamemode::PokerDuel;
 						m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
 						m_gamedata_pPlayer = new gamedata ("Player", 100);
-					} else
+					} else {
 						*m_gamemode_p = gamemode::Adventure;
+						m_gamedata_pPlayer = new gamedata (m_sNewAdventureName, 100);
+					}
 					m_gameaction = gameaction::Play;
 				} else {
 					m_mainmenupage = mainmenupage::NewGame;
@@ -473,6 +475,7 @@ void game::handle (
 			}
 			m_gamemode_p = new gamemode;
 			*m_gamemode_p = gamemode::Adventure;
+			m_gamedata_pPlayer = new gamedata (m_sNewAdventureName, 100);
 			m_gameaction = gameaction::Play;
 			bShouldClear_vec_screenelement_p = true;
 			break;
@@ -749,6 +752,7 @@ void game::load (
 			break;
 		}
 		case gamemode::Adventure: {
+			m_gamedata_pPlayer = new gamedata (ifstream_);
 			//WILL DO LATER
 			break;
 		}
@@ -781,6 +785,7 @@ void game::save (
 			break;
 		}
 		case gamemode::Adventure: {
+			m_gamedata_pPlayer->save (ofstream_);
 			//WILL DO LATER
 			break;
 		}
@@ -796,6 +801,7 @@ void game::deleteGameData (
 			break;
 		}
 		case gamemode::Adventure: {
+			delete m_gamedata_pPlayer;
 			//WILL DO LATER
 			break;
 		}
