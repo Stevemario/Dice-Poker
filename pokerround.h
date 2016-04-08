@@ -45,6 +45,7 @@ namespace pokerround {
 		private: int m_nScoreEnemyUltimate;
 		private: int m_nScorePlayerInitial;
 		private: int m_nScorePlayerUltimate;
+		private: int m_nCashInPotBefore;
 		private: pokerroundresult m_pokerroundresult;
 		private: intx5 m_n5DiceEnemyUltimate;
 		private: intx5 m_n5DicePlayerUltimate;
@@ -55,6 +56,8 @@ namespace pokerround {
 		public: int nScorePlayerInitial (
 		) const;
 		public: int nScorePlayerUltimate (
+		) const;
+		public: int nCashInPotBefore (
 		) const;
 		public: pokerroundresult pokerroundresult_ (
 		) const;
@@ -82,6 +85,9 @@ namespace pokerround {
 		public: void set_nScorePlayerUltimate (
 			const int&
 		);
+		public: void set_nCashInPotBefore (
+			const int&
+		);
 		public: void set_pokerroundresult (
 			const pokerroundresult&
 		);
@@ -93,7 +99,6 @@ namespace pokerround {
 		);
 	};
 	void prepare (
-		const int&,
 		const int&,
 		const int&,
 		const std::string&,
@@ -143,7 +148,6 @@ namespace pokerround {
 		screenelements&
 	);
 	void prepareStage_OKResults (
-		const int&,
 		const int&,
 		const sf::Font&,
 		const gamedata*&,

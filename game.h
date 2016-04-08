@@ -5,7 +5,6 @@
 namespace game {
 	extern int m_nBetAgreed;
 	extern int m_nCashInPot;
-	extern int m_nCashInPotBefore;
 	extern int m_nSEClickedLast;
 	extern bool m_bStringTakesUpper;
 	extern bool m_bStringTakesLower;

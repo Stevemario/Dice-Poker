@@ -70,6 +70,10 @@ int pokerround::variableset2::nScorePlayerUltimate (
 ) const {
 	return m_nScorePlayerUltimate;
 }
+int pokerround::variableset2::nCashInPotBefore (
+) const {
+	return m_nCashInPotBefore;
+}
 pokerroundresult pokerround::variableset2::pokerroundresult_ (
 ) const {
 	return m_pokerroundresult;
@@ -89,6 +93,7 @@ void pokerround::variableset2::write (
 	iofunctions::write (m_nScoreEnemyUltimate, ofstream_);
 	iofunctions::write (m_nScorePlayerInitial, ofstream_);
 	iofunctions::write (m_nScorePlayerUltimate, ofstream_);
+	iofunctions::write (m_nCashInPotBefore, ofstream_);
 	iofunctions::write (int (m_pokerroundresult), ofstream_);
 	m_n5DiceEnemyUltimate.write (ofstream_);
 	m_n5DicePlayerUltimate.write (ofstream_);
@@ -103,6 +108,7 @@ pokerround::variableset2::variableset2 (
 	set_nScoreEnemyUltimate (iofunctions::nReading (ifstream_));
 	set_nScorePlayerInitial (iofunctions::nReading (ifstream_));
 	set_nScorePlayerUltimate (iofunctions::nReading (ifstream_));
+	set_nCashInPotBefore (iofunctions::nReading (ifstream_));
 	set_pokerroundresult (pokerroundresult (iofunctions::nReading (ifstream_)));
 	set_n5DiceEnemyUltimate (intx5 (ifstream_));
 	set_n5DicePlayerUltimate (intx5 (ifstream_));
@@ -127,6 +133,11 @@ void pokerround::variableset2::set_nScorePlayerUltimate (
 ) {
 	m_nScorePlayerUltimate = n_;
 }
+void pokerround::variableset2::set_nCashInPotBefore (
+	const int& n_
+) {
+	m_nCashInPotBefore = n_;
+}
 void pokerround::variableset2::set_pokerroundresult (
 	const pokerroundresult& pokerroundresult_
 ) {
@@ -145,7 +156,6 @@ void pokerround::variableset2::set_n5DicePlayerUltimate (
 void pokerround::prepare (
 	const int& nBetAgreed,
 	const int& nCashInPot,
-	const int& nCashInPotBefore,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
 	const pokerroundstage*& pokerroundstage_p_,
@@ -208,7 +218,6 @@ void pokerround::prepare (
 		case pokerroundstage::OKResults: {
 			prepareStage_OKResults (
 				nCashInPot,
-				nCashInPotBefore,
 				font_,
 				gamedata_pEnemy,
 				gamedata_pPlayer,
@@ -613,7 +622,6 @@ void pokerround::prepareStage_OKInputSecond (
 }
 void pokerround::prepareStage_OKResults (
 	const int& nCashInPot,
-	const int& nCashInPotBefore,
 	const sf::Font& font_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
@@ -730,7 +738,7 @@ void pokerround::prepareStage_OKResults (
 	screenelement_label* lblHeaderAlertOutcomePlayer = new screenelement_label_header_alert_outcome_player (
 		font_,
 		pokerroundresultConst,
-		nCashInPotBefore,
+		prvs2_p_->nCashInPotBefore (),
 		gamedata_pEnemy
 	);
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (

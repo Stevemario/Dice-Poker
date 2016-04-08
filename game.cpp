@@ -4,7 +4,6 @@
 #include <cstdlib>
 int game::m_nBetAgreed;
 int game::m_nCashInPot;
-int game::m_nCashInPotBefore;
 int game::m_nSEClickedLast;
 bool game::m_bStringTakesUpper = false;
 bool game::m_bStringTakesLower = false;
@@ -111,7 +110,6 @@ void game::prepareScreenElements (
 						pokerround::prepare (
 							m_nBetAgreed,
 							m_nCashInPot,
-							m_nCashInPotBefore,
 							m_sBetPlayer,
 							m_font,
 							pokerroundstage_p_Const,
@@ -643,7 +641,7 @@ void game::handle (
 			}
 			m_prvs2_p->set_n5DiceEnemyUltimate (n5sDice[4]);
 			m_prvs2_p->set_n5DicePlayerUltimate (n5sDice[5]);
-			m_nCashInPotBefore = m_nCashInPot;
+			m_prvs2_p->set_nCashInPotBefore (m_nCashInPot);
 			dsEnemyInitial = diceset_p_ (m_prvs1_p->n5DiceEnemyInitial ());
 			dsEnemyUltimate = diceset_p_ (m_prvs2_p->n5DiceEnemyUltimate ());
 			dsPlayerInitial = diceset_p_ (m_prvs1_p->n5DicePlayerInitial ());
