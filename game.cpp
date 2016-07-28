@@ -13,7 +13,7 @@ bool game::m_bStringTakesSpace = false;
 bool game::m_bClickedAButtonJustNow = false;
 bool game::m_bEditAString = false;
 bool game::m_bHaveGameData = false;
-bool game::m_bPrepared_vec_screenelement_p = false;
+bool game::m_bPrepared_ses = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
 std::string game::m_sBetPlayer = "0";
 std::string game::m_sLoadSource = "default save.txt";
@@ -81,7 +81,7 @@ void game::prepareData (
 }
 void game::prepareScreenElements (
 ) {
-	if (m_bPrepared_vec_screenelement_p != true) {
+	if (m_bPrepared_ses != true) {
 		switch (m_gameaction) {
 			case gameaction::WorkMainMenu: {
 				mainmenu::prepare (
@@ -122,22 +122,22 @@ void game::prepareScreenElements (
 				break;
 			}
 		}
-		m_bPrepared_vec_screenelement_p = true;
+		m_bPrepared_ses = true;
 	}
 }
 void game::handleEvents (
 ) {
-	bool bShouldClear_vec_screenelement_p = false;
+	bool bShouldClear_ses = false;
 	sf::Event eventToHandle;
 	while (m_rw.pollEvent (eventToHandle)) {
-		if (bShouldClear_vec_screenelement_p) {
+		if (bShouldClear_ses) {
 			//DO NOTHING.  Event is void and event queue must be cleared.
 		} else {
 			sf::Event::EventType eventtypeToHandle = eventToHandle.type;
 			switch (eventtypeToHandle) {
 				case sf::Event::Closed: {
 					m_gameaction = gameaction::Exit;
-					bShouldClear_vec_screenelement_p = true;
+					bShouldClear_ses = true;
 					break;
 				}
 				case sf::Event::MouseButtonPressed: {
@@ -145,17 +145,17 @@ void game::handleEvents (
 					break;
 				}
 				case sf::Event::MouseButtonReleased: {
-					handleMouseRelease (bShouldClear_vec_screenelement_p, eventToHandle);
+					handleMouseRelease (bShouldClear_ses, eventToHandle);
 					break;
 				}
 				case sf::Event::TextEntered: {
-					handleTextEntered (bShouldClear_vec_screenelement_p, eventToHandle);
+					handleTextEntered (bShouldClear_ses, eventToHandle);
 					break;
 				}
 			}
-			if (bShouldClear_vec_screenelement_p) {
+			if (bShouldClear_ses) {
 				clear (m_ses);
-				m_bPrepared_vec_screenelement_p = false;
+				m_bPrepared_ses = false;
 			}
 		}
 	}
@@ -217,7 +217,7 @@ void game::handleMousePress (
 	}
 }
 void game::handleMouseRelease (
-	bool& bShouldClear_vec_screenelement_p,
+	bool& bShouldClear_ses,
 	sf::Event& eventToHandle
 ) {
 	if (m_bClickedAButtonJustNow) {
@@ -233,7 +233,7 @@ void game::handleMouseRelease (
 							mainmenu::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 							se_btn_p_->set_bIsHeldDown (false);
 							handle (
-								bShouldClear_vec_screenelement_p,
+								bShouldClear_ses,
 								se_btn_e_
 							);
 							break;
@@ -245,7 +245,7 @@ void game::handleMouseRelease (
 									pokerround::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
 									se_btn_p_->set_bIsHeldDown (false);
 									handle (
-										bShouldClear_vec_screenelement_p,
+										bShouldClear_ses,
 										se_btn_e_
 									);
 									break;
@@ -262,18 +262,18 @@ void game::handleMouseRelease (
 	m_bClickedAButtonJustNow = false;
 }
 void game::handleTextEntered (
-	bool& bShouldClear_vec_screenelement_p,
+	bool& bShouldClear_ses,
 	sf::Event& eventToHandle
 ) {
 	if (m_bEditAString) {
 		editAString (
-			bShouldClear_vec_screenelement_p,
+			bShouldClear_ses,
 			eventToHandle.text.unicode
 		);
 	} else {
 		if (m_gameaction == gameaction::Play) {
 			handlePlayBind (
-				bShouldClear_vec_screenelement_p,
+				bShouldClear_ses,
 				eventToHandle.text.unicode
 			);
 		}
@@ -323,35 +323,35 @@ void game::editAString (
 	}
 }
 void game::handlePlayBind (
-	bool& bShouldClear_vec_screenelement_p,
+	bool& bShouldClear_ses,
 	const sf::Uint32& nInput
 ) {
 	if (nInput == 27) { //Escape
 		m_gameaction = gameaction::WorkMainMenu;
-		bShouldClear_vec_screenelement_p = true;
+		bShouldClear_ses = true;
 	}
 }
 void game::handle (
-	bool& bShouldClear_vec_screenelement_p,
+	bool& bShouldClear_ses,
 	const mainmenu::screenelement_button_enum& screenelement_button_enumToHandle
 ) {
 	switch (screenelement_button_enumToHandle) {
 		case mainmenu::screenelement_button_enum::Exit: {
 			m_gameaction = gameaction::Exit;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::Adjust: {
 			if (m_mainmenupage != mainmenupage::Adjust) {
 				m_mainmenupage = mainmenupage::Adjust;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			}
 			break;
 		}
 		case mainmenu::screenelement_button_enum::Accredit: {
 			if (m_mainmenupage != mainmenupage::Accredit) {
 				m_mainmenupage = mainmenupage::Accredit;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			}
 			break;
 		}
@@ -373,20 +373,20 @@ void game::handle (
 					m_mainmenupage = mainmenupage::NewGame;
 				}
 			}
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::NewGame: {
 			if (m_mainmenupage != mainmenupage::NewGame) {
 				m_mainmenupage = mainmenupage::NewGame;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			}
 			break;
 		}
 		case mainmenu::screenelement_button_enum::Save: {
 			if (m_mainmenupage != mainmenupage::Save) {
 				m_mainmenupage = mainmenupage::Save;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			} else {
 				if (m_bHaveGameData) {
 					std::ofstream ofstream_;
@@ -404,7 +404,7 @@ void game::handle (
 		case mainmenu::screenelement_button_enum::Load: {
 			if (m_mainmenupage != mainmenupage::Load) {
 				m_mainmenupage = mainmenupage::Load;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			} else {
 				std::ifstream ifstream_;
 				ifstream_.open (m_sLoadSource);
@@ -420,14 +420,14 @@ void game::handle (
 		case mainmenu::screenelement_button_enum::Review: {
 			if (m_mainmenupage != mainmenupage::Review) {
 				m_mainmenupage = mainmenupage::Review;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			}
 			break;
 		}
 		case mainmenu::screenelement_button_enum::Title: {
 			if (m_mainmenupage != mainmenupage::Splash) {
 				m_mainmenupage = mainmenupage::Splash;
-				bShouldClear_vec_screenelement_p = true;
+				bShouldClear_ses = true;
 			}
 			break;
 		}
@@ -440,17 +440,17 @@ void game::handle (
 			m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
 			m_gamedata_pPlayer = new gamedata ("Player", 100);
 			m_gameaction = gameaction::Play;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::NewAdventure: {
 			m_bShowMainMenuNewGamePageChoice = false;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::NewGameReturn: {
 			m_bShowMainMenuNewGamePageChoice = true;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::NewAdventureName: {
@@ -467,7 +467,7 @@ void game::handle (
 			m_gamemode = gamemode::Adventure;
 			m_gamedata_pPlayer = new gamedata (m_sNewAdventureName, 100);
 			m_gameaction = gameaction::Play;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case mainmenu::screenelement_button_enum::SaveDestination: {
@@ -485,7 +485,7 @@ void game::handle (
 	}
 }
 void game::handle (
-	bool& bShouldClear_vec_screenelement_p,
+	bool& bShouldClear_ses,
 	const pokerround::screenelement_button_enum& screenelement_button_enumToHandle
 ) {
 	switch (screenelement_button_enumToHandle) {
@@ -499,13 +499,13 @@ void game::handle (
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
 			m_pokerroundstage = pokerroundstage::OKInputInitial;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::ChangeInputInitial: {
 			transactBet (-1 * m_nBetAgreed);
 			m_pokerroundstage = pokerroundstage::SubmitInputInitial;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::OKInputInitial: {
@@ -524,7 +524,7 @@ void game::handle (
 				m_prvs1_p->set_nDicePlayerReroll (i, false);
 			}
 			m_pokerroundstage = pokerroundstage::SubmitInputSecond;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer0: {
@@ -533,7 +533,7 @@ void game::handle (
 			} else {
 				m_prvs1_p->set_nDicePlayerReroll (0, true);
 			}
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer1: {
@@ -542,7 +542,7 @@ void game::handle (
 			} else {
 				m_prvs1_p->set_nDicePlayerReroll (1, true);
 			}
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer2: {
@@ -551,7 +551,7 @@ void game::handle (
 			} else {
 				m_prvs1_p->set_nDicePlayerReroll (2, true);
 			}
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer3: {
@@ -560,7 +560,7 @@ void game::handle (
 			} else {
 				m_prvs1_p->set_nDicePlayerReroll (3, true);
 			}
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer4: {
@@ -569,20 +569,20 @@ void game::handle (
 			} else {
 				m_prvs1_p->set_nDicePlayerReroll (4, true);
 			}
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::SubmitInputSecond: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
 			m_pokerroundstage = pokerroundstage::OKInputSecond;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::ChangeInputSecond: {
 			transactBet (-1 * m_nBetAgreed);
 			m_pokerroundstage = pokerroundstage::SubmitInputSecond;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::OKInputSecond: {
@@ -662,17 +662,17 @@ void game::handle (
 			}
 			m_nCashInPot = 0;
 			m_pokerroundstage = pokerroundstage::OKResults;
-			bShouldClear_vec_screenelement_p = true;
+			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::OKResult: {
-			handlePokerRoundEnd (bShouldClear_vec_screenelement_p);
+			handlePokerRoundEnd (bShouldClear_ses);
 			break;
 		}
 	}
 }
 void game::handlePokerRoundEnd (
-	bool& bShouldClear_vec_screenelement_p
+	bool& bShouldClear_ses
 ) {
 	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
@@ -697,7 +697,7 @@ void game::handlePokerRoundEnd (
 			break;
 		}
 	}
-	bShouldClear_vec_screenelement_p = true;
+	bShouldClear_ses = true;
 }
 void game::load (
 	std::ifstream& ifstream_

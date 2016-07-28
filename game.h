@@ -14,7 +14,7 @@ namespace game {
 	extern bool m_bClickedAButtonJustNow;
 	extern bool m_bEditAString;
 	extern bool m_bHaveGameData;
-	extern bool m_bPrepared_vec_screenelement_p;
+	extern bool m_bPrepared_ses;
 	extern bool m_bShowMainMenuNewGamePageChoice;
 	extern std::string m_sBetPlayer;
 	extern std::string m_sLoadSource;
