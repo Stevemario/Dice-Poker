@@ -1,4 +1,5 @@
 #include "pokerround.h"
+#include "diceset.h"
 intx5 pokerround::variableset1::n5DiceEnemyInitial (
 ) const {
 	return m_n5DiceEnemyInitial;
@@ -15,13 +16,13 @@ intx5 pokerround::variableset1::n5DicePlayerReroll (
 ) const {
 	return m_n5DicePlayerReroll;
 }
-void pokerround::variableset1::write (
+void pokerround::variableset1::writeTo (
 	std::ofstream& ofstream_
 ) const {
-	m_n5DiceEnemyInitial.write (ofstream_);
-	m_n5DiceEnemyReroll.write (ofstream_);
-	m_n5DicePlayerInitial.write (ofstream_);
-	m_n5DicePlayerReroll.write (ofstream_);
+	write (m_n5DiceEnemyInitial, ofstream_);
+	write (m_n5DiceEnemyReroll, ofstream_);
+	write (m_n5DicePlayerInitial, ofstream_);
+	write (m_n5DicePlayerReroll, ofstream_);
 }
 pokerround::variableset1::variableset1 (
 ) {
@@ -29,10 +30,10 @@ pokerround::variableset1::variableset1 (
 pokerround::variableset1::variableset1 (
 	std::ifstream& ifstream_
 ) {
-	set_n5DiceEnemyInitial (intx5 (ifstream_));
-	set_n5DiceEnemyReroll (intx5 (ifstream_));
-	set_n5DicePlayerInitial (intx5 (ifstream_));
-	set_n5DicePlayerReroll (intx5 (ifstream_));
+	set_n5DiceEnemyInitial (n5Reading (ifstream_));
+	set_n5DiceEnemyReroll (n5Reading (ifstream_));
+	set_n5DicePlayerInitial (n5Reading (ifstream_));
+	set_n5DicePlayerReroll (n5Reading (ifstream_));
 }
 void pokerround::variableset1::set_n5DiceEnemyInitial (
 	const intx5& n5_
@@ -86,7 +87,7 @@ intx5 pokerround::variableset2::n5DicePlayerUltimate (
 ) const {
 	return m_n5DicePlayerUltimate;
 }
-void pokerround::variableset2::write (
+void pokerround::variableset2::writeTo (
 	std::ofstream& ofstream_
 ) const {
 	iofunctions::write (m_nScoreEnemyInitial, ofstream_);
@@ -95,8 +96,8 @@ void pokerround::variableset2::write (
 	iofunctions::write (m_nScorePlayerUltimate, ofstream_);
 	iofunctions::write (m_nCashInPotBefore, ofstream_);
 	iofunctions::write (int (m_pokerroundresult), ofstream_);
-	m_n5DiceEnemyUltimate.write (ofstream_);
-	m_n5DicePlayerUltimate.write (ofstream_);
+	write (m_n5DiceEnemyUltimate, ofstream_);
+	write (m_n5DicePlayerUltimate, ofstream_);
 }
 pokerround::variableset2::variableset2 (
 ) {
@@ -110,8 +111,8 @@ pokerround::variableset2::variableset2 (
 	set_nScorePlayerUltimate (iofunctions::nReading (ifstream_));
 	set_nCashInPotBefore (iofunctions::nReading (ifstream_));
 	set_pokerroundresult (pokerroundresult (iofunctions::nReading (ifstream_)));
-	set_n5DiceEnemyUltimate (intx5 (ifstream_));
-	set_n5DicePlayerUltimate (intx5 (ifstream_));
+	set_n5DiceEnemyUltimate (n5Reading (ifstream_));
+	set_n5DicePlayerUltimate (n5Reading (ifstream_));
 }
 void pokerround::variableset2::set_nScoreEnemyInitial (
 	const int& n_

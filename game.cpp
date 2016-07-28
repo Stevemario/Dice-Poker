@@ -773,12 +773,12 @@ void game::save (
 			switch (*m_pokerroundstage_p) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
-					m_prvs1_p->write (ofstream_);
+					m_prvs1_p->writeTo (ofstream_);
 					break;
 				}
 				case pokerroundstage::OKResults: {
-					m_prvs1_p->write (ofstream_);
-					m_prvs2_p->write (ofstream_);
+					m_prvs1_p->writeTo (ofstream_);
+					m_prvs2_p->writeTo (ofstream_);
 					break;
 				}
 			}

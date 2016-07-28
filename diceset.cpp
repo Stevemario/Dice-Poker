@@ -1,96 +1,22 @@
 #include "diceset.h"
-int intx2::operator[] (
-	int nIndex
-) const {
-	int n;
-	switch (nIndex) {
-		default:
-		case 0: n = n0; break;
-		case 1: n = n1; break;
-	}
-	return n;
-}
-int& intx2::operator[] (
-	int nIndex
-) {
-	int* n;
-	switch (nIndex) {
-		default:
-		case 0: n = &n0; break;
-		case 1: n = &n1; break;
-	}
-	return *n;
-}
-int intx3::operator[] (
-	int nIndex
-) const {
-	int n;
-	switch (nIndex) {
-		default:
-		case 0: n = n0; break;
-		case 1: n = n1; break;
-		case 2: n = n2; break;
-	}
-	return n;
-}
-int& intx3::operator[] (
-	int nIndex
-) {
-	int* n;
-	switch (nIndex) {
-		default:
-		case 0: n = &n0; break;
-		case 1: n = &n1; break;
-		case 2: n = &n2; break;
-	}
-	return *n;
-}
-int intx5::operator[] (
-	int nIndex
-) const {
-	int n;
-	switch (nIndex) {
-		default:
-		case 0: n = n0; break;
-		case 1: n = n1; break;
-		case 2: n = n2; break;
-		case 3: n = n3; break;
-		case 4: n = n4; break;
-	}
-	return n;
-}
-int& intx5::operator[] (
-	int nIndex
-) {
-	int* n;
-	switch (nIndex) {
-		default:
-		case 0: n = &n0; break;
-		case 1: n = &n1; break;
-		case 2: n = &n2; break;
-		case 3: n = &n3; break;
-		case 4: n = &n4; break;
-	}
-	return *n;
-}
-void intx5::write (
+void write (
+	const intx5& n5_,
 	std::ofstream& ofstream_
-) const {
+) {
 	for (int i = 0; i < 5; i++) {
-		iofunctions::write (this->operator[](i), ofstream_);
+		iofunctions::write (n5_[i], ofstream_);
 	}
 }
-intx5::intx5 (
-) {
-}
-intx5::intx5 (
+intx5 n5Reading (
 	std::ifstream& ifstream_
 ) {
-	n0 = iofunctions::nReading (ifstream_);
-	n1 = iofunctions::nReading (ifstream_);
-	n2 = iofunctions::nReading (ifstream_);
-	n3 = iofunctions::nReading (ifstream_);
-	n4 = iofunctions::nReading (ifstream_);
+	intx5 temp;
+	temp[0] = iofunctions::nReading (ifstream_);
+	temp[1] = iofunctions::nReading (ifstream_);
+	temp[2] = iofunctions::nReading (ifstream_);
+	temp[3] = iofunctions::nReading (ifstream_);
+	temp[4] = iofunctions::nReading (ifstream_);
+	return temp;
 }
 bool bHasDice (
 	const intx5& n5Dice,

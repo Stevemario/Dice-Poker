@@ -1,51 +1,17 @@
 #ifndef DICESET_H
 #define DICESET_H
 #include "iofunctions.h"
-class intx2 {
-	private: int n0;
-	private: int n1;
-
-	public: int operator[] (
-		int
-	) const;
-	public: int& operator[] (
-		int
-	);
-};
-class intx3 {
-	private: int n0;
-	private: int n1;
-	private: int n2;
-
-	public: int operator[] (
-		int
-	) const;
-	public: int& operator[] (
-		int
-	);
-};
-class intx5 {
-	private: int n0;
-	private: int n1;
-	private: int n2;
-	private: int n3;
-	private: int n4;
-
-	public: int operator[] (
-		int
-	) const;
-	public: int& operator[] (
-		int
-	);
-	public: void write (
-		std::ofstream&
-	) const;
-	public: intx5 (
-	);
-	public: intx5 (
-		std::ifstream&
-	);
-};
+#include <array>
+typedef std::array <int, 2> intx2;
+typedef std::array <int, 3> intx3;
+typedef std::array <int, 5> intx5;
+void write (
+	const intx5&,
+	std::ofstream&
+);
+intx5 n5Reading (
+	std::ifstream&
+);
 class diceset {
 	public: virtual int nScore (
 	) const = 0;

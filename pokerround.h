@@ -19,7 +19,7 @@ namespace pokerround {
 		) const;
 		public: intx5 n5DicePlayerReroll (
 		) const;
-		public: void write (
+		public: void writeTo (
 			std::ofstream&
 		) const;
 		public: variableset1 (
@@ -65,7 +65,7 @@ namespace pokerround {
 		) const;
 		public: intx5 n5DicePlayerUltimate (
 		) const;
-		public: void write (
+		public: void writeTo (
 			std::ofstream&
 		) const;
 		public: variableset2 (
