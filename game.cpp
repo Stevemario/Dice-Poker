@@ -520,12 +520,8 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::OKInputInitial: {
 			int nTemp;
-			std::vector <intx5> n5sDice;
+			std::vector <intx5> n5sDice (4);
 			m_prvs1_p = new pokerround::variableset1;
-			n5sDice.push_back (m_prvs1_p->n5DiceEnemyInitial ());
-			n5sDice.push_back (m_prvs1_p->n5DicePlayerInitial ());
-			n5sDice.push_back (m_prvs1_p->n5DiceEnemyReroll ());
-			n5sDice.push_back (m_prvs1_p->n5DicePlayerReroll ());
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 5; j++) {
 					if (i < 2) {

@@ -30,10 +30,10 @@ pokerround::variableset1::variableset1 (
 pokerround::variableset1::variableset1 (
 	std::ifstream& ifstream_
 ) {
-	set_n5DiceEnemyInitial (n5Reading (ifstream_));
-	set_n5DiceEnemyReroll (n5Reading (ifstream_));
-	set_n5DicePlayerInitial (n5Reading (ifstream_));
-	set_n5DicePlayerReroll (n5Reading (ifstream_));
+	m_n5DiceEnemyInitial = n5Reading (ifstream_);
+	m_n5DiceEnemyReroll = n5Reading (ifstream_);
+	m_n5DicePlayerInitial = n5Reading (ifstream_);
+	m_n5DicePlayerReroll = n5Reading (ifstream_);
 }
 void pokerround::variableset1::set_n5DiceEnemyInitial (
 	const intx5& n5_
