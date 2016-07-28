@@ -639,7 +639,6 @@ void pokerround::prepareStage_OKResults (
 	const variableset2*& prvs2_p_,
 	screenelements& ses_
 ) {
-	const pokerroundresult pokerroundresultConst = prvs2_p_->pokerroundresult_ ();
 	screenelement_label* lblHeaderDiceRolled = new screenelement_label_generic (
 		font_,
 		screenelement_label_enum::HeaderDiceRolled
@@ -744,7 +743,7 @@ void pokerround::prepareStage_OKResults (
 	);
 	screenelement_label* lblHeaderAlertOutcomePlayer = new screenelement_label_header_alert_outcome_player (
 		font_,
-		pokerroundresultConst,
+		(const pokerroundresult) (prvs2_p_->pokerroundresult_ ()),
 		prvs2_p_->nCashInPotBefore (),
 		gamedata_pEnemy
 	);

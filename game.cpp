@@ -84,7 +84,6 @@ void game::prepareScreenElements (
 	if (m_bPrepared_vec_screenelement_p != true) {
 		switch (m_gameaction) {
 			case gameaction::WorkMainMenu: {
-				const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
 				mainmenu::prepare (
 					m_bHaveGameData,
 					m_bShowMainMenuNewGamePageChoice,
@@ -93,7 +92,7 @@ void game::prepareScreenElements (
 					m_sSaveDestination,
 					m_font,
 					m_mainmenupage,
-					gamedata_pPlayerConst,
+					(const gamedata*&) (m_gamedata_pPlayer),
 					m_ses
 				);
 				break;
@@ -101,20 +100,16 @@ void game::prepareScreenElements (
 			case gameaction::Play: {
 				switch (m_gamemode) {
 					case gamemode::PokerDuel: {
-						const gamedata* gamedata_pEnemyConst = m_gamedata_pEnemy;
-						const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
-						const pokerround::variableset1* prvs1_pConst = m_prvs1_p;
-						const pokerround::variableset2* prvs2_pConst = m_prvs2_p;
 						pokerround::prepare (
 							m_nBetAgreed,
 							m_nCashInPot,
 							m_sBetPlayer,
 							m_font,
 							m_pokerroundstage,
-							gamedata_pEnemyConst,
-							gamedata_pPlayerConst,
-							prvs1_pConst,
-							prvs2_pConst,
+							(const gamedata*&) (m_gamedata_pEnemy),
+							(const gamedata*&) (m_gamedata_pPlayer),
+							(const pokerround::variableset1*&) (m_prvs1_p),
+							(const pokerround::variableset2*&) (m_prvs2_p),
 							m_ses
 						);
 						break;
