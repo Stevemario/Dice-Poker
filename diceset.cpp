@@ -1,5 +1,5 @@
 #include "diceset.h"
-int intx2::n (
+int intx2::operator[] (
 	int nIndex
 ) const {
 	int n;
@@ -10,17 +10,18 @@ int intx2::n (
 	}
 	return n;
 }
-void intx2::set_n (
-	int nIndex,
-	int nValue
+int& intx2::operator[] (
+	int nIndex
 ) {
+	int* n;
 	switch (nIndex) {
 		default:
-		case 0: n0 = nValue; break;
-		case 1: n1 = nValue; break;
+		case 0: n = &n0; break;
+		case 1: n = &n1; break;
 	}
+	return *n;
 }
-int intx3::n (
+int intx3::operator[] (
 	int nIndex
 ) const {
 	int n;
@@ -32,18 +33,19 @@ int intx3::n (
 	}
 	return n;
 }
-void intx3::set_n (
-	int nIndex,
-	int nValue
+int& intx3::operator[] (
+	int nIndex
 ) {
+	int* n;
 	switch (nIndex) {
 		default:
-		case 0: n0 = nValue; break;
-		case 1: n1 = nValue; break;
-		case 2: n2 = nValue; break;
+		case 0: n = &n0; break;
+		case 1: n = &n1; break;
+		case 2: n = &n2; break;
 	}
+	return *n;
 }
-int intx5::n (
+int intx5::operator[] (
 	int nIndex
 ) const {
 	int n;
@@ -57,24 +59,25 @@ int intx5::n (
 	}
 	return n;
 }
-void intx5::set_n (
-	int nIndex,
-	int nValue
+int& intx5::operator[] (
+	int nIndex
 ) {
+	int* n;
 	switch (nIndex) {
 		default:
-		case 0: n0 = nValue; break;
-		case 1: n1 = nValue; break;
-		case 2: n2 = nValue; break;
-		case 3: n3 = nValue; break;
-		case 4: n4 = nValue; break;
+		case 0: n = &n0; break;
+		case 1: n = &n1; break;
+		case 2: n = &n2; break;
+		case 3: n = &n3; break;
+		case 4: n = &n4; break;
 	}
+	return *n;
 }
 void intx5::write (
 	std::ofstream& ofstream_
 ) const {
 	for (int i = 0; i < 5; i++) {
-		iofunctions::write (n (i), ofstream_);
+		iofunctions::write (this->operator[](i), ofstream_);
 	}
 }
 intx5::intx5 (
@@ -83,11 +86,11 @@ intx5::intx5 (
 intx5::intx5 (
 	std::ifstream& ifstream_
 ) {
-	int nTemp;
-	for (int i = 0; i < 5; i++) {
-		nTemp = iofunctions::nReading (ifstream_);
-		set_n (i, nTemp);
-	}
+	n0 = iofunctions::nReading (ifstream_);
+	n1 = iofunctions::nReading (ifstream_);
+	n2 = iofunctions::nReading (ifstream_);
+	n3 = iofunctions::nReading (ifstream_);
+	n4 = iofunctions::nReading (ifstream_);
 }
 bool bHasDice (
 	const intx5& n5Dice,
@@ -95,7 +98,7 @@ bool bHasDice (
 ) {
 	bool bHasDice = false;
 	for (int i = 0; i < 5 && bHasDice != true; i++) {
-		if (n5Dice.n (i) == nDiceValue)
+		if (n5Dice[i] == nDiceValue)
 				bHasDice = true;
 	}
 	return bHasDice;
@@ -130,8 +133,8 @@ diceset* diceset_p_ (
 	diceset* diceset_p_;
 	int nDiceValid = 0;
 	for (int i = 0; i < 5; i++) {
-		if (1 <= n5Dice.n (i))
-			if (n5Dice.n (i) <= 6)
+		if (1 <= n5Dice[i])
+			if (n5Dice[i] <= 6)
 				nDiceValid++;
 	}
 	if (nDiceValid != 5) {
@@ -139,21 +142,21 @@ diceset* diceset_p_ (
 	} else {
 		int cSame = 0;
 		for (int i = 0; i < 5; i++) {
-			if (n5Dice.n (0) == n5Dice.n (i))
+			if (n5Dice[0] == n5Dice[i])
 				cSame++;
 		}
 		switch (cSame) {
 			case 5: {
-				diceset_p_ = new diceset_fiveofakind (n5Dice.n (0));
+				diceset_p_ = new diceset_fiveofakind (n5Dice[0]);
 				break;
 			}
 			case 4: {
-				int nDiceAppearingTimes4 = n5Dice.n (0);
+				int nDiceAppearingTimes4 = n5Dice[0];
 				int nDiceAppearingTimes1;
 				bool bFoundDice = false;
 				for (int i = 1; i < 5 && bFoundDice != true; i++) {
-					if (n5Dice.n (0) != n5Dice.n (i)) {
-						nDiceAppearingTimes1 = n5Dice.n (i);
+					if (n5Dice[0] != n5Dice[i]) {
+						nDiceAppearingTimes1 = n5Dice[i];
 						bFoundDice = true;
 					}
 				}
@@ -165,83 +168,83 @@ diceset* diceset_p_ (
 				bool bSet_nDiceNotConforming[2] = {false, false};
 				bool bFoundDice = false;
 				for (int i = 1; i < 5 && bFoundDice != true; i++) {
-					if (n5Dice.n (0) != n5Dice.n (i)) {
+					if (n5Dice[0] != n5Dice[i]) {
 						if (bSet_nDiceNotConforming[0] != true) {
-							n2DiceNotConforming.set_n(0, n5Dice.n (i));
+							n2DiceNotConforming[0] = n5Dice[i];
 							bSet_nDiceNotConforming[0] = true;
 						} else {
-							n2DiceNotConforming.set_n(1, n5Dice.n (i));
+							n2DiceNotConforming[1] = n5Dice[i];
 							bSet_nDiceNotConforming[1] = true;
 							bFoundDice = true;
 						}
 					}
 				}
-				if (n2DiceNotConforming.n (0) == n2DiceNotConforming.n (1))
-					diceset_p_ = new diceset_fullhouse (n5Dice.n (0), n2DiceNotConforming.n (0));
+				if (n2DiceNotConforming[0] == n2DiceNotConforming[1])
+					diceset_p_ = new diceset_fullhouse (n5Dice[0], n2DiceNotConforming[0]);
 				else
-					diceset_p_ = new diceset_threeofakind (n5Dice.n (0), n2DiceNotConforming);
+					diceset_p_ = new diceset_threeofakind (n5Dice[0], n2DiceNotConforming);
 				break;
 			}
 			case 2: {
 				cSame = 0;
 				for (int i = 0; i < 5; i++) {
-					if (n5Dice.n (1) == n5Dice.n (i))
+					if (n5Dice[1] == n5Dice[i])
 						cSame++;
 				}
 				switch (cSame) {
 					case 3: {
-						diceset_p_ = new diceset_fullhouse (n5Dice.n (1), n5Dice.n (0));
+						diceset_p_ = new diceset_fullhouse (n5Dice[1], n5Dice[0]);
 						break;
 					}
 					case 2: {
-						if (n5Dice.n (0) == n5Dice.n (1)) {
+						if (n5Dice[0] == n5Dice[1]) {
 							cSame = 0;
 							for (int i = 0; i < 5; i++) {
-								if (n5Dice.n (2) == n5Dice.n (i))
+								if (n5Dice[2] == n5Dice[i])
 									cSame++;
 							}
 							switch (cSame) {
 								case 3: {
-									diceset_p_ = new diceset_fullhouse (n5Dice.n (2), n5Dice.n (0));
+									diceset_p_ = new diceset_fullhouse (n5Dice[2], n5Dice[0]);
 									break;
 								}
 								case 2: {
 									intx2 n2DiceAppearingTimes2;
-									n2DiceAppearingTimes2.set_n (0, n5Dice.n (0));
-									n2DiceAppearingTimes2.set_n (1, n5Dice.n (2));
+									n2DiceAppearingTimes2[0] = n5Dice[0];
+									n2DiceAppearingTimes2[1] = n5Dice[2];
 									int nDiceNotConforming;
-									if (n5Dice.n (2) == n5Dice.n (3))
-										nDiceNotConforming = n5Dice.n (4);
+									if (n5Dice[2] == n5Dice[3])
+										nDiceNotConforming = n5Dice[4];
 									else
-										nDiceNotConforming = n5Dice.n (3);
+										nDiceNotConforming = n5Dice[3];
 									diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, nDiceNotConforming);
 									break;
 								}
 								case 1: {
-									if (n5Dice.n (3) == n5Dice.n (4)) {
+									if (n5Dice[3] == n5Dice[4]) {
 										intx2 n2DiceAppearingTimes2;
-										n2DiceAppearingTimes2.set_n (0, n5Dice.n (0));
-										n2DiceAppearingTimes2.set_n (1, n5Dice.n (3));
-										diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, n5Dice.n (2));
+										n2DiceAppearingTimes2[0] = n5Dice[0];
+										n2DiceAppearingTimes2[1] = n5Dice[3];
+										diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, n5Dice[2]);
 									} else {
 										intx3 n3DiceAppearingTimes1;
-										n3DiceAppearingTimes1.set_n (0, n5Dice.n (2));
-										n3DiceAppearingTimes1.set_n (1, n5Dice.n (3));
-										n3DiceAppearingTimes1.set_n (2, n5Dice.n (4));
-										diceset_p_ = new diceset_onepair (n5Dice.n (0), n3DiceAppearingTimes1);
+										n3DiceAppearingTimes1[0] = n5Dice[2];
+										n3DiceAppearingTimes1[1] = n5Dice[3];
+										n3DiceAppearingTimes1[2] = n5Dice[4];
+										diceset_p_ = new diceset_onepair (n5Dice[0], n3DiceAppearingTimes1);
 									}
 									break;
 								}
 							}
 						} else {
 							intx2 n2DiceAppearingTimes2;
-							n2DiceAppearingTimes2.set_n (0, n5Dice.n (0));
-							n2DiceAppearingTimes2.set_n (1, n5Dice.n (1));
+							n2DiceAppearingTimes2[0] = n5Dice[0];
+							n2DiceAppearingTimes2[1] = n5Dice[1];
 							int nDiceAppearingTimes1;
 							for(int i = 2; i < 5; i++) {
-								if(n5Dice.n (0) != n5Dice.n (i))
-									if(n5Dice.n (1) != n5Dice.n (i))
-										nDiceAppearingTimes1 = n5Dice.n (i);
+								if(n5Dice[0] != n5Dice[i])
+									if(n5Dice[1] != n5Dice[i])
+										nDiceAppearingTimes1 = n5Dice[i];
 							}
 							diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, nDiceAppearingTimes1);
 						}
@@ -250,44 +253,44 @@ diceset* diceset_p_ (
 					case 1: {
 						cSame = 0;
 						for (int i = 0; i < 5; i++) {
-							if (n5Dice.n (2) == n5Dice.n (i))
+							if (n5Dice[2] == n5Dice[i])
 								cSame++;
 						}
 						switch(cSame) {
 							case 2: {
-								if (n5Dice.n (0) == n5Dice.n (2)) {
-									if (n5Dice.n (3) == n5Dice.n (4)) {
+								if (n5Dice[0] == n5Dice[2]) {
+									if (n5Dice[3] == n5Dice[4]) {
 										intx2 n2DiceAppearingTimes2;
-										n2DiceAppearingTimes2.set_n (0, n5Dice.n (0));
-										n2DiceAppearingTimes2.set_n (1, n5Dice.n (3));
-										int nDiceAppearingTimes1 = n5Dice.n (1);
+										n2DiceAppearingTimes2[0] = n5Dice[0];
+										n2DiceAppearingTimes2[1] = n5Dice[3];
+										int nDiceAppearingTimes1 = n5Dice[1];
 										diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, nDiceAppearingTimes1);
 									} else {
-										int nDiceAppearingTimes2 = n5Dice.n (0);
+										int nDiceAppearingTimes2 = n5Dice[0];
 										intx3 n3DiceAppearingTimes1;
-										n3DiceAppearingTimes1.set_n (0, n5Dice.n (1));
-										n3DiceAppearingTimes1.set_n (1, n5Dice.n (3));
-										n3DiceAppearingTimes1.set_n (2, n5Dice.n (4));
+										n3DiceAppearingTimes1[0] = n5Dice[1];
+										n3DiceAppearingTimes1[1] = n5Dice[3];
+										n3DiceAppearingTimes1[2] = n5Dice[4];
 										diceset_p_ = new diceset_onepair (nDiceAppearingTimes2, n3DiceAppearingTimes1);
 									}
 								} else {
 									intx2 n2DiceAppearingTimes2;
-									n2DiceAppearingTimes2.set_n (0, n5Dice.n (0));
-									n2DiceAppearingTimes2.set_n (1, n5Dice.n (2));
-									int nDiceAppearingTimes1 = n5Dice.n (1);
+									n2DiceAppearingTimes2[0] = n5Dice[0];
+									n2DiceAppearingTimes2[1] = n5Dice[2];
+									int nDiceAppearingTimes1 = n5Dice[1];
 									diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, nDiceAppearingTimes1);
 								}
 								break;
 							}
 							case 1: {
-								int nDiceAppearingTimes2 = n5Dice.n (0);
+								int nDiceAppearingTimes2 = n5Dice[0];
 								intx3 n3DiceAppearingTimes1;
-								n3DiceAppearingTimes1.set_n (0, n5Dice.n (1));
-								n3DiceAppearingTimes1.set_n (1, n5Dice.n (2));
-								if (n5Dice.n (0) == n5Dice.n (3))
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (4));
+								n3DiceAppearingTimes1[0] = n5Dice[1];
+								n3DiceAppearingTimes1[1] = n5Dice[2];
+								if (n5Dice[0] == n5Dice[3])
+									n3DiceAppearingTimes1[2] = n5Dice[4];
 								else
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (3));
+									n3DiceAppearingTimes1[2] = n5Dice[3];
 								diceset_p_ = new diceset_onepair (nDiceAppearingTimes2, n3DiceAppearingTimes1);
 								break;
 							}
@@ -300,68 +303,68 @@ diceset* diceset_p_ (
 			case 1: {
 				cSame = 0;
 				for (int i = 0; i < 5; i++) {
-					if (n5Dice.n (1) == n5Dice.n (i))
+					if (n5Dice[1] == n5Dice[i])
 						cSame++;
 				}
 				switch (cSame) {
 					case 4: {
-						diceset_p_ = new diceset_fourofakind (n5Dice.n (1), n5Dice.n (0));
+						diceset_p_ = new diceset_fourofakind (n5Dice[1], n5Dice[0]);
 						break;
 					}
 					case 3: {
 						intx2 n2DiceAppearingTimes1;
-						n2DiceAppearingTimes1.set_n (0, n5Dice.n (0));
+						n2DiceAppearingTimes1[0] = n5Dice[0];
 						bool bFoundDice = false;
 						for (int i = 2; i < 5 && bFoundDice != true; i++) {
-							if (n5Dice.n (1) != n5Dice.n (i)) {
-								n2DiceAppearingTimes1.set_n (1, n5Dice.n (i));
+							if (n5Dice[1] != n5Dice[i]) {
+								n2DiceAppearingTimes1[1] = n5Dice[i];
 								bFoundDice = true;
 							}
 						}
-						diceset_p_ = new diceset_threeofakind (n5Dice.n (1), n2DiceAppearingTimes1);
+						diceset_p_ = new diceset_threeofakind (n5Dice[1], n2DiceAppearingTimes1);
 						break;
 					}
 					case 2: {
 						cSame = 0;
 						for (int i = 0; i < 5; i++) {
-							if (n5Dice.n (2) == n5Dice.n (i))
+							if (n5Dice[2] == n5Dice[i])
 								cSame++;
 						}
 						switch (cSame) {
 							case 2: {
-								if (n5Dice.n (1) == n5Dice.n (2)) {
-									if (n5Dice.n (3) == n5Dice.n (4)) {
+								if (n5Dice[1] == n5Dice[2]) {
+									if (n5Dice[3] == n5Dice[4]) {
 										intx2 n2DiceAppearingTimes2;
-										int nDiceAppearingTimes1 = n5Dice.n (0);
-										n2DiceAppearingTimes2.set_n (0, n5Dice.n (1));
-										n2DiceAppearingTimes2.set_n (1, n5Dice.n (3));
+										int nDiceAppearingTimes1 = n5Dice[0];
+										n2DiceAppearingTimes2[0] = n5Dice[1];
+										n2DiceAppearingTimes2[1] = n5Dice[3];
 										diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, nDiceAppearingTimes1);
 									} else {
 										intx3 n3DiceAppearingTimes1;
-										int nDiceAppearingTimes2 = n5Dice.n (1);
-										n3DiceAppearingTimes1.set_n (0, n5Dice.n (0));
-										n3DiceAppearingTimes1.set_n (1, n5Dice.n (3));
-										n3DiceAppearingTimes1.set_n (2, n5Dice.n (4));
+										int nDiceAppearingTimes2 = n5Dice[1];
+										n3DiceAppearingTimes1[0] = n5Dice[0];
+										n3DiceAppearingTimes1[1] = n5Dice[3];
+										n3DiceAppearingTimes1[2] = n5Dice[4];
 										diceset_p_ = new diceset_onepair (nDiceAppearingTimes2, n3DiceAppearingTimes1);
 									}
 								} else {
 									intx2 n2DiceAppearingTimes2;
-									int nDiceAppearingTimes1 = n5Dice.n (0);
-									n2DiceAppearingTimes2.set_n (0, n5Dice.n (1));
-									n2DiceAppearingTimes2.set_n (1, n5Dice.n (2));
+									int nDiceAppearingTimes1 = n5Dice[0];
+									n2DiceAppearingTimes2[0] = n5Dice[1];
+									n2DiceAppearingTimes2[1] = n5Dice[2];
 									diceset_p_ = new diceset_twopair (n2DiceAppearingTimes2, nDiceAppearingTimes1);
 								}
 								break;
 							}
 							case 1: {
-								int nDiceAppearingTimes2 = n5Dice.n (1);
+								int nDiceAppearingTimes2 = n5Dice[1];
 								intx3 n3DiceAppearingTimes1;
-								n3DiceAppearingTimes1.set_n (0, n5Dice.n (0));
-								n3DiceAppearingTimes1.set_n (1, n5Dice.n (2));
-								if (n5Dice.n (1) == n5Dice.n (3)) {
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (4));
+								n3DiceAppearingTimes1[0] = n5Dice[0];
+								n3DiceAppearingTimes1[1] = n5Dice[2];
+								if (n5Dice[1] == n5Dice[3]) {
+									n3DiceAppearingTimes1[2] = n5Dice[4];
 								} else {
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (3));
+									n3DiceAppearingTimes1[2] = n5Dice[3];
 								}
 								diceset_p_ = new diceset_onepair (nDiceAppearingTimes2, n3DiceAppearingTimes1);
 								break;
@@ -372,35 +375,35 @@ diceset* diceset_p_ (
 					case 1: {
 						cSame = 0;
 						for (int i = 0; i < 5; i++) {
-							if (n5Dice.n (2) == n5Dice.n (i))
+							if (n5Dice[2] == n5Dice[i])
 								cSame++;
 						}
 						switch (cSame) {
 							case 3: {
 								intx2 n2DiceAppearingTimes1;
-								n2DiceAppearingTimes1.set_n (0, n5Dice.n (0));
-								n2DiceAppearingTimes1.set_n (1, n5Dice.n (1));
-								diceset_p_ = new diceset_threeofakind (n5Dice.n (2), n2DiceAppearingTimes1);
+								n2DiceAppearingTimes1[0] = n5Dice[0];
+								n2DiceAppearingTimes1[1] = n5Dice[1];
+								diceset_p_ = new diceset_threeofakind (n5Dice[2], n2DiceAppearingTimes1);
 								break;
 							}
 							case 2: {
 								intx3 n3DiceAppearingTimes1;
-								n3DiceAppearingTimes1.set_n (0, n5Dice.n (0));
-								n3DiceAppearingTimes1.set_n (1, n5Dice.n (1));
-								if (n5Dice.n (2) == n5Dice.n (3))
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (4));
+								n3DiceAppearingTimes1[0] = n5Dice[0];
+								n3DiceAppearingTimes1[1] = n5Dice[1];
+								if (n5Dice[2] == n5Dice[3])
+									n3DiceAppearingTimes1[2] = n5Dice[4];
 								else
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (3));
-								diceset_p_ = new diceset_onepair (n5Dice.n (2), n3DiceAppearingTimes1);
+									n3DiceAppearingTimes1[2] = n5Dice[3];
+								diceset_p_ = new diceset_onepair (n5Dice[2], n3DiceAppearingTimes1);
 								break;
 							}
 							case 1: {
-								if (n5Dice.n (3) == n5Dice.n (4)) {
+								if (n5Dice[3] == n5Dice[4]) {
 									intx3 n3DiceAppearingTimes1;
-									n3DiceAppearingTimes1.set_n (0, n5Dice.n (0));
-									n3DiceAppearingTimes1.set_n (1, n5Dice.n (1));
-									n3DiceAppearingTimes1.set_n (2, n5Dice.n (2));
-									diceset_p_ = new diceset_onepair (n5Dice.n (3), n3DiceAppearingTimes1);
+									n3DiceAppearingTimes1[0] = n5Dice[0];
+									n3DiceAppearingTimes1[1] = n5Dice[1];
+									n3DiceAppearingTimes1[2] = n5Dice[2];
+									diceset_p_ = new diceset_onepair (n5Dice[3], n3DiceAppearingTimes1);
 								} else {
 									bool bSetIsStraight;
 									int nDiceMissing;
@@ -512,12 +515,12 @@ diceset_threeofakind::diceset_threeofakind (
 	const intx2& n2DiceAppearingTimes1
 ) {
 	m_nDiceAppearingTimes3 = nDiceAppearingTimes3;
-	if (n2DiceAppearingTimes1.n (0) < n2DiceAppearingTimes1.n (1)) {
-		m_n2DiceAppearingTimes1.set_n (0, n2DiceAppearingTimes1.n (1));
-		m_n2DiceAppearingTimes1.set_n (1, n2DiceAppearingTimes1.n (0));
+	if (n2DiceAppearingTimes1[0] < n2DiceAppearingTimes1[1]) {
+		m_n2DiceAppearingTimes1[0] = n2DiceAppearingTimes1[1];
+		m_n2DiceAppearingTimes1[1] = n2DiceAppearingTimes1[0];
 	} else {
-		m_n2DiceAppearingTimes1.set_n (0, n2DiceAppearingTimes1.n (0));
-		m_n2DiceAppearingTimes1.set_n (1, n2DiceAppearingTimes1.n (1));
+		m_n2DiceAppearingTimes1[0] = n2DiceAppearingTimes1[0];
+		m_n2DiceAppearingTimes1[1] = n2DiceAppearingTimes1[1];
 	}
 }
 int diceset_threeofakind::nScore (
@@ -527,14 +530,14 @@ int diceset_threeofakind::nScore (
 	int nDice0 = m_nDiceAppearingTimes3;
 	int nDice1;
 	int nDice2;
-	int nDice1End = m_n2DiceAppearingTimes1.n (0);
+	int nDice1End = m_n2DiceAppearingTimes1[0];
 	int nDice2End;
 	nSetsBeatOfSameClass += 10 * (m_nDiceAppearingTimes3 - 1);
 	for (nDice1 = 2; nDice1 <= nDice1End; nDice1++) {
-		if (nDice1 < m_n2DiceAppearingTimes1.n (0))
+		if (nDice1 < m_n2DiceAppearingTimes1[0])
 			nDice2End = nDice1 - 1;
 		else
-			nDice2End = m_n2DiceAppearingTimes1.n (1) - 1;
+			nDice2End = m_n2DiceAppearingTimes1[1] - 1;
 		for (nDice2 = 1; nDice2 <= nDice2End; nDice2++) {
 			if (nDice1 != nDice0)
 				if (nDice2 != nDice0)
@@ -548,12 +551,12 @@ diceset_twopair::diceset_twopair (
 	const intx2& n2DiceAppearingTimes2,
 	int nDiceAppearingTimes1
 ) {
-	if (n2DiceAppearingTimes2.n (0) < n2DiceAppearingTimes2.n (1)) {
-		m_n2DiceAppearingTimes2.set_n (0, n2DiceAppearingTimes2.n (1));
-		m_n2DiceAppearingTimes2.set_n (1, n2DiceAppearingTimes2.n (0));
+	if (n2DiceAppearingTimes2[0] < n2DiceAppearingTimes2[1]) {
+		m_n2DiceAppearingTimes2[0] = n2DiceAppearingTimes2[1];
+		m_n2DiceAppearingTimes2[1] = n2DiceAppearingTimes2[0];
 	} else {
-		m_n2DiceAppearingTimes2.set_n (0, n2DiceAppearingTimes2.n (0));
-		m_n2DiceAppearingTimes2.set_n (1, n2DiceAppearingTimes2.n (1));
+		m_n2DiceAppearingTimes2[0] = n2DiceAppearingTimes2[0];
+		m_n2DiceAppearingTimes2[1] = n2DiceAppearingTimes2[1];
 	}
 	m_nDiceAppearingTimes1 = nDiceAppearingTimes1;
 }
@@ -564,12 +567,12 @@ int diceset_twopair::nScore (
 	int nDice0;
 	int nDice1;
 	int nDice2;
-	int nDice0End = m_n2DiceAppearingTimes2.n (0);
+	int nDice0End = m_n2DiceAppearingTimes2[0];
 	int nDice1End;
 	int nDice2End = 6;
 	for (nDice0 = 2; nDice0 <= nDice0End; nDice0++) {
 		if (nDice0 == nDice0End)
-			nDice1End = m_n2DiceAppearingTimes2.n (1);
+			nDice1End = m_n2DiceAppearingTimes2[1];
 		else
 			nDice1End = nDice0 - 1;
 		for (nDice1 = 1; nDice1 <= nDice1End; nDice1++) {
@@ -591,36 +594,36 @@ diceset_onepair::diceset_onepair (
 	const intx3& n3DiceAppearingTimes1
 ) {
 	m_nDiceAppearingTimes2 = nDiceAppearingTimes2;
-	if (n3DiceAppearingTimes1.n (0) < n3DiceAppearingTimes1.n (1)) {
-		if (n3DiceAppearingTimes1.n (0) < n3DiceAppearingTimes1.n (2)) {
-			if (n3DiceAppearingTimes1.n (1) < n3DiceAppearingTimes1.n (2)) {
-				m_n3DiceAppearingTimes1.set_n (0, n3DiceAppearingTimes1.n (2));
-				m_n3DiceAppearingTimes1.set_n (1, n3DiceAppearingTimes1.n (1));
-				m_n3DiceAppearingTimes1.set_n (2, n3DiceAppearingTimes1.n (0));
+	if (n3DiceAppearingTimes1[0] < n3DiceAppearingTimes1[1]) {
+		if (n3DiceAppearingTimes1[0] < n3DiceAppearingTimes1[2]) {
+			if (n3DiceAppearingTimes1[1] < n3DiceAppearingTimes1[2]) {
+				m_n3DiceAppearingTimes1[0] = n3DiceAppearingTimes1[2];
+				m_n3DiceAppearingTimes1[1] = n3DiceAppearingTimes1[1];
+				m_n3DiceAppearingTimes1[2] = n3DiceAppearingTimes1[0];
 			} else {
-				m_n3DiceAppearingTimes1.set_n (0, n3DiceAppearingTimes1.n (1));
-				m_n3DiceAppearingTimes1.set_n (1, n3DiceAppearingTimes1.n (2));
-				m_n3DiceAppearingTimes1.set_n (2, n3DiceAppearingTimes1.n (0));
+				m_n3DiceAppearingTimes1[0] = n3DiceAppearingTimes1[1];
+				m_n3DiceAppearingTimes1[1] = n3DiceAppearingTimes1[2];
+				m_n3DiceAppearingTimes1[2] = n3DiceAppearingTimes1[0];
 			}
 		} else {
-			m_n3DiceAppearingTimes1.set_n (0, n3DiceAppearingTimes1.n (1));
-			m_n3DiceAppearingTimes1.set_n (1, n3DiceAppearingTimes1.n (0));
-			m_n3DiceAppearingTimes1.set_n (2, n3DiceAppearingTimes1.n (2));
+			m_n3DiceAppearingTimes1[0] = n3DiceAppearingTimes1[1];
+			m_n3DiceAppearingTimes1[1] = n3DiceAppearingTimes1[0];
+			m_n3DiceAppearingTimes1[2] = n3DiceAppearingTimes1[2];
 		}
 	} else {
-		if (n3DiceAppearingTimes1.n (0) < n3DiceAppearingTimes1.n (2)) {
-			m_n3DiceAppearingTimes1.set_n (0, n3DiceAppearingTimes1.n (2));
-			m_n3DiceAppearingTimes1.set_n (1, n3DiceAppearingTimes1.n (0));
-			m_n3DiceAppearingTimes1.set_n (2, n3DiceAppearingTimes1.n (1));
+		if (n3DiceAppearingTimes1[0] < n3DiceAppearingTimes1[2]) {
+			m_n3DiceAppearingTimes1[0] = n3DiceAppearingTimes1[2];
+			m_n3DiceAppearingTimes1[1] = n3DiceAppearingTimes1[0];
+			m_n3DiceAppearingTimes1[2] = n3DiceAppearingTimes1[1];
 		} else {
-			if (n3DiceAppearingTimes1.n (1) < n3DiceAppearingTimes1.n (2)) {
-				m_n3DiceAppearingTimes1.set_n (0, n3DiceAppearingTimes1.n (0));
-				m_n3DiceAppearingTimes1.set_n (1, n3DiceAppearingTimes1.n (2));
-				m_n3DiceAppearingTimes1.set_n (2, n3DiceAppearingTimes1.n (1));
+			if (n3DiceAppearingTimes1[1] < n3DiceAppearingTimes1[2]) {
+				m_n3DiceAppearingTimes1[0] = n3DiceAppearingTimes1[0];
+				m_n3DiceAppearingTimes1[1] = n3DiceAppearingTimes1[2];
+				m_n3DiceAppearingTimes1[2] = n3DiceAppearingTimes1[1];
 			} else {
-				m_n3DiceAppearingTimes1.set_n (0, n3DiceAppearingTimes1.n (0));
-				m_n3DiceAppearingTimes1.set_n (1, n3DiceAppearingTimes1.n (1));
-				m_n3DiceAppearingTimes1.set_n (2, n3DiceAppearingTimes1.n (2));
+				m_n3DiceAppearingTimes1[0] = n3DiceAppearingTimes1[0];
+				m_n3DiceAppearingTimes1[1] = n3DiceAppearingTimes1[1];
+				m_n3DiceAppearingTimes1[2] = n3DiceAppearingTimes1[2];
 			}
 		}
 	}
@@ -639,7 +642,7 @@ int diceset_onepair::nScore (
 	int nDice3End;
 	for (nDice0 = 1; nDice0 <= nDice0End; nDice0++) {
 		if (nDice0 == nDice0End)
-			nDice1End = m_n3DiceAppearingTimes1.n (0);
+			nDice1End = m_n3DiceAppearingTimes1[0];
 		else
 			nDice1End = 6;
 		for (nDice1 = 3; nDice1 <= nDice1End; nDice1++) {
@@ -648,7 +651,7 @@ int diceset_onepair::nScore (
 					nDice0 == nDice0End &&
 					nDice1 == nDice1End
 				)
-					nDice2End = m_n3DiceAppearingTimes1.n (1);
+					nDice2End = m_n3DiceAppearingTimes1[1];
 				else
 					nDice2End = nDice1 - 1;
 				for (nDice2 = 1; nDice2 <= nDice2End; nDice2++) {
@@ -658,7 +661,7 @@ int diceset_onepair::nScore (
 							nDice1 == nDice1End &&
 							nDice2 == nDice2End
 						)
-							nDice3End = m_n3DiceAppearingTimes1.n (2) - 1;
+							nDice3End = m_n3DiceAppearingTimes1[2] - 1;
 						else
 							nDice3End = nDice2 - 1;
 						for (nDice3 = 1; nDice3 <= nDice3End; nDice3++) {

@@ -535,7 +535,7 @@ void game::handle (
 					} else {
 						nTemp = false;
 					}
-					n5sDice[i].set_n (j, nTemp);
+					n5sDice[i][j] = nTemp;
 				}
 			}
 			m_prvs1_p->set_n5DiceEnemyInitial (n5sDice[0]);
@@ -548,10 +548,10 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::DicePlayer0: {
 			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll.n (0) == int (true)) {
-				n5DicePlayerReroll.set_n (0, int (false));
+			if (n5DicePlayerReroll[0] == int (true)) {
+				n5DicePlayerReroll[0] = int (false);
 			} else {
-				n5DicePlayerReroll.set_n (0, int (true));
+				n5DicePlayerReroll[0] = int (true);
 			}
 			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
@@ -559,10 +559,10 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::DicePlayer1: {
 			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll.n (1) == int (true)) {
-				n5DicePlayerReroll.set_n (1, int (false));
+			if (n5DicePlayerReroll[1] == int (true)) {
+				n5DicePlayerReroll[1] = int (false);
 			} else {
-				n5DicePlayerReroll.set_n (1, int (true));
+				n5DicePlayerReroll[1] = int (true);
 			}
 			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
@@ -570,10 +570,10 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::DicePlayer2: {
 			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll.n (2) == int (true)) {
-				n5DicePlayerReroll.set_n (2, int (false));
+			if (n5DicePlayerReroll[2] == int (true)) {
+				n5DicePlayerReroll[2] = int (false);
 			} else {
-				n5DicePlayerReroll.set_n (2, int (true));
+				n5DicePlayerReroll[2] = int (true);
 			}
 			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
@@ -581,10 +581,10 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::DicePlayer3: {
 			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll.n (3) == int (true)) {
-				n5DicePlayerReroll.set_n (3, int (false));
+			if (n5DicePlayerReroll[3] == int (true)) {
+				n5DicePlayerReroll[3] = int (false);
 			} else {
-				n5DicePlayerReroll.set_n (3, int (true));
+				n5DicePlayerReroll[3] = int (true);
 			}
 			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
@@ -592,10 +592,10 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::DicePlayer4: {
 			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll.n (4) == int (true)) {
-				n5DicePlayerReroll.set_n (4, int (false));
+			if (n5DicePlayerReroll[4] == int (true)) {
+				n5DicePlayerReroll[4] = int (false);
 			} else {
-				n5DicePlayerReroll.set_n (4, int (true));
+				n5DicePlayerReroll[4] = int (true);
 			}
 			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
@@ -631,15 +631,15 @@ void game::handle (
 			diceset* dsPlayerUltimate;
 			for (int i = 0; i < 2; i++) {
 				for (int j = 0; j < 5; j++) {
-					bWantToReroll = n5sDice[i].n (j) == int (true);
+					bWantToReroll = n5sDice[i][j] == int (true);
 					if (bWantToReroll) {
 						nTemp = rand ();
 						nTemp %= 6;
 						nTemp += 1;
 					} else {
-						nTemp = n5sDice[i+2].n (j);
+						nTemp = n5sDice[i+2][j];
 					}
-					n5sDice[i+4].set_n (j, nTemp);
+					n5sDice[i+4][j] = nTemp;
 				}
 			}
 			m_prvs2_p->set_n5DiceEnemyUltimate (n5sDice[4]);

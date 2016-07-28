@@ -5,11 +5,10 @@ class intx2 {
 	private: int n0;
 	private: int n1;
 
-	public: int n (
+	public: int operator[] (
 		int
 	) const;
-	public: void set_n (
-		int,
+	public: int& operator[] (
 		int
 	);
 };
@@ -18,11 +17,10 @@ class intx3 {
 	private: int n1;
 	private: int n2;
 
-	public: int n (
+	public: int operator[] (
 		int
 	) const;
-	public: void set_n (
-		int,
+	public: int& operator[] (
 		int
 	);
 };
@@ -33,11 +31,10 @@ class intx5 {
 	private: int n3;
 	private: int n4;
 
-	public: int n (
+	public: int operator[] (
 		int
 	) const;
-	public: void set_n (
-		int,
+	public: int& operator[] (
 		int
 	);
 	public: void write (

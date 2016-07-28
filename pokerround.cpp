@@ -360,61 +360,61 @@ void pokerround::prepareStage_SubmitInputSecond (
 	);
 	screenelement_button* btnDiceEnemy0 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (0),
+		n5EnemyInitial[0],
 		true,
 		0
 	);
 	screenelement_button* btnDiceEnemy1 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (1),
+		n5EnemyInitial[1],
 		true,
 		1
 	);
 	screenelement_button* btnDiceEnemy2 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (2),
+		n5EnemyInitial[2],
 		true,
 		2
 	);
 	screenelement_button* btnDiceEnemy3 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (3),
+		n5EnemyInitial[3],
 		true,
 		3
 	);
 	screenelement_button* btnDiceEnemy4 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (4),
+		n5EnemyInitial[4],
 		true,
 		4
 	);
 	screenelement_button* btnDicePlayer0 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (0),
+		n5PlayerInitial[0],
 		false,
 		0
 	);
 	screenelement_button* btnDicePlayer1 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (1),
+		n5PlayerInitial[1],
 		false,
 		1
 	);
 	screenelement_button* btnDicePlayer2 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (2),
+		n5PlayerInitial[2],
 		false,
 		2
 	);
 	screenelement_button* btnDicePlayer3 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (3),
+		n5PlayerInitial[3],
 		false,
 		3
 	);
 	screenelement_button* btnDicePlayer4 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (4),
+		n5PlayerInitial[4],
 		false,
 		4
 	);
@@ -519,35 +519,35 @@ void pokerround::prepareStage_SubmitInputSecond (
 	ses_.push_back (btnSubmitInputSecond);
 	ses_.push_back (btnBetAmount);
 	ses_.push_back (btnDiceEnemy4);
-	if (n5PlayerReroll.n (4) == int (true)) {
+	if (n5PlayerReroll[4] == int (true)) {
 		ses_.push_back (rectDiceSelected4);
 	} else {
 		delete rectDiceSelected4;
 	}
 	ses_.push_back (btnDicePlayer4);
 	ses_.push_back (btnDiceEnemy3);
-	if (n5PlayerReroll.n (3) == int (true)) {
+	if (n5PlayerReroll[3] == int (true)) {
 		ses_.push_back (rectDiceSelected3);
 	} else {
 		delete rectDiceSelected3;
 	}
 	ses_.push_back (btnDicePlayer3);
 	ses_.push_back (btnDiceEnemy2);
-	if (n5PlayerReroll.n (2) == int (true)) {
+	if (n5PlayerReroll[2] == int (true)) {
 		ses_.push_back (rectDiceSelected2);
 	} else {
 		delete rectDiceSelected2;
 	}
 	ses_.push_back (btnDicePlayer2);
 	ses_.push_back (btnDiceEnemy1);
-	if (n5PlayerReroll.n (1) == int (true)) {
+	if (n5PlayerReroll[1] == int (true)) {
 		ses_.push_back (rectDiceSelected1);
 	} else {
 		delete rectDiceSelected1;
 	}
 	ses_.push_back (btnDicePlayer1);
 	ses_.push_back (btnDiceEnemy0);
-	if (n5PlayerReroll.n (0) == int (true)) {
+	if (n5PlayerReroll[0] == int (true)) {
 		ses_.push_back (rectDiceSelected0);
 	} else {
 		delete rectDiceSelected0;
@@ -743,121 +743,121 @@ void pokerround::prepareStage_OKResults (
 	);
 	screenelement_button* btnDiceEnemyInitial0 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (0),
+		n5EnemyInitial[0],
 		true,
 		0
 	);
 	screenelement_button* btnDiceEnemyInitial1 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (1),
+		n5EnemyInitial[1],
 		true,
 		1
 	);
 	screenelement_button* btnDiceEnemyInitial2 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (2),
+		n5EnemyInitial[2],
 		true,
 		2
 	);
 	screenelement_button* btnDiceEnemyInitial3 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (3),
+		n5EnemyInitial[3],
 		true,
 		3
 	);
 	screenelement_button* btnDiceEnemyInitial4 = new screenelement_button_dice (
 		font_,
-		n5EnemyInitial.n (4),
+		n5EnemyInitial[4],
 		true,
 		4
 	);
 	screenelement_button* btnDiceEnemyUltimate0 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DiceEnemyUltimate ().n (0),
+		prvs2_p_->n5DiceEnemyUltimate ()[0],
 		true,
 		0
 	);
 	screenelement_button* btnDiceEnemyUltimate1 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DiceEnemyUltimate ().n (1),
+		prvs2_p_->n5DiceEnemyUltimate ()[1],
 		true,
 		1
 	);
 	screenelement_button* btnDiceEnemyUltimate2 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DiceEnemyUltimate ().n (2),
+		prvs2_p_->n5DiceEnemyUltimate ()[2],
 		true,
 		2
 	);
 	screenelement_button* btnDiceEnemyUltimate3 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DiceEnemyUltimate ().n (3),
+		prvs2_p_->n5DiceEnemyUltimate ()[3],
 		true,
 		3
 	);
 	screenelement_button* btnDiceEnemyUltimate4 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DiceEnemyUltimate ().n (4),
+		prvs2_p_->n5DiceEnemyUltimate ()[4],
 		true,
 		4
 	);
 	screenelement_button* btnDicePlayerInitial0 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (0),
+		n5PlayerInitial[0],
 		false,
 		0
 	);
 	screenelement_button* btnDicePlayerInitial1 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (1),
+		n5PlayerInitial[1],
 		false,
 		1
 	);
 	screenelement_button* btnDicePlayerInitial2 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (2),
+		n5PlayerInitial[2],
 		false,
 		2
 	);
 	screenelement_button* btnDicePlayerInitial3 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (3),
+		n5PlayerInitial[3],
 		false,
 		3
 	);
 	screenelement_button* btnDicePlayerInitial4 = new screenelement_button_dice (
 		font_,
-		n5PlayerInitial.n (4),
+		n5PlayerInitial[4],
 		false,
 		4
 	);
 	screenelement_button* btnDicePlayerUltimate0 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DicePlayerUltimate ().n (0),
+		prvs2_p_->n5DicePlayerUltimate ()[0],
 		false,
 		1
 	);
 	screenelement_button* btnDicePlayerUltimate1 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DicePlayerUltimate ().n (1),
+		prvs2_p_->n5DicePlayerUltimate ()[1],
 		false,
 		1
 	);
 	screenelement_button* btnDicePlayerUltimate2 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DicePlayerUltimate ().n (2),
+		prvs2_p_->n5DicePlayerUltimate ()[2],
 		false,
 		2
 	);
 	screenelement_button* btnDicePlayerUltimate3 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DicePlayerUltimate ().n (3),
+		prvs2_p_->n5DicePlayerUltimate ()[3],
 		false,
 		3
 	);
 	screenelement_button* btnDicePlayerUltimate4 = new screenelement_button_dice (
 		font_,
-		prvs2_p_->n5DicePlayerUltimate ().n (4),
+		prvs2_p_->n5DicePlayerUltimate ()[4],
 		false,
 		4
 	);
@@ -1216,8 +1216,8 @@ pokerround::screenelement_label_header_alert_dice_player_will_keep::screenelemen
 	std::string s_ = "You decided to keep ";
 	std::vector<int> vec_nDiceKept;
 	for (int i = 0; i < 5; i++) {
-		if (n5DicePlayerReroll.n(i) != int (true))
-			vec_nDiceKept.push_back (n5DicePlayerInitial.n(i));
+		if (n5DicePlayerReroll[i] != int (true))
+			vec_nDiceKept.push_back (n5DicePlayerInitial[i]);
 	}
 	nDiceKept = vec_nDiceKept.size ();
 	if (nDiceKept == 0) {
@@ -1255,7 +1255,7 @@ pokerround::screenelement_label_header_alert_reroll::screenelement_label_header_
 	const intx5& n5Reroll,
 	const int& nDiceIndex
 ) {
-	bool bRerolled = n5Reroll.n (nDiceIndex) == int (true);
+	bool bRerolled = n5Reroll[nDiceIndex] == int (true);
 	set_bIsHeldDown (false);
 	create (bRerolled ? "ROLL" : "->", font_, 40, sf::Color::White);
 }

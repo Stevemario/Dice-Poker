@@ -16,7 +16,7 @@ std::string sValues (
 ) {
 	std::string sValues;
 	for (int i = 0; i < 5; i++) {
-		sValues += std::to_string (n5_.n (i));
+		sValues += std::to_string (n5_[i]);
 		if (i < 4)
 			sValues += ',';
 	}
@@ -41,35 +41,35 @@ void presentAllScores (
 	intx5 n5Dice;
 	//Fives Of A Kind
 	for (int nDice = 6; 1 <= nDice; nDice--) {
-		n5Dice.set_n (0, nDice);
-		n5Dice.set_n (1, nDice);
-		n5Dice.set_n (2, nDice);
-		n5Dice.set_n (3, nDice);
-		n5Dice.set_n (4, nDice);
+		n5Dice[0] = nDice;
+		n5Dice[1] = nDice;
+		n5Dice[2] = nDice;
+		n5Dice[3] = nDice;
+		n5Dice[4] = nDice;
 		present (n5Dice);
 	}
 	//Fours Of A Kind
 	for (int nDice0 = 6; 1 <= nDice0; nDice0--) {
-		n5Dice.set_n (0, nDice0);
-		n5Dice.set_n (1, nDice0);
-		n5Dice.set_n (2, nDice0);
-		n5Dice.set_n (3, nDice0);
+		n5Dice[0] = nDice0;
+		n5Dice[1] = nDice0;
+		n5Dice[2] = nDice0;
+		n5Dice[3] = nDice0;
 		for (int nDice1 = 6; 1 <= nDice1; nDice1--) {
 			if (nDice1 != nDice0) {
-				n5Dice.set_n (4, nDice1);
+				n5Dice[4] = nDice1;
 				present (n5Dice);
 			}
 		}
 	}
 	//Full Houses
 	for (int nDice0 = 6; 1 <= nDice0; nDice0--) {
-		n5Dice.set_n (0, nDice0);
-		n5Dice.set_n (1, nDice0);
-		n5Dice.set_n (2, nDice0);
+		n5Dice[0] = nDice0;
+		n5Dice[1] = nDice0;
+		n5Dice[2] = nDice0;
 		for (int nDice1 = 6; 1 <= nDice1; nDice1--) {
 			if (nDice1 != nDice0) {
-				n5Dice.set_n (3, nDice1);
-				n5Dice.set_n (4, nDice1);
+				n5Dice[3] = nDice1;
+				n5Dice[4] = nDice1;
 				present (n5Dice);
 			}
 		}
@@ -77,21 +77,21 @@ void presentAllScores (
 	//Straights
 	for (int nRankStraight = 1; nRankStraight <= 2; nRankStraight++) {
 		for (int nIndex = 0; nIndex < 5; nIndex++) {
-			n5Dice.set_n (nIndex, 7 - nRankStraight - nIndex);
+			n5Dice[nIndex] = 7 - nRankStraight - nIndex;
 		}
 		present (n5Dice);
 	}
 	//Threes Of A Kind
 	for (int nDice0 = 6; 1 <= nDice0; nDice0--) {
-		n5Dice.set_n (0, nDice0);
-		n5Dice.set_n (1, nDice0);
-		n5Dice.set_n (2, nDice0);
+		n5Dice[0] = nDice0;
+		n5Dice[1] = nDice0;
+		n5Dice[2] = nDice0;
 		for (int nDice1 = 6; 1 <= nDice1; nDice1--) {
 			if (nDice1 != nDice0) {
-				n5Dice.set_n (3, nDice1);
+				n5Dice[3] = nDice1;
 				for (int nDice2 = nDice1 - 1; 1 <= nDice2; nDice2--) {
 					if (nDice2 != nDice0) {
-						n5Dice.set_n (4, nDice2);
+						n5Dice[4] = nDice2;
 						present (n5Dice);
 					}
 				}
@@ -100,15 +100,15 @@ void presentAllScores (
 	}
 	//Two Pairs
 	for (int nDice0 = 6; 1 <= nDice0; nDice0--) {
-		n5Dice.set_n (0, nDice0);
-		n5Dice.set_n (1, nDice0);
+		n5Dice[0] = nDice0;
+		n5Dice[1] = nDice0;
 		for (int nDice1 = nDice0 - 1; 1 <= nDice1; nDice1--) {
-			n5Dice.set_n (2, nDice1);
-			n5Dice.set_n (3, nDice1);
+			n5Dice[2] = nDice1;
+			n5Dice[3] = nDice1;
 			for (int nDice2 = 6; 1 <= nDice2; nDice2--) {
 				if (nDice2 != nDice0) {
 					if (nDice2 != nDice1) {
-						n5Dice.set_n (4, nDice2);
+						n5Dice[4] = nDice2;
 						present (n5Dice);
 					}
 				}
@@ -117,17 +117,17 @@ void presentAllScores (
 	}
 	//One Pairs
 	for (int nDice0 = 6; 1 <= nDice0; nDice0--) {
-		n5Dice.set_n (0, nDice0);
-		n5Dice.set_n (1, nDice0);
+		n5Dice[0] = nDice0;
+		n5Dice[1] = nDice0;
 		for (int nDice1 = 6; 1 <= nDice1; nDice1--) {
 			if (nDice0 != nDice1) {
-				n5Dice.set_n (2, nDice1);
+				n5Dice[2] = nDice1;
 				for (int nDice2 = nDice1 - 1; 1 <= nDice2; nDice2--) {
 					if (nDice0 != nDice2) {
-						n5Dice.set_n (3, nDice2);
+						n5Dice[3] = nDice2;
 						for (int nDice3 = nDice2 - 1; 1 <= nDice3; nDice3--) {
 							if (nDice0 != nDice3) {
-								n5Dice.set_n (4, nDice3);
+								n5Dice[4] = nDice3;
 								present (n5Dice);
 							}
 						}
@@ -137,17 +137,17 @@ void presentAllScores (
 		}
 	}
 	//High Dice
-	n5Dice.set_n (0, 6);
-	n5Dice.set_n (4, 1);
+	n5Dice[0] = 6;
+	n5Dice[4] = 1;
 	int nDiceToAssign;
 	for (int nDiceSkipped = 2; nDiceSkipped <= 5; nDiceSkipped++) {
 		for (int i = 1; i <= 4; i++) {
 			nDiceToAssign = 6 - i;
 			if (nDiceToAssign != nDiceSkipped) {
 				if (nDiceSkipped < nDiceToAssign)
-					n5Dice.set_n (i, nDiceToAssign);
+					n5Dice[i] = nDiceToAssign;
 				else
-					n5Dice.set_n (i - 1, nDiceToAssign);
+					n5Dice[i - 1] = nDiceToAssign;
 			}
 		}
 		present (n5Dice);
@@ -157,15 +157,15 @@ void presentAllDiceSet (
 ) {
 	intx5 n5Dice;
 	for (int nDice0 = 1; nDice0 <= 6; nDice0++) {
-		n5Dice.set_n (0, nDice0);
+		n5Dice[0] = nDice0;
 		for (int nDice1 = 1; nDice1 <= 6; nDice1++) {
-			n5Dice.set_n (1, nDice1);
+			n5Dice[1] = nDice1;
 			for (int nDice2 = 1; nDice2 <= 6; nDice2++) {
-				n5Dice.set_n (2, nDice2);
+				n5Dice[2] = nDice2;
 				for (int nDice3 = 1; nDice3 <= 6; nDice3++) {
-					n5Dice.set_n (3, nDice3);
+					n5Dice[3] = nDice3;
 					for (int nDice4 = 1; nDice4 <= 6; nDice4++) {
-						n5Dice.set_n (4, nDice4);
+						n5Dice[4] = nDice4;
 						present (n5Dice);
 					}
 				}
