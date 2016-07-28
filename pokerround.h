@@ -27,17 +27,21 @@ namespace pokerround {
 		public: variableset1 (
 			std::ifstream&
 		);
-		public: void set_n5DiceEnemyInitial (
-			const intx5&
+		public: void set_nDiceEnemyInitial (
+			const int&,
+			const int&
 		);
-		public: void set_n5DiceEnemyReroll (
-			const intx5&
+		public: void set_nDiceEnemyReroll (
+			const int&,
+			const int&
 		);
-		public: void set_n5DicePlayerInitial (
-			const intx5&
+		public: void set_nDicePlayerInitial (
+			const int&,
+			const int&
 		);
-		public: void set_n5DicePlayerReroll (
-			const intx5&
+		public: void set_nDicePlayerReroll (
+			const int&,
+			const int&
 		);
 	};
 	class variableset2 {
@@ -91,11 +95,13 @@ namespace pokerround {
 		public: void set_pokerroundresult (
 			const pokerroundresult&
 		);
-		public: void set_n5DiceEnemyUltimate (
-			const intx5&
+		public: void set_nDiceEnemyUltimate (
+			const int&,
+			const int&
 		);
-		public: void set_n5DicePlayerUltimate (
-			const intx5&
+		public: void set_nDicePlayerUltimate (
+			const int&,
+			const int&
 		);
 	};
 	void prepare (

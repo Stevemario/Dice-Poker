@@ -35,25 +35,29 @@ pokerround::variableset1::variableset1 (
 	m_n5DicePlayerInitial = n5Reading (ifstream_);
 	m_n5DicePlayerReroll = n5Reading (ifstream_);
 }
-void pokerround::variableset1::set_n5DiceEnemyInitial (
-	const intx5& n5_
+void pokerround::variableset1::set_nDiceEnemyInitial (
+	const int& nIndex,
+	const int& nDice
 ) {
-	m_n5DiceEnemyInitial = n5_;
+	m_n5DiceEnemyInitial[nIndex] = nDice;
 }
-void pokerround::variableset1::set_n5DiceEnemyReroll (
-	const intx5& n5_
+void pokerround::variableset1::set_nDiceEnemyReroll (
+	const int& nIndex,
+	const int& nDice
 ) {
-	m_n5DiceEnemyReroll = n5_;
+	m_n5DiceEnemyReroll[nIndex] = nDice;
 }
-void pokerround::variableset1::set_n5DicePlayerInitial (
-	const intx5& n5_
+void pokerround::variableset1::set_nDicePlayerInitial (
+	const int& nIndex,
+	const int& nDice
 ) {
-	m_n5DicePlayerInitial = n5_;
+	m_n5DicePlayerInitial[nIndex] = nDice;
 }
-void pokerround::variableset1::set_n5DicePlayerReroll (
-	const intx5& n5_
+void pokerround::variableset1::set_nDicePlayerReroll (
+	const int& nIndex,
+	const int& nDice
 ) {
-	m_n5DicePlayerReroll = n5_;
+	m_n5DicePlayerReroll[nIndex] = nDice;
 }
 int pokerround::variableset2::nScoreEnemyInitial (
 ) const {
@@ -111,8 +115,8 @@ pokerround::variableset2::variableset2 (
 	set_nScorePlayerUltimate (iofunctions::nReading (ifstream_));
 	set_nCashInPotBefore (iofunctions::nReading (ifstream_));
 	set_pokerroundresult (pokerroundresult (iofunctions::nReading (ifstream_)));
-	set_n5DiceEnemyUltimate (n5Reading (ifstream_));
-	set_n5DicePlayerUltimate (n5Reading (ifstream_));
+	m_n5DiceEnemyUltimate = n5Reading (ifstream_);
+	m_n5DicePlayerUltimate = n5Reading (ifstream_);
 }
 void pokerround::variableset2::set_nScoreEnemyInitial (
 	const int& n_
@@ -144,15 +148,17 @@ void pokerround::variableset2::set_pokerroundresult (
 ) {
 	m_pokerroundresult = pokerroundresult_;
 }
-void pokerround::variableset2::set_n5DiceEnemyUltimate (
-	const intx5& n5_
+void pokerround::variableset2::set_nDiceEnemyUltimate (
+	const int& nIndex,
+	const int& nDice
 ) {
-	m_n5DiceEnemyUltimate = n5_;
+	m_n5DiceEnemyUltimate[nIndex] = nDice;
 }
-void pokerround::variableset2::set_n5DicePlayerUltimate (
-	const intx5& n5_
+void pokerround::variableset2::set_nDicePlayerUltimate (
+	const int& nIndex,
+	const int& nDice
 ) {
-	m_n5DicePlayerUltimate = n5_;
+	m_n5DicePlayerUltimate[nIndex] = nDice;
 }
 void pokerround::prepare (
 	const int& nBetAgreed,

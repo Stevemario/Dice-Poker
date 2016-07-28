@@ -520,80 +520,65 @@ void game::handle (
 		}
 		case pokerround::screenelement_button_enum::OKInputInitial: {
 			int nTemp;
-			std::vector <intx5> n5sDice (4);
 			m_prvs1_p = new pokerround::variableset1;
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 5; j++) {
-					if (i < 2) {
-						nTemp = rand ();
-						nTemp %= 6;
-						nTemp += 1;
-					} else {
-						nTemp = false;
-					}
-					n5sDice[i][j] = nTemp;
-				}
+			for (int i = 0; i < 5; i++) {
+				nTemp = rand ();
+				nTemp %= 6;
+				nTemp += 1;
+				m_prvs1_p->set_nDiceEnemyInitial (i, nTemp);
+				m_prvs1_p->set_nDiceEnemyReroll (i, false);
+				nTemp = rand ();
+				nTemp %= 6;
+				nTemp += 1;
+				m_prvs1_p->set_nDicePlayerInitial (i, nTemp);
+				m_prvs1_p->set_nDicePlayerReroll (i, false);
 			}
-			m_prvs1_p->set_n5DiceEnemyInitial (n5sDice[0]);
-			m_prvs1_p->set_n5DicePlayerInitial (n5sDice[1]);
-			m_prvs1_p->set_n5DiceEnemyReroll (n5sDice[2]);
-			m_prvs1_p->set_n5DicePlayerReroll (n5sDice[3]);
 			*m_pokerroundstage_p = pokerroundstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer0: {
-			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll[0] == int (true)) {
-				n5DicePlayerReroll[0] = int (false);
+			if (m_prvs1_p->n5DicePlayerReroll ()[0] == int (true)) {
+				m_prvs1_p->set_nDicePlayerReroll (0, false);
 			} else {
-				n5DicePlayerReroll[0] = int (true);
+				m_prvs1_p->set_nDicePlayerReroll (0, true);
 			}
-			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer1: {
-			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll[1] == int (true)) {
-				n5DicePlayerReroll[1] = int (false);
+			if (m_prvs1_p->n5DicePlayerReroll ()[1] == int (true)) {
+				m_prvs1_p->set_nDicePlayerReroll (1, false);
 			} else {
-				n5DicePlayerReroll[1] = int (true);
+				m_prvs1_p->set_nDicePlayerReroll (1, true);
 			}
-			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer2: {
-			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll[2] == int (true)) {
-				n5DicePlayerReroll[2] = int (false);
+			if (m_prvs1_p->n5DicePlayerReroll ()[2] == int (true)) {
+				m_prvs1_p->set_nDicePlayerReroll (2, false);
 			} else {
-				n5DicePlayerReroll[2] = int (true);
+				m_prvs1_p->set_nDicePlayerReroll (2, true);
 			}
-			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer3: {
-			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll[3] == int (true)) {
-				n5DicePlayerReroll[3] = int (false);
+			if (m_prvs1_p->n5DicePlayerReroll ()[3] == int (true)) {
+				m_prvs1_p->set_nDicePlayerReroll (3, false);
 			} else {
-				n5DicePlayerReroll[3] = int (true);
+				m_prvs1_p->set_nDicePlayerReroll (3, true);
 			}
-			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer4: {
-			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
-			if (n5DicePlayerReroll[4] == int (true)) {
-				n5DicePlayerReroll[4] = int (false);
+			if (m_prvs1_p->n5DicePlayerReroll ()[4] == int (true)) {
+				m_prvs1_p->set_nDicePlayerReroll (4, false);
 			} else {
-				n5DicePlayerReroll[4] = int (true);
+				m_prvs1_p->set_nDicePlayerReroll (4, true);
 			}
-			m_prvs1_p->set_n5DicePlayerReroll (n5DicePlayerReroll);
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -613,37 +598,39 @@ void game::handle (
 		case pokerround::screenelement_button_enum::OKInputSecond: {
 			int nTemp;
 			bool bWantToReroll;
-			std::vector <intx5> n5sDice;
-			m_prvs2_p = new pokerround::variableset2;
-			n5sDice.push_back (m_prvs1_p->n5DiceEnemyReroll ());
-			n5sDice.push_back (m_prvs1_p->n5DicePlayerReroll ());
-			n5sDice.push_back (m_prvs1_p->n5DiceEnemyInitial ());
-			n5sDice.push_back (m_prvs1_p->n5DicePlayerInitial ());
-			n5sDice.push_back (m_prvs2_p->n5DiceEnemyUltimate ());
-			n5sDice.push_back (m_prvs2_p->n5DicePlayerUltimate ());
+			intx5 n5DiceEnemyInitial = m_prvs1_p->n5DiceEnemyInitial ();
+			intx5 n5DiceEnemyReroll = m_prvs1_p->n5DiceEnemyReroll ();
+			intx5 n5DicePlayerInitial = m_prvs1_p->n5DicePlayerInitial ();
+			intx5 n5DicePlayerReroll = m_prvs1_p->n5DicePlayerReroll ();
 			diceset* dsEnemyInitial;
 			diceset* dsEnemyUltimate;
 			diceset* dsPlayerInitial;
 			diceset* dsPlayerUltimate;
-			for (int i = 0; i < 2; i++) {
-				for (int j = 0; j < 5; j++) {
-					bWantToReroll = n5sDice[i][j] == int (true);
-					if (bWantToReroll) {
+			m_prvs2_p = new pokerround::variableset2;
+			for (int i = 0; i < 5; i++) {
+				bWantToReroll = n5DiceEnemyReroll[i] == int (true);
+				if (bWantToReroll) {
 						nTemp = rand ();
 						nTemp %= 6;
 						nTemp += 1;
-					} else {
-						nTemp = n5sDice[i+2][j];
-					}
-					n5sDice[i+4][j] = nTemp;
+				} else {
+					nTemp = n5DiceEnemyInitial[i];
 				}
+				m_prvs2_p->set_nDiceEnemyUltimate (i, nTemp);
+				bWantToReroll = n5DicePlayerReroll[i] == int (true);
+				if (bWantToReroll) {
+						nTemp = rand ();
+						nTemp %= 6;
+						nTemp += 1;
+				} else {
+					nTemp = n5DicePlayerInitial[i];
+				}
+				m_prvs2_p->set_nDicePlayerUltimate (i, nTemp);
 			}
-			m_prvs2_p->set_n5DiceEnemyUltimate (n5sDice[4]);
-			m_prvs2_p->set_n5DicePlayerUltimate (n5sDice[5]);
 			m_prvs2_p->set_nCashInPotBefore (m_nCashInPot);
-			dsEnemyInitial = diceset_p_ (m_prvs1_p->n5DiceEnemyInitial ());
+			dsEnemyInitial = diceset_p_ (n5DiceEnemyInitial);
 			dsEnemyUltimate = diceset_p_ (m_prvs2_p->n5DiceEnemyUltimate ());
-			dsPlayerInitial = diceset_p_ (m_prvs1_p->n5DicePlayerInitial ());
+			dsPlayerInitial = diceset_p_ (n5DicePlayerInitial);
 			dsPlayerUltimate = diceset_p_ (m_prvs2_p->n5DicePlayerUltimate ());
 			m_prvs2_p->set_nScoreEnemyInitial (dsEnemyInitial->nScore ());
 			m_prvs2_p->set_nScoreEnemyUltimate (dsEnemyUltimate->nScore ());
