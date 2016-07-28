@@ -165,14 +165,14 @@ void pokerround::prepare (
 	const int& nCashInPot,
 	const std::string& sBetPlayer,
 	const sf::Font& font_,
-	const pokerroundstage*& pokerroundstage_p_,
+	const pokerroundstage& pokerroundstage_,
 	const gamedata*& gamedata_pEnemy,
 	const gamedata*& gamedata_pPlayer,
 	const variableset1*& prvs1_p_,
 	const variableset2*& prvs2_p_,
 	screenelements& ses_
 ) {
-	switch (*pokerroundstage_p_) {
+	switch (pokerroundstage_) {
 		case pokerroundstage::SubmitInputInitial: {
 			prepareStage_SubmitInputInitial (
 				nCashInPot,

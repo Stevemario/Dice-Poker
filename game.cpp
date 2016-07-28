@@ -23,9 +23,9 @@ std::string* game::m_s_pToEdit;
 sf::Font game::m_font;
 sf::RenderWindow game::m_rw;
 gameaction game::m_gameaction = gameaction::WorkMainMenu;
-gamemode* game::m_gamemode_p;
+gamemode game::m_gamemode;
 mainmenupage game::m_mainmenupage = mainmenupage::Splash;
-pokerroundstage* game::m_pokerroundstage_p;
+pokerroundstage game::m_pokerroundstage;
 gamedata* game::m_gamedata_pEnemy;
 gamedata* game::m_gamedata_pPlayer;
 pokerround::variableset1* game::m_prvs1_p;
@@ -63,11 +63,10 @@ void game::prepareData (
 ) {
 	if (m_gameaction == gameaction::Play) {
 		if (m_bHaveGameData != true) {
-			switch (*m_gamemode_p) {
+			switch (m_gamemode) {
 				case gamemode::PokerDuel: {
 					m_nCashInPot = 0;
-					m_pokerroundstage_p = new pokerroundstage;
-					*m_pokerroundstage_p = pokerroundstage::SubmitInputInitial;
+					m_pokerroundstage = pokerroundstage::SubmitInputInitial;
 					m_bHaveGameData = true;
 					break;
 				}
@@ -100,9 +99,8 @@ void game::prepareScreenElements (
 				break;
 			}
 			case gameaction::Play: {
-				switch (*m_gamemode_p) {
+				switch (m_gamemode) {
 					case gamemode::PokerDuel: {
-						const pokerroundstage* pokerroundstage_p_Const = m_pokerroundstage_p;
 						const gamedata* gamedata_pEnemyConst = m_gamedata_pEnemy;
 						const gamedata* gamedata_pPlayerConst = m_gamedata_pPlayer;
 						const pokerround::variableset1* prvs1_pConst = m_prvs1_p;
@@ -112,7 +110,7 @@ void game::prepareScreenElements (
 							m_nCashInPot,
 							m_sBetPlayer,
 							m_font,
-							pokerroundstage_p_Const,
+							m_pokerroundstage,
 							gamedata_pEnemyConst,
 							gamedata_pPlayerConst,
 							prvs1_pConst,
@@ -201,7 +199,7 @@ void game::handleMousePress (
 							break;
 						}
 						case gameaction::Play: {
-							switch (*m_gamemode_p) {
+							switch (m_gamemode) {
 								case gamemode::PokerDuel: {
 									pokerround::screenelement_button* se_btn_p_ = dynamic_cast <pokerround::screenelement_button*> (se_p_);
 									se_btn_p_->set_bIsHeldDown (true);
@@ -246,7 +244,7 @@ void game::handleMouseRelease (
 							break;
 						}
 						case gameaction::Play: {
-							switch (*m_gamemode_p) {
+							switch (m_gamemode) {
 								case gamemode::PokerDuel: {
 									pokerround::screenelement_button* se_btn_p_ = dynamic_cast <pokerround::screenelement_button*> (se_p_);
 									pokerround::screenelement_button_enum se_btn_e_ = se_btn_p_->screenelement_button_enum_ ();
@@ -367,13 +365,12 @@ void game::handle (
 				m_gameaction = gameaction::Play;
 			} else {
 				if (m_mainmenupage == mainmenupage::NewGame) {
-					m_gamemode_p = new gamemode;
 					if (m_bShowMainMenuNewGamePageChoice) {
-						*m_gamemode_p = gamemode::PokerDuel;
+						m_gamemode = gamemode::PokerDuel;
 						m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
 						m_gamedata_pPlayer = new gamedata ("Player", 100);
 					} else {
-						*m_gamemode_p = gamemode::Adventure;
+						m_gamemode = gamemode::Adventure;
 						m_gamedata_pPlayer = new gamedata (m_sNewAdventureName, 100);
 					}
 					m_gameaction = gameaction::Play;
@@ -444,8 +441,7 @@ void game::handle (
 				deleteGameData ();
 				m_bHaveGameData = false;
 			}
-			m_gamemode_p = new gamemode;
-			*m_gamemode_p = gamemode::PokerDuel;
+			m_gamemode = gamemode::PokerDuel;
 			m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
 			m_gamedata_pPlayer = new gamedata ("Player", 100);
 			m_gameaction = gameaction::Play;
@@ -473,8 +469,7 @@ void game::handle (
 				deleteGameData ();
 				m_bHaveGameData = false;
 			}
-			m_gamemode_p = new gamemode;
-			*m_gamemode_p = gamemode::Adventure;
+			m_gamemode = gamemode::Adventure;
 			m_gamedata_pPlayer = new gamedata (m_sNewAdventureName, 100);
 			m_gameaction = gameaction::Play;
 			bShouldClear_vec_screenelement_p = true;
@@ -508,13 +503,13 @@ void game::handle (
 		case pokerround::screenelement_button_enum::SubmitInputInitial: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
-			*m_pokerroundstage_p = pokerroundstage::OKInputInitial;
+			m_pokerroundstage = pokerroundstage::OKInputInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::ChangeInputInitial: {
 			transactBet (-1 * m_nBetAgreed);
-			*m_pokerroundstage_p = pokerroundstage::SubmitInputInitial;
+			m_pokerroundstage = pokerroundstage::SubmitInputInitial;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -533,7 +528,7 @@ void game::handle (
 				m_prvs1_p->set_nDicePlayerInitial (i, nTemp);
 				m_prvs1_p->set_nDicePlayerReroll (i, false);
 			}
-			*m_pokerroundstage_p = pokerroundstage::SubmitInputSecond;
+			m_pokerroundstage = pokerroundstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -585,13 +580,13 @@ void game::handle (
 		case pokerround::screenelement_button_enum::SubmitInputSecond: {
 			determineBetAmount (10); //Enemy bet is 10.  Be smarter about it later.
 			transactBet (m_nBetAgreed);
-			*m_pokerroundstage_p = pokerroundstage::OKInputSecond;
+			m_pokerroundstage = pokerroundstage::OKInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::ChangeInputSecond: {
 			transactBet (-1 * m_nBetAgreed);
-			*m_pokerroundstage_p = pokerroundstage::SubmitInputSecond;
+			m_pokerroundstage = pokerroundstage::SubmitInputSecond;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -671,7 +666,7 @@ void game::handle (
 				}
 			}
 			m_nCashInPot = 0;
-			*m_pokerroundstage_p = pokerroundstage::OKResults;
+			m_pokerroundstage = pokerroundstage::OKResults;
 			bShouldClear_vec_screenelement_p = true;
 			break;
 		}
@@ -684,7 +679,7 @@ void game::handle (
 void game::handlePokerRoundEnd (
 	bool& bShouldClear_vec_screenelement_p
 ) {
-	switch (*m_gamemode_p) {
+	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
 			int nCashEnemy = m_gamedata_pEnemy->nDollarsCarried ();
 			int nCashPlayer = m_gamedata_pPlayer->nDollarsCarried ();
@@ -712,15 +707,15 @@ void game::handlePokerRoundEnd (
 void game::load (
 	std::ifstream& ifstream_
 ) {
-	m_gamemode_p = new gamemode (gamemode (iofunctions::nReading (ifstream_)));
-	switch (*m_gamemode_p) {
+	m_gamemode = gamemode (iofunctions::nReading (ifstream_));
+	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
 			m_gamedata_pEnemy = new gamedata (ifstream_);
 			m_gamedata_pPlayer = new gamedata (ifstream_);
 			m_nBetAgreed = iofunctions::nReading (ifstream_);
 			m_nCashInPot = iofunctions::nReading (ifstream_);
-			m_pokerroundstage_p = new pokerroundstage (pokerroundstage (iofunctions::nReading (ifstream_)));
-			switch (*m_pokerroundstage_p) {
+			m_pokerroundstage = pokerroundstage (iofunctions::nReading (ifstream_));
+			switch (m_pokerroundstage) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
 					m_prvs1_p = new pokerround::variableset1 (ifstream_);
@@ -745,15 +740,15 @@ void game::load (
 void game::save (
 	std::ofstream& ofstream_
 ) {
-	iofunctions::write (int (*m_gamemode_p), ofstream_);
-	switch (*m_gamemode_p) {
+	iofunctions::write (int (m_gamemode), ofstream_);
+	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
 			m_gamedata_pEnemy->save (ofstream_);
 			m_gamedata_pPlayer->save (ofstream_);
 			iofunctions::write (m_nBetAgreed, ofstream_);
 			iofunctions::write (m_nCashInPot, ofstream_);
-			iofunctions::write (int (*m_pokerroundstage_p), ofstream_);
-			switch (*m_pokerroundstage_p) {
+			iofunctions::write (int (m_pokerroundstage), ofstream_);
+			switch (m_pokerroundstage) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
 					m_prvs1_p->writeTo (ofstream_);
@@ -776,7 +771,7 @@ void game::save (
 }
 void game::deleteGameData (
 ) {
-	switch (*m_gamemode_p) {
+	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
 			deletePokerRoundData ();
 			delete m_gamedata_pEnemy;
@@ -789,11 +784,10 @@ void game::deleteGameData (
 			break;
 		}
 	}
-	delete m_gamemode_p;
 }
 void game::deletePokerRoundData (
 ) {
-	switch (*m_pokerroundstage_p) {
+	switch (m_pokerroundstage) {
 		case pokerroundstage::SubmitInputSecond:
 		case pokerroundstage::OKInputSecond: {
 			delete m_prvs1_p;
@@ -805,7 +799,6 @@ void game::deletePokerRoundData (
 			break;
 		}
 	}
-	delete m_pokerroundstage_p;
 }
 void game::makeStringTakeNothing (
 ) {

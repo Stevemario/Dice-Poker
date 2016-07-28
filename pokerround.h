@@ -109,7 +109,7 @@ namespace pokerround {
 		const int&,
 		const std::string&,
 		const sf::Font&,
-		const pokerroundstage*&,
+		const pokerroundstage&,
 		const gamedata*&,
 		const gamedata*&,
 		const variableset1*&,

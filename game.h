@@ -24,9 +24,9 @@ namespace game {
 	extern sf::Font m_font;
 	extern sf::RenderWindow m_rw;
 	extern gameaction m_gameaction;
-	extern gamemode* m_gamemode_p;
+	extern gamemode m_gamemode;
 	extern mainmenupage m_mainmenupage;
-	extern pokerroundstage* m_pokerroundstage_p;
+	extern pokerroundstage m_pokerroundstage;
 	extern gamedata* m_gamedata_pEnemy;
 	extern gamedata* m_gamedata_pPlayer;
 	extern pokerround::variableset1* m_prvs1_p;
