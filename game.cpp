@@ -509,18 +509,11 @@ void game::handle (
 			break;
 		}
 		case pokerround::screenelement_button_enum::OKInputInitial: {
-			int nTemp;
 			m_prvs1_p = new pokerround::variableset1;
 			for (int i = 0; i < 5; i++) {
-				nTemp = rand ();
-				nTemp %= 6;
-				nTemp += 1;
-				m_prvs1_p->set_nDiceEnemyInitial (i, nTemp);
+				m_prvs1_p->set_nDiceEnemyInitial (i, nRandomDice ());
 				m_prvs1_p->set_nDiceEnemyReroll (i, false);
-				nTemp = rand ();
-				nTemp %= 6;
-				nTemp += 1;
-				m_prvs1_p->set_nDicePlayerInitial (i, nTemp);
+				m_prvs1_p->set_nDicePlayerInitial (i, nRandomDice ());
 				m_prvs1_p->set_nDicePlayerReroll (i, false);
 			}
 			m_pokerroundstage = pokerroundstage::SubmitInputSecond;
@@ -600,18 +593,14 @@ void game::handle (
 			for (int i = 0; i < 5; i++) {
 				bWantToReroll = n5DiceEnemyReroll[i] == int (true);
 				if (bWantToReroll) {
-						nTemp = rand ();
-						nTemp %= 6;
-						nTemp += 1;
+						nTemp = nRandomDice ();
 				} else {
 					nTemp = n5DiceEnemyInitial[i];
 				}
 				m_prvs2_p->set_nDiceEnemyUltimate (i, nTemp);
 				bWantToReroll = n5DicePlayerReroll[i] == int (true);
 				if (bWantToReroll) {
-						nTemp = rand ();
-						nTemp %= 6;
-						nTemp += 1;
+						nTemp = nRandomDice ();
 				} else {
 					nTemp = n5DicePlayerInitial[i];
 				}
@@ -670,6 +659,13 @@ void game::handle (
 			break;
 		}
 	}
+}
+int game::nRandomDice (
+) {
+	int nRandomDice = rand ();
+	nRandomDice %= 6;
+	nRandomDice += 1;
+	return nRandomDice;
 }
 void game::handlePokerRoundEnd (
 	bool& bShouldClear_ses

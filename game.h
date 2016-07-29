@@ -71,6 +71,8 @@ namespace game {
 		bool&,
 		const pokerround::screenelement_button_enum&
 	);
+	int nRandomDice (
+	);
 	void handlePokerRoundEnd (
 		bool&
 	);
