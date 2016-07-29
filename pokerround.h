@@ -113,13 +113,8 @@ namespace pokerround {
 		);
 	};
 	void prepare (
-		const int&,
-		const int&,
-		const std::string&,
 		const sf::Font&,
-		const pokerroundstage&,
-		const gamedata*&,
-		const gamedata*&,
+		const variableset0*&,
 		const variableset1*&,
 		const variableset2*&,
 		screenelements&

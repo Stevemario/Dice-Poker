@@ -161,47 +161,42 @@ void pokerround::variableset2::set_nDicePlayerUltimate (
 	m_n5DicePlayerUltimate[nIndex] = nDice;
 }
 void pokerround::prepare (
-	const int& nBetAgreed,
-	const int& nCashInPot,
-	const std::string& sBetPlayer,
 	const sf::Font& font_,
-	const pokerroundstage& pokerroundstage_,
-	const gamedata*& gamedata_pEnemy,
-	const gamedata*& gamedata_pPlayer,
+	const variableset0*& prvs0_p_,
 	const variableset1*& prvs1_p_,
 	const variableset2*& prvs2_p_,
 	screenelements& ses_
 ) {
-	switch (pokerroundstage_) {
+	switch (prvs0_p_->m_pokerroundstage) {
 		case pokerroundstage::SubmitInputInitial: {
 			prepareStage_SubmitInputInitial (
-				nCashInPot,
-				sBetPlayer,
+				prvs0_p_->m_nCashInPot,
+				prvs0_p_->m_sBetPlayer,
 				font_,
-				gamedata_pEnemy,
-				gamedata_pPlayer,
+				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
+				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
 				ses_
 			);
 			break;
 		}
 		case pokerroundstage::OKInputInitial: {
 			prepareStage_OKInputInitial (
-				nBetAgreed,
-				nCashInPot,
+				prvs0_p_->m_nBetAgreed,
+				prvs0_p_->m_nCashInPot,
 				font_,
-				gamedata_pEnemy,
-				gamedata_pPlayer,
+				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
+				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
 				ses_
 			);
 			break;
 		}
 		case pokerroundstage::SubmitInputSecond: {
 			prepareStage_SubmitInputSecond (
-				nCashInPot,
-				sBetPlayer,
+				prvs0_p_->m_nCashInPot,
+				prvs0_p_->m_sBetPlayer,
 				font_,
-				gamedata_pEnemy,
-				gamedata_pPlayer,
+				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
+				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
 				prvs1_p_->n5DiceEnemyInitial (),
 				prvs1_p_->n5DicePlayerInitial (),
 				prvs1_p_->n5DicePlayerReroll (),
@@ -211,11 +206,11 @@ void pokerround::prepare (
 		}
 		case pokerroundstage::OKInputSecond: {
 			prepareStage_OKInputSecond (
-				nBetAgreed,
-				nCashInPot,
+				prvs0_p_->m_nBetAgreed,
+				prvs0_p_->m_nCashInPot,
 				font_,
-				gamedata_pEnemy,
-				gamedata_pPlayer,
+				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
+				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
 				prvs1_p_->n5DicePlayerInitial (),
 				prvs1_p_->n5DicePlayerReroll (),
 				ses_
@@ -224,10 +219,10 @@ void pokerround::prepare (
 		}
 		case pokerroundstage::OKResults: {
 			prepareStage_OKResults (
-				nCashInPot,
+				prvs0_p_->m_nCashInPot,
 				font_,
-				gamedata_pEnemy,
-				gamedata_pPlayer,
+				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
+				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
 				prvs1_p_->n5DiceEnemyInitial (),
 				prvs1_p_->n5DiceEnemyReroll (),
 				prvs1_p_->n5DicePlayerInitial (),

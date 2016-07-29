@@ -117,13 +117,8 @@ void game::prepareScreenElements (
 				switch (m_gamemode) {
 					case gamemode::PokerDuel: {
 						pokerround::prepare (
-							m_prvs0_p->m_nBetAgreed,
-							m_prvs0_p->m_nCashInPot,
-							m_prvs0_p->m_sBetPlayer,
 							m_font,
-							m_prvs0_p->m_pokerroundstage,
-							(const gamedata*&) (m_prvs0_p->m_gamedata_pEnemy),
-							(const gamedata*&) (m_prvs0_p->m_gamedata_pPlayer),
+							(const pokerround::variableset0*&) (m_prvs0_p),
 							(const pokerround::variableset1*&) (m_prvs1_p),
 							(const pokerround::variableset2*&) (m_prvs2_p),
 							m_ses
