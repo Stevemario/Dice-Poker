@@ -2,6 +2,7 @@
 #include "diceset.h"
 pokerround::variableset0::variableset0 (
 ) {
+	m_sBetPlayer = "0";
 	m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
 	m_gamedata_pPlayer = new gamedata ("Player", 100);
 }
@@ -9,6 +10,8 @@ pokerround::variableset0::variableset0 (
 	std::ifstream& ifstream_
 ) {
 	m_nBetAgreed = iofunctions::nReading (ifstream_);
+	m_nCashInPot = iofunctions::nReading (ifstream_);
+	m_sBetPlayer = iofunctions::sReading (ifstream_);
 	m_pokerroundstage = pokerroundstage (iofunctions::nReading (ifstream_));
 	m_gamedata_pEnemy = new gamedata (ifstream_);
 	m_gamedata_pPlayer = new gamedata (ifstream_);
@@ -1390,6 +1393,8 @@ void iofunctions::write (
 	std::ofstream& ofstream_
 ) {
 	iofunctions::write (vs0_.m_nBetAgreed, ofstream_);
+	iofunctions::write (vs0_.m_nCashInPot, ofstream_);
+	iofunctions::write (vs0_.m_sBetPlayer, ofstream_);
 	iofunctions::write (int (vs0_.m_pokerroundstage), ofstream_);
 	write (*vs0_.m_gamedata_pEnemy, ofstream_);
 	write (*vs0_.m_gamedata_pPlayer, ofstream_);

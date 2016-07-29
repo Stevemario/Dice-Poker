@@ -8,6 +8,8 @@
 namespace pokerround {
 	class variableset0 {
 		public: int m_nBetAgreed;
+		public: int m_nCashInPot;
+		public: std::string m_sBetPlayer;
 		public: pokerroundstage m_pokerroundstage;
 		public: gamedata* m_gamedata_pEnemy;
 		public: gamedata* m_gamedata_pPlayer;

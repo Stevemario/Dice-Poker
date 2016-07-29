@@ -2,7 +2,6 @@
 #include "iofunctions.h"
 #include <ctime>
 #include <cstdlib>
-int game::m_nCashInPot;
 int game::m_nSEClickedLast;
 bool game::m_bStringTakesUpper = false;
 bool game::m_bStringTakesLower = false;
@@ -14,7 +13,6 @@ bool game::m_bEditAString = false;
 bool game::m_bHaveGameData = false;
 bool game::m_bPrepared_ses = false;
 bool game::m_bShowMainMenuNewGamePageChoice = true;
-std::string game::m_sBetPlayer = "0";
 std::string game::m_sLoadSource = "default save.txt";
 std::string game::m_sNewAdventureName = "TEST";
 std::string game::m_sSaveDestination = "default save.txt";
@@ -83,7 +81,7 @@ void game::prepareData (
 		if (m_bHaveGameData != true) {
 			switch (m_gamemode) {
 				case gamemode::PokerDuel: {
-					m_nCashInPot = 0;
+					m_prvs0_p->m_nCashInPot = 0;
 					m_prvs0_p->m_pokerroundstage = pokerroundstage::SubmitInputInitial;
 					m_bHaveGameData = true;
 					break;
@@ -120,8 +118,8 @@ void game::prepareScreenElements (
 					case gamemode::PokerDuel: {
 						pokerround::prepare (
 							m_prvs0_p->m_nBetAgreed,
-							m_nCashInPot,
-							m_sBetPlayer,
+							m_prvs0_p->m_nCashInPot,
+							m_prvs0_p->m_sBetPlayer,
 							m_font,
 							m_prvs0_p->m_pokerroundstage,
 							(const gamedata*&) (m_prvs0_p->m_gamedata_pEnemy),
@@ -506,7 +504,7 @@ void game::handle (
 ) {
 	switch (screenelement_button_enumToHandle) {
 		case pokerround::screenelement_button_enum::BetAmount: {
-			m_s_pToEdit = &m_sBetPlayer;
+			m_s_pToEdit = &m_prvs0_p->m_sBetPlayer;
 			resetWhatStringTakes ();
 			m_bEditAString = true;
 			break;
@@ -632,7 +630,7 @@ void game::handle (
 				}
 				m_prvs2_p->set_nDicePlayerUltimate (i, nTemp);
 			}
-			m_prvs2_p->set_nCashInPotBefore (m_nCashInPot);
+			m_prvs2_p->set_nCashInPotBefore (m_prvs0_p->m_nCashInPot);
 			dsEnemyInitial = diceset_p_ (n5DiceEnemyInitial);
 			dsEnemyUltimate = diceset_p_ (m_prvs2_p->n5DiceEnemyUltimate ());
 			dsPlayerInitial = diceset_p_ (n5DicePlayerInitial);
@@ -655,27 +653,27 @@ void game::handle (
 			switch (m_prvs2_p->pokerroundresult_ ()) {
 				case pokerroundresult::Win: {
 					int nDollarsCarriedPlayerInitial = m_prvs0_p->m_gamedata_pPlayer->nDollarsCarried ();
-					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_nCashInPot;
+					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_prvs0_p->m_nCashInPot;
 					m_prvs0_p->m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarriedPlayerResult);
 					break;
 				}
 				case pokerroundresult::Tie: {
 					int nDollarsCarriedEnemyInitial = m_prvs0_p->m_gamedata_pEnemy->nDollarsCarried ();
-					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_nCashInPot / 2;
+					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_prvs0_p->m_nCashInPot / 2;
 					int nDollarsCarriedPlayerInitial = m_prvs0_p->m_gamedata_pPlayer->nDollarsCarried ();
-					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_nCashInPot / 2;
+					int nDollarsCarriedPlayerResult = nDollarsCarriedPlayerInitial + m_prvs0_p->m_nCashInPot / 2;
 					m_prvs0_p->m_gamedata_pEnemy->set_nDollarsCarried (nDollarsCarriedEnemyResult);
 					m_prvs0_p->m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarriedPlayerResult);
 					break;
 				}
 				case pokerroundresult::Loss: {
 					int nDollarsCarriedEnemyInitial = m_prvs0_p->m_gamedata_pEnemy->nDollarsCarried ();
-					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_nCashInPot;
+					int nDollarsCarriedEnemyResult = nDollarsCarriedEnemyInitial + m_prvs0_p->m_nCashInPot;
 					m_prvs0_p->m_gamedata_pEnemy->set_nDollarsCarried (nDollarsCarriedEnemyResult);
 					break;
 				}
 			}
-			m_nCashInPot = 0;
+			m_prvs0_p->m_nCashInPot = 0;
 			m_prvs0_p->m_pokerroundstage = pokerroundstage::OKResults;
 			bShouldClear_ses = true;
 			break;
@@ -728,7 +726,6 @@ void game::load (
 	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
 			m_prvs0_p = new pokerround::variableset0 (ifstream_);
-			m_nCashInPot = iofunctions::nReading (ifstream_);
 			switch (m_prvs0_p->m_pokerroundstage) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
@@ -758,7 +755,6 @@ void game::save (
 	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
 			iofunctions::write (*m_prvs0_p, ofstream_);
-			iofunctions::write (m_nCashInPot, ofstream_);
 			switch (m_prvs0_p->m_pokerroundstage) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
@@ -822,7 +818,7 @@ void game::makeStringTakeNothing (
 void game::resetWhatStringTakes (
 ) {
 	makeStringTakeNothing ();
-	if (m_s_pToEdit == &m_sBetPlayer) {
+	if (m_s_pToEdit == &m_prvs0_p->m_sBetPlayer) {
 		m_bStringTakesDigit = true;
 	} else if (m_s_pToEdit == & m_sLoadSource) {
 		m_bStringTakesDigit = true;
@@ -845,7 +841,7 @@ void game::resetWhatStringTakes (
 void game::determineBetAmount (
 	const int& nBetEnemy
 ) {
-	int nBetPlayer = std::stoi (m_sBetPlayer);
+	int nBetPlayer = std::stoi (m_prvs0_p->m_sBetPlayer);
 	nBetPlayer = std::max (0, nBetPlayer); //Player can't bet a negative
 	nBetPlayer = std::min (nBetPlayer, m_prvs0_p->m_gamedata_pPlayer->nDollarsCarried ()); //Player can't bet more than he has.
 	m_prvs0_p->m_nBetAgreed = std::min (nBetPlayer, nBetEnemy); //Bet is the least of the bids placed.
@@ -855,5 +851,5 @@ void game::transactBet (
 ) {
 	m_prvs0_p->m_gamedata_pEnemy->set_nDollarsCarried (m_prvs0_p->m_gamedata_pEnemy-> nDollarsCarried () - nBetAmount);
 	m_prvs0_p->m_gamedata_pPlayer->set_nDollarsCarried (m_prvs0_p->m_gamedata_pPlayer-> nDollarsCarried () - nBetAmount);
-	m_nCashInPot += 2 * nBetAmount;
+	m_prvs0_p->m_nCashInPot += 2 * nBetAmount;
 }

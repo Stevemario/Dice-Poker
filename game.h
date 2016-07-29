@@ -22,7 +22,6 @@ namespace iofunctions {
 	);
 }
 namespace game {
-	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
 	extern bool m_bStringTakesUpper;
 	extern bool m_bStringTakesLower;
@@ -34,7 +33,6 @@ namespace game {
 	extern bool m_bHaveGameData;
 	extern bool m_bPrepared_ses;
 	extern bool m_bShowMainMenuNewGamePageChoice;
-	extern std::string m_sBetPlayer;
 	extern std::string m_sLoadSource;
 	extern std::string m_sNewAdventureName;
 	extern std::string m_sSaveDestination;
