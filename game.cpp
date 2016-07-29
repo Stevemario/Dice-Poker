@@ -521,48 +521,58 @@ void game::handle (
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer0: {
-			if (m_prvs1_p->n5DicePlayerReroll ()[0] == int (true)) {
-				m_prvs1_p->set_nDicePlayerReroll (0, false);
-			} else {
-				m_prvs1_p->set_nDicePlayerReroll (0, true);
+			if (m_pokerroundstage == pokerroundstage::SubmitInputSecond) {
+				if (m_prvs1_p->n5DicePlayerReroll ()[0] == int (true)) {
+					m_prvs1_p->set_nDicePlayerReroll (0, false);
+				} else {
+					m_prvs1_p->set_nDicePlayerReroll (0, true);
+				}
+				bShouldClear_ses = true;
 			}
-			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer1: {
-			if (m_prvs1_p->n5DicePlayerReroll ()[1] == int (true)) {
-				m_prvs1_p->set_nDicePlayerReroll (1, false);
-			} else {
-				m_prvs1_p->set_nDicePlayerReroll (1, true);
+			if (m_pokerroundstage == pokerroundstage::SubmitInputSecond) {
+				if (m_prvs1_p->n5DicePlayerReroll ()[1] == int (true)) {
+					m_prvs1_p->set_nDicePlayerReroll (1, false);
+				} else {
+					m_prvs1_p->set_nDicePlayerReroll (1, true);
+				}
+				bShouldClear_ses = true;
 			}
-			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer2: {
-			if (m_prvs1_p->n5DicePlayerReroll ()[2] == int (true)) {
-				m_prvs1_p->set_nDicePlayerReroll (2, false);
-			} else {
-				m_prvs1_p->set_nDicePlayerReroll (2, true);
+			if (m_pokerroundstage == pokerroundstage::SubmitInputSecond) {
+				if (m_prvs1_p->n5DicePlayerReroll ()[2] == int (true)) {
+					m_prvs1_p->set_nDicePlayerReroll (2, false);
+				} else {
+					m_prvs1_p->set_nDicePlayerReroll (2, true);
+				}
+				bShouldClear_ses = true;
 			}
-			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer3: {
-			if (m_prvs1_p->n5DicePlayerReroll ()[3] == int (true)) {
-				m_prvs1_p->set_nDicePlayerReroll (3, false);
-			} else {
-				m_prvs1_p->set_nDicePlayerReroll (3, true);
+			if (m_pokerroundstage == pokerroundstage::SubmitInputSecond) {
+				if (m_prvs1_p->n5DicePlayerReroll ()[3] == int (true)) {
+					m_prvs1_p->set_nDicePlayerReroll (3, false);
+				} else {
+					m_prvs1_p->set_nDicePlayerReroll (3, true);
+				}
+				bShouldClear_ses = true;
 			}
-			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::DicePlayer4: {
-			if (m_prvs1_p->n5DicePlayerReroll ()[4] == int (true)) {
-				m_prvs1_p->set_nDicePlayerReroll (4, false);
-			} else {
-				m_prvs1_p->set_nDicePlayerReroll (4, true);
+			if (m_pokerroundstage == pokerroundstage::SubmitInputSecond) {
+				if (m_prvs1_p->n5DicePlayerReroll ()[4] == int (true)) {
+					m_prvs1_p->set_nDicePlayerReroll (4, false);
+				} else {
+					m_prvs1_p->set_nDicePlayerReroll (4, true);
+				}
+				bShouldClear_ses = true;
 			}
-			bShouldClear_ses = true;
 			break;
 		}
 		case pokerround::screenelement_button_enum::SubmitInputSecond: {
