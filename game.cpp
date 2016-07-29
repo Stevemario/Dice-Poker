@@ -800,7 +800,6 @@ void game::deletePokerRoundData (
 			break;
 		}
 	}
-	delete m_prvs0_p;
 }
 void game::makeStringTakeNothing (
 ) {
