@@ -1,5 +1,5 @@
 #include "diceset.h"
-void write (
+void iofunctions::write (
 	const intx5& n5_,
 	std::ofstream& ofstream_
 ) {

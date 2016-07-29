@@ -8,12 +8,6 @@ int gamedata::nDollarsCarried (
 ) const {
 	return m_nDollarsCarried;
 }
-void gamedata::save (
-	std::ofstream& ofstream_
-) const {
-	iofunctions::write (m_sPlayerName, ofstream_);
-	iofunctions::write (m_nDollarsCarried, ofstream_);
-}
 gamedata::gamedata (
 	const std::string& sPlayerName,
 	const int& nDollarsCarried
@@ -36,4 +30,11 @@ void gamedata::set_nDollarsCarried (
 	int nDollarsCarried
 ) {
 	m_nDollarsCarried = nDollarsCarried;
+}
+void write (
+	const gamedata& gamedata_,
+	std::ofstream& ofstream_
+) {
+	iofunctions::write (gamedata_.sPlayerName (), ofstream_);
+	iofunctions::write (gamedata_.nDollarsCarried (), ofstream_);
 }

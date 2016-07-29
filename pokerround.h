@@ -11,9 +11,6 @@ namespace pokerround {
 		public: pokerroundstage m_pokerroundstage;
 		public: gamedata* m_gamedata_pEnemy;
 		public: gamedata* m_gamedata_pPlayer;
-		public: void writeTo (
-			std::ofstream&
-		) const;
 		public: variableset0 (
 		);
 		public: variableset0 (
@@ -33,9 +30,6 @@ namespace pokerround {
 		public: intx5 n5DicePlayerInitial (
 		) const;
 		public: intx5 n5DicePlayerReroll (
-		) const;
-		public: void writeTo (
-			std::ofstream&
 		) const;
 		public: variableset1 (
 		);
@@ -83,9 +77,6 @@ namespace pokerround {
 		public: intx5 n5DiceEnemyUltimate (
 		) const;
 		public: intx5 n5DicePlayerUltimate (
-		) const;
-		public: void writeTo (
-			std::ofstream&
 		) const;
 		public: variableset2 (
 		);
@@ -361,5 +352,19 @@ namespace pokerround {
 			const int&
 		);
 	};
+}
+namespace iofunctions {
+	void write (
+		const pokerround::variableset0&,
+		std::ofstream&
+	);
+	void write (
+		const pokerround::variableset1&,
+		std::ofstream&
+	);
+	void write (
+		const pokerround::variableset2&,
+		std::ofstream&
+	);
 }
 #endif

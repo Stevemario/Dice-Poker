@@ -5,17 +5,21 @@
 namespace adventure {
 	class variableset0 {
 		public: gamedata* m_gamedata_pPlayer;
-		public: void writeTo (
-			std::ofstream&
-		) const;
 		public: variableset0 (
 			const std::string&
 		);
 		public: variableset0 (
 			std::ifstream&
 		);
-		public: ~variableset0 ();
+		public: ~variableset0 (
+		);
 	};
+}
+namespace iofunctions {
+	void write (
+		const adventure::variableset0&,
+		std::ofstream&
+	);
 }
 namespace game {
 	extern int m_nCashInPot;

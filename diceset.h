@@ -5,10 +5,12 @@
 typedef std::array <int, 2> intx2;
 typedef std::array <int, 3> intx3;
 typedef std::array <int, 5> intx5;
-void write (
-	const intx5&,
-	std::ofstream&
-);
+namespace iofunctions {
+	void write (
+		const intx5&,
+		std::ofstream&
+	);
+}
 intx5 n5Reading (
 	std::ifstream&
 );

@@ -29,11 +29,6 @@ pokerround::variableset1* game::m_prvs1_p;
 pokerround::variableset2* game::m_prvs2_p;
 adventure::variableset0* game::m_avs0_p;
 screenelements game::m_ses;
-void adventure::variableset0::writeTo (
-	std::ofstream& ofstream_
-) const {
-	m_gamedata_pPlayer->save (ofstream_);
-}
 adventure::variableset0::variableset0 (
 	const std::string& sPlayerName
 ) {
@@ -44,8 +39,15 @@ adventure::variableset0::variableset0 (
 ) {
 	m_gamedata_pPlayer = new gamedata (ifstream_);
 }
-adventure::variableset0::~variableset0 () {
+adventure::variableset0::~variableset0 (
+) {
 	delete m_gamedata_pPlayer;
+}
+void iofunctions::write (
+	const adventure::variableset0& avs0_,
+	std::ofstream& ofstream_
+) {
+	write (*avs0_.m_gamedata_pPlayer, ofstream_);
 }
 void game::play (
 ) {
@@ -755,24 +757,24 @@ void game::save (
 	iofunctions::write (int (m_gamemode), ofstream_);
 	switch (m_gamemode) {
 		case gamemode::PokerDuel: {
-			m_prvs0_p->writeTo (ofstream_);
+			iofunctions::write (*m_prvs0_p, ofstream_);
 			iofunctions::write (m_nCashInPot, ofstream_);
 			switch (m_prvs0_p->m_pokerroundstage) {
 				case pokerroundstage::SubmitInputSecond:
 				case pokerroundstage::OKInputSecond: {
-					m_prvs1_p->writeTo (ofstream_);
+					iofunctions::write (*m_prvs1_p, ofstream_);
 					break;
 				}
 				case pokerroundstage::OKResults: {
-					m_prvs1_p->writeTo (ofstream_);
-					m_prvs2_p->writeTo (ofstream_);
+					iofunctions::write (*m_prvs1_p, ofstream_);
+					iofunctions::write (*m_prvs2_p, ofstream_);
 					break;
 				}
 			}
 			break;
 		}
 		case gamemode::Adventure: {
-			m_avs0_p->writeTo (ofstream_);
+			iofunctions::write (*m_avs0_p, ofstream_);
 			//WILL DO LATER
 			break;
 		}

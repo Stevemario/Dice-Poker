@@ -1,13 +1,5 @@
 #include "pokerround.h"
 #include "diceset.h"
-void pokerround::variableset0::writeTo (
-	std::ofstream& ofstream_
-) const {
-	iofunctions::write (m_nBetAgreed, ofstream_);
-	iofunctions::write (int (m_pokerroundstage), ofstream_);
-	m_gamedata_pEnemy->save (ofstream_);
-	m_gamedata_pPlayer->save (ofstream_);
-}
 pokerround::variableset0::variableset0 (
 ) {
 	m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
@@ -40,14 +32,6 @@ intx5 pokerround::variableset1::n5DicePlayerInitial (
 intx5 pokerround::variableset1::n5DicePlayerReroll (
 ) const {
 	return m_n5DicePlayerReroll;
-}
-void pokerround::variableset1::writeTo (
-	std::ofstream& ofstream_
-) const {
-	write (m_n5DiceEnemyInitial, ofstream_);
-	write (m_n5DiceEnemyReroll, ofstream_);
-	write (m_n5DicePlayerInitial, ofstream_);
-	write (m_n5DicePlayerReroll, ofstream_);
 }
 pokerround::variableset1::variableset1 (
 ) {
@@ -115,18 +99,6 @@ intx5 pokerround::variableset2::n5DiceEnemyUltimate (
 intx5 pokerround::variableset2::n5DicePlayerUltimate (
 ) const {
 	return m_n5DicePlayerUltimate;
-}
-void pokerround::variableset2::writeTo (
-	std::ofstream& ofstream_
-) const {
-	iofunctions::write (m_nScoreEnemyInitial, ofstream_);
-	iofunctions::write (m_nScoreEnemyUltimate, ofstream_);
-	iofunctions::write (m_nScorePlayerInitial, ofstream_);
-	iofunctions::write (m_nScorePlayerUltimate, ofstream_);
-	iofunctions::write (m_nCashInPotBefore, ofstream_);
-	iofunctions::write (int (m_pokerroundresult), ofstream_);
-	write (m_n5DiceEnemyUltimate, ofstream_);
-	write (m_n5DicePlayerUltimate, ofstream_);
 }
 pokerround::variableset2::variableset2 (
 ) {
@@ -1412,4 +1384,35 @@ pokerround::screenelement_button_dice::screenelement_button_dice (
 	}
 	create (std::to_string (n_), font_, 40, sf::Color::White, sf::Color::Black);
 	stretch (frBounds_rs ().width + 16.f, 80.f);
+}
+void iofunctions::write (
+	const pokerround::variableset0& vs0_,
+	std::ofstream& ofstream_
+) {
+	iofunctions::write (vs0_.m_nBetAgreed, ofstream_);
+	iofunctions::write (int (vs0_.m_pokerroundstage), ofstream_);
+	write (*vs0_.m_gamedata_pEnemy, ofstream_);
+	write (*vs0_.m_gamedata_pPlayer, ofstream_);
+}
+void iofunctions::write (
+	const pokerround::variableset1& vs1_,
+	std::ofstream& ofstream_
+) {
+	iofunctions::write (vs1_.n5DiceEnemyInitial (), ofstream_);
+	iofunctions::write (vs1_.n5DiceEnemyReroll (), ofstream_);
+	iofunctions::write (vs1_.n5DicePlayerInitial (), ofstream_);
+	iofunctions::write (vs1_.n5DicePlayerReroll (), ofstream_);
+}
+void iofunctions::write (
+	const pokerround::variableset2& vs2_,
+	std::ofstream& ofstream_
+) {
+	iofunctions::write (vs2_.nScoreEnemyInitial (), ofstream_);
+	iofunctions::write (vs2_.nScoreEnemyUltimate (), ofstream_);
+	iofunctions::write (vs2_.nScorePlayerInitial (), ofstream_);
+	iofunctions::write (vs2_.nScorePlayerUltimate (), ofstream_);
+	iofunctions::write (vs2_.nCashInPotBefore (), ofstream_);
+	iofunctions::write (int (vs2_.pokerroundresult_ ()), ofstream_);
+	iofunctions::write (vs2_.n5DiceEnemyUltimate (), ofstream_);
+	iofunctions::write (vs2_.n5DicePlayerUltimate (), ofstream_);
 }

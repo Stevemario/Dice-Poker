@@ -9,9 +9,6 @@ class gamedata {
 	) const;
 	public: int nDollarsCarried (
 	) const;
-	public: void save (
-		std::ofstream&
-	) const;
 	public: gamedata (
 		const std::string&,
 		const int&
@@ -26,4 +23,8 @@ class gamedata {
 		int
 	);
 };
+void write (
+	const gamedata&,
+	std::ofstream&
+);
 #endif
