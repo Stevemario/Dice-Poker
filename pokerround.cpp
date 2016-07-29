@@ -1,5 +1,33 @@
 #include "pokerround.h"
 #include "diceset.h"
+int pokerround::variableset0::nBetAgreed (
+) const {
+	return m_nBetAgreed;
+}
+int pokerround::variableset0::nCashInPot (
+) const {
+	return m_nCashInPot;
+}
+std::string pokerround::variableset0::sBetPlayer (
+) const {
+	return m_sBetPlayer;
+}
+pokerroundstage pokerround::variableset0::pokerroundstage_ (
+) const {
+	return m_pokerroundstage;
+}
+const gamedata*& pokerround::variableset0::gamedata_pEnemy (
+) const {
+	return (const gamedata*&) (m_gamedata_pEnemy);
+}
+const gamedata*& pokerround::variableset0::gamedata_pPlayer (
+) const {
+	return (const gamedata*&) (m_gamedata_pPlayer);
+}
+std::string* pokerround::variableset0::sBetPlayer_p (
+) {
+	return &m_sBetPlayer;
+}
 pokerround::variableset0::variableset0 (
 ) {
 	m_sBetPlayer = "0";
@@ -16,9 +44,35 @@ pokerround::variableset0::variableset0 (
 	m_gamedata_pEnemy = new gamedata (ifstream_);
 	m_gamedata_pPlayer = new gamedata (ifstream_);
 }
-pokerround::variableset0::~variableset0 () {
+pokerround::variableset0::~variableset0 (
+) {
 	delete m_gamedata_pEnemy;
 	delete m_gamedata_pPlayer;
+}
+void pokerround::variableset0::set_nBetAgreed (
+	const int& nBetAgreed
+) {
+	m_nBetAgreed = nBetAgreed;
+}
+void pokerround::variableset0::set_nCashInPot (
+	const int& nCashInPot
+) {
+	m_nCashInPot = nCashInPot;
+}
+void pokerround::variableset0::set_pokerroundstage (
+	const pokerroundstage& pokerroundstage_
+) {
+	m_pokerroundstage = pokerroundstage_;
+}
+void pokerround::variableset0::set_nDollarsCarriedEnemy (
+	const int& nDollarsCarried
+) {
+	m_gamedata_pEnemy->set_nDollarsCarried (nDollarsCarried);
+}
+void pokerround::variableset0::set_nDollarsCarriedPlayer (
+	const int& nDollarsCarried
+) {
+	m_gamedata_pPlayer->set_nDollarsCarried (nDollarsCarried);
 }
 intx5 pokerround::variableset1::n5DiceEnemyInitial (
 ) const {
@@ -167,36 +221,36 @@ void pokerround::prepare (
 	const variableset2*& prvs2_p_,
 	screenelements& ses_
 ) {
-	switch (prvs0_p_->m_pokerroundstage) {
+	switch (prvs0_p_->pokerroundstage_ ()) {
 		case pokerroundstage::SubmitInputInitial: {
 			prepareStage_SubmitInputInitial (
-				prvs0_p_->m_nCashInPot,
-				prvs0_p_->m_sBetPlayer,
+				prvs0_p_->nCashInPot (),
+				prvs0_p_->sBetPlayer (),
 				font_,
-				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
-				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
+				prvs0_p_->gamedata_pEnemy (),
+				prvs0_p_->gamedata_pPlayer (),
 				ses_
 			);
 			break;
 		}
 		case pokerroundstage::OKInputInitial: {
 			prepareStage_OKInputInitial (
-				prvs0_p_->m_nBetAgreed,
-				prvs0_p_->m_nCashInPot,
+				prvs0_p_->nBetAgreed (),
+				prvs0_p_->nCashInPot (),
 				font_,
-				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
-				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
+				prvs0_p_->gamedata_pEnemy (),
+				prvs0_p_->gamedata_pPlayer (),
 				ses_
 			);
 			break;
 		}
 		case pokerroundstage::SubmitInputSecond: {
 			prepareStage_SubmitInputSecond (
-				prvs0_p_->m_nCashInPot,
-				prvs0_p_->m_sBetPlayer,
+				prvs0_p_->nCashInPot (),
+				prvs0_p_->sBetPlayer (),
 				font_,
-				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
-				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
+				prvs0_p_->gamedata_pEnemy (),
+				prvs0_p_->gamedata_pPlayer (),
 				prvs1_p_->n5DiceEnemyInitial (),
 				prvs1_p_->n5DicePlayerInitial (),
 				prvs1_p_->n5DicePlayerReroll (),
@@ -206,11 +260,11 @@ void pokerround::prepare (
 		}
 		case pokerroundstage::OKInputSecond: {
 			prepareStage_OKInputSecond (
-				prvs0_p_->m_nBetAgreed,
-				prvs0_p_->m_nCashInPot,
+				prvs0_p_->nBetAgreed (),
+				prvs0_p_->nCashInPot (),
 				font_,
-				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
-				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
+				prvs0_p_->gamedata_pEnemy (),
+				prvs0_p_->gamedata_pPlayer (),
 				prvs1_p_->n5DicePlayerInitial (),
 				prvs1_p_->n5DicePlayerReroll (),
 				ses_
@@ -219,10 +273,10 @@ void pokerround::prepare (
 		}
 		case pokerroundstage::OKResults: {
 			prepareStage_OKResults (
-				prvs0_p_->m_nCashInPot,
+				prvs0_p_->nCashInPot (),
 				font_,
-				(const gamedata*&) (prvs0_p_->m_gamedata_pEnemy),
-				(const gamedata*&) (prvs0_p_->m_gamedata_pPlayer),
+				prvs0_p_->gamedata_pEnemy (),
+				prvs0_p_->gamedata_pPlayer (),
 				prvs1_p_->n5DiceEnemyInitial (),
 				prvs1_p_->n5DiceEnemyReroll (),
 				prvs1_p_->n5DicePlayerInitial (),
@@ -1387,12 +1441,12 @@ void iofunctions::write (
 	const pokerround::variableset0& vs0_,
 	std::ofstream& ofstream_
 ) {
-	iofunctions::write (vs0_.m_nBetAgreed, ofstream_);
-	iofunctions::write (vs0_.m_nCashInPot, ofstream_);
-	iofunctions::write (vs0_.m_sBetPlayer, ofstream_);
-	iofunctions::write (int (vs0_.m_pokerroundstage), ofstream_);
-	write (*vs0_.m_gamedata_pEnemy, ofstream_);
-	write (*vs0_.m_gamedata_pPlayer, ofstream_);
+	iofunctions::write (vs0_.nBetAgreed (), ofstream_);
+	iofunctions::write (vs0_.nCashInPot (), ofstream_);
+	iofunctions::write (vs0_.sBetPlayer (), ofstream_);
+	iofunctions::write (int (vs0_.pokerroundstage_ ()), ofstream_);
+	write (*vs0_.gamedata_pEnemy (), ofstream_);
+	write (*vs0_.gamedata_pPlayer (), ofstream_);
 }
 void iofunctions::write (
 	const pokerround::variableset1& vs1_,

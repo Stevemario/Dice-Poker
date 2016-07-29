@@ -7,18 +7,48 @@
 #include "pokerroundresult.h"
 namespace pokerround {
 	class variableset0 {
-		public: int m_nBetAgreed;
-		public: int m_nCashInPot;
-		public: std::string m_sBetPlayer;
-		public: pokerroundstage m_pokerroundstage;
-		public: gamedata* m_gamedata_pEnemy;
-		public: gamedata* m_gamedata_pPlayer;
+		private: int m_nBetAgreed;
+		private: int m_nCashInPot;
+		private: std::string m_sBetPlayer;
+		private: pokerroundstage m_pokerroundstage;
+		private: gamedata* m_gamedata_pEnemy;
+		private: gamedata* m_gamedata_pPlayer;
+		public: int nBetAgreed (
+		) const;
+		public: int nCashInPot (
+		) const;
+		public: std::string sBetPlayer (
+		) const;
+		public: pokerroundstage pokerroundstage_ (
+		) const;
+		public: const gamedata*& gamedata_pEnemy (
+		) const;
+		public: const gamedata*& gamedata_pPlayer (
+		) const;
+		public: std::string* sBetPlayer_p (
+		);
 		public: variableset0 (
 		);
 		public: variableset0 (
 			std::ifstream&
 		);
-		public: ~variableset0 ();
+		public: ~variableset0 (
+		);
+		public: void set_nBetAgreed (
+			const int&
+		);
+		public: void set_nCashInPot (
+			const int&
+		);
+		public: void set_pokerroundstage (
+			const pokerroundstage&
+		);
+		public: void set_nDollarsCarriedEnemy (
+			const int&
+		);
+		public: void set_nDollarsCarriedPlayer (
+			const int&
+		);
 	};
 	class variableset1 {
 		private: intx5 m_n5DiceEnemyInitial;
