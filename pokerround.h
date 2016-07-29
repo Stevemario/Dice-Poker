@@ -6,6 +6,21 @@
 #include "pokerroundstage.h"
 #include "pokerroundresult.h"
 namespace pokerround {
+	class variableset0 {
+		public: int m_nBetAgreed;
+		public: pokerroundstage m_pokerroundstage;
+		public: gamedata* m_gamedata_pEnemy;
+		public: gamedata* m_gamedata_pPlayer;
+		public: void writeTo (
+			std::ofstream&
+		) const;
+		public: variableset0 (
+		);
+		public: variableset0 (
+			std::ifstream&
+		);
+		public: ~variableset0 ();
+	};
 	class variableset1 {
 		private: intx5 m_n5DiceEnemyInitial;
 		private: intx5 m_n5DiceEnemyReroll;

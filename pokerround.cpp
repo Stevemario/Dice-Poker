@@ -1,5 +1,30 @@
 #include "pokerround.h"
 #include "diceset.h"
+void pokerround::variableset0::writeTo (
+	std::ofstream& ofstream_
+) const {
+	iofunctions::write (m_nBetAgreed, ofstream_);
+	iofunctions::write (int (m_pokerroundstage), ofstream_);
+	m_gamedata_pEnemy->save (ofstream_);
+	m_gamedata_pPlayer->save (ofstream_);
+}
+pokerround::variableset0::variableset0 (
+) {
+	m_gamedata_pEnemy = new gamedata ("Steve's Bot", 100);
+	m_gamedata_pPlayer = new gamedata ("Player", 100);
+}
+pokerround::variableset0::variableset0 (
+	std::ifstream& ifstream_
+) {
+	m_nBetAgreed = iofunctions::nReading (ifstream_);
+	m_pokerroundstage = pokerroundstage (iofunctions::nReading (ifstream_));
+	m_gamedata_pEnemy = new gamedata (ifstream_);
+	m_gamedata_pPlayer = new gamedata (ifstream_);
+}
+pokerround::variableset0::~variableset0 () {
+	delete m_gamedata_pEnemy;
+	delete m_gamedata_pPlayer;
+}
 intx5 pokerround::variableset1::n5DiceEnemyInitial (
 ) const {
 	return m_n5DiceEnemyInitial;

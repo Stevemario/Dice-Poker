@@ -2,8 +2,22 @@
 #define GAME_H
 #include "pokerround.h"
 #include "mainmenu.h"
+namespace adventure {
+	class variableset0 {
+		public: gamedata* m_gamedata_pPlayer;
+		public: void writeTo (
+			std::ofstream&
+		) const;
+		public: variableset0 (
+			const std::string&
+		);
+		public: variableset0 (
+			std::ifstream&
+		);
+		public: ~variableset0 ();
+	};
+}
 namespace game {
-	extern int m_nBetAgreed;
 	extern int m_nCashInPot;
 	extern int m_nSEClickedLast;
 	extern bool m_bStringTakesUpper;
@@ -26,11 +40,10 @@ namespace game {
 	extern gameaction m_gameaction;
 	extern gamemode m_gamemode;
 	extern mainmenupage m_mainmenupage;
-	extern pokerroundstage m_pokerroundstage;
-	extern gamedata* m_gamedata_pEnemy;
-	extern gamedata* m_gamedata_pPlayer;
+	extern pokerround::variableset0* m_prvs0_p;
 	extern pokerround::variableset1* m_prvs1_p;
 	extern pokerround::variableset2* m_prvs2_p;
+	extern adventure::variableset0* m_avs0_p;
 	extern screenelements m_ses;
 	void play (
 	);
